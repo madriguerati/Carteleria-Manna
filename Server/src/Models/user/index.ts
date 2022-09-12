@@ -5,6 +5,7 @@ const UserSchema = new Schema({
 
     users:{
         type: 'string',
-        required: true
+        required: true 
+        
     }
 })
