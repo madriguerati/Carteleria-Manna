@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
+import config from '../ConfigEntorno/config';
 
-(async ()=>{
-    await mongoose.connect('mongodb://localhost/manna-carteleria')
-})()
+mongoose.connect(config.Db)
+    .then(()=> console.log('database connect'))
+    .catch((error)=> console.log('database error', error))

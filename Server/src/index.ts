@@ -1,4 +1,5 @@
 import {server} from './app';
+import './config/mongodb/db'
 
 
 
