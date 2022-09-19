@@ -16,7 +16,7 @@ const express_1 = require("express");
 const user_1 = __importDefault(require("../../../Models/user"));
 const createdToken_1 = __importDefault(require("../../../Controllers/Token/createdToken"));
 const router = (0, express_1.Router)();
-router.post('/singUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/singIn', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.body.email || !req.body.password) {
         return res
             .status(400)
