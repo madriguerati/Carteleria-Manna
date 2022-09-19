@@ -8,9 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
 router.get('/singUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.body.email || !req.body.password) {
+        return res
+            .status(400)
+            .json({ msg: "Please. Send your email and password" });
+    }
+    const user = yield user_1.default.findOne({ email: req.body.email });
+    if (user) {
+        return res.status(400).json({ msg: "The User already Exists" });
+    }
+    const newUser = new user_1.default(req.body);
+    yield newUser.save();
+    return res.status(201).json(newUser);
 }));
-const router = (0, express_1.Router)();
+exports.default = router;
