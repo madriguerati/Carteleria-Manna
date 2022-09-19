@@ -6,7 +6,7 @@ import config from "../../../config/ConfigEntorno/config";
 
 const router = Router();
 
-router.get('/singUp', async(req, res, next) =>{
+router.post('/singUp', async(req, res, next) =>{
     if (!req.body.email || !req.body.password) {
         return res
           .status(400)
