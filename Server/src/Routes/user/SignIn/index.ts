@@ -1,8 +1,6 @@
 import { Router } from 'express';
 
 import User, { IUser } from '../../../Models/user';
-import jwt from "jsonwebtoken";
-import config from "../../../config/ConfigEntorno/config";
 import createToken from '../../../Controllers/Token/createdToken'
 
 const router = Router();
@@ -21,7 +19,7 @@ router.post('/singIn', async(req, res, next) =>{
     
       const isMatch = await user.comparePassword(req.body.password);
       if (isMatch) {
-        return res.status(400).json({ token: createToken(user) });
+        return res.status(200).json({ token: createToken(user) });
       }
     
       return res.status(400).json({

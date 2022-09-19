@@ -1,8 +1,6 @@
 import { Router } from 'express';
 
 import User, { IUser } from '../../../Models/user';
-import jwt from "jsonwebtoken";
-import config from "../../../config/ConfigEntorno/config";
 
 const router = Router();
 
