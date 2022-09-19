@@ -7,7 +7,7 @@ import createToken from '../../../Controllers/Token/createdToken'
 
 const router = Router();
 
-router.post('/singUp', async(req, res, next) =>{
+router.post('/singIn', async(req, res, next) =>{
     if (!req.body.email || !req.body.password) {
         return res
           .status(400)
