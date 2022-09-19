@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.get('/singUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/singUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.body.email || !req.body.password) {
         return res
             .status(400)
