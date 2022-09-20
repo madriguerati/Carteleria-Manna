@@ -31,7 +31,7 @@ const insumoSchema = new Schema(
             type:Number,
             request: true
         },
-        category:{
+        categoria:{
             type: [String],
             required: true
         }
