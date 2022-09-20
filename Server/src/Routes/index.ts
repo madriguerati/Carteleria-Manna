@@ -12,10 +12,12 @@ router.use('/user', SignIn)
 //insumo
 import PostInsumo from './insumo/postInsumo'
 import GetInsumo from './insumo/getInsumo'
+import DeleteInsumo from './insumo/deleteInsumo'
 
 
 router.use('/insumo', PostInsumo)
 router.use('/insumo', GetInsumo)
+router.use('/insumo', DeleteInsumo)
 
 
 
