@@ -13,11 +13,15 @@ router.use('/user', SignIn)
 import PostInsumo from './insumo/postInsumo'
 import GetInsumo from './insumo/getInsumo'
 import DeleteInsumo from './insumo/deleteInsumo'
+import PutInsumo from './insumo/putInsumo'
+
 
 
 router.use('/insumo', PostInsumo)
 router.use('/insumo', GetInsumo)
 router.use('/insumo', DeleteInsumo)
+router.use('/insumo', PutInsumo)
+
 
 
 
