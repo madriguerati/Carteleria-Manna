@@ -12,7 +12,7 @@ const insumoSchema = new mongoose_1.Schema({
         required: true
     },
     unidad: {
-        type: Number,
+        type: String,
         required: true
     },
     costo: {
