@@ -4,7 +4,8 @@ export interface IInsumos extends mongoose.Document{
     name: string,
     descripcion: string,
     unidad: Number,
-    costo: Number
+    costo: Number,
+    category: string
 };
 
 
@@ -29,6 +30,10 @@ const insumoSchema = new Schema(
         {
             type:Number,
             request: true
+        },
+        category:{
+            type: [String],
+            required: true
         }
     }
 )

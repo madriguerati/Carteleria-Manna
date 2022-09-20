@@ -18,6 +18,10 @@ const insumoSchema = new mongoose_1.Schema({
     costo: {
         type: Number,
         request: true
+    },
+    category: {
+        type: [String],
+        required: true
     }
 });
 exports.default = (0, mongoose_1.model)("insumo", insumoSchema);
