@@ -23,7 +23,7 @@ const insumoSchema = new Schema(
         },
         unidad:
         {
-            type: Number,
+            type: String,
             required: true
         },
         costo:
