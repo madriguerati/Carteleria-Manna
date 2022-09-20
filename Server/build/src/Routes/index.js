@@ -12,5 +12,7 @@ router.use('/user', SignUp_1.default);
 router.use('/user', SignIn_1.default);
 //insumo
 const postInsumo_1 = __importDefault(require("./insumo/postInsumo"));
+const getInsumo_1 = __importDefault(require("./insumo/getInsumo"));
 router.use('/insumo', postInsumo_1.default);
+router.use('/insumo', getInsumo_1.default);
 exports.default = router;
