@@ -1,6 +1,6 @@
 import  mongoose,  {model, Document, Schema} from'mongoose';
 
-export interface IProveedores extends mongoose.Document{
+export interface IClientes extends mongoose.Document{
     name: string,
     telefono: Number,
     cuit: Number,
@@ -10,8 +10,9 @@ export interface IProveedores extends mongoose.Document{
 };
 
 
-const proveedoresSchema = new Schema(
+const clientesSchema = new Schema(
     {
+        //nombre contacto
         name: 
         {
             type: String,
@@ -36,7 +37,11 @@ const proveedoresSchema = new Schema(
             type: String,
             required: true
         },
-        web:{
+        condicioniva:{
+            type: [String],
+            required: true
+        },
+        razonsocial:{
             type: String,
             required: true
         }
@@ -44,4 +49,4 @@ const proveedoresSchema = new Schema(
 )
 
 
-export default model<IProveedores>("proveedores", proveedoresSchema)
+export default model<IClientes>("clientes", clientesSchema)
