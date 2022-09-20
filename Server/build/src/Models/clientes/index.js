@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 ;
-const proveedoresSchema = new mongoose_1.Schema({
+const clientesSchema = new mongoose_1.Schema({
+    //nombre contacto
     name: {
         type: String,
         required: true
@@ -23,9 +24,13 @@ const proveedoresSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    web: {
+    condicioniva: {
+        type: [String],
+        required: true
+    },
+    razonsocial: {
         type: String,
         required: true
     }
 });
-exports.default = (0, mongoose_1.model)("proveedores", proveedoresSchema);
+exports.default = (0, mongoose_1.model)("clientes", clientesSchema);
