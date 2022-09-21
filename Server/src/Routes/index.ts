@@ -15,13 +15,15 @@ import GetInsumo from './insumo/getInsumo'
 import DeleteInsumo from './insumo/deleteInsumo'
 import PutInsumo from './insumo/putInsumo'
 
-
-
 router.use('/insumo', PostInsumo)
 router.use('/insumo', GetInsumo)
 router.use('/insumo', DeleteInsumo)
 router.use('/insumo', PutInsumo)
 
+//clientes
+import PostClientes from './clientes/postClientes'
+
+router.use('/clientes', PostClientes)
 
 
 

@@ -19,4 +19,7 @@ router.use('/insumo', postInsumo_1.default);
 router.use('/insumo', getInsumo_1.default);
 router.use('/insumo', deleteInsumo_1.default);
 router.use('/insumo', putInsumo_1.default);
+//clientes
+const postClientes_1 = __importDefault(require("./clientes/postClientes"));
+router.use('/clientes', postClientes_1.default);
 exports.default = router;
