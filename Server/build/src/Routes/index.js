@@ -22,6 +22,8 @@ router.use('/insumo', putInsumo_1.default);
 //clientes
 const postClientes_1 = __importDefault(require("./clientes/postClientes"));
 const getClientes_1 = __importDefault(require("./clientes/getClientes"));
+const putClientes_1 = __importDefault(require("./clientes/putClientes"));
 router.use('/clientes', postClientes_1.default);
 router.use('/clientes', getClientes_1.default);
+router.use('/clientes', putClientes_1.default);
 exports.default = router;
