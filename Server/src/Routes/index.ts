@@ -35,6 +35,21 @@ router.use('/clientes', GetClientes)
 router.use('/clientes', PutClientes)
 router.use('/clientes', DeleteClientes)
 
+//proveedores
+import PostProveedores from './proveedores/postProveedores'
+import GetProveedores from './proveedores/getProveedores'
+import PutProveedores from './proveedores/putProveedores'
+import DeleteProveedores from './proveedores/deleteProveedores'
+
+
+
+
+
+router.use('/proveedores', PostProveedores)
+router.use('/proveedores', GetProveedores)
+router.use('/proveedores', PutProveedores)
+router.use('/proveedores', DeleteProveedores)
+
 
 
 
