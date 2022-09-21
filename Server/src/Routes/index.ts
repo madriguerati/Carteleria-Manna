@@ -24,6 +24,8 @@ router.use('/insumo', PutInsumo)
 import PostClientes from './clientes/postClientes'
 import GetClientes from './clientes/getClientes'
 import PutClientes from './clientes/putClientes'
+import DeleteClientes from './clientes/deleteClientes'
+
 
 
 
@@ -31,6 +33,8 @@ import PutClientes from './clientes/putClientes'
 router.use('/clientes', PostClientes)
 router.use('/clientes', GetClientes)
 router.use('/clientes', PutClientes)
+router.use('/clientes', DeleteClientes)
+
 
 
 
