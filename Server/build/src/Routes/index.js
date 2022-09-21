@@ -28,4 +28,13 @@ router.use('/clientes', postClientes_1.default);
 router.use('/clientes', getClientes_1.default);
 router.use('/clientes', putClientes_1.default);
 router.use('/clientes', deleteClientes_1.default);
+//proveedores
+const postProveedores_1 = __importDefault(require("./proveedores/postProveedores"));
+const getProveedores_1 = __importDefault(require("./proveedores/getProveedores"));
+const putProveedores_1 = __importDefault(require("./proveedores/putProveedores"));
+const deleteProveedores_1 = __importDefault(require("./proveedores/deleteProveedores"));
+router.use('/proveedores', postProveedores_1.default);
+router.use('/proveedores', getProveedores_1.default);
+router.use('/proveedores', putProveedores_1.default);
+router.use('/proveedores', deleteProveedores_1.default);
 exports.default = router;
