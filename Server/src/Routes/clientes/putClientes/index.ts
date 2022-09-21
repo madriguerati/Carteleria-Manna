@@ -5,10 +5,10 @@ import Clientes from '../../../Models/clientes'
 const router = Router();
 
 router.put('/', async(req, res, next)=>{
-    const {name, telefono, cuit, direccion, email, web, id} =req.body;
+    const {name, telefono, cuit, direccion, email, condicioniva, razonsocial, id} =req.body;
     try{
         await Clientes.findByIdAndUpdate(id, {
-            name, telefono, cuit, direccion, email, web
+            name, telefono, cuit, direccion, email, condicioniva, razonsocial
           });
           // Send response in here
           res.send('Item Updated!');    
