@@ -23,11 +23,15 @@ router.use('/insumo', PutInsumo)
 //clientes
 import PostClientes from './clientes/postClientes'
 import GetClientes from './clientes/getClientes'
+import PutClientes from './clientes/putClientes'
+
 
 
 
 router.use('/clientes', PostClientes)
 router.use('/clientes', GetClientes)
+router.use('/clientes', PutClientes)
+
 
 
 
