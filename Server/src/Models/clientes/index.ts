@@ -6,7 +6,8 @@ export interface IClientes extends mongoose.Document{
     cuit: Number,
     direccion: string,
     email: string,
-    web: string
+    condicioniva:string,
+    razonsocial:string
 };
 
 
