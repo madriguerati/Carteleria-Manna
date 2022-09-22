@@ -16,9 +16,9 @@ const express_1 = require("express");
 const clientes_1 = __importDefault(require("../../../Models/clientes"));
 const router = (0, express_1.Router)();
 router.post('/create', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, telefono, cuit, direccion, email, web } = req.body;
+    const { name, telefono, cuit, direccion, email, condicioniva, razonsocial } = req.body;
     try {
-        const clientes = new clientes_1.default({ name, telefono, cuit, direccion, email, web });
+        const clientes = new clientes_1.default({ name, telefono, cuit, direccion, email, condicioniva, razonsocial });
         yield clientes.save();
         res.status(201).json('cliente adherido correctamente');
     }
