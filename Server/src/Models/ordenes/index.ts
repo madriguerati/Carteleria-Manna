@@ -1,30 +1,20 @@
 import  mongoose,  {model, Document, Schema} from'mongoose';
 
-export interface ICarteles extends mongoose.Document{
-   cantidad: number,
-   cartel: [string],//tipo de cartel
-   base: number,
-   altura: number,
-   medidas: number,
-   faz:[string],//simple o doble
-   valor: number,
-   total: number,
-   estructura:string,
-   archivo: string,
-   otros:string
+export interface IOrdenes extends mongoose.Document{
+   fecha: Date,
+   cliente: string,
+   contacto: string,//nombre de contacto
+   cartel: {type: mongoose.Types.ObjectId}
 };
 
 
-const cartelesSchema = new Schema(
+const ordenesSchema = new Schema(
     {
         faz:{
             type: [String],
             required: true
         },
-        cartel:{//tipo de cartel
-            type: [String],
-            required: true
-        },
+        
         base:
         {
             type:Number,
@@ -69,4 +59,4 @@ const cartelesSchema = new Schema(
 )
 
 
-export default model<ICarteles>("cartel", cartelesSchema)
+export default model<IOrdenes>("insumo", ordenesSchema)
