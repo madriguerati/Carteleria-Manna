@@ -7,29 +7,29 @@ const cartelesSchema = new mongoose_1.Schema({
         type: [String],
         required: true
     },
-    cartel: {
+    carteles: {
         type: [String],
         required: true
     },
     base: {
         type: Number,
-        request: true
+        required: true
     },
     altura: {
         type: Number,
-        request: true
+        required: true
     },
     medidas: {
         type: Number,
-        request: true
+        required: true
     },
     valor: {
         type: Number,
-        request: true
+        required: true
     },
     total: {
         type: Number,
-        request: true
+        required: true
     },
     estructura: {
         type: String,

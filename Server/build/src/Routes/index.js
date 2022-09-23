@@ -37,4 +37,13 @@ router.use('/proveedores', postProveedores_1.default);
 router.use('/proveedores', getProveedores_1.default);
 router.use('/proveedores', putProveedores_1.default);
 router.use('/proveedores', deleteProveedores_1.default);
+//Carteles
+const postCarteles_1 = __importDefault(require("./carteles/postCarteles"));
+const getCarteles_1 = __importDefault(require("./carteles/getCarteles"));
+const putCarteles_1 = __importDefault(require("./carteles/putCarteles"));
+const deleteCarteles_1 = __importDefault(require("./carteles/deleteCarteles"));
+router.use('/carteles', postCarteles_1.default);
+router.use('/carteles', getCarteles_1.default);
+router.use('/carteles', putCarteles_1.default);
+router.use('/carteles', deleteCarteles_1.default);
 exports.default = router;

@@ -4,7 +4,7 @@ export interface IOrdenes extends mongoose.Document{
    fecha: Date,
    cliente: string,
    contacto: string,//nombre de contacto
-   cartel: Schema.Types.ObjectId, ref:'carteles',
+   carteles: Schema.Types.ObjectId, ref:'carteles',
    operacion:[string],
    lugardecolocacion:string,
    lugartraslado: string,
@@ -35,7 +35,7 @@ const ordenesSchema = new Schema(
             required:true
 
         },
-        cartel:
+        carteles:
         {
             type:Schema.Types.ObjectId, ref:'carteles',
             required: true

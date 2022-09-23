@@ -16,7 +16,7 @@ const ordenesSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    cartel: {
+    carteles: {
         type: mongoose_1.Schema.Types.ObjectId, ref: 'carteles',
         required: true
     },

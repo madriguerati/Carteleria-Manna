@@ -3,12 +3,12 @@ import  mongoose,  {model, Document, Schema} from'mongoose';
 export interface ICarteles extends mongoose.Document{
    cantidad: number,
    cartel: [string],//tipo de cartel
-   base: number,
-   altura: number,
-   medidas: number,
+   base: Number,
+   altura: Number,
+   medidas: Number,
    faz:[string],//simple o doble
-   valor: number,
-   total: number,
+   valor: Number,
+   total: Number,
    estructura:string,
    archivo: string,
    otros:string
@@ -21,7 +21,7 @@ const cartelesSchema = new Schema(
             type: [String],
             required: true
         },
-        cartel:{//tipo de cartel
+        carteles:{//tipo de cartel
             type: [String],
             required: true
         },
