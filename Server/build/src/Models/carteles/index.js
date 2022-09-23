@@ -44,4 +44,4 @@ const cartelesSchema = new mongoose_1.Schema({
         required: true
     }
 });
-exports.default = (0, mongoose_1.model)("insumo", cartelesSchema);
+exports.default = (0, mongoose_1.model)("carteles", cartelesSchema);

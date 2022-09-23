@@ -69,4 +69,4 @@ const cartelesSchema = new Schema(
 )
 
 
-export default model<ICarteles>("cartel", cartelesSchema)
+export default model<ICarteles>("carteles", cartelesSchema)

@@ -4,59 +4,85 @@ export interface IOrdenes extends mongoose.Document{
    fecha: Date,
    cliente: string,
    contacto: string,//nombre de contacto
-   cartel: {type: mongoose.Types.ObjectId}
+   cartel: Schema.Types.ObjectId, ref:'carteles',
+   operacion:[string],
+   lugardecolocacion:string,
+   lugartraslado: string,
+   seña: number,
+   formadepago: [string],
+   fechaentrega: Date,
+   facturanum: number,
+   observaciones:string
+   
 };
-
 
 const ordenesSchema = new Schema(
     {
-        faz:{
+        fecha:
+        {
+            type: Date,
+            required: true
+        },
+        cliente:
+        {
+            type:String,
+            required:true
+
+        },
+        contacto://nombre de contacto
+        {
+            type:String,
+            required:true
+
+        },
+        cartel:
+        {
+            type:Schema.Types.ObjectId, ref:'carteles',
+            required: true
+        },
+        operacion:
+        {
             type: [String],
-            required: true
+            required:true
         },
-        
-        base:
-        {
-            type:Number,
-            request: true
-        },
-        altura:
-        {
-            type:Number,
-            request: true
-        },
-        medidas:
-        {
-            type:Number,
-            request: true
-        },
-        valor:
-        {
-            type:Number,
-            request: true
-        },
-        total:
-        {
-            type:Number,
-            request: true
-        },
-        estructura:
+        lugardecolocacion:
         {
             type:String,
+            required:true
+        },
+        lugartraslado:
+        {
+            type: String,
+            required:true
+        },
+        seña:
+        {
+            type:Number,
+            required:true
+        },
+        formadepago:
+        {
+            type:[String],
             required: true
         },
-        archivo:
+        fechaentrega:
         {
-            type:String,
-            required: true
+            type:Date,
+            required:true
         },
-        otros:
+        facturanum:
+        {
+            type:Number,
+            required:true
+        },
+        observaciones:
         {
             type:String,
-            required: true
+            required:true
         }
+
     }
 )
 
 
-export default model<IOrdenes>("insumo", ordenesSchema)
+export default model<IOrdenes>("ordenes", ordenesSchema)
