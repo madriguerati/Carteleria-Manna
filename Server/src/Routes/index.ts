@@ -26,10 +26,6 @@ import GetClientes from './clientes/getClientes'
 import PutClientes from './clientes/putClientes'
 import DeleteClientes from './clientes/deleteClientes'
 
-
-
-
-
 router.use('/clientes', PostClientes)
 router.use('/clientes', GetClientes)
 router.use('/clientes', PutClientes)
@@ -41,15 +37,21 @@ import GetProveedores from './proveedores/getProveedores'
 import PutProveedores from './proveedores/putProveedores'
 import DeleteProveedores from './proveedores/deleteProveedores'
 
-
-
-
-
 router.use('/proveedores', PostProveedores)
 router.use('/proveedores', GetProveedores)
 router.use('/proveedores', PutProveedores)
 router.use('/proveedores', DeleteProveedores)
 
+//Carteles
+import PostCarteles from './carteles/postCarteles'
+import GetCarteles from './carteles/getCarteles'
+import PutCarteles from './carteles/putCarteles'
+import DeleteCarteles from './carteles/deleteCarteles'
+
+router.use('/carteles', PostCarteles)
+router.use('/carteles', GetCarteles)
+router.use('/carteles', PutCarteles)
+router.use('/carteles', DeleteCarteles)
 
 
 
