@@ -53,6 +53,16 @@ router.use('/carteles', GetCarteles)
 router.use('/carteles', PutCarteles)
 router.use('/carteles', DeleteCarteles)
 
+//Carteles
+import PostOrdenes from './ordenes/postOrdenes'
+import GetOrdenes from './ordenes/getOrdenes'
+import PutOrdenes from './ordenes/putOrdenes'
+import DeleteOrdenes from './ordenes/deleteOrdenes'
+
+router.use('/ordenes', PostOrdenes)
+router.use('/ordenes', GetOrdenes)
+router.use('/ordenes', PutOrdenes)
+router.use('/ordenes', DeleteOrdenes)
 
 
 
