@@ -1,62 +1,86 @@
-import mongoose, { model, Document, Schema } from "mongoose";
+import  mongoose,  {model, Document, Schema} from'mongoose';
 
-export interface IUser extends mongoose.Document {
-  name: string;
-  somethingElse?: number;
-}
+export interface IOrdenes extends mongoose.Document{
+  fecha: Date,
+  //clientes: Schema.Types.ObjectId, ref:'clientes',
+  clientes: string,
+  contacto: string,
+  carteles: Schema.Types.ObjectId, ref:'carteles',
+  operacion:string,
+  lugardecolocacion: string,
+  lugartraslado:string,
+  montototal: number,
+  formadepago:string,
+  plazodeentrega:number,
+  fechavalida: Date,
+  observaciones:string
+   
+};
 
-export const UserSchema = new mongoose.Schema({
-  
-  fecha: {
-    type: Date,
-    required: true
-  },
-  cliente: {
-    type: Schema.Types.ObjectId,
-    ref: "carteles",
-    required: true,
-  },
-  contacto: //nombre de contacto
-  {
-    type: String,
-    required: true
-  },
-  operacion:
-  {
-    type: String,
-    required: true
-  },
-  lugardecolocacion:
-  {
-      type:String,
-      required:true
-  },
-  lugartraslado:
-  {
-      type: String,
-      required:true
-  },
-  formadepago:
-  {
-      type:[String],
-      required: true
-  },
-  fechavalida:
-  {
-      type:Date,
-      required:true
-  },
-  montoTotal:
-  {
-    type: Number,
-    required: true
-  },
-  observaciones:
-  {
-    type: String,
-    required: true
-  }
-});
+const ordenesSchema = new Schema(
+    {
+      fecha: {
+        type: Date,
+        required: true
+      },
+      cliente: {
+        type: String,
+        required: true,
+      },
+      contacto: //nombre de contacto
+      {
+        type: String,
+        required: true
+      },
+      carteles:
+      {
+        type:Schema.Types.ObjectId, 
+        ref:'carteles',
+        required: true
+      },
+      operacion:
+      {
+        type: String,
+        required: true
+      },
+      lugardecolocacion:
+      {
+          type:String,
+          required:true
+      },
+      lugartraslado:
+      {
+          type: String,
+          required:true
+      },
+      formadepago:
+      {
+          type:[String],
+          required: true
+      },
+      fechavalida:
+      {
+          type:Date,
+          required:true
+      },
+      montoTotal:
+      {
+        type: Number,
+        required: true
+      },
+      plazodeentrega:
+      {
+        type: Number,
+        required:true
+      },
+      observaciones:
+      {
+        type: String,
+        required: true
+      }
 
-const User = mongoose.model<IUser>("User", UserSchema);
-export default User;
+    }
+)
+
+
+export default model<IOrdenes>("ordenes", ordenesSchema)
