@@ -27,6 +27,10 @@ const cartelesSchema = new mongoose_1.Schema({
         type: Number,
         required: true
     },
+    cantidad: {
+        type: Number,
+        required: true
+    },
     total: {
         type: Number,
         required: true
