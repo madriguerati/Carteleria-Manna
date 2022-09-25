@@ -4,7 +4,7 @@ import User, { IUser } from '../../../Models/user';
 
 const router = Router();
 
-router.post('/singUp', async(req, res, next) =>{
+router.post('/signUp', async(req, res, next) =>{
     if (!req.body.email || !req.body.password) {
         return res
           .status(400)
