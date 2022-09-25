@@ -46,7 +46,7 @@ router.use('/carteles', postCarteles_1.default);
 router.use('/carteles', getCarteles_1.default);
 router.use('/carteles', putCarteles_1.default);
 router.use('/carteles', deleteCarteles_1.default);
-//ordenes
+//Carteles
 const postOrdenes_1 = __importDefault(require("./ordenes/postOrdenes"));
 const getOrdenes_1 = __importDefault(require("./ordenes/getOrdenes"));
 const putOrdenes_1 = __importDefault(require("./ordenes/putOrdenes"));
@@ -55,13 +55,4 @@ router.use('/ordenes', postOrdenes_1.default);
 router.use('/ordenes', getOrdenes_1.default);
 router.use('/ordenes', putOrdenes_1.default);
 router.use('/ordenes', deleteOrdenes_1.default);
-//presupuestos
-const postPresupuestos_1 = __importDefault(require("./presupuestos/postPresupuestos"));
-const getPresupuestos_1 = __importDefault(require("./presupuestos/getPresupuestos"));
-const putPresupuestos_1 = __importDefault(require("./presupuestos/putPresupuestos"));
-const deletePresupuestos_1 = __importDefault(require("./presupuestos/deletePresupuestos"));
-router.use('/presupuestos', postPresupuestos_1.default);
-router.use('/presupuestos', getPresupuestos_1.default);
-router.use('/presupuestos', putPresupuestos_1.default);
-router.use('/presupuestos', deletePresupuestos_1.default);
 exports.default = router;

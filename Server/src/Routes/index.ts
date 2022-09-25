@@ -53,7 +53,7 @@ router.use('/carteles', GetCarteles)
 router.use('/carteles', PutCarteles)
 router.use('/carteles', DeleteCarteles)
 
-//ordenes
+//Carteles
 import PostOrdenes from './ordenes/postOrdenes'
 import GetOrdenes from './ordenes/getOrdenes'
 import PutOrdenes from './ordenes/putOrdenes'
@@ -63,17 +63,6 @@ router.use('/ordenes', PostOrdenes)
 router.use('/ordenes', GetOrdenes)
 router.use('/ordenes', PutOrdenes)
 router.use('/ordenes', DeleteOrdenes)
-
-//presupuestos
-import PostPresupuestos from './presupuestos/postPresupuestos'
-import GetPresupuestos from './presupuestos/getPresupuestos'
-import PutPresupuestos from './presupuestos/putPresupuestos'
-import DeletePresupuestos from './presupuestos/deletePresupuestos'
-
-router.use('/presupuestos', PostPresupuestos)
-router.use('/presupuestos', GetPresupuestos)
-router.use('/presupuestos', PutPresupuestos)
-router.use('/presupuestos', DeletePresupuestos)
 
 
 
