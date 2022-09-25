@@ -1,6 +1,6 @@
 import  mongoose,  {model, Document, Schema} from'mongoose';
 
-export interface IOrdenes extends mongoose.Document{
+export interface IPresupuesto extends mongoose.Document{
   fecha: Date,
   //clientes: Schema.Types.ObjectId, ref:'clientes',
   clientes: string,
@@ -17,7 +17,7 @@ export interface IOrdenes extends mongoose.Document{
    
 };
 
-const ordenesSchema = new Schema(
+const presupuestoSchema = new Schema(
     {
       fecha: {
         type: Date,
@@ -83,4 +83,4 @@ const ordenesSchema = new Schema(
 )
 
 
-export default model<IOrdenes>("ordenes", ordenesSchema)
+export default model<IPresupuesto>("presupuesto", presupuestoSchema)

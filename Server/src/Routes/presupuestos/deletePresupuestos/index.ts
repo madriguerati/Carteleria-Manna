@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import Ordenes from '../../../Models/ordenes'
+import Presupuestos from '../../../Models/presupuesto'
 
 
 const router = Router();
@@ -7,8 +7,8 @@ const router = Router();
 router.delete('/:id', async(req, res, next)=>{
     const {id} =req.params;
      try{
-        let deleteOrdenes = await Ordenes.findByIdAndDelete(id);
-        res.status(200).json({message: 'insumo deleted'});
+        let deletepresupuestos = await Presupuestos.findByIdAndDelete(id);
+        res.status(200).json({message: 'presupuesto deleted'});
         
     } catch (error){
         next(error)
