@@ -12,23 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isVendedor = void 0;
+exports.isAdmin = void 0;
 const user_1 = __importDefault(require("../../../Models/user"));
 const roles_1 = __importDefault(require("../../../Models/roles"));
-const isVendedor = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const isAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield user_1.default.findById(req.userId);
         const roles = yield roles_1.default.find({ _id: { $in: user.roles } });
         for (let i = 0; i < roles.length; i++) {
-            if (roles[i].name === "vendedor") {
+            if (roles[i].name === "admin") {
                 next();
                 return;
             }
         }
-        return res.status(403).json({ message: "Require vendedor Role!" });
+        return res.status(403).json({ message: "Require admin Role!" });
     }
     catch (error) {
         return res.status(500).send({ message: error });
     }
 });
-exports.isVendedor = isVendedor;
+exports.isAdmin = isAdmin;
