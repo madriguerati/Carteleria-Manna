@@ -12,7 +12,9 @@ router.post('/signIn', async(req, res, next) =>{
           .json({ msg: "Please. Send your email and password" });
       }
     
-      const user = await User.findOne({ email: req.body.email });
+      const user = await User.findOne({ email: req.body.email }).populate(
+        "roles"
+      );
       if (!user) {
         return res.status(400).json({ msg: "The User does not exists" });
       }
