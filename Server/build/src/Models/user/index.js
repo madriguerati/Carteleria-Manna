@@ -26,7 +26,16 @@ const userSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    roles: [
+        {
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: "Role",
+        },
+    ]
+}, {
+    timestamps: true,
+    versionKey: false,
 });
 userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {

@@ -14,19 +14,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = __importDefault(require("../../../Models/user"));
+const roles_1 = __importDefault(require("../../../Models/roles"));
 const router = (0, express_1.Router)();
 router.post('/signUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body.email || !req.body.password) {
-        return res
-            .status(400)
-            .json({ msg: "Please. Send your email and password" });
+    try {
+        const { username, email, password, roles } = req.body;
+        // Creating a new User Object
+        let newUser = new user_1.default({
+            username,
+            email,
+            password
+        });
+        if (roles) {
+            const foundRoles = yield roles_1.default.find({ name: { $in: roles } });
+            newUser.roles = foundRoles.map((role) => role._id);
+        }
+        else {
+            const role = yield roles_1.default.findOne({ name: "user" });
+            newUser.roles = [role._id];
+        }
+        // Saving the User Object in Mongodb
+        const savedUser = yield newUser.save();
+        return res.status(201).json(newUser);
     }
-    const user = yield user_1.default.findOne({ email: req.body.email });
-    if (user) {
-        return res.status(400).json({ msg: "The User already Exists" });
+    catch (error) {
+        return res.status(500).json(error);
     }
-    const newUser = new user_1.default(req.body);
-    yield newUser.save();
-    return res.status(201).json(newUser);
 }));
 exports.default = router;

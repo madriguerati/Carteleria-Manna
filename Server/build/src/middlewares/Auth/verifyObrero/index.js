@@ -12,27 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
+exports.isObrero = void 0;
 const user_1 = __importDefault(require("../../../Models/user"));
-const createdToken_1 = __importDefault(require("../../../Controllers/Token/createdToken"));
-const router = (0, express_1.Router)();
-router.post('/signIn', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body.email || !req.body.password) {
-        return res
-            .status(400)
-            .json({ msg: "Please. Send your email and password" });
+const roles_1 = __importDefault(require("../../../Models/roles"));
+const isObrero = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_1.default.findById(req.userId);
+        const roles = yield roles_1.default.find({ _id: { $in: user.roles } });
+        for (let i = 0; i < roles.length; i++) {
+            if (roles[i].name === "obrero") {
+                next();
+                return;
+            }
+        }
+        return res.status(403).json({ message: "Require obrero Role!" });
     }
-    const user = yield user_1.default.findOne({ email: req.body.email }).populate("roles");
-    if (!user) {
-        return res.status(400).json({ msg: "The User does not exists" });
+    catch (error) {
+        return res.status(500).send({ message: error });
     }
-    const isMatch = yield user.comparePassword(req.body.password);
-    if (isMatch) {
-        return res.status(200).json({ token: (0, createdToken_1.default)(user) });
-        console.log(user);
-    }
-    return res.status(400).json({
-        msg: "The email or password are incorrect"
-    });
-}));
-exports.default = router;
+});
+exports.isObrero = isObrero;
