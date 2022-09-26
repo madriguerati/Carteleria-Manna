@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 ;
-const ordenesSchema = new mongoose_1.Schema({
+const presupuestoSchema = new mongoose_1.Schema({
     fecha: {
         type: Date,
         required: true
@@ -54,4 +54,4 @@ const ordenesSchema = new mongoose_1.Schema({
         required: true
     }
 });
-exports.default = (0, mongoose_1.model)("ordenes", ordenesSchema);
+exports.default = (0, mongoose_1.model)("presupuesto", presupuestoSchema);
