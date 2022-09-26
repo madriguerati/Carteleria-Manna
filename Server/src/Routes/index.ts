@@ -1,5 +1,5 @@
 import {Router} from 'express';
-
+import {verifyToken, isObrero, isAdmin, isVendedor, isGerente} from '../middlewares/Auth/index'
 
 const router = Router();
 
@@ -16,10 +16,10 @@ import GetInsumo from './insumo/getInsumo'
 import DeleteInsumo from './insumo/deleteInsumo'
 import PutInsumo from './insumo/putInsumo'
 
-router.use('/insumo', PostInsumo)
-router.use('/insumo', GetInsumo)
-router.use('/insumo', DeleteInsumo)
-router.use('/insumo', PutInsumo)
+router.use('/insumo', verifyToken, isAdmin, isGerente, PostInsumo)
+router.use('/insumo', verifyToken, isAdmin, isGerente, GetInsumo)
+router.use('/insumo', verifyToken, isAdmin, isGerente, DeleteInsumo)
+router.use('/insumo', verifyToken, isAdmin, isGerente, PutInsumo)
 
 //clientes
 import PostClientes from './clientes/postClientes'
