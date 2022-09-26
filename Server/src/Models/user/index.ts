@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 export interface IUser extends Document {
   email: string;
   password: string;
+  roles: Schema.Types.ObjectId, ref:'Role';
   comparePassword: (password: string) => Promise<Boolean>
 };
 
@@ -19,9 +20,19 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  created_at: { type: Date, required: true, default: Date.now },
-  updated_at: { type: Date }
-});
+  roles: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Role",
+    },
+  ]
+
+},
+{
+timestamps: true,
+versionKey: false,
+}
+);
 
 userSchema.pre<IUser>("save", async function(next) {
   const user = this;
