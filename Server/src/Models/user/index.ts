@@ -18,7 +18,9 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  created_at: { type: Date, required: true, default: Date.now },
+  updated_at: { type: Date }
 });
 
 userSchema.pre<IUser>("save", async function(next) {
