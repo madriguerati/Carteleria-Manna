@@ -3,7 +3,7 @@ import User from "../../../Models/user";
 import Role from "../../../Models/roles";
 
 
-export const isGErente = async (req:any, res:any, next:any) => {
+export const isGerente = async (req:any, res:any, next:any) => {
     try {
       const user:any = await User.findById(req.userId);
       const roles = await Role.find({ _id: { $in: user.roles } });
