@@ -14,8 +14,10 @@ const morgan_1 = __importDefault(require("morgan"));
 const passport_2 = __importDefault(require("./middlewares/passport/passport"));
 require("../build/src/config/mongodb/db.js");
 const cors_1 = __importDefault(require("cors"));
+const initialSetUp_1 = require("./Lib/initialSetUp");
 const server = (0, express_1.default)();
 exports.server = server;
+(0, initialSetUp_1.createRoles)();
 server.use(express_1.default.json());
 //cors config
 server.use(body_parser_1.default.urlencoded({ extended: true, limit: '50mb' }));
