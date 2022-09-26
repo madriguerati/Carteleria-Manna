@@ -10,7 +10,11 @@ import passportmiddleware from './middlewares/passport/passport'
 import '../build/src/config/mongodb/db.js'
 import cors from 'cors';
 import http from 'http'
+import {createRoles} from './Lib/initialSetUp'
+
 const server = express();
+createRoles();
+
 
 server.use(express.json());
 
