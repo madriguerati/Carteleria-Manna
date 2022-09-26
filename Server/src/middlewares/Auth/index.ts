@@ -1,3 +1,5 @@
 import {verifyToken} from './verifyToken/index'
+import {isObrero} from './verifyObrero/index'
 
-export { verifyToken };
+
+export { verifyToken, isObrero};

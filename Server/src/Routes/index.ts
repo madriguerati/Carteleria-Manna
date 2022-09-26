@@ -49,7 +49,7 @@ import GetCarteles from './carteles/getCarteles'
 import PutCarteles from './carteles/putCarteles'
 import DeleteCarteles from './carteles/deleteCarteles'
 
-router.use('/carteles', PostCarteles)
+router.use('/carteles',  PostCarteles)
 router.use('/carteles', GetCarteles)
 router.use('/carteles', PutCarteles)
 router.use('/carteles', DeleteCarteles)
