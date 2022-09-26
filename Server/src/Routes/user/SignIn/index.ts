@@ -12,7 +12,7 @@ router.post('/signIn', async(req, res, next) =>{
           .json({ msg: "Please. Send your email and password" });
       }
     
-      const user = await User.findOne({ email: req.body.email }).populate(
+      const user:any = await User.findOne({ email: req.body.email }).populate(
         "roles"
       );
       if (!user) {
@@ -22,11 +22,13 @@ router.post('/signIn', async(req, res, next) =>{
       const isMatch = await user.comparePassword(req.body.password);
       if (isMatch) {
         return res.status(200).json({ token: createToken(user) });
+        console.log(user)
       }
     
       return res.status(400).json({
         msg: "The email or password are incorrect"
       });
+      
 }
 
 )
