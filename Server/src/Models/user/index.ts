@@ -5,6 +5,12 @@ export interface IUser extends Document {
   email: string;
   password: string;
   roles: Schema.Types.ObjectId, ref:'Role';
+  name: string;
+  lastname: string;
+  dni: Number;
+  fechaNacimiento: Date;
+  direccion: string;
+  //sector: string;//roll
   comparePassword: (password: string) => Promise<Boolean>
 };
 
@@ -17,6 +23,30 @@ const userSchema = new Schema({
     trim: true
   },
   password: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  lastname: {
+    type: String,
+    required: true
+  },
+  dni: {
+    type: Number,
+    required: true
+  },
+  fechaNacimiento: {
+    type: Date,
+    required: true
+  },
+  telefono: {
+    type: Number,
+    required: true
+  },
+  direccion: {
     type: String,
     required: true
   },

@@ -1,7 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isObrero = exports.verifyToken = void 0;
+exports.isGerente = exports.isVendedor = exports.isAdmin = exports.isObrero = exports.verifyToken = void 0;
 const index_1 = require("./verifyToken/index");
 Object.defineProperty(exports, "verifyToken", { enumerable: true, get: function () { return index_1.verifyToken; } });
 const index_2 = require("./verifyObrero/index");
 Object.defineProperty(exports, "isObrero", { enumerable: true, get: function () { return index_2.isObrero; } });
+const index_3 = require("./verifyGerente/index");
+Object.defineProperty(exports, "isGerente", { enumerable: true, get: function () { return index_3.isGerente; } });
+const index_4 = require("./verifyVendedor/index");
+Object.defineProperty(exports, "isVendedor", { enumerable: true, get: function () { return index_4.isVendedor; } });
+const index_5 = require("./verifyAdmin/index");
+Object.defineProperty(exports, "isAdmin", { enumerable: true, get: function () { return index_5.isAdmin; } });

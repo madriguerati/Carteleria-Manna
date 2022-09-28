@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isGErente = void 0;
+exports.isGerente = void 0;
 const user_1 = __importDefault(require("../../../Models/user"));
 const roles_1 = __importDefault(require("../../../Models/roles"));
-const isGErente = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const isGerente = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield user_1.default.findById(req.userId);
         const roles = yield roles_1.default.find({ _id: { $in: user.roles } });
@@ -31,4 +31,4 @@ const isGErente = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         return res.status(500).send({ message: error });
     }
 });
-exports.isGErente = isGErente;
+exports.isGerente = isGerente;
