@@ -28,27 +28,27 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    required: true
+    request: true
   },
   lastname: {
     type: String,
-    required: true
+    request: true
   },
   dni: {
     type: Number,
-    required: true
+    request: true
   },
   fechaNacimiento: {
     type: Date,
-    required: true
+    request: true
   },
   telefono: {
     type: Number,
-    required: true
+    request: true
   },
   direccion: {
     type: String,
-    required: true
+    request: true
   },
   roles: [
     {
