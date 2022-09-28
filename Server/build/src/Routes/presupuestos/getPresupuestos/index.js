@@ -18,7 +18,8 @@ const router = (0, express_1.Router)();
 router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const presupuestos = yield presupuesto_1.default.find()
-            .populate('carteles');
+            .populate('carteles')
+            .populate('clientes');
         res.status(200).json(presupuestos);
     }
     catch (error) {

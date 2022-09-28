@@ -16,9 +16,9 @@ const express_1 = require("express");
 const presupuesto_1 = __importDefault(require("../../../Models/presupuesto"));
 const router = (0, express_1.Router)();
 router.post('/create', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fecha, clientes, contacto, carteles, operacion, lugardecolocacion, lugartraslado, montototal, formadepago, plazodeentrega, fechavalida, observaciones } = req.body;
+    const { fecha, clientes, carteles, operacion, lugardecolocacion, montototal, formadepago, plazodeentrega, fechavalida, observaciones } = req.body;
     try {
-        const presupuestos = new presupuesto_1.default({ fecha, clientes, contacto, carteles, operacion, lugardecolocacion, lugartraslado, montototal, formadepago, plazodeentrega, fechavalida, observaciones });
+        const presupuestos = new presupuesto_1.default({ fecha, clientes, carteles, operacion, lugardecolocacion, montototal, formadepago, plazodeentrega, fechavalida, observaciones });
         yield presupuestos.save();
         res.status(201).json('Presupuestos adherido correctamente');
     }
