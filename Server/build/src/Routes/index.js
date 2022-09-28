@@ -11,10 +11,12 @@ const SignUp_1 = __importDefault(require("./user/SignUp"));
 const SignIn_1 = __importDefault(require("./user/SignIn"));
 const getUsers_1 = __importDefault(require("./user/getUsers"));
 const PutUserDatos_1 = __importDefault(require("./user/PutUserDatos"));
+const PutRoleUser_1 = __importDefault(require("./user/PutRoleUser"));
 router.use('/user', SignUp_1.default);
 router.use('/user', SignIn_1.default);
 router.use('/user', getUsers_1.default);
-router.use('/user', PutUserDatos_1.default);
+router.use('/user', index_1.verifyToken, index_1.isObrero, index_1.isAdmin, index_1.isVendedor, index_1.isGerente, PutUserDatos_1.default);
+router.use('/user', index_1.verifyToken, index_1.isGerente, PutRoleUser_1.default);
 //insumo
 const postInsumo_1 = __importDefault(require("./insumo/postInsumo"));
 const getInsumo_1 = __importDefault(require("./insumo/getInsumo"));
