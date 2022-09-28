@@ -6,9 +6,12 @@ const router = Router();
 //user
 import SignUp from './user/SignUp'
 import SignIn from './user/SignIn'
+import GetUser from './user/getUsers'
+
 
 router.use('/user', SignUp)
 router.use('/user', SignIn)
+router.use('/user', GetUser)
 
 //insumo
 import PostInsumo from './insumo/postInsumo'

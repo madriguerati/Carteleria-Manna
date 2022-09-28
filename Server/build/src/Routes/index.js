@@ -9,8 +9,10 @@ const router = (0, express_1.Router)();
 //user
 const SignUp_1 = __importDefault(require("./user/SignUp"));
 const SignIn_1 = __importDefault(require("./user/SignIn"));
+const getUsers_1 = __importDefault(require("./user/getUsers"));
 router.use('/user', SignUp_1.default);
 router.use('/user', SignIn_1.default);
+router.use('/user', getUsers_1.default);
 //insumo
 const postInsumo_1 = __importDefault(require("./insumo/postInsumo"));
 const getInsumo_1 = __importDefault(require("./insumo/getInsumo"));
