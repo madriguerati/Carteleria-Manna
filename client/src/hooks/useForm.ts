@@ -16,12 +16,12 @@ const useForm = (validate: any) => {
       ...values,
       [name]: value
     });
-    setErrors(
-      validate({
-        ...input,
-        [name]: value,
-      })
-    );
+    // setErrors(
+    //   validate({
+    //     ...input,
+    //     [name]: value,
+    //   })
+    // );
   };
 
   const handleSubmit = async(e: React.SyntheticEvent) => {
