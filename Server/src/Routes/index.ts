@@ -7,11 +7,15 @@ const router = Router();
 import SignUp from './user/SignUp'
 import SignIn from './user/SignIn'
 import GetUser from './user/getUsers'
+import PutUserDatos from './user/PutUserDatos'
+
 
 
 router.use('/user', SignUp)
 router.use('/user', SignIn)
 router.use('/user', GetUser)
+router.use('/user', PutUserDatos)
+
 
 //insumo
 import PostInsumo from './insumo/postInsumo'
