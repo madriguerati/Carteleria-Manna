@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const index_1 = require("../middlewares/Auth/index");
 const router = (0, express_1.Router)();
 //user
 const SignUp_1 = __importDefault(require("./user/SignUp"));
@@ -15,10 +16,10 @@ const postInsumo_1 = __importDefault(require("./insumo/postInsumo"));
 const getInsumo_1 = __importDefault(require("./insumo/getInsumo"));
 const deleteInsumo_1 = __importDefault(require("./insumo/deleteInsumo"));
 const putInsumo_1 = __importDefault(require("./insumo/putInsumo"));
-router.use('/insumo', postInsumo_1.default);
-router.use('/insumo', getInsumo_1.default);
-router.use('/insumo', deleteInsumo_1.default);
-router.use('/insumo', putInsumo_1.default);
+router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, postInsumo_1.default);
+router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, getInsumo_1.default);
+router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, deleteInsumo_1.default);
+router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, putInsumo_1.default);
 //clientes
 const postClientes_1 = __importDefault(require("./clientes/postClientes"));
 const getClientes_1 = __importDefault(require("./clientes/getClientes"));

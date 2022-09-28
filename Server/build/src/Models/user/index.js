@@ -27,6 +27,30 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    },
+    dni: {
+        type: Number,
+        required: true
+    },
+    fechaNacimiento: {
+        type: Date,
+        required: true
+    },
+    telefono: {
+        type: Number,
+        required: true
+    },
+    direccion: {
+        type: String,
+        required: true
+    },
     roles: [
         {
             type: mongoose_1.Schema.Types.ObjectId,
