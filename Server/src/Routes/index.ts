@@ -14,7 +14,7 @@ import PutUserDatos from './user/PutUserDatos'
 router.use('/user', SignUp)
 router.use('/user', SignIn)
 router.use('/user', GetUser)
-router.use('/user', PutUserDatos)
+router.use('/user', verifyToken, isObrero, isAdmin, isVendedor, isGerente, PutUserDatos)
 
 
 //insumo
