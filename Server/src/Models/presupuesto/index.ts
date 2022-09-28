@@ -2,17 +2,18 @@ import  mongoose,  {model, Document, Schema} from'mongoose';
 
 export interface IPresupuesto extends mongoose.Document{
   fecha: Date,
-  //clientes: Schema.Types.ObjectId, ref:'clientes',
-  clientes: string,
-  contacto: string,
-  carteles: Schema.Types.ObjectId, ref:'carteles',
+  clientes: Schema.Types.ObjectId,// que muestre nombre de contacto y telefono en el front
+
+  //clientes: string,
+  //contacto: string,
+  carteles: Schema.Types.ObjectId,
   operacion:string,
-  lugardecolocacion: string,
-  lugartraslado:string,
+  lugardecolocacion: string,//lugar de entrega colocación/entrega
+  //lugartraslado:string,
   montototal: number,
   formadepago:string,
   plazodeentrega:number,
-  fechavalida: Date,
+  fechavalida: Date,//presupuesto valido hasta 
   observaciones:string
    
 };
@@ -23,13 +24,9 @@ const presupuestoSchema = new Schema(
         type: Date,
         required: true
       },
-      cliente: {
-        type: String,
-        required: true,
-      },
-      contacto: //nombre de contacto
-      {
-        type: String,
+      clientes: {
+        type:Schema.Types.ObjectId, 
+        ref:'clientes',
         required: true
       },
       carteles:
@@ -48,11 +45,7 @@ const presupuestoSchema = new Schema(
           type:String,
           required:true
       },
-      lugartraslado:
-      {
-          type: String,
-          required:true
-      },
+      
       formadepago:
       {
           type:[String],
@@ -63,7 +56,7 @@ const presupuestoSchema = new Schema(
           type:Date,
           required:true
       },
-      montoTotal:
+      montototal:
       {
         type: Number,
         required: true

@@ -8,6 +8,8 @@ router.get('/', async(req, res, next)=>{
     try{
         const presupuestos = await Presupuestos.find() 
         .populate('carteles')
+        .populate('clientes')
+
         res.status(200).json(presupuestos)   
     } catch (error){
         next(error)

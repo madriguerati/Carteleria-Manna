@@ -7,13 +7,9 @@ const presupuestoSchema = new mongoose_1.Schema({
         type: Date,
         required: true
     },
-    cliente: {
-        type: String,
-        required: true,
-    },
-    contacto: //nombre de contacto
-    {
-        type: String,
+    clientes: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'clientes',
         required: true
     },
     carteles: {
@@ -29,10 +25,6 @@ const presupuestoSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
-    lugartraslado: {
-        type: String,
-        required: true
-    },
     formadepago: {
         type: [String],
         required: true
@@ -41,7 +33,7 @@ const presupuestoSchema = new mongoose_1.Schema({
         type: Date,
         required: true
     },
-    montoTotal: {
+    montototal: {
         type: Number,
         required: true
     },
