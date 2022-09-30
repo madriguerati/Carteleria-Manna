@@ -2,9 +2,10 @@ import { validateInfo } from './../utils/validate';
 import useForm from './../hooks/useForm';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import useUser from '../store/user';
 
 const Register = () => {
+  const { user, success, signup } = useUser((state) => state);
   const navigate = useNavigate();
   const [values, setValues] = useState({
     username: '',
@@ -28,21 +29,23 @@ const Register = () => {
     );
   };
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setErrors(validateInfo(values));
   
     if(values.username && Object.keys(errors).length === 0) {
-      try {
-        const data = await axios.post('http://localhost:5000/api/user/signUp', values)  
-        console.log(data)
-        alert('Registrado');
-        navigate("/")
-      } catch (error) {
-        alert('Correo ya registrado');
-      }
+      // try {
+        // const data = await axios.post('http://localhost:5000/api/user/signUp', values)  
+        // console.log(data)
+        signup(values);
+        console.log('user', user)
+        // alert('Registrado');
+        // navigate("/")
+      // } catch (error) {
+      //   alert('Correo ya registrado');
+      // }
     }
-    console.log(errors)
+    console.log(user, success, 'nose')
   };
   return (
     <div className="w-full min-h-screen flex justify-center items-center p-4">
@@ -96,6 +99,7 @@ const Register = () => {
               <p className="mt-1 text-sm font-base text-black">
                 Ya estás registrado?<Link to='/account/login' className="ml-2 font-medium text-red-700 cursor-pointer">Iniciar Sesión</Link>
               </p>
+              <h1>{user.email}</h1>
             </div>
           </form>
         </div>
