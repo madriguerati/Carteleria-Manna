@@ -97,7 +97,7 @@ const Register = () => {
             </button>
             <div className="flex flex-col items-center mt-5">
               <p className="mt-1 text-sm font-base text-black">
-                Ya estás registrado?<Link to='/account/login' className="ml-2 font-medium text-red-700 cursor-pointer">Iniciar Sesión</Link>
+                Ya estás registrado?<Link to='/auth/login' className="ml-2 font-medium text-red-700 cursor-pointer">Iniciar Sesión</Link>
               </p>
               <h1>{user.email}</h1>
             </div>

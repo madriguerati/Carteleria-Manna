@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import RoutesApp from './components/RoutesApp/index';
+import PrincipalRoute from './routers/PrincipalRoute';
 import useStore from './store/user';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   }, []);
 
   return (
-    <RoutesApp />
+    <PrincipalRoute />
   )
 }
 
