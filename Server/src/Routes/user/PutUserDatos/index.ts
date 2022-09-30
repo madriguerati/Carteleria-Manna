@@ -4,7 +4,7 @@ import User, { IUser } from '../../../Models/user';
 
 const router = Router();
 
-router.put('/', async(req, res, next)=>{
+router.put('/datoss', async(req, res, next)=>{
     const {name, lastname, dni, fechaNacimiento, direccion, id} =req.body;
     try{
         await User.findByIdAndUpdate(id, {

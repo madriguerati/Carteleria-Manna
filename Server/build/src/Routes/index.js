@@ -15,15 +15,15 @@ const PutRoleUser_1 = __importDefault(require("./user/PutRoleUser"));
 router.use('/user', SignUp_1.default);
 router.use('/user', SignIn_1.default);
 router.use('/user', getUsers_1.default);
-router.use('/user', index_1.verifyToken, index_1.isObrero, index_1.isAdmin, index_1.isVendedor, index_1.isGerente, PutUserDatos_1.default);
-router.use('/user', index_1.verifyToken, index_1.isGerente, PutRoleUser_1.default);
+router.use('/user', PutUserDatos_1.default);
+router.use('/user', PutRoleUser_1.default);
 //insumo
 const postInsumo_1 = __importDefault(require("./insumo/postInsumo"));
 const getInsumo_1 = __importDefault(require("./insumo/getInsumo"));
 const deleteInsumo_1 = __importDefault(require("./insumo/deleteInsumo"));
 const putInsumo_1 = __importDefault(require("./insumo/putInsumo"));
 router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, postInsumo_1.default);
-router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, getInsumo_1.default);
+router.use('/insumos', index_1.verifyToken, index_1.isGerente, getInsumo_1.default);
 router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, deleteInsumo_1.default);
 router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, putInsumo_1.default);
 //clientes
@@ -32,7 +32,7 @@ const getClientes_1 = __importDefault(require("./clientes/getClientes"));
 const putClientes_1 = __importDefault(require("./clientes/putClientes"));
 const deleteClientes_1 = __importDefault(require("./clientes/deleteClientes"));
 router.use('/clientes', postClientes_1.default);
-router.use('/clientes', getClientes_1.default);
+router.use('/clientes', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, getClientes_1.default);
 router.use('/clientes', putClientes_1.default);
 router.use('/clientes', deleteClientes_1.default);
 //proveedores

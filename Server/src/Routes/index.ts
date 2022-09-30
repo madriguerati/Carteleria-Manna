@@ -15,9 +15,9 @@ import PutRoleUser from './user/PutRoleUser'
 
 router.use('/user', SignUp)
 router.use('/user', SignIn)
-router.use('/user', GetUser)
-router.use('/user',  PutUserDatos)
-router.use('/user', PutRoleUser)
+router.use('/user', verifyToken, isGerente, GetUser)
+router.use('/user', verifyToken, isGerente, PutUserDatos)
+router.use('/user', verifyToken, isGerente, PutRoleUser)
 
 
 //insumo
@@ -27,7 +27,7 @@ import DeleteInsumo from './insumo/deleteInsumo'
 import PutInsumo from './insumo/putInsumo'
 
 router.use('/insumo', verifyToken, isAdmin, isGerente, PostInsumo)
-router.use('/insumo', verifyToken, isGerente, GetInsumo)
+router.use('/insumos', verifyToken, isGerente, GetInsumo)
 router.use('/insumo', verifyToken, isAdmin, isGerente, DeleteInsumo)
 router.use('/insumo', verifyToken, isAdmin, isGerente, PutInsumo)
 
@@ -38,7 +38,7 @@ import PutClientes from './clientes/putClientes'
 import DeleteClientes from './clientes/deleteClientes'
 
 router.use('/clientes', PostClientes)
-router.use('/clientes', GetClientes)
+router.use('/clientes', verifyToken, isAdmin, isGerente, GetClientes)
 router.use('/clientes', PutClientes)
 router.use('/clientes', DeleteClientes)
 
