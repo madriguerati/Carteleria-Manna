@@ -105,5 +105,7 @@
   ],
   "exclude":[
     "node_modules"
-  ]
+  ],
+  "typeRoots": [ "@types" ],
+  // "typeRoots": ["types.d.ts"],
 }

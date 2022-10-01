@@ -9,12 +9,14 @@ import SignIn from './user/SignIn'
 import GetUser from './user/getUsers'
 import PutUserDatos from './user/PutUserDatos'
 import PutRoleUser from './user/PutRoleUser'
+import GetUserById from './user/getUserById'
 
 
 
 
 router.use('/user', SignUp)
 router.use('/user', SignIn)
+router.use('/user', verifyToken, GetUserById)
 router.use('/user', verifyToken, isGerente, GetUser)
 router.use('/user', verifyToken, isGerente, PutUserDatos)
 router.use('/user', verifyToken, isGerente, PutRoleUser)
