@@ -27,7 +27,7 @@ try{
    // Saving the User Object in Mongodb
    const savedUser = await newUser.save();
    //return res.status(201).json(newUser);
-   return res.status(200).json({ token: createToken(newUser) });
+   return res.status(200).json({ token: createToken(savedUser) });
 } catch (error){
   return res.status(500).json(error);
 }
