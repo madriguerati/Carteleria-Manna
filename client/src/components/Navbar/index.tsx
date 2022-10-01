@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useUser from './../../store/user';
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
+  const { getUser, tokken, user } = useUser((state) => state)
+
+  useEffect(() => {
+    getUser(tokken);
+  }, []);
+
+  console.log(user, 'user')
   return (
     <nav className="w-full bg-zinc-800 shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">

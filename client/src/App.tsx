@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import RoutesApp from './components/RoutesApp/index';
 import PrincipalRoute from './routers/PrincipalRoute';
-import useStore from './store/user';
+import useUser from './store/user';
 
-function App() {
-  const { verificated, tokken } = useStore((state) => state);
+function App() { 
+  const { verificated } = useUser((state) => state);
   
   useEffect(() => {
     const loggedUserJSON = localStorage.getItem('auth');

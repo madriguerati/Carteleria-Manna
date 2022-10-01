@@ -15,11 +15,12 @@ interface UserLogin {
 }
 
 type UserStore = {
-  user: any;
-  tokken: string,
+  user: any
+  tokken: string
   success: boolean
-  signup: (body: any) => Promise<void>;
-  signin: (body: UserLogin) => Promise<void>;
+  getUser: (user: string) => Promise<void>
+  signup: (body: any) => Promise<void>
+  signin: (body: UserLogin) => Promise<void>
   verificated: any
 }
 
@@ -31,10 +32,19 @@ const useUser = create<UserStore>()(
     success: false,
 
     //actions
+    getUser: async (token) => {
+      const headers : any = {
+        headers : {
+            "x-access-token" : token
+        }
+      };
+      const { data } = await axios.get('http://localhost:5000/api/user/profile', { headers: { "x-access-token": token} })
+      set((state) => ({ user: (state.user = data) }));
+    },
     signup: async (body) => {
-      const response = await axios.post('http://localhost:5000/api/user/signUp', body);
-      set((state) => ({ user: (state.user = response.data) }));
-      set({ success: true });
+      const { data } = await axios.post('http://localhost:5000/api/user/signUp', body);
+      localStorage.setItem('auth', JSON.stringify(data.token));
+      set((state) => ({ tokken: (state.tokken = data.token) }));
     },
     signin: async (body) => {
       const { data } = await axios.post('http://localhost:5000/api/user/signIn', body);
