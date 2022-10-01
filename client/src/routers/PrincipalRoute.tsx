@@ -3,16 +3,16 @@ import AppRouter from './AppRouter';
 import AuthRouter from './AuthRouter';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
-
-const isLogged = false;
+import useUser from './../store/user';
 
 const PrincipalRoute = () => {
+  const { tokken } = useUser((state) => state);
   return (
     <Routes>
       <Route
         path='/auth/*'
         element={
-          <PublicRoutes isLogged={isLogged} >
+          <PublicRoutes isLogged={tokken} >
             <AuthRouter />
           </PublicRoutes>
         }
@@ -21,7 +21,7 @@ const PrincipalRoute = () => {
       <Route 
         path='/*'
         element={
-          <PrivateRoutes isLogged={isLogged}>
+          <PrivateRoutes isLogged={tokken}>
             <AppRouter />
           </PrivateRoutes>
         }
