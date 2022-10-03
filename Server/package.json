@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "carteleria manna",
   "main": "index.js",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "ts:node": "ts-node src/index.ts",
     "clean": "del build",
     "build": "tsc",
     "start": "node build/src",
-    "dev": "nodemon",
-    "proxy": "http://localhost:5000"
+    "dev": "nodemon"
+    
   },
   "author": "nexo",
   "license": "ISC",

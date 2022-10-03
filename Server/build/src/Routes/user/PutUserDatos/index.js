@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/datoss', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, lastname, dni, fechaNacimiento, direccion, id } = req.body;
     try {
         yield user_1.default.findByIdAndUpdate(id, {

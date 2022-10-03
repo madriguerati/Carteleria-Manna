@@ -28,7 +28,7 @@ server.use((_req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, x-access-token');
+  res.header('Access-Control-Allow-Headers: Origin, x-access-token');
   res.header("HTTP/1.0 200 OK");
   next();
 });
@@ -42,7 +42,7 @@ passport.use(passportmiddleware);
 //routes
 server.use('/api', routes);
 //cors
-server.use(cors());
+server.use(cors({origin: true, credentials: true}));
 
 server.use((err:any, _req:any, res:any, _next:any) => {
     const status = err.status || 500;
