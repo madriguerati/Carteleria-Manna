@@ -29,6 +29,8 @@ server.use((_req, res, next) => {
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers: Origin, x-access-token');
+    res.header("HTTP/1.0 200 OK");
     next();
 });
 //passport
@@ -37,7 +39,7 @@ passport_1.default.use(passport_2.default);
 //routes
 server.use('/api', index_1.default);
 //cors
-server.use((0, cors_1.default)());
+server.use((0, cors_1.default)({ origin: true, credentials: true }));
 server.use((err, _req, res, _next) => {
     const status = err.status || 500;
     const message = err.message || err;

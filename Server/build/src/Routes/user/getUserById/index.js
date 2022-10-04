@@ -15,17 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.put('/datos', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, lastname, dni, fechaNacimiento, direccion, roles, id } = req.body;
+router.get('/profile', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield user_1.default.findByIdAndUpdate(id, {
-            name, lastname, dni, fechaNacimiento, direccion, roles: [roles]
-        });
-        // Send response in here
-        res.send('Item Updated!');
+        const user = yield user_1.default.findById(req.userId);
+        return res.status(200).json(user);
     }
     catch (error) {
-        next(error);
+        return res.status(401).json({ message: "User not found" });
     }
 }));
 exports.default = router;

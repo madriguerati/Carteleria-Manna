@@ -4,7 +4,8 @@ import User from '../../../Models/user'
 
 const router = Router();
 
-router.get('/', async(req, res, next)=>{
+router.get('/profile', async(req, res, next)=>{
+    
     try{
         const users = await User.find() 
         .populate('roles')

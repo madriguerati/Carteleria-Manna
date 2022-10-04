@@ -7,6 +7,10 @@ interface User {
   password: string,
   roles: string[],
   id: string,
+  name: string,
+  lastname: string,
+  dni: Number,
+  fechaNacimiento: Date
 }
 
 interface UserLogin {
@@ -33,13 +37,16 @@ const useUser = create<UserStore>()(
 
     //actions
     getUser: async (token) => {
-      const headers : any = {
-        headers : {
+      let headers:any = {
             "x-access-token" : token
-        }
       };
-      const { data } = await axios.get('http://localhost:5000/api/user/profile', { headers: { "x-access-token": token} })
+
+      try{
+        const { data } = await axios.get('http://localhost:5000/api/user/profile', { headers: { "x-access-token": token} } )
       set((state) => ({ user: (state.user = data) }));
+      }catch(error){
+        console.log(error)
+      }
     },
     signup: async (body) => {
       const { data } = await axios.post('http://localhost:5000/api/user/signUp', body);

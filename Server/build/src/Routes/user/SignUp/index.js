@@ -37,7 +37,7 @@ router.post('/signUp', (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         // Saving the User Object in Mongodb
         const savedUser = yield newUser.save();
         //return res.status(201).json(newUser);
-        return res.status(200).json({ token: (0, createdToken_1.default)(newUser) });
+        return res.status(200).json({ token: (0, createdToken_1.default)(savedUser) });
     }
     catch (error) {
         return res.status(500).json(error);

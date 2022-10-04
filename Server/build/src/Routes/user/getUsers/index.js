@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/profile', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield user_1.default.find()
             .populate('roles');
