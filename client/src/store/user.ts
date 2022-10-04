@@ -40,8 +40,12 @@ const useUser = create<UserStore>()(
       const headers : any = {
             "x-access-token" : token
       };
-      const { data } = await axios.get('http://localhost:5000/api/user/profile', headers )
+      try{
+        const { data } = await axios.get('http://localhost:5000/api/user/profile', headers )
       set((state) => ({ user: (state.user = data) }));
+      }catch(error){
+        console.log(error)
+      }
     },
     signup: async (body) => {
       const { data } = await axios.post('http://localhost:5000/api/user/signUp', body);

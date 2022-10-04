@@ -42,7 +42,7 @@ passport.use(passportmiddleware);
 //routes
 server.use('/api', routes);
 //cors
-server.use(cors({origin: true, credentials: true}));
+server.use(cors());
 
 server.use((err:any, _req:any, res:any, _next:any) => {
     const status = err.status || 500;
