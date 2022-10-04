@@ -13,27 +13,32 @@ import http from 'http'
 import {createRoles} from './Lib/initialSetUp'
 
 const server = express();
+
+//const IoServer = http.createServer(server);
+
+
 createRoles();
 
-
 server.use(express.json());
-
-//cors config
-server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-server.use(bodyParser.json({ limit: '50mb' }));
+//-------------------cors config--------------------//
+server.use(express.urlencoded({ extended: true, limit: '50mb' })); //middleware
+server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
+server.use(cors());
 server.use((_req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); 
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers: Origin, x-access-token');
-  res.header("HTTP/1.0 200 OK");
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
   next();
 });
-
-
 
 //passport
 server.use(passport.initialize());
@@ -42,7 +47,7 @@ passport.use(passportmiddleware);
 //routes
 server.use('/api', routes);
 //cors
-server.use(cors());
+//server.use(cors());
 
 server.use((err:any, _req:any, res:any, _next:any) => {
     const status = err.status || 500;
