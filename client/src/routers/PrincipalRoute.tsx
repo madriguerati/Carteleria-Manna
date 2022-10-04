@@ -18,14 +18,14 @@ const PrincipalRoute = () => {
         }
       />
 
-      <Route 
+      {tokken && <Route 
         path='/*'
         element={
           <PrivateRoutes isLogged={tokken}>
             <AppRouter />
           </PrivateRoutes>
         }
-      />
+      />}
     </Routes>
   )
 }
