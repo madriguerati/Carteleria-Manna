@@ -5,8 +5,16 @@ import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
 import useUser from './../store/user';
 
+type Props = {
+  isLogged: any;
+};
+
 const PrincipalRoute = () => {
   const { tokken } = useUser((state) => state);
+  const loggedUserJSON : any = localStorage.getItem('auth');
+  const token = JSON.parse(loggedUserJSON);
+  console.log(loggedUserJSON, 'auth');
+
   return (
     <Routes>
       <Route
@@ -18,10 +26,10 @@ const PrincipalRoute = () => {
         }
       />
 
-      {tokken && <Route 
+      {<Route 
         path='/*'
         element={
-          <PrivateRoutes isLogged={tokken}>
+          <PrivateRoutes isLogged={token}>
             <AppRouter />
           </PrivateRoutes>
         }

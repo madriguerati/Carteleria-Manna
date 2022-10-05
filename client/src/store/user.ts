@@ -25,6 +25,7 @@ type UserStore = {
   getUser: (user: string) => Promise<void>
   signup: (body: any) => Promise<void>
   signin: (body: UserLogin) => Promise<void>
+  logout: () => void
   verificated: any
 }
 
@@ -43,7 +44,7 @@ const useUser = create<UserStore>()(
 
       try{
         const { data } = await axios.get('http://localhost:5000/api/user/profile', { headers: { "x-access-token": token} } )
-      set((state) => ({ user: (state.user = data) }));
+      set({ user: data });
       }catch(error){
         console.log(error)
       }
@@ -57,6 +58,10 @@ const useUser = create<UserStore>()(
       const { data } = await axios.post('http://localhost:5000/api/user/signIn', body);
       localStorage.setItem('auth', JSON.stringify(data.token));
       set((state) => ({ tokken: (state.tokken = data.token) }));
+    },
+    logout: () => {
+      localStorage.removeItem('auth');
+      set({ tokken: '' });
     },
     verificated: (token: any) => {
       set((state) => ({ tokken: (state.tokken = token) }));
