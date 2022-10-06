@@ -3,24 +3,18 @@ import AppRouter from './AppRouter';
 import AuthRouter from './AuthRouter';
 import PrivateRoutes from './PrivateRoutes';
 import PublicRoutes from './PublicRoutes';
-import useUser from './../store/user';
+import useLocalStorage from './../hooks/useLocalStorage';
 
-type Props = {
-  isLogged: any;
-};
 
 const PrincipalRoute = () => {
-  const { tokken } = useUser((state) => state);
-  const loggedUserJSON : any = localStorage.getItem('auth');
-  const token = JSON.parse(loggedUserJSON);
-  console.log(loggedUserJSON, 'auth');
+  const [ token ] = useLocalStorage();
 
   return (
     <Routes>
       <Route
         path='/auth/*'
         element={
-          <PublicRoutes isLogged={tokken} >
+          <PublicRoutes isLogged={token} >
             <AuthRouter />
           </PublicRoutes>
         }
