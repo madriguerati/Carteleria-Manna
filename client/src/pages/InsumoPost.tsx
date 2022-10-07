@@ -1,4 +1,4 @@
-import useForm from './../hooks/useForm';
+import useForm from '../hooks/useForm';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useInsumo from '../store/insumo';
