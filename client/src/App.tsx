@@ -4,7 +4,7 @@ import useUser from './store/user';
 import useLocalStorage from './hooks/useLocalStorage';
 
 function App() { 
-  const { verificated, tokken } = useUser((state) => state);
+  const { verificated } = useUser((state) => state);
   const [ token ] = useLocalStorage();
 
   useEffect(() => {
