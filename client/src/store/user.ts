@@ -44,7 +44,7 @@ const useUser = create<UserStore>()(
 
       try{
         const { data } = await axios.get('http://localhost:5000/api/user/profile', { headers: { "x-access-token": token} } )
-      set({ user: data });
+        set((state) => ({ user: (state.user = data) }));
       }catch(error){
         console.log(error)
       }
