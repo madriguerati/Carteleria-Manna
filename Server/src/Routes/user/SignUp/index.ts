@@ -9,11 +9,13 @@ const router = Router();
 
 router.post('/signUp', async(req, res, next) =>{
 try{
-  const { username, email, password, roles } = req.body;
+  const { username, name, lastname, email, password, roles } = req.body;
 
   // Creating a new User Object
   let newUser:any = new User({
     username,
+    name,
+    lastname,
     email,
     password
   });
