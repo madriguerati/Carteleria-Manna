@@ -1,19 +1,22 @@
 import useUser from "../../store/user";
 import Layout from "./../../components/Layout/index";
-import { useEffect, useState } from 'react';
-import useLocalStorage from './../../hooks/useLocalStorage';
+import { useEffect, useState } from "react";
+import useLocalStorage from "./../../hooks/useLocalStorage";
+import Modal from "../../components/Modal";
+import Register from './../Register';
 
 const Users = () => {
 	const { getUsers, users } = useUser((state) => state);
-	const [ token ] = useLocalStorage();
-	const [ rol, setRol ] = useState('');
-	const [ sort, setSort ] = useState('');
-	const [ page, setPage ] = useState('');
-	const [ limit, setLimit ] = useState('');
-	
+	const [token] = useLocalStorage();
+	const [rol, setRol] = useState("");
+	const [sort, setSort] = useState("");
+	const [page, setPage] = useState("");
+	const [limit, setLimit] = useState("");
+	const [showModal, setShowModal] = useState(false);
+
 	useEffect(() => {
-		getUsers(token, rol, sort, page, limit)
-	}, [users])
+		getUsers(token, rol, sort, page, limit);
+	}, [users]);
 
 	return (
 		<Layout>
@@ -45,8 +48,10 @@ const Users = () => {
 							<div className='relative'>
 								<select className='appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500'>
 									<option>All</option>
-									{users.roles?.map((role: string)=> (
-										<option value="" className="capitalize">{role}</option>
+									{users.roles?.map((role: string) => (
+										<option value='' className='capitalize'>
+											{role}
+										</option>
 									))}
 								</select>
 								<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
@@ -100,90 +105,50 @@ const Users = () => {
 								<tbody>
 									{users.users?.map((user: any) => (
 										<tr>
-										<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-											<div className='flex items-center'>
-												<div className='flex-shrink-0 w-10 h-10'>
+											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+												<div className='flex items-center'>
+													{/* <div className='flex-shrink-0 w-10 h-10'>
 													<img
 														className='w-full h-full rounded-full'
 														src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80'
 														alt=''
 													/>
+												</div> */}
+													<div className='ml-3'>
+														<p className='text-gray-900 whitespace-no-wrap'>
+															{user.username}
+														</p>
+													</div>
 												</div>
-												<div className='ml-3'>
-													<p className='text-gray-900 whitespace-no-wrap'>
-														{user.username}
-													</p>
-												</div>
-											</div>
-										</td>
-										<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-											<p className='text-gray-900 whitespace-no-wrap'>
-												{user.email}
-											</p>
-										</td>
-										<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-											<p className='text-gray-900 whitespace-no-wrap capitalize'>
-												{user.roles.map((role: any) => role.name + '\n')}
-											</p>
-										</td>
-										<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-											<p className='text-gray-900 whitespace-no-wrap'>
-												Jan 21, 2020
-											</p>
-										</td>
-										<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-											<span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
-												<span
-													aria-hidden
-													className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-												></span>
-												<span className='relative'>Activo</span>
-											</span>
-										</td>
-									</tr>
+											</td>
+											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+												<p className='text-gray-900 whitespace-no-wrap'>
+													{user.email}
+												</p>
+											</td>
+											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+												<p className='text-gray-900 whitespace-no-wrap capitalize'>
+													{user.roles.map(
+														(role: any) => role.name + "\n"
+													)}
+												</p>
+											</td>
+											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+												<p className='text-gray-900 whitespace-no-wrap'>
+													Jan 21, 2020
+												</p>
+											</td>
+											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+												<span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+													<span
+														aria-hidden
+														className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
+													></span>
+													<span className='relative'>Activo</span>
+												</span>
+											</td>
+										</tr>
 									))}
-									<tr>
-										<td className='px-5 py-5 bg-white text-sm'>
-											<div className='flex items-center'>
-												<div className='flex-shrink-0 w-10 h-10'>
-													<img
-														className='w-full h-full rounded-full'
-														src='https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80'
-														alt=''
-													/>
-												</div>
-												<div className='ml-3'>
-													<p className='text-gray-900 whitespace-no-wrap'>
-														Alonzo Cox
-													</p>
-												</div>
-											</div>
-										</td>
-										<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-											<p className='text-gray-900 whitespace-no-wrap'>
-												hola@hotmail.com
-											</p>
-										</td>
-										<td className='px-5 py-5 bg-white text-sm'>
-											<p className='text-gray-900 whitespace-no-wrap'>
-												Admin
-											</p>
-										</td>
-										<td className='px-5 py-5 bg-white text-sm'>
-											<p className='text-gray-900 whitespace-no-wrap'>
-												Jan 18, 2020
-											</p>
-										</td>
-										<td className='px-5 py-5 bg-white text-sm'>
-											<span className='relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight'>
-												<span
-													aria-hidden
-													className='absolute inset-0 bg-red-200 opacity-50 rounded-full'
-												></span>
-												<span className='relative'>Inactive</span>
-											</span>
-										</td>
-									</tr>
 								</tbody>
 							</table>
 							<div className='px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          '>
@@ -202,11 +167,15 @@ const Users = () => {
 						</div>
 					</div>
 				</div>
-				<button className='rounded-md bg-green-600 py-1.5 px-3 text-color-white '>
-					<span className='text-white'>
-						<svg className="inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg> Crear nuevo usuario
-					</span>
+				<button
+					className='bg-green-700 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+					onClick={() => setShowModal(true)}
+				>
+					<span className='text-white'>Crear nuevo usuario</span>
 				</button>
+				<Modal showModal={showModal} setShowModal={setShowModal} >
+					<Register showModal={showModal} setShowModal={setShowModal}/>
+				</Modal>
 			</div>
 		</Layout>
 	);
