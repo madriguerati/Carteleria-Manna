@@ -81,7 +81,11 @@ const ordenesSchema = new Schema(
             required:true
         }
 
-    }
+    },
+    {
+        timestamps: true,
+        versionKey: false,
+        }
 )
 
 

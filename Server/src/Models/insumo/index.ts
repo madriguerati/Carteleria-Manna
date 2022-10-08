@@ -31,11 +31,15 @@ const insumoSchema = new Schema(
             type:Number,
             request: true
         },
-        categoria:{
+        category:{
             type: [String],
             required: true
         }
-    }
+    },
+    {
+        timestamps: true,
+        versionKey: false,
+        }
 )
 
 

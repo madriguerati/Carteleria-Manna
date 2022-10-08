@@ -68,9 +68,13 @@ const cartelesSchema = new Schema(
         otros:
         {
             type:String,
-            required: true
+            request: true
         }
-    }
+    },
+    {
+        timestamps: true,
+        versionKey: false,
+        }
 )
 
 

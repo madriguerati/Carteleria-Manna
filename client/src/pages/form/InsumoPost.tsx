@@ -1,8 +1,8 @@
-import useForm from '../hooks/useForm';
+import useForm from '../../hooks/useForm';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import useInsumo from '../store/insumo';
-import useUser from '../store/user';
+import useInsumo from '../../store/insumo';
+import useUser from '../../store/user';
 
 
 
@@ -34,11 +34,14 @@ const InsumoPost = () => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-        postInsumo(values, tokken) 
-        console.log('insumo', insumo)
-        console.log(insumo, success, 'nose')
-        console.log("mira esto", tokken)
-  
+        postInsumo(values, tokken)
+        setValues({
+          name:'',
+          descripcion:'',
+          unidad:'',
+          costo:'',
+          category:'',
+        })
   }
 
   return (
