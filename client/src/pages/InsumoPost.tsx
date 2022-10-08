@@ -34,11 +34,14 @@ const InsumoPost = () => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-        postInsumo(values, tokken) 
-        console.log('insumo', insumo)
-        console.log(insumo, success, 'nose')
-        console.log("mira esto", tokken)
-  
+        postInsumo(values, tokken)
+        setValues({
+          name:'',
+          descripcion:'',
+          unidad:'',
+          costo:'',
+          category:'',
+        })
   }
 
   return (
