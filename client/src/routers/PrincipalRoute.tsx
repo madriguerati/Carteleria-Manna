@@ -7,14 +7,14 @@ import useLocalStorage from './../hooks/useLocalStorage';
 
 
 const PrincipalRoute = () => {
-  const [ token ] = useLocalStorage();
+  const [ accessToken ] = useLocalStorage();
 
   return (
     <Routes>
       <Route
         path='/auth/*'
         element={
-          <PublicRoutes isLogged={token} >
+          <PublicRoutes isLogged={accessToken} >
             <AuthRouter />
           </PublicRoutes>
         }
@@ -23,7 +23,7 @@ const PrincipalRoute = () => {
       {<Route 
         path='/*'
         element={
-          <PrivateRoutes isLogged={token}>
+          <PrivateRoutes isLogged={accessToken}>
             <AppRouter />
           </PrivateRoutes>
         }

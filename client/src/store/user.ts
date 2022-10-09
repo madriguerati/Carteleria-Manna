@@ -30,6 +30,7 @@ type UserStore = {
   signin: (body: UserLogin) => Promise<void>
   logout: () => void
   closeModal: () => void
+  updateToken: (refreshToken: string) => Promise<void>
   verificated: any
 }
 
@@ -44,15 +45,12 @@ const useUser = create<UserStore>()(
 
     //actions
     getUser: async (token) => {
-      let headers:any = {
-            "x-access-token" : token
-      };
-
       try{
         const { data } = await axios.get('http://localhost:5000/api/user/profile', { headers: { "x-access-token": token} } )
         set((state) => ({ user: (state.user = data) }));
       }catch(error){
-        console.log(error)
+        localStorage.removeItem('auth');
+        set({ tokken: '' });
       }
     },
     getUsers: async (token, rol, sort, page, limit) => {
@@ -74,10 +72,10 @@ const useUser = create<UserStore>()(
     },
     signin: async (body) => {
       const { data } = await axios.post('http://localhost:5000/api/user/signIn', body);
-      localStorage.setItem('auth', JSON.stringify(data.token));
-      set((state) => ({ tokken: (state.tokken = data.token) }));
+      localStorage.setItem('auth', JSON.stringify(data));
+      set((state) => ({ tokken: (state.tokken = data.token) })); 
     },
-    logout: () => {
+    logout: () => { 
       localStorage.removeItem('auth');
       set({ tokken: '' });
     },
@@ -85,7 +83,13 @@ const useUser = create<UserStore>()(
       set({ error: false})
       set({ success: false})
     },
-    verificated: (token: any) => {
+    updateToken: async(refreshToken) => {
+      console.log('update token', refreshToken) 
+      const { data } = await axios.post('http://localhost:5000/api/user/refresh', {}, { headers: { "x-access-token": refreshToken} } )
+      localStorage.setItem('auth', JSON.stringify(data));
+      set((state) => ({ tokken: (state.tokken = data.token) })); 
+    },
+    verificated: (token: any) => { 
       set((state) => ({ tokken: (state.tokken = token) }));
     },
   }))
