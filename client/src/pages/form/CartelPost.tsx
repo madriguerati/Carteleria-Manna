@@ -10,7 +10,7 @@ const CartelPost = () => {
 
     const { cartel, success, postCartel} = useCartel((state) => state);
     const { tokken} = useUser((state) => state);
-
+    const [resultado, setResultado]=useState(0)
     
     const navigate = useNavigate();
     
@@ -19,7 +19,7 @@ const CartelPost = () => {
         cartel:'',//tipo de cartel
         base: '',
         altura: '',
-        medidas: '',
+        medidas: resultado,
         faz: '',//simple o doble
         valor: '',
         total: '',
@@ -31,6 +31,10 @@ const CartelPost = () => {
     const multiplicar = (a: number, b: number): number => {
       return a * b;
   }
+  const a:any= values.base;
+  const b:any= values.altura;
+  const costo:any =200
+  const cantidad:any = values.cantidad
 
     
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -39,13 +43,13 @@ const CartelPost = () => {
       ...values,
       [name]: value
     });
+      setResultado(multiplicar(a,b))
+    console.log(resultado)
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-        postCartel(values, tokken)
-        
-        
+        postCartel(values, tokken) 
   }
  
 
@@ -92,8 +96,13 @@ const CartelPost = () => {
                 type="number"
                 name="medidas"
                 className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder={values.base+"+"+values.altura}
-                value={values.medidas}
+                placeholder="medidas"
+                value={
+                  a&&b?
+                  multiplicar(a,b)
+                  :
+                  0
+                }
                 onChange={handleChange}
             />
             <input
@@ -109,7 +118,12 @@ const CartelPost = () => {
                 name="valor"
                 className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 placeholder="valor"
-                value={values.valor}
+                value={
+                  resultado?
+                 multiplicar( multiplicar(resultado, costo), cantidad)
+                  :
+                  0
+                }
                 onChange={handleChange}
             />
             <input
@@ -117,7 +131,12 @@ const CartelPost = () => {
                 name="total"
                 className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 placeholder="total"
-                value={values.total}
+                value={
+                  resultado?
+                  multiplicar(resultado, costo)
+                  :
+                  0
+                }
                 onChange={handleChange}
             />
             <input
