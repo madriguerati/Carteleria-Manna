@@ -23,21 +23,24 @@ type UserStore = {
   users: any
   tokken: string
   success: boolean
+  error: boolean
   getUser: (user: string) => Promise<void>
   getUsers: (token: string, rol: string, sort: string, page: string, limit: string) => Promise<void>
-  // signup: (body: any) => Promise<void>
+  createNewUser: (body: any) => Promise<void>
   signin: (body: UserLogin) => Promise<void>
   logout: () => void
+  closeModal: () => void
   verificated: any
 }
 
 const useUser = create<UserStore>()(
   devtools((set) => ({
-    //states
+    //inicial state
     user: {},
     users: [],
     tokken: '',
     success: false,
+    error: false,
 
     //actions
     getUser: async (token) => {
@@ -59,11 +62,16 @@ const useUser = create<UserStore>()(
       const { data } = await axios.get(`http://localhost:5000/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}`, { headers: { "x-access-token": token} } )
       set((state) => ({ users: (state.users = data) }));
     },
-    // signup: async (body) => {
-    //   const { data } = await axios.post('http://localhost:5000/api/user/signUp', body);
-    //   localStorage.setItem('auth', JSON.stringify(data.token));
-    //   set((state) => ({ tokken: (state.tokken = data.token) }));
-    // },
+    createNewUser: async (body) => {
+      try {
+        await axios.post('http://localhost:5000/api/user/signUp', body);
+        set({ success: true})
+        set({ error: false})
+      } catch (error) {
+        set({ error: true})
+        set({ success: false})
+      }
+    },
     signin: async (body) => {
       const { data } = await axios.post('http://localhost:5000/api/user/signIn', body);
       localStorage.setItem('auth', JSON.stringify(data.token));
@@ -72,6 +80,10 @@ const useUser = create<UserStore>()(
     logout: () => {
       localStorage.removeItem('auth');
       set({ tokken: '' });
+    },
+    closeModal: () => {
+      set({ error: false})
+      set({ success: false})
     },
     verificated: (token: any) => {
       set((state) => ({ tokken: (state.tokken = token) }));
