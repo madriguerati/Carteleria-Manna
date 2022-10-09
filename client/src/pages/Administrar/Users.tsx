@@ -3,7 +3,7 @@ import Layout from "./../../components/Layout/index";
 import { useEffect, useState } from "react";
 import useLocalStorage from "./../../hooks/useLocalStorage";
 import Modal from "../../components/Modal";
-import Register from './../Register';
+import CreateNewUser from "../../components/CreateNewUser";
 
 const Users = () => {
 	const { getUsers, users } = useUser((state) => state);
@@ -16,7 +16,7 @@ const Users = () => {
 
 	useEffect(() => {
 		getUsers(token, rol, sort, page, limit);
-	}, [users]);
+	}, []);
 
 	return (
 		<Layout>
@@ -168,13 +168,13 @@ const Users = () => {
 					</div>
 				</div>
 				<button
-					className='bg-green-700 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+					className='bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
 					onClick={() => setShowModal(true)}
 				>
 					<span className='text-white'>Crear nuevo usuario</span>
 				</button>
 				<Modal showModal={showModal} setShowModal={setShowModal} >
-					<Register showModal={showModal} setShowModal={setShowModal}/>
+					<CreateNewUser setShowModal={setShowModal}/>
 				</Modal>
 			</div>
 		</Layout>

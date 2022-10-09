@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Register from "../pages/Register";
+import Register from "../components/CreateNewUser";
 import Login from "./../pages/Login";
 
 const AuthRouter = () => {

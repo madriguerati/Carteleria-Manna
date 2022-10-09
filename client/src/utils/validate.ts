@@ -4,9 +4,14 @@ export const validateInfo = (values: any) => {
   if (!values.username.trim()) {
     errors.username = 'Se requiere un nombre de usuario';
   }
-  // else if (!/^[A-Za-z]+/.test(values.name.trim())) {
-  //   errors.name = 'Enter a valid name';
-  // }
+
+  if (!values.name.trim()) {
+    errors.name = 'Se requiere un nombre';
+  }
+
+  if (!values.lastname.trim()) {
+    errors.lastname = 'Se requiere un apellido';
+  }
 
   if (!values.email) {
     errors.email = 'Se requiere correo electronico';
