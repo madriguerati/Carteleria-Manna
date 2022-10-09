@@ -1,11 +1,17 @@
 import config from '../../../config/ConfigEntorno/config';
 import { IUser } from '../../../Models/user';
-import jwt from 'jsonwebtoken';
+import jwt, { sign } from 'jsonwebtoken';
 
 function createToken(user: IUser) {
-    return jwt.sign({ id: user.id }, config.jwtSecret, {
-      expiresIn: 86400
-    });
+  const accessToken = sign({
+    id: user.id
+  }, config.jwtSecret, {expiresIn: 86400});
+
+  const refreshToken = sign({
+    id: user.id
+  }, "refresh_secret", {expiresIn: '1w'});
+
+  return { accessToken, refreshToken };
   }
 
   export default createToken;

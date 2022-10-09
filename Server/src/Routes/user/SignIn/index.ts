@@ -21,8 +21,8 @@ router.post('/signIn', async(req, res, next) =>{
     
       const isMatch = await user.comparePassword(req.body.password);
       if (isMatch) {
-        return res.status(200).json({ token: createToken(user) });
-        console.log(user)
+        const { accessToken, refreshToken } = createToken(user);
+        return res.status(200).json({ accessToken, refreshToken });
       }
     
       return res.status(400).json({

@@ -6,6 +6,7 @@ const router = Router();
 //user
 import SignUp from './user/SignUp'
 import SignIn from './user/SignIn'
+import RefreshToken from './user/RefreshToken'
 import GetUser from './user/getUsers'
 import PutUserDatos from './user/PutUserDatos'
 import PutRoleUser from './user/PutRoleUser'
@@ -18,6 +19,7 @@ import DeleteUserById from './user/deleteUserById'
 
 router.use('/user', SignUp)
 router.use('/user', SignIn)
+router.use('/user', RefreshToken)
 router.use('/user', verifyToken, GetUserById)
 router.use('/user', verifyToken, isGerente, GetUser)
 router.use('/user', verifyToken, isGerente, PutUserDatos)
