@@ -1,19 +1,30 @@
-import { useEffect, useState } from 'react';
-import PrincipalRoute from './routers/PrincipalRoute';
-import useUser from './store/user';
-import useLocalStorage from './hooks/useLocalStorage';
+import { useEffect, useState } from "react";
+import PrincipalRoute from "./routers/PrincipalRoute";
+import useUser from "./store/user";
+import useLocalStorage from "./hooks/useLocalStorage";
 
-function App() { 
-  const { verificated } = useUser((state) => state);
-  const [ token ] = useLocalStorage();
+function App() {
+	const { verificated, updateToken } = useUser((state) => state);
+	const [accessToken, refreshToken] = useLocalStorage();
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    token && verificated(token);
-  }, [token]);
+	useEffect(() => {
+		accessToken && verificated(accessToken);
+	}, [accessToken]);
 
-  return (
-    <PrincipalRoute />
-  )
+	useEffect(() => {
+		accessToken && updateToken(refreshToken);
+	}, [])
+
+	useEffect(() => {
+    const oneHour = 3600000
+		let interval = setInterval(() => {
+			accessToken && updateToken(refreshToken);
+		}, oneHour);
+		return () => clearInterval(interval);
+	}, [accessToken]);
+
+	return <PrincipalRoute />;
 }
 
-export default App
+export default App;

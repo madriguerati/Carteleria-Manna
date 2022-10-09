@@ -11,22 +11,24 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { BiMessageSquareDots } from "react-icons/bi";
 import useUser from "./../../store/user";
-import { useEffect, Fragment, useState } from "react";
+import { useEffect, Fragment, useState, useMemo } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { Link }from 'react-router-dom';
 
 const Sidebar = () => {
 	const [ show, setShow ] = useState(false)
 	const { getUser, user, logout } = useUser((state) => state);
-	const [token] = useLocalStorage();
+	const [accessToken] = useLocalStorage();
 
 	useEffect(() => {
-		getUser(token);
-	}, [token]);
+		getUser(accessToken);
+	}, [accessToken]);
+
+	
 
 	const AdminOptions = ['Clientes', 'Insumos', 'Proveedores', 'Usuarios']
 
-	console.log(token, "user");
+	console.log(accessToken, "user");
 	return (
 		<div>
 			<nav>
