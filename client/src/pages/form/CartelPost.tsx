@@ -28,13 +28,14 @@ const CartelPost = () => {
         insumos: [],
     });
     const [addInsumo, setAddInsumo] = useState({
+      costo:'',
       cant1faz:'',
       result1faz:'',
       cant2faz:'',
       result2faz:'',
       unidades:''
   });
-  const [valoresInsumo, setValoresInsumo] = useState({})
+  const [valoresInsumo, setValoresInsumo] = useState()
 
     const multiplicar = (a: number, b: number): number => {
       return a * b;
@@ -59,12 +60,10 @@ const CartelPost = () => {
  
 
   const handleSelect =(e:any)=> {
-    insumos.find((element:any)=>{
-      if (element.name===e.target.value){
-        set
-      }
-    })
+    var valorInsumoNew = insumos.filter((element:any)=> element.name=== e.target.value)
+   
   }
+  const a:any = valorInsumoNew.costo
   
   return (
     <div className="flex">
@@ -130,7 +129,7 @@ const CartelPost = () => {
                 name="cantidad"
                 className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 placeholder="costo con 1 faz"
-                value={values.costo1}
+                value={}
                 onChange={handleChange}
             />
             <input
