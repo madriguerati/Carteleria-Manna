@@ -35,7 +35,7 @@ const CartelPost = () => {
       result2faz:'',
       unidades:''
   });
-  const [valoresInsumo, setValoresInsumo] = useState()
+  const [valoresInsumo, setValoresInsumo] = useState({})
 
     const multiplicar = (a: number, b: number): number => {
       return a * b;
@@ -60,10 +60,10 @@ const CartelPost = () => {
  
 
   const handleSelect =(e:any)=> {
-    var valorInsumoNew:any = insumos.filter((element:any)=> element.name=== e.target.value)
-   
+    const valorInsumoNew:any = insumos.filter((element:any)=> element.name=== e.target.value)
+    setValoresInsumo({valorInsumoNew})
+   console.log("hola", valoresInsumo)
   }
-  const a:any = valorInsumoNew.costo
 
   
   return (
@@ -130,7 +130,7 @@ const CartelPost = () => {
                 name="cantidad"
                 className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 placeholder="costo con 1 faz"
-                value={a}
+                value={values.costo1}
                 onChange={handleChange}
             />
             <input
