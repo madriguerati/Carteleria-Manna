@@ -60,10 +60,11 @@ const CartelPost = () => {
  
 
   const handleSelect =(e:any)=> {
-    var valorInsumoNew = insumos.filter((element:any)=> element.name=== e.target.value)
+    var valorInsumoNew:any = insumos.filter((element:any)=> element.name=== e.target.value)
    
   }
   const a:any = valorInsumoNew.costo
+
   
   return (
     <div className="flex">
@@ -129,7 +130,7 @@ const CartelPost = () => {
                 name="cantidad"
                 className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 placeholder="costo con 1 faz"
-                value={}
+                value={a}
                 onChange={handleChange}
             />
             <input
