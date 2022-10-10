@@ -34,7 +34,7 @@ const CartelPost = () => {
       result2faz:'',
       unidades:''
   });
-  const [valoresInsumo, setValoresInsumo] = useState()
+  const [valoresInsumo, setValoresInsumo] = useState({})
 
     const multiplicar = (a: number, b: number): number => {
       return a * b;
@@ -55,12 +55,15 @@ const CartelPost = () => {
   }
   useEffect(() => {
     getInsumos(accessToken)
-    console.log("mira esto"+insumos)
   }, [])
  
 
-  function handleSelect(e:any) {
-
+  const handleSelect =(e:any)=> {
+    insumos.find((element:any)=>{
+      if (element.name===e.target.value){
+        set
+      }
+    })
   }
   
   return (
