@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Users from "./../pages/Administrar/Users";
+import Insumos from "./../pages/Administrar/Insumos";
+
 import InsumoPost from '../pages/form/InsumoPost';
 import CartelPost from '../pages/form/CartelPost';
 
@@ -17,6 +19,8 @@ const AppRouter = () => {
 				element={
 					<Routes>
 						<Route path='/usuarios' element={<Users />} />
+						<Route path='/insumos' element={<Insumos />} />
+
 						
 
 					</Routes>
