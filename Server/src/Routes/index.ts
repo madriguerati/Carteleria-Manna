@@ -35,7 +35,7 @@ import DeleteInsumo from './insumo/deleteInsumo'
 import PutInsumo from './insumo/putInsumo'
 
 router.use('/insumo', verifyToken, isAdmin, isGerente, PostInsumo)
-router.use('/insumos', verifyToken, isGerente, GetInsumo)
+router.use('/insumos', verifyToken, isAdmin, isGerente, GetInsumo)
 router.use('/insumo', verifyToken, isAdmin, isGerente, DeleteInsumo)
 router.use('/insumo', verifyToken, isAdmin, isGerente, PutInsumo)
 

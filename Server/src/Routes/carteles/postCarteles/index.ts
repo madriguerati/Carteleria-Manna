@@ -5,9 +5,9 @@ import Carteles from '../../../Models/carteles'
 const router = Router();
 
 router.post('/create', async(req, res, next)=>{
-    const {cantidad, cartel, base, altura, medidas, faz, valor, total, estructura, archivo, otros} =req.body;
+    const {descripcion, costo1, costo2, insumos} =req.body;
     try{
-        const carteles = new Carteles({cantidad, cartel, base, altura, medidas, faz, valor, total, estructura, archivo, otros})
+        const carteles = new Carteles({descripcion, costo1, costo2, insumos:[insumos]})
         await carteles.save()
         res.status(201).json('cartel adherido correctamente')
     } catch (error){

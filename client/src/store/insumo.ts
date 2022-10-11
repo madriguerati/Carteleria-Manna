@@ -13,9 +13,12 @@ interface Insumo {
 
 type UserStore = {
   insumo: any
+  insumos:any
   tokken: any
   success: boolean
   postInsumo: (body:any, token:any) => Promise<void>
+  getInsumos: (token:any) => Promise<void>
+
 }
 
 
@@ -23,6 +26,7 @@ const useInusmo = create<UserStore>()(
     devtools((set) => ({
       //states
       insumo: {},
+      insumos:[],
       tokken: '',
       success: false,
   
@@ -35,6 +39,14 @@ const useInusmo = create<UserStore>()(
 
         const { data } = await axios.post('http://localhost:5000/api/insumo/create', body, { headers: { "x-access-token": token} });
 
+      },
+      getInsumos: async (token) => {
+        try{
+          const { data } = await axios.get('http://localhost:5000/api/insumos', { headers: { "x-access-token": token} } )
+          set((state) => ({ insumos: (state.insumos = data) }));
+        }catch(error){
+          console.log(error)
+        }
       }
      // verificated: (token: any) => {
        // set((state) => ({ tokken: (state.tokken = token) }));
