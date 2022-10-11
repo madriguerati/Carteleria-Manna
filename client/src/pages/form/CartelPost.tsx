@@ -17,17 +17,29 @@ const CartelPost = () => {
 
   const navigate = useNavigate();
 
+  var insumoparte: any = {};
+  var [costoInsumo, setCostoInsumo] = useState(0);
+  const [unidadInsumo, setUnidadInsumo] = useState(0);
+  var faz: any = ""
+  var name: any = ""
+  var arregloInsumos:any=[]
+
+//
+
   const [values, setValues] = useState({
+
     descripcion: "",
     costo1: "",
     costo2: "",
-    insumos: [],
+    insumos: [''],
   });
   const [addInsumo, setAddInsumo] = useState({
+    name:"",
     costo: "",
+    faz: "simple",
     cant1faz: "",
     cant2faz: "",
-    unidades: "",
+    unidad: "",
   });
 
   const multiplicar = (a: number, b: number): number => {
@@ -44,21 +56,34 @@ const CartelPost = () => {
 
 
   /** area de  insumos */
-  const handleSubmitInsumo = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    postCartel(values, accessToken);
-  };
+  const addInsumoCartel = ()=>{
+    setValues({
+      ... values,
+      [insumos]: addInsumo
+    })
+    console.log("hoal este es mi value", values.insumos, arregloInsumos)
+  }
+ 
 
   const handleChangeInsumo = (e: React.FormEvent<HTMLInputElement>): void => {
+    e.preventDefault()
     const { name, value } = e.currentTarget;
     setAddInsumo({
       ...addInsumo,
       [name]: value,
     });
+console.log("hola", value, insumos)
+    insumoparte = insumos.filter(
+      (element: any) => element.name === value
+    );
+    setCostoInsumo(insumoparte[0].costo);
+    setUnidadInsumo(insumoparte[0].unidad);
+ 
+    
   };
 
   const handleSelectInsumo = (e: any) => {
- 
+    
   };
   /** area de  insumos */
 
@@ -68,18 +93,15 @@ const CartelPost = () => {
   };
   useEffect(() => {
     getInsumos(accessToken);
+    console.log("hola", addInsumo, values)
   }, []);
 
-  var insumoparte: any = {};
-  const [costoInsumo, setCostoInsumo] = useState(0);
-  const [unidadInsumo, setUnidadInsumo] = useState(0);
 
-  const handleSelect = (e: any) => {
-    insumoparte = insumos.filter(
-      (element: any) => element.name === e.target.value
-    );
-    setCostoInsumo(insumoparte[0].costo);
-    setUnidadInsumo(insumoparte[0].unidad);
+
+  const handleSelectFaz = (e: any) => {
+  faz = e.target.value
+  name= insumoparte[0].name
+
   };
 
   return (
@@ -115,16 +137,22 @@ const CartelPost = () => {
                 value={values.costo2}
                 onChange={handleChange}
               />
-              <br />
+              <button
+                type="submit"
+                className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center justify-center items-center font-medium focus:outline-none"
+              >
+                crear cartel
+              </button>
+            </form>
 
-              <form onSubmit={handleSubmitInsumo} className="flex flex-col mt-4">
+            <div className="flex flex-col mt-4">
                 <div className="flex">
                   <select
-                    onChange={(element) => handleSelect(element)}
-                    
+                    onChange={handleChangeInsumo}
+                    name="name"
                     className="px-4  py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                   >
-                    <option selected="false" disabled>
+                    <option  disabled>
                       Seleccionar insumo
                     </option>
                     {insumos.map((e: any) => (
@@ -136,23 +164,36 @@ const CartelPost = () => {
                 <div className="flex">
                   <input
                     type="number"
-                    name="costo2"
+                    name="costo"
                     className="px-1 mx-3 py-1 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                    placeholder="unidad"
-                    value={costoInsumo}
+                    placeholder="costo"
+                    value={
+                      costoInsumo?
+                      addInsumo.costo=costoInsumo
+                      :
+                      "no hay costo del insumo"
+                    }
                     onChange={handleChangeInsumo}
                   />
                   <input
                     type="number"
-                    name="costo2"
+                    name="unidad"
                     className="px-1 mx-3 py-1 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                     placeholder="unidad"
-                    value={unidadInsumo}
+                    value={
+                      unidadInsumo?
+                      addInsumo.unidad=unidadInsumo
+                      :
+                      "hola"
+                    }
                     onChange={handleChangeInsumo}
                   />
 
                   <select
-                  onChange={(element) => handleSelectInsumo(element)}
+                  name="faz"
+                  value={addInsumo.faz}
+                  selected={false} 
+                  onChange={handleChangeInsumo}
                   >
                     <option disabled>Seleccionar insumo</option>
                     <option value="simple">simple</option>
@@ -163,7 +204,7 @@ const CartelPost = () => {
                 <div className="flex">
                   <input
                     type="number"
-                    name={addInsumo.cant1faz}
+                    name="cant1faz"
                     className="px-1 mx-3 py-1 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                     placeholder="unidad 1 faz"
                     value={addInsumo.cant1faz}
@@ -171,30 +212,20 @@ const CartelPost = () => {
                   />
                   <input
                     type="number"
-                    name={addInsumo.cant2faz}
+                    name="cant2faz"
                     className="px-1 mx-3 py-1 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                     placeholder="unidad 2 faz"
-                    value={addInsumo.cant1faz}
+                    value={addInsumo.cant2faz}
                     onChange={handleChangeInsumo}
                   />
                 </div>
                 <button
-                  type="submit"
+                onClick={addInsumoCartel}
                   className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
                 >
                   crear insumo
                 </button>
-              </form>
-
-              <br />
-
-              <button
-                type="submit"
-                className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center justify-center items-center font-medium focus:outline-none"
-              >
-                crear cartel
-              </button>
-            </form>
+              </div>
           </div>
         </div>
       </div>
