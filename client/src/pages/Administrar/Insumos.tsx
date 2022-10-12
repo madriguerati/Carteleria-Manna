@@ -3,23 +3,31 @@ import Layout from "./../../components/Layout/index";
 import { useEffect, useState } from "react";
 import useLocalStorage from "./../../hooks/useLocalStorage";
 import Modal from "../../components/Modal";
-import CreateNewUser from "../../components/CreateNewUser";
 import InsumoPost from "../form/InsumoPost";
+import { AiFillDelete } from 'react-icons/Ai';
+import { AiFillEdit } from 'react-icons/Ai';
+import { AiOutlineSearch} from 'react-icons/Ai';
+
+
 
 const Users = () => {
-	const { getInsumos, insumos } = useInsumo((state) => state);
+	const { getInsumos, insumos, deleteIsumos } = useInsumo((state) => state);
 	const [token] = useLocalStorage();
 	const [rol, setRol] = useState("");
 	const [sort, setSort] = useState("");
 	const [page, setPage] = useState("");
 	const [limit, setLimit] = useState("");
 	const [showModal, setShowModal] = useState(false);
+	const [params, setParams]= useState("")
 
 	useEffect(() => {
 		getInsumos(token);
         console.log(insumos)
 	}, []);
-
+	const DeleteInsumos= (insumo:any)=>{
+		deleteIsumos(insumo._id, token)
+		getInsumos(token)
+	}
 	return (
 		<Layout>
 			<div className='container mx-auto px-4 sm:px-8'>
@@ -162,17 +170,17 @@ const Users = () => {
 											</td>
 											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
 												<p className='text-gray-900 whitespace-no-wrap'>
-													ver
+												<AiOutlineSearch/>
 												</p>
 											</td>
 											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
 												<p className='text-gray-900 whitespace-no-wrap'>
-													editar
+													<AiFillEdit/>
 												</p>
 											</td>
 											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													eliminar
+												<p className='text-gray-900 whitespace-no-wrap'  onClick={()=>DeleteInsumos(insumo)}>
+													<AiFillDelete/>
 												</p>
 											</td>
 										</tr>
