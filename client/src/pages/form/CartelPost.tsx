@@ -8,7 +8,7 @@ import useLocalStorage from "./../../hooks/useLocalStorage";
 
 const CartelPost = () => {
   const { cartel, success, postCartel } = useCartel((state) => state);
-
+  console.log("hola")
   const [accessToken] = useLocalStorage();
 
   const { insumos, getInsumos } = useInsumo((state) => state);
