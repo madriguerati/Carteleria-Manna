@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useLocalStorage from "./../../hooks/useLocalStorage";
 import Modal from "../../components/Modal";
 import CreateNewUser from "../../components/CreateNewUser";
+import InsumoPost from "../form/InsumoPost";
 
 const Users = () => {
 	const { getInsumos, insumos } = useInsumo((state) => state);
@@ -173,7 +174,7 @@ const Users = () => {
 					<span className='text-white'>+ INSUMO</span>
 				</button>
 				<Modal showModal={showModal} setShowModal={setShowModal} >
-					<CreateNewUser setShowModal={setShowModal}/>
+					<InsumoPost setShowModal={setShowModal}/>
 				</Modal>
 			</div>
 		</Layout>

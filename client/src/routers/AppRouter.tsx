@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 import Users from "./../pages/Administrar/Users";
 import Insumos from "./../pages/Administrar/Insumos";
 
-import InsumoPost from '../pages/form/InsumoPost';
+//import InsumoPost from '../pages/form/InsumoPost';
 import CartelPost from '../pages/form/CartelPost';
 
 
@@ -11,7 +11,7 @@ const AppRouter = () => {
 	return (
 		<Routes>
 			<Route path='/' element={<Home />} />
-			<Route path='/insumos/post' element={<InsumoPost />} />
+			
 			<Route path='/cartel/post' element={<CartelPost />} />
 
 			<Route

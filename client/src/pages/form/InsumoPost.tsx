@@ -6,9 +6,14 @@ import useUser from '../../store/user';
 
 
 
-const InsumoPost = () => {
+type Props = {
+	setShowModal: any;
+};
+const InsumoPost = ({ setShowModal }: Props) => {
+  
 
-    const { insumo, success, postInsumo} = useInsumo((state) => state);
+    const { insumo, success, postInsumo, closeModal} = useInsumo(
+      (state) => state);
     const { tokken} = useUser((state) => state);
 
     
@@ -32,6 +37,11 @@ const InsumoPost = () => {
     });
   };
 
+  const handleCloseModal = () => {
+		setShowModal(false);
+		closeModal();
+	};
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
         postInsumo(values, tokken)
@@ -46,10 +56,16 @@ const InsumoPost = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen flex justify-center items-center p-4">
-      <div className="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0  bg-[#77B327]">
+      <>
+      <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0'>
+      <button
+					className='absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300'
+					onClick={handleCloseModal}
+				>
+					x
+				</button>
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-4xl text-center font-bold">Crear/actualizar Insumo</h1>
+          <h1 className="text-4xl text-center font-bold">Crear Insumo</h1>
           <form onSubmit={handleSubmit} className="flex flex-col mt-4">
             <input
                 type="text"
@@ -101,7 +117,7 @@ const InsumoPost = () => {
           </form>
         </div>
       </div>
-    </div>
+    </>
     </>
   )
 }
