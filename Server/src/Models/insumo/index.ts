@@ -3,10 +3,9 @@ import  mongoose,  {model, Document, Schema} from'mongoose';
 export interface IInsumos extends mongoose.Document{
     name: string,
     descripcion: string,
-    unidad: string,
+    unidad: Number,
     costo: Number,
-    category: string,
-    proveedor: string
+    category: string
 };
 
 
@@ -35,12 +34,7 @@ const insumoSchema = new Schema(
         category:{
             type: [String],
             required: true
-        },
-        proveedor:
-        {
-            type: String,
-            request: true
-        },
+        }
     },
     {
         timestamps: true,

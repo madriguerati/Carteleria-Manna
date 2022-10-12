@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useInsumo from '../../store/insumo';
 import useUser from '../../store/user';
-import useLocalStorage from "./../../hooks/useLocalStorage";
 
 
 
@@ -15,8 +14,7 @@ const InsumoPost = ({ setShowModal }: Props) => {
 
     const { insumo, success, postInsumo, closeModal} = useInsumo(
       (state) => state);
-      const [token] = useLocalStorage();
-
+    const { tokken} = useUser((state) => state);
 
     
     const navigate = useNavigate();
@@ -27,7 +25,6 @@ const InsumoPost = ({ setShowModal }: Props) => {
       unidad:'',
       costo:'',
       category:'',
-      proveedor:''
     });
    
 
@@ -47,14 +44,13 @@ const InsumoPost = ({ setShowModal }: Props) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-        postInsumo(values, token)
+        postInsumo(values, tokken)
         setValues({
           name:'',
           descripcion:'',
           unidad:'',
           costo:'',
           category:'',
-          proveedor:''
         })
   }
 
@@ -88,7 +84,7 @@ const InsumoPost = ({ setShowModal }: Props) => {
                 onChange={handleChange}
             />
             <input
-                type="text"
+                type="number"
                 name="unidad"
                 className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 placeholder="unidad"
@@ -109,14 +105,6 @@ const InsumoPost = ({ setShowModal }: Props) => {
                 className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 placeholder="categoría"
                 value={values.category}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="proveedor"
-                className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder="proveedor"
-                value={values.proveedor}
                 onChange={handleChange}
             />
             <button

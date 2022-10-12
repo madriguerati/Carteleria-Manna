@@ -3,31 +3,23 @@ import Layout from "./../../components/Layout/index";
 import { useEffect, useState } from "react";
 import useLocalStorage from "./../../hooks/useLocalStorage";
 import Modal from "../../components/Modal";
+import CreateNewUser from "../../components/CreateNewUser";
 import InsumoPost from "../form/InsumoPost";
-import { AiFillDelete } from 'react-icons/Ai';
-import { AiFillEdit } from 'react-icons/Ai';
-import { AiOutlineSearch} from 'react-icons/Ai';
-
-
 
 const Users = () => {
-	const { getInsumos, insumos, deleteIsumos } = useInsumo((state) => state);
+	const { getInsumos, insumos } = useInsumo((state) => state);
 	const [token] = useLocalStorage();
 	const [rol, setRol] = useState("");
 	const [sort, setSort] = useState("");
 	const [page, setPage] = useState("");
 	const [limit, setLimit] = useState("");
 	const [showModal, setShowModal] = useState(false);
-	const [params, setParams]= useState("")
 
 	useEffect(() => {
 		getInsumos(token);
         console.log(insumos)
 	}, []);
-	const DeleteInsumos= (insumo:any)=>{
-		deleteIsumos(insumo._id, token)
-		getInsumos(token)
-	}
+
 	return (
 		<Layout>
 			<div className='container mx-auto px-4 sm:px-8'>
@@ -110,18 +102,6 @@ const Users = () => {
 										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
 											categoria
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											proveedor
-										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											ver
-										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											editar
-										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											eliminar
-										</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -159,29 +139,13 @@ const Users = () => {
 												</p>
 											</td>
 											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													{insumo.category}
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													{insumo.proveedor}
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-												<AiOutlineSearch/>
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													<AiFillEdit/>
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'  onClick={()=>DeleteInsumos(insumo)}>
-													<AiFillDelete/>
-												</p>
+												<span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+													<span
+														aria-hidden
+														className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
+													></span>
+													<span className='relative'>{insumo.categoria}</span>
+												</span>
 											</td>
 										</tr>
 									))}
