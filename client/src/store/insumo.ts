@@ -18,7 +18,7 @@ type UserStore = {
   success: boolean
   postInsumo: (body:any, token:any) => Promise<void>
   getInsumos: (token:any) => Promise<void>
-
+  closeModal: () => void
 }
 
 
@@ -47,7 +47,11 @@ const useInusmo = create<UserStore>()(
         }catch(error){
           console.log(error)
         }
-      }
+      },
+      closeModal: () => {
+        //set({ error: false})
+        set({ success: false})
+      },
      // verificated: (token: any) => {
        // set((state) => ({ tokken: (state.tokken = token) }));
     //},
