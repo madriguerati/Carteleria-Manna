@@ -7,7 +7,8 @@ interface Insumo {
   descripcion: string,
   unidad: number,
   costo: number,
-  category: string[]
+  category: string[],
+  proveedor:string
 }
 
 
