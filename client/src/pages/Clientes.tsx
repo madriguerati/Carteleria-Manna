@@ -15,10 +15,15 @@ import {
 	MdExpandMore,
 } from "react-icons/md";
 import Loader from "../components/Loader";
+import useHeaders from "../hooks/useHeaders";
+import useClients from "../store/clientes";
+import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
+  const { clients, getClients } = useClients((state) => state);
 	const [accessToken] = useLocalStorage();
+  const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
 	const [sort, setSort] = useState("");
 	const [page, setPage] = useState(1);
@@ -35,6 +40,12 @@ const Clientes = () => {
 	useEffect(() => {
 		getUsers(accessToken, rol, sort, page, limit);
 	}, [rol, sort, page, limit]);
+
+  useEffect(() => {
+    getClients(headers)
+  }, [])
+
+  console.log(clients)
 
 	const nextPage = (): void => {
 		page < users.totalPages && setPage(page + 1);
@@ -183,7 +194,7 @@ const Clientes = () => {
 											onClick={sortByUsername}
 										>
 											<div className='flex justify-between gap-2'>
-												Usuario
+												Nombre
 												<div
 													className={`${
 														sortUsername === null && "opacity-0"
@@ -211,7 +222,7 @@ const Clientes = () => {
 											onClick={sortByName}
 										>
 											<div className='flex justify-between gap-2'>
-												Nombre
+												Telefono
 												<div
 													className={`${
 														sortName === null && "opacity-0"
@@ -235,7 +246,7 @@ const Clientes = () => {
 											onClick={sortByLastName}
 										>
 											<div className='flex justify-between gap-2'>
-												Apellido
+												Dirección
 												<div
 													className={`${
 														sortLastName === null && "opacity-0"
@@ -262,64 +273,60 @@ const Clientes = () => {
 											Email
 										</th>
 										<th className='px-3 py-3 border-b-2 border-gray-200  tracking-wider'>
-											Rol
+											CUIT
 										</th>
 										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
-											Stado
+											Condición I.V.A
 										</th>
 									</tr>
 								</thead>
 								{
 									<tbody>
-										{users.users?.map((user: any, index: number) => (
+										{clients?.map((client: any, index: number) => (
 											<tr
-												key={user._id}
+												key={client._id}
 												className={`border-b border-gray-200 text-base ${
 													index % 2 === 0 ? "bg-white" : "bg-gray-50"
 												} hover:bg-gray-100`}
 											>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
-														{user.username}
+														{client.name}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{user.name}
+														{client.telefono}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{user.lastname}
+														{client.direccion}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
-														{user.email}
+														{client.email}
+													</p>
+												</td>
+                        <td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap'>
+														{client.cuit}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{user.roles.map(
+														{client.condicioniva.map(
 															(
-																role: { _id: number; name: string },
+																role: string,
 																index: number
 															) => (
-																<Fragment key={index + role._id}>
-																	{role.name + "\n"}
+																<Fragment key={index + role}>
+																	{role + "\n"}
 																</Fragment>
 															)
 														)}
 													</p>
-												</td>
-												<td className='px-3 py-2'>
-													<span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
-														<span
-															aria-hidden
-															className='absolute inset-0 bg-green-100 rounded-full'
-														></span>
-														<span className='relative'>Activo</span>
-													</span>
 												</td>
 											</tr>
 										))}
@@ -378,12 +385,12 @@ const Clientes = () => {
 						onClick={() => setShowModal(true)}
 					>
 						<span className='text-white flex items-center gap-2'>
-							Crear nuevo usuario <MdOutlineAdd className='text-xl' />
+							Agregar nuevo cliente <MdOutlineAdd className='text-xl' />
 						</span>
 					</button>
 				</div>
 				<Modal showModal={showModal} setShowModal={setShowModal}>
-					<CreateNewUser setShowModal={setShowModal} />
+					<AddNewClient setShowModal={setShowModal} />
 				</Modal>
 			</div>
 		</Layout>

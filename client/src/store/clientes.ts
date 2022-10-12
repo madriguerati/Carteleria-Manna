@@ -3,12 +3,12 @@ import axios from "axios";
 import { devtools } from "zustand/middleware";
 
 interface Headers {
-	headers: { token: string };
+	"x-access-token": { token: string };
 }
 
 type ClientStore = {
 	clients: [];
-	getClients: (headers: Headers) => Promise<void>;
+	getClients: (headers: {}) => Promise<void>;
 };
 
 const useClients = create<ClientStore>()(
