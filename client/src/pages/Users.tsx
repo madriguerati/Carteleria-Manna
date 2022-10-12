@@ -4,7 +4,7 @@ import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import CreateNewUser from "../components/CreateNewUser";
-import shallow from "zustand/shallow";
+//import shallow from "zustand/shallow";
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,
@@ -17,7 +17,7 @@ import {
 import Loader from "../components/Loader";
 
 const Users = () => {
-	const { users, getUsers } = useUser((state) => state, shallow);
+	const { users, getUsers } = useUser((state) => state);
 	const [accessToken] = useLocalStorage();
 	const [rol, setRol] = useState("");
 	const [sort, setSort] = useState("");
