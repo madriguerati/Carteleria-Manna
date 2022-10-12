@@ -7,7 +7,8 @@ interface Insumo {
   descripcion: string,
   unidad: number,
   costo: number,
-  category: string[]
+  category: string[],
+  proveedor: string
 }
 
 
@@ -18,6 +19,7 @@ type UserStore = {
   success: boolean
   postInsumo: (body:any, token:any) => Promise<void>
   getInsumos: (token:any) => Promise<void>
+  deleteIsumos: (params:any, token:any)=> Promise<void>
   closeModal: () => void
 }
 
@@ -47,6 +49,13 @@ const useInusmo = create<UserStore>()(
         }catch(error){
           console.log(error)
         }
+      },
+      deleteIsumos: async (params, token)=>{
+        let headers:any = {
+          "x-access-token" : token
+        };
+        const { data } = await axios.delete(`http://localhost:5000/api/insumo/${params}`,  { headers: { "x-access-token": token} });
+  
       },
       closeModal: () => {
         //set({ error: false})
