@@ -88,8 +88,6 @@ const CreateNewUser = ({ setShowModal }: Props) => {
 			});
 	}, [success]);
 
-	console.log(values, 'valores')
-
 	return (
 		<div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
 			<div className='p-6 space-y-4 sm:p-8'>

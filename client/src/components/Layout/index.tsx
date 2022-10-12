@@ -6,7 +6,7 @@ const Layout = ({ children } : any) => {
   return (
     <>
       {/* <Navbar /> */}
-      <Sidebar />
+      {/* <Sidebar /> */}
       <main className='ml-0 lg:ml-60 '>
       {children}
       </main>

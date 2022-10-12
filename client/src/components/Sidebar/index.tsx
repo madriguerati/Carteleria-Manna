@@ -11,7 +11,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { BiMessageSquareDots } from "react-icons/bi";
 import useUser from "./../../store/user";
-import { useEffect, Fragment, useState, useMemo } from "react";
+import { useEffect, Fragment, useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { Link }from 'react-router-dom';
 
@@ -22,13 +22,10 @@ const Sidebar = () => {
 
 	useEffect(() => {
 		getUser(accessToken);
-	}, [accessToken]);
-
-	
+	}, []);
 
 	const AdminOptions = ['Clientes', 'Insumos', 'Proveedores', 'Usuarios']
 
-	console.log(accessToken, "user");
 	return (
 		<div>
 			<nav>
@@ -81,7 +78,7 @@ const Sidebar = () => {
 							<div className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
 								<MdOutlineIntegrationInstructions className='text-2xl text-gray-500 group-hover:text-white ' />
 								<h3 className='text-base text-gray-400 group-hover:text-white font-semibold '>
-									Reportes{user.username}
+									Reportes
 								</h3>
 							</div>
 						</div>
@@ -111,13 +108,13 @@ const Sidebar = () => {
 								>
 									<Menu.Items className='absolute left-6 mt-2 w-48 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
 										<div className='px-1 py-1 '>
-											{AdminOptions.map((item: string) => (
-												<Menu.Item>
+											{AdminOptions.map((item: string, index: number) => (
+												<Menu.Item key={index + item}>
 													{({ active }) => (
-														<Link to={`/admin/${item.toLocaleLowerCase()}`}
+														<Link to={`/${item.toLocaleLowerCase()}`}
 															className={`${
 																active
-																	? "bg-violet-500 text-white"
+																	? "bg-red-600 text-white"
 																	: "text-gray-900"
 															} group flex w-full px-8 items-center rounded-md px-2 py-2 text-base font-semibold`}
 														>

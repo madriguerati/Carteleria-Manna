@@ -8,9 +8,9 @@ function App() {
 	const [accessToken, refreshToken] = useLocalStorage();
 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		accessToken && verificated(accessToken);
-	}, [accessToken]);
+	// useEffect(() => {
+	// 	accessToken && verificated(accessToken);
+	// }, [accessToken]);
 
 	useEffect(() => {
 		accessToken && updateToken(refreshToken);
