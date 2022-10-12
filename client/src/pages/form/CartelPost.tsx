@@ -176,7 +176,7 @@ console.log("hola", value, insumos)
                     onChange={handleChangeInsumo}
                   />
                   <input
-                    type="string"
+                    type="number"
                     name="unidad"
                     className="px-1 mx-3 py-1 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                     placeholder="unidad"
