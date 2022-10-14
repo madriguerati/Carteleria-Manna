@@ -323,7 +323,7 @@ const Clientes = () => {
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteClients(insumo)}>
+													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteInsumos(insumo)}>
 														<AiFillDelete/>
 													</p>
 												</td>
