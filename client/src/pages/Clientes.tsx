@@ -20,10 +20,10 @@ import useClients from "../store/clientes";
 import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
-  const { users, getUsers } = useUser((state) => state, shallow);
-  const { clients, getClients } = useClients((state) => state);
+	const { users, getUsers } = useUser((state) => state, shallow);
+	const { clients, getClients, loading } = useClients((state) => state);
 	const [accessToken] = useLocalStorage();
-  const headers = useHeaders(accessToken);
+	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
 	const [sort, setSort] = useState("");
 	const [page, setPage] = useState(1);
@@ -36,16 +36,12 @@ const Clientes = () => {
 	const [sortLastName, setSortLastName] = useState<null | boolean>(
 		null
 	);
-
+	
 	useEffect(() => {
-		getUsers(accessToken, rol, sort, page, limit);
-	}, [rol, sort, page, limit]);
+		getClients(headers);
+	}, []);
 
-  useEffect(() => {
-    getClients(headers)
-  }, [])
-
-  console.log(clients)
+	console.log(clients);
 
 	const nextPage = (): void => {
 		page < users.totalPages && setPage(page + 1);
@@ -68,13 +64,6 @@ const Clientes = () => {
 	): void => {
 		let { value } = e.currentTarget;
 		setLimit(Number(value));
-	};
-
-	const handleRoles = (
-		e: React.ChangeEvent<HTMLSelectElement>
-	): void => {
-		let { value } = e.currentTarget;
-		setRol(value);
 	};
 
 	const sortByUsername = (): void => {
@@ -112,8 +101,8 @@ const Clientes = () => {
 		setSortUsername(null);
 		setSortName(null);
 	};
-  return (
-    <Layout>
+	return (
+		<Layout>
 			<div className='xl:container mx-auto px-4 sm:px-8'>
 				<div className='py-3'>
 					<div className='bg-[#77B327] h-16 flex items-center rounded'>
@@ -143,21 +132,6 @@ const Clientes = () => {
 								</div>
 							</div>
 							<div className='relative'>
-								<select
-									className='appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500'
-									onChange={handleRoles}
-								>
-									<option value='all'>Todos</option>
-									{users.roles?.map((role: string, index: number) => (
-										<option
-											key={index + role}
-											value={role}
-											className='capitalize'
-										>
-											{role}
-										</option>
-									))}
-								</select>
 								<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
 									<svg
 										className='fill-current h-4 w-4'
@@ -309,7 +283,7 @@ const Clientes = () => {
 														{client.email}
 													</p>
 												</td>
-                        <td className='px-3 py-2'>
+												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
 														{client.cuit}
 													</p>
@@ -317,10 +291,7 @@ const Clientes = () => {
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
 														{client.condicioniva.map(
-															(
-																role: string,
-																index: number
-															) => (
+															(role: string, index: number) => (
 																<Fragment key={index + role}>
 																	{role + "\n"}
 																</Fragment>
@@ -333,7 +304,7 @@ const Clientes = () => {
 									</tbody>
 								}
 							</table>
-							{!users.users && (
+							{loading && (
 								<div>
 									<Loader />
 								</div>
@@ -385,7 +356,8 @@ const Clientes = () => {
 						onClick={() => setShowModal(true)}
 					>
 						<span className='text-white flex items-center gap-2'>
-							Agregar nuevo cliente <MdOutlineAdd className='text-xl' />
+							Agregar nuevo cliente{" "}
+							<MdOutlineAdd className='text-xl' />
 						</span>
 					</button>
 				</div>
@@ -394,7 +366,7 @@ const Clientes = () => {
 				</Modal>
 			</div>
 		</Layout>
-  )
-}
+	);
+};
 
-export default Clientes
+export default Clientes;
