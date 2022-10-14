@@ -21,12 +21,12 @@ const clientesSchema = new Schema(
         },
         telefono:
         {
-            type: Number,
+            type: String,
             required: true
         },
         cuit:
         {
-            type: Number,
+            type: String,
             required: true
         },
         direccion:
