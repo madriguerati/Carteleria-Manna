@@ -1,49 +1,135 @@
-import useInsumo from "../store/insumo";
+import useUser from "../store/user";
 import Layout from "../components/Layout/index";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
-import InsumoPost from "./form/InsumoPost";
+import AddNewInsumo from "../components/addNewInsumo";
+import shallow from "zustand/shallow";
+import useInsumo from "../store/insumo";
 import { AiFillDelete } from 'react-icons/Ai';
 import { AiFillEdit } from 'react-icons/Ai';
 import { AiOutlineSearch} from 'react-icons/Ai';
+import {
+	MdKeyboardArrowRight,
+	MdKeyboardArrowLeft,
+	MdLastPage,
+	MdFirstPage,
+	MdOutlineAdd,
+	MdExpandLess,
+	MdExpandMore,
+} from "react-icons/md";
+import Loader from "../components/Loader";
+import useHeaders from "../hooks/useHeaders";
+import useClients from "../store/clientes";
+import AddNewClient from "../components/AddNewClient";
 
-
-
-const Insumos = () => {
+const Clientes = () => {
+	const { users, getUsers } = useUser((state) => state, shallow);
 	const { getInsumos, insumos, deleteIsumos } = useInsumo((state) => state);
-	const [token] = useLocalStorage();
+	const [accessToken] = useLocalStorage();
+	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
 	const [sort, setSort] = useState("");
-	const [page, setPage] = useState("");
-	const [limit, setLimit] = useState("");
+	const [page, setPage] = useState(1);
+	const [limit, setLimit] = useState(10);
 	const [showModal, setShowModal] = useState(false);
-	const [params, setParams]= useState("")
-
+	const [sortUsername, setSortUsername] = useState<null | boolean>(
+		true
+	);
+	const [sortName, setSortName] = useState<null | boolean>(null);
+	const [sortLastName, setSortLastName] = useState<null | boolean>(
+		null
+	);
+	
 	useEffect(() => {
-		getInsumos(token);
-        console.log(insumos)
+		getInsumos(headers);
+		console.log("holaaaaaa",headers)
 	}, []);
+
+	//delete 
 	const DeleteInsumos= (insumo:any)=>{
-		deleteIsumos(insumo._id, token)
-		getInsumos(token)
+		deleteIsumos(insumo._id, headers)
+		getInsumos(headers)
 	}
+
+
+	const nextPage = (): void => {
+		page < users.totalPages && setPage(page + 1);
+	};
+
+	const prevPage = (): void => {
+		page > 1 && setPage(page - 1);
+	};
+
+	const firtPage = (): void => {
+		page !== 1 && setPage(1);
+	};
+
+	const lastPage = (): void => {
+		page !== users.totalPages && setPage(users.totalPages);
+	};
+
+	const userPerPage = (
+		e: React.ChangeEvent<HTMLSelectElement>
+	): void => {
+		let { value } = e.currentTarget;
+		setLimit(Number(value));
+	};
+
+	const sortByUsername = (): void => {
+		if (!sortUsername || sortUsername === null) {
+			setSort("username");
+			setSortUsername(true);
+		} else {
+			setSort("username,desc");
+			setSortUsername(false);
+		}
+		setSortName(null);
+		setSortLastName(null);
+	};
+
+	const sortByName = (): void => {
+		if (!sortName || sortName === null) {
+			setSort("name");
+			setSortName(true);
+		} else {
+			setSort("name,desc");
+			setSortName(false);
+		}
+		setSortUsername(null);
+		setSortLastName(null);
+	};
+
+	const sortByLastName = (): void => {
+		if (!sortLastName || sortLastName === null) {
+			setSort("lastname");
+			setSortLastName(true);
+		} else {
+			setSort("lastname,desc");
+			setSortLastName(false);
+		}
+		setSortUsername(null);
+		setSortName(null);
+	};
 	return (
 		<Layout>
-			<div className='container mx-auto px-4 sm:px-8'>
-				<div className='py-8'>
-					<div>
-						<h2 className='text-2xl font-semibold leading-tight'>
-						INSUMOS
+			<div className='xl:container mx-auto px-4 sm:px-8'>
+				<div className='py-3'>
+					<div className='bg-[#77B327] h-16 flex items-center rounded'>
+						<h2 className='px-4 sm:px-4 text-3xl text-zinc-800 font-semibold leading-tight'>
+							Insumos
 						</h2>
 					</div>
-					<div className='my-2 flex sm:flex-row flex-col'>
+					<div className='my-3 flex sm:flex-row flex-col'>
 						<div className='flex flex-row mb-1 sm:mb-0'>
 							<div className='relative'>
-								<select className='appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'>
-									<option>5</option>
-									<option>10</option>
-									<option>20</option>
+								<select
+									className='appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+									onChange={userPerPage}
+								>
+									<option value='10'>10</option>
+									<option value='15'>15</option>
+									<option value='20'>20</option>
 								</select>
 								<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
 									<svg
@@ -56,14 +142,6 @@ const Insumos = () => {
 								</div>
 							</div>
 							<div className='relative'>
-								<select className='appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500'>
-									<option>All</option>
-									{insumos.categoria?.map((categoria: string) => (
-										<option value='' className='capitalize'>
-											{categoria}
-										</option>
-									))}
-								</select>
 								<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
 									<svg
 										className='fill-current h-4 w-4'
@@ -85,136 +163,234 @@ const Insumos = () => {
 								</svg>
 							</span>
 							<input
-								placeholder='Search'
+								placeholder='Buscar'
 								className='appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none'
 							/>
 						</div>
 					</div>
-					<div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
+					<div className='-mx-4 sm:-mx-8 px-4 sm:px-8  overflow-x-auto'>
 						<div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
-							<table className='min-w-full leading-normal'>
+							<table className='min-w-full leading-normal relative'>
 								<thead>
-									<tr>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											nombre
+									<tr className='bg-gray-100 text-left text-gray-600 font-semibold uppercase'>
+										<th
+											className='hover:bg-gray-300 px-3 py-3 border-b-2 border-gray-200 cursor-pointer tracking-wider'
+											onClick={sortByUsername}
+										>
+											<div className='flex justify-between gap-2'>
+												Nombre
+												<div
+													className={`${
+														sortUsername === null && "opacity-0"
+													}`}
+												>
+													<MdExpandLess
+														className={`text-red-600 ${
+															sortUsername && sortUsername !== null
+																? "opacity-100"
+																: "opacity-40"
+														}`}
+													/>
+													<MdExpandMore
+														className={`-mt-2 text-red-600 ${
+															!sortUsername
+																? "opacity-100"
+																: "opacity-40"
+														}`}
+													/>
+												</div>
+											</div>
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											descripción
+										<th
+											className='hover:bg-gray-300 px-3 py-3 border-b-2 border-gray-200 cursor-pointer tracking-wider'
+											onClick={sortByName}
+										>
+											<div className='flex justify-between gap-2'>
+												descripción
+												<div
+													className={`${
+														sortName === null && "opacity-0"
+													}`}
+												>
+													<MdExpandLess
+														className={`text-red-600 ${
+															sortName ? "opacity-100" : "opacity-40"
+														}`}
+													/>
+													<MdExpandMore
+														className={`-mt-2 text-red-600 ${
+															!sortName ? "opacity-100" : "opacity-40"
+														}`}
+													/>
+												</div>
+											</div>
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											costo
+										<th
+											className='hover:bg-gray-300 px-3 py-3 border-b-2 border-gray-200 cursor-pointer tracking-wider'
+											onClick={sortByLastName}
+										>
+											<div className='flex justify-between gap-2'>
+											categoría
+												<div
+													className={`${
+														sortLastName === null && "opacity-0"
+													}`}
+												>
+													<MdExpandLess
+														className={`text-red-600 ${
+															sortLastName
+																? "opacity-100"
+																: "opacity-40"
+														}`}
+													/>
+													<MdExpandMore
+														className={`-mt-2 text-red-600 ${
+															!sortLastName
+																? "opacity-100"
+																: "opacity-40"
+														}`}
+													/>
+												</div>
+											</div>
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+										<th className='px-3 py-3 border-b-2 border-gray-20 tracking-wider'>
 											unidad
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-											categoria
+										<th className='px-3 py-3 border-b-2 border-gray-200  tracking-wider'>
+											costo
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
 											proveedor
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
 											ver
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
 											editar
 										</th>
-										<th className='px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
 											eliminar
 										</th>
 									</tr>
 								</thead>
-								<tbody>
-									{insumos?.map((insumo: any) => (
-										<tr>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<div className='flex items-center'>
-													{/* <div className='flex-shrink-0 w-10 h-10'>
-													<img
-														className='w-full h-full rounded-full'
-														src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80'
-														alt=''
-													/>
-												</div> */}
-													<div className='ml-3'>
-														<p className='text-gray-900 whitespace-no-wrap'>
-															{insumo.name}
-														</p>
-													</div>
-												</div>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													{insumo.descripcion}
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap capitalize'>
-													{insumo.costo}
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													{insumo.unidad}
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													{insumo.category}
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													{insumo.proveedor}
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-												<AiOutlineSearch/>
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'>
-													<AiFillEdit/>
-												</p>
-											</td>
-											<td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-												<p className='text-gray-900 whitespace-no-wrap'  onClick={()=>DeleteInsumos(insumo)}>
-													<AiFillDelete/>
-												</p>
-											</td>
-										</tr>
-									))}
-								</tbody>
+								{
+									<tbody>
+										{insumos?.map((insumo: any, index: number) => (
+											<tr
+												key={insumo._id}
+												className={`border-b border-gray-200 text-base ${
+													index % 2 === 0 ? "bg-white" : "bg-gray-50"
+												} hover:bg-gray-100`}
+											>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap'>
+														{insumo.name}
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														{insumo.descripcion}
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														{insumo.category}
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap'>
+														{insumo.unidad}
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap'>
+														{insumo.costo}
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														{insumo.proveedor}
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														<AiOutlineSearch/>
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														<AiFillEdit />
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteInsumos(insumo)}>
+														<AiFillDelete/>
+													</p>
+												</td>
+											</tr>
+										))}
+									</tbody>
+								}
 							</table>
-							<div className='px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          '>
-								<span className='text-xs xs:text-sm text-gray-900'>
-									Showing 1 to 4 of 50 Entries
-								</span>
-								<div className='inline-flex mt-2 xs:mt-0'>
-									<button className='text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l'>
-										Prev
+							
+							<div className='px-3 py-3 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between'>
+								<div className='flex gap-2 align-center items-center xs:mt-0'>
+									<button onClick={firtPage}>
+										<MdFirstPage
+											className={`text-2xl text-red-600 ${
+												page === 1 && "opacity-50"
+											}`}
+										/>
 									</button>
-									<button className='text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r'>
-										Next
+									<button onClick={prevPage}>
+										<MdKeyboardArrowLeft
+											className={`text-2xl text-red-600 ${
+												page === 1 && "opacity-50"
+											}`}
+										/>
+									</button>
+
+									<span className='text-base xs:text-xs text-gray-900'>
+										{`Página ${users.page} de ${users.totalPages}`}
+									</span>
+
+									<button onClick={nextPage}>
+										<MdKeyboardArrowRight
+											className={`text-2xl text-red-600 ${
+												page === users.totalPages && "opacity-50"
+											}`}
+										/>
+									</button>
+
+									<button onClick={lastPage}>
+										<MdLastPage
+											className={`text-2xl text-red-600 ${
+												page === users.totalPages && "opacity-50"
+											}`}
+										/>
 									</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<button
-					className='bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-					onClick={() => setShowModal(true)}
-				>
-					<span className='text-white'>+ INSUMO</span>
-				</button>
-				<Modal showModal={showModal} setShowModal={setShowModal} >
-					<InsumoPost setShowModal={setShowModal}/>
+				<div className='mb-5'>
+					<button
+						className='bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150'
+						onClick={() => setShowModal(true)}
+					>
+						<span className='text-white flex items-center gap-2'>
+							Agregar nuevo Insumo{" "}
+							<MdOutlineAdd className='text-xl' />
+						</span>
+					</button>
+				</div>
+				<Modal showModal={showModal} setShowModal={setShowModal}>
+					<AddNewInsumo setShowModal={setShowModal} />
 				</Modal>
 			</div>
 		</Layout>
 	);
 };
 
-export default Insumos;
+export default Clientes;
