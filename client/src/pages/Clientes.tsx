@@ -5,6 +5,9 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import CreateNewUser from "../components/CreateNewUser";
 import shallow from "zustand/shallow";
+import { AiFillDelete } from 'react-icons/Ai';
+import { AiFillEdit } from 'react-icons/Ai';
+import { AiOutlineSearch} from 'react-icons/Ai';
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,
@@ -21,7 +24,7 @@ import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
-	const { clients, getClients, loading } = useClients((state) => state);
+	const { clients, getClients, loading, deleteClients } = useClients((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -41,6 +44,12 @@ const Clientes = () => {
 		getClients(headers);
 	}, []);
 
+
+	//delete 
+	const DeleteClients= (client:any)=>{
+		deleteClients(client._id, headers)
+		getClients(headers)
+	}
 	console.log(clients);
 
 	const nextPage = (): void => {
@@ -252,6 +261,15 @@ const Clientes = () => {
 										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
 											Condición I.V.A
 										</th>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
+											ver
+										</th>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
+											editar
+										</th>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
+											eliminar
+										</th>
 									</tr>
 								</thead>
 								{
@@ -299,6 +317,22 @@ const Clientes = () => {
 														)}
 													</p>
 												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														<AiOutlineSearch/>
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														<AiFillEdit />
+													</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteClients(client)}>
+														<AiFillDelete/>
+													</p>
+												</td>
+												
 											</tr>
 										))}
 									</tbody>

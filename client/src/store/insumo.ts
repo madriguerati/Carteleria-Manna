@@ -22,9 +22,10 @@ type UserStore = {
   insumos:any
   tokken: any
   success: boolean
+  loading: boolean,
   postInsumo: (body:any, token:any) => Promise<void>
   getInsumos: (token:any) => Promise<void>
-  deleteIsumos: (params:any, token:any)=> Promise<void>
+  deleteIsumos: (params:any, headers:any)=> Promise<void>
   closeModal: () => void
 }
 
@@ -36,6 +37,7 @@ const useInusmo = create<UserStore>()(
       insumos:[],
       tokken: '',
       success: false,
+      loading: false,
   
       //actions
       postInsumo: async (body, token) => {
