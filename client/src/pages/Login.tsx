@@ -3,7 +3,7 @@ import { Link }  from 'react-router-dom';
 import useUser from '../store/user';
 
 const Login = () => {
-  const { tokken, verificated, signin } = useUser((state) => state);
+  const { signin } = useUser((state) => state);
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -20,9 +20,7 @@ const Login = () => {
   const handleLogingSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     signin(values)
-    verificated(tokken)
   };
-  console.log(values, tokken)
 
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center p-4">

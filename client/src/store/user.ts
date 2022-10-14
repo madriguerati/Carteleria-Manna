@@ -21,6 +21,7 @@ interface UserLogin {
 type UserStore = {
 	user: any;
 	users: any;
+	isLogged: boolean;
 	success: boolean;
 	error: boolean;
 	loading: boolean;
@@ -44,6 +45,7 @@ const useUser = create<UserStore>()(
 		//inicial state
 		user: {},
 		users: [],
+		isLogged: false,
 		success: false,
 		error: false,
 		loading: false,
@@ -82,11 +84,16 @@ const useUser = create<UserStore>()(
 			}
 		},
 		signin: async (body) => {
-			const { data } = await axios.post(
-				"http://localhost:5000/api/user/signIn",
-				body
-			);
-			localStorage.setItem("auth", JSON.stringify(data));
+			try {
+				const { data } = await axios.post(
+					"http://localhost:5000/api/user/signIn",
+					body
+				);
+				localStorage.setItem("auth", JSON.stringify(data));
+				set({ isLogged: true });
+			} catch (error) {
+				console.log(error)
+			}
 		},
 		logout: () => {
 			localStorage.removeItem("auth");
