@@ -13,6 +13,7 @@ type ClientStore = {
 	loading: boolean
 	getClients: (headers: {}) => Promise<void>;
 	addClient: (body: {}) => Promise<void>;
+	deleteClients: (params: {}, headers:any) => Promise<void>;
 	closeModal: () => void;
 };
 
@@ -49,6 +50,11 @@ const useClients = create<ClientStore>()(
 				set({ error: true, success: false });
 			}
 		},
+		deleteClients: async (params, headers)=>{
+      
+			const { data } = await axios.delete(`http://localhost:5000/api/clientes/${params}`,   headers);
+	  
+		  },
 		closeModal: () => {
 			set({ error: false, success: false });
 		},
