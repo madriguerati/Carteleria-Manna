@@ -26,6 +26,11 @@ const Sidebar = () => {
 
 	const AdminOptions = ['Clientes', 'Insumos', 'Proveedores', 'Usuarios']
 
+	const handleLogout = () => {
+		logout();
+		location.reload();
+	}
+
 	return (
 		<div>
 			<nav>
@@ -131,7 +136,7 @@ const Sidebar = () => {
 						{/* logout */}
 						<div className=' my-4'>
 							<div
-								onClick={logout}
+								onClick={handleLogout}
 								className='flex mb-2 justify-start items-center gap-4 pl-5 border border-gray-200  hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'
 							>
 								<MdOutlineLogout className='text-2xl text-gray-500 group-hover:text-white ' />

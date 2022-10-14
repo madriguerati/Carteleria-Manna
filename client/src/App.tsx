@@ -4,13 +4,10 @@ import useUser from "./store/user";
 import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-	const { verificated, updateToken } = useUser((state) => state);
+	const { updateToken } = useUser((state) => state);
 	const [accessToken, refreshToken] = useLocalStorage();
-	const [loading, setLoading] = useState(true);
+	console.log(accessToken, refreshToken);
 
-	// useEffect(() => {
-	// 	accessToken && verificated(accessToken);
-	// }, [accessToken]);
 
 	useEffect(() => {
 		accessToken && updateToken(refreshToken);
