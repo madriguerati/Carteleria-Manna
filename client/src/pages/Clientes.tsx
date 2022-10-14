@@ -21,7 +21,7 @@ import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
-	const { clients, getClients, loading } = useClients((state) => state);
+	const { clients, getClients, loading, success } = useClients((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -38,10 +38,8 @@ const Clientes = () => {
 	);
 	
 	useEffect(() => {
-		getClients(headers);
-	}, []);
-
-	console.log(clients);
+		!success && getClients(headers);
+	}, [success]);
 
 	const nextPage = (): void => {
 		page < users.totalPages && setPage(page + 1);
@@ -254,7 +252,7 @@ const Clientes = () => {
 										</th>
 									</tr>
 								</thead>
-								{
+								{ !loading &&
 									<tbody>
 										{clients?.map((client: any, index: number) => (
 											<tr
