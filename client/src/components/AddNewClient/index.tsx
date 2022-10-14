@@ -1,35 +1,35 @@
-import { validateInfo } from "../../utils/validate";
 import { useEffect, useState } from "react";
-import useUser from "../../store/user";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError } from "react-icons/md";
+import useClients from "../../store/clientes";
 
 type Props = {
 	setShowModal: any;
 };
 
 interface Values {
-	username: string
-	name: string
-	lastname: string
-	email: string
-	password: string
-	password2: string
-	roles: string[]
+	name: string;
+	telefono: string;
+	cuit: string;
+	email: string;
+	direccion: string;
+	condicioniva: string[];
+	razonsocial: string;
 }
 
 const AddNewClient = ({ setShowModal }: Props) => {
-	const { success, createNewUser, error, closeModal } = useUser(
+
+	const { addClient, success, error, closeModal } = useClients(
 		(state) => state
 	);
 	const [values, setValues] = useState<Values>({
-		username: "",
 		name: "",
-		lastname: "",
+		telefono: "",
+		cuit: "",
 		email: "",
-		password: "",
-		password2: "",
-		roles: [''],
+		direccion: "",
+		condicioniva: [""],
+		razonsocial: "",
 	});
 	const [errors, setErrors] = useState<any>({});
 
@@ -45,17 +45,19 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		setErrors(
-			validateInfo({
-				...values,
-			})
-		);
+		// setErrors(
+		// 	validateInfo({
+		// 		...values,
+		// 	})
+		// );
 
-		const error = validateInfo(values);
+		// const error = validateInfo(values);
 
-		if (Object.keys(error).length === 0) {
-			createNewUser(values);
-		}
+		// if (Object.keys(error).length === 0) {
+		// 	createNewUser(values);
+		// }
+		addClient(values);
+
 		setTimeout(() => {
 			closeModal();
 		}, 2000);
@@ -66,27 +68,29 @@ const AddNewClient = ({ setShowModal }: Props) => {
 		closeModal();
 	};
 
-	const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		let { value } = e.currentTarget;
+	// const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+	// 	let { value } = e.currentTarget;
 
-		setValues({
-			...values,
-			roles: [value],
-		});
-	};
+	// 	setValues({
+	// 		...values,
+	// 		roles: [value],
+	// 	});
+	// };
 
 	useEffect(() => {
 		success &&
 			setValues({
-				username: "",
 				name: "",
-				lastname: "",
+				telefono: "",
+				cuit: "",
 				email: "",
-				password: "",
-				password2: "",
-				roles: [''],
+				direccion: "",
+				condicioniva: [""],
+				razonsocial: "",
 			});
 	}, [success]);
+
+	console.log(values);
 
 	return (
 		<div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
@@ -116,9 +120,9 @@ const AddNewClient = ({ setShowModal }: Props) => {
 						}`}
 					>
 						{success
-							? "Usuario creado exitosamente"
+							? "Cliente agregado exitosamente"
 							: error
-							? "Email ya registrado"
+							? "Ocurrio un error"
 							: "Nuevo Cliente"}
 					</h3>
 					{success && (
@@ -135,10 +139,10 @@ const AddNewClient = ({ setShowModal }: Props) => {
 				<form onSubmit={handleSubmit} className='flex flex-col mt-4'>
 					<input
 						type='text'
-						name='username'
+						name='name'
 						className='px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
 						placeholder='Nombre'
-						value={values.username}
+						value={values.name}
 						onChange={handleChange}
 					/>
 					{errors.username && (
@@ -148,10 +152,10 @@ const AddNewClient = ({ setShowModal }: Props) => {
 						<div className='w-full'>
 							<input
 								type='text'
-								name='name'
+								name='telefono'
 								className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
 								placeholder='Telefono'
-								value={values.name}
+								value={values.telefono}
 								onChange={handleChange}
 							/>
 							{errors.name && (
@@ -161,10 +165,10 @@ const AddNewClient = ({ setShowModal }: Props) => {
 						<div className='w-full'>
 							<input
 								type='text'
-								name='lastname'
+								name='direccion'
 								className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
 								placeholder='Dirección'
-								value={values.lastname}
+								value={values.direccion}
 								onChange={handleChange}
 							/>
 							{errors.lastname && (
@@ -187,10 +191,10 @@ const AddNewClient = ({ setShowModal }: Props) => {
 					)}
 					<input
 						type='text'
-						name='password'
+						name='cuit'
 						className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
 						placeholder='CUIT'
-						value={values.password}
+						value={values.cuit}
 						onChange={handleChange}
 					/>
 					{errors.password && (
@@ -198,10 +202,21 @@ const AddNewClient = ({ setShowModal }: Props) => {
 					)}
 					<input
 						type='text'
-						name='password2'
+						name='condicioniva'
 						className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
 						placeholder='Cindición I.V.A'
-						value={values.password2}
+						value={values.condicioniva}
+						onChange={handleChange}
+					/>
+					{errors.password2 && (
+						<p className='text-red-600 text-sm'>{errors.password2}</p>
+					)}
+					<input
+						type='text'
+						name='razonsocial'
+						className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
+						placeholder='Razón Social'
+						value={values.razonsocial}
 						onChange={handleChange}
 					/>
 					{errors.password2 && (
