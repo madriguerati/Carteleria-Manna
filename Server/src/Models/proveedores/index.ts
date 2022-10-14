@@ -30,7 +30,7 @@ const proveedoresSchema = new Schema(
         direccion:
         {
             type:String,
-            request: true
+            required: true
         },
         email:{
             type: String,

@@ -6,43 +6,43 @@ interface Headers {
 	"x-access-token": { token: string };
 }
 
-type ClientStore = {
-	clients: [];
+type ProveedoresStore = {
+	proveedores: [];
 	success: boolean;
 	error: boolean;
 	loading: boolean
-	getClients: (headers: {}) => Promise<void>;
-	addClient: (body: {}) => Promise<void>;
-	deleteClients: (params: {}, headers:any) => Promise<void>;
+	getProveedores: (headers: {}) => Promise<void>;
+	addProveedores: (body: {}) => Promise<void>;
+	deleteProveedores: (params: {}, headers:any) => Promise<void>;
 	closeModal: () => void;
 };
 
-const useClients = create<ClientStore>()(
+const useProveedores = create<ProveedoresStore>()(
 	devtools((set) => ({
 		//initial state
-		clients: [],
+		proveedores: [],
 		success: false,
 		error: false,
 		loading: false,
 
 		//actions
-		getClients: async (headers) => {
+		getProveedores: async (headers) => {
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					"http://localhost:5000/api/clientes",
+					"http://localhost:5000/api/proveedores",
 					headers
 				);
-				set((state) => ({ clients: (state.clients = data) }));	
+				set((state) => ({ proveedores: (state.proveedores = data) }));	
 			} catch (error) {
 				console.log(error)
 			}
 			set({ loading: false})  
 		},
-		addClient: async (body) => {
+		addProveedores: async (body) => {
 			try {
 				await axios.post(
-					"http://localhost:5000/api/clientes/create",
+					"http://localhost:5000/api/proveedores/create",
 					body
 				);
 				set({ success: true, error: false });
@@ -50,9 +50,9 @@ const useClients = create<ClientStore>()(
 				set({ error: true, success: false });
 			}
 		},
-		deleteClients: async (params, headers)=>{
+		deleteProveedores: async (params, headers)=>{
       
-			const { data } = await axios.delete(`http://localhost:5000/api/clientes/${params}`,   headers);
+			const { data } = await axios.delete(`http://localhost:5000/api/proveedores/${params}`,   headers);
 	  
 		  },
 		closeModal: () => {
@@ -61,4 +61,4 @@ const useClients = create<ClientStore>()(
 	}))
 );
 
-export default useClients;
+export default useProveedores;
