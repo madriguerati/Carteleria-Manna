@@ -6,6 +6,8 @@ import Insumos from "../pages/Insumos";
 import Carteles from './../pages/Carteles';
 import Clientes from "../pages/Clientes";
 import Proveedores from "../pages/Proveedores";
+import Ordenes from "../pages/Ordenes";
+import Presupuesto from "../pages/Presupuesto";
 
 
 const AppRouter = () => {
@@ -19,6 +21,8 @@ const AppRouter = () => {
 				<Route path='/usuarios' element={<Users />} />
 				<Route path='/clientes' element={<Clientes />} />
 				<Route path='/proveedores' element={<Proveedores />} />
+				<Route path='/ordenes' element={<Ordenes />} />
+				<Route path='/presupuesto' element={<Presupuesto />} />
 			</Routes>
 		</>
 	);

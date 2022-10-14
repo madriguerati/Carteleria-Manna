@@ -24,7 +24,7 @@ import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
-	const { clients, getClients, loading, deleteClients } = useClients((state) => state);
+	const { clients, getClients, loading, success, deleteClients } = useClients((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -41,9 +41,8 @@ const Clientes = () => {
 	);
 	
 	useEffect(() => {
-		getClients(headers);
-	}, []);
-
+		!success && getClients(headers);
+	}, [success]);
 
 	//delete 
 	const DeleteClients= (client:any)=>{
@@ -272,7 +271,7 @@ const Clientes = () => {
 										</th>
 									</tr>
 								</thead>
-								{
+								{ !loading &&
 									<tbody>
 										{clients?.map((client: any, index: number) => (
 											<tr
