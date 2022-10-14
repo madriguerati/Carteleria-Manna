@@ -2,6 +2,11 @@ import create from 'zustand';
 import axios from 'axios';
 import { devtools } from 'zustand/middleware';
 
+
+interface Headers {
+	"x-access-token": { token: string };
+}
+
 interface Insumo {
   name: string,
   descripcion: string,
@@ -42,19 +47,17 @@ const useInusmo = create<UserStore>()(
         const { data } = await axios.post('http://localhost:5000/api/insumo/create', body, { headers: { "x-access-token": token} });
 
       },
-      getInsumos: async (token) => {
+      getInsumos: async (headers) => {
         try{
-          const { data } = await axios.get('http://localhost:5000/api/insumos', { headers: { "x-access-token": token} } )
+          const { data } = await axios.get('http://localhost:5000/api/insumos', headers )
           set((state) => ({ insumos: (state.insumos = data) }));
         }catch(error){
           console.log(error)
         }
       },
-      deleteIsumos: async (params, token)=>{
-        let headers:any = {
-          "x-access-token" : token
-        };
-        const { data } = await axios.delete(`http://localhost:5000/api/insumo/${params}`,  { headers: { "x-access-token": token} });
+      deleteIsumos: async (params, headers)=>{
+      
+        const { data } = await axios.delete(`http://localhost:5000/api/insumo/${params}`,   headers);
   
       },
       closeModal: () => {
