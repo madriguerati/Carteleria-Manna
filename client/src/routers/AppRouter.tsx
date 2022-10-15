@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 import Users from "../pages/Users";
 import Sidebar from "../components/Sidebar";
 import Insumos from "../pages/Insumos";
-import Carteles from './../pages/Carteles';
+import Carteles from '../pages/Carteles';
 import Clientes from "../pages/Clientes";
 import Proveedores from "../pages/Proveedores";
 import Ordenes from "../pages/Ordenes";

@@ -4,7 +4,7 @@ export interface ICarteles extends mongoose.Document{
 descripcion: string,
 costo1: number,
 consto2:number,
-insumos: string
+insumos: string[]
 
 };
 
@@ -12,23 +12,22 @@ insumos: string
 const cartelesSchema = new Schema(
     {
         insumos:{
-        type:Schema.Types.ObjectId, 
-        ref:'insumos',
-        required: true
+            type: [String],
+            required: true
         },
         descripcion:{
             type: String,
             required: true
         },
-        costo1:
+        costo1faz:
         {
             type:Number,
-            required: true
+            request: true
         },
-        costo2:
+        costo2faz:
         {
             type:Number,
-            required: true
+            request: true
         }
     },
     {
