@@ -378,9 +378,7 @@ const addInsumoCartel = ()=>{
                 >
                   crear insumo
                 </button>
-            
           </div>
-
     </div>
   );
 };
