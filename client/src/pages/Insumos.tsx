@@ -6,11 +6,7 @@ import Modal from "../components/Modal";
 import AddNewInsumo from "../components/addNewInsumo";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
-import { 
-	AiFillDelete,
-	AiFillEdit,
-	AiOutlineSearch
-} from 'React-icons/ai';
+
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,
@@ -311,22 +307,17 @@ const Clientes = () => {
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{insumo.proveedor}
+														ver
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														<AiOutlineSearch/>
-													</p>
-												</td>
-												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														<AiFillEdit />
+														editar
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteInsumos(insumo)}>
-														<AiFillDelete/>
+														eliminar
 													</p>
 												</td>
 											</tr>

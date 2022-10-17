@@ -5,11 +5,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewCartel from "../components/AddNewCartel";
 import shallow from "zustand/shallow";
-import { 
-	AiFillDelete,
-	AiFillEdit,
-	AiOutlineSearch
-} from 'React-icons/ai';
+
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,
@@ -294,17 +290,17 @@ const Clientes = () => {
 												
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														<AiOutlineSearch/>
+														ver
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														<AiFillEdit />
+														editar
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteCartel(cartel)} >
-														<AiFillDelete/>
+													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteCartel(cartel)}>
+														eliminar
 													</p>
 												</td>
 												
