@@ -46,8 +46,8 @@ const Clientes = () => {
 	}, [success]);
 
 	//delete 
-	const DeletePresupuestos= (presupuesto:any)=>{
-		deletePresupuestos(presupuesto._id, headers)
+	const DeletePresupuesto= (presupuesto:any)=>{
+		deletePresupuesto(presupuesto._id, headers)
 		getPresupuestos(headers)
 	}
 
