@@ -27,9 +27,20 @@ type Props = {
 
 interface Values {
   descripcion: string;
-  costo1: number;
-  consto2: number;
-  insumos: string;
+  costo1faz: number;
+  costo2faz: number;
+  insumosArray: [object];
+}
+
+interface Insumo {
+  name:string,
+  costo: number,
+  faz: string,
+  cant1faz: number,
+  cant2faz: number,
+  unidad: string,
+  costox1faz: number,
+  costox2faz:number
 }
 
 const AddNewCartel = ({ setShowModal}: Props) => {
@@ -41,21 +52,21 @@ const AddNewCartel = ({ setShowModal}: Props) => {
   );
   const [values, setValues] = useState<Values>({
     descripcion: "",
-        costo1faz: 0,
-        costo2faz: 0,
-        insumosArray: []
+    costo1faz: 0,
+    costo2faz: 0,
+    insumosArray: [{}]
   });
 
 
-  const [insumo, setInsumo] = useState({
+  const [insumo, setInsumo] = useState<Insumo>({
     name:"",
-    costo: "",
+    costo: 0,
     faz: "simple",
-    cant1faz: "",
-    cant2faz: "",
+    cant1faz: 0,
+    cant2faz: 0,
     unidad: "",
-    costox1faz: "",
-    costox2faz:''
+    costox1faz: 0,
+    costox2faz:0
   });
 
   const [errors, setErrors] = useState<any>({});
@@ -77,12 +88,14 @@ const AddNewCartel = ({ setShowModal}: Props) => {
       ...insumo,
       [name]: value,
     });
+    console.log(insumo)
     insumoparte = insumos.filter(
         (element: any) => element.name === value
       );
-      console.log("hola", insumoparte)
+
       costoArray = insumoparte[0].costo
       unidadArray = insumoparte[0].unidad
+      console.log("holaaaaa")
 }
 
 const multiplicar = (a: number, b: number): number => {
@@ -92,11 +105,10 @@ const multiplicar = (a: number, b: number): number => {
 const addInsumoCartel = ()=>{
     setValues({
       ... values,
-      ['insumosArray']:[...values.insumosArray, insumo]
-      
+      insumosArray:[values.insumosArray.concat(insumo)]
     })
   if (insumo.cant1faz) {
-    var suma1 = parseInt(insumo.costox1faz)
+    var suma1 = insumo.costox1faz
     Arraycosto1faz=[...Arraycosto1faz, suma1]
     totalcosto1faz=  Arraycosto1faz.reduce((a:any, b:any) => a + b, 0)
 
@@ -104,7 +116,7 @@ const addInsumoCartel = ()=>{
     totalcosto1faz= 0
   }
   if (insumo.cant2faz) {
-    var suma2 = parseInt(insumo.costox2faz)
+    var suma2 = insumo.costox2faz
     Arraycosto2faz=[...Arraycosto2faz, suma2]
     totalcosto2faz=  Arraycosto2faz.reduce((a:any, b:any) => a + b, 0)
   }else{
@@ -112,13 +124,13 @@ const addInsumoCartel = ()=>{
   }
   setInsumo({
     name:"",
-    costo: "",
+    costo: 0,
     faz: "simple",
-    cant1faz: "",
-    cant2faz: "",
+    cant1faz: 0,
+    cant2faz: 0,
     unidad: "",
-    costox1faz: "",
-    costox2faz:''
+    costox1faz: 0,
+    costox2faz:0
   })
   }
 
@@ -142,7 +154,7 @@ const addInsumoCartel = ()=>{
       descripcion: "",
       costo1faz: 0,
       costo2faz: 0,
-      insumosArray: []
+      insumosArray: [{}]
     })
     
 
@@ -175,9 +187,9 @@ const addInsumoCartel = ()=>{
     success &&
       setValues({
         descripcion: "",
-        costo1faz: 10,
-        costo2faz: 10,
-        insumosArray: ['']
+        costo1faz: 0,
+        costo2faz: 0,
+        insumosArray: [{}]
       });
       getInsumos(headers)
   }, [success]);
@@ -244,8 +256,8 @@ const addInsumoCartel = ()=>{
           <div className="flex gap-4">
             <div className="w-full">
               <input
-                type="text"
-                name="costo1"
+                type="number"
+                name="costo1faz"
                 className="px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Costo de 1 faz"
                 value={
@@ -262,8 +274,8 @@ const addInsumoCartel = ()=>{
             </div>
             <div className="w-full">
               <input
-                type="text"
-                name="costo2"
+                type="number"
+                name="costo2faz"
                 className="px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Costo de 2 faz"
                 value={
@@ -282,7 +294,7 @@ const addInsumoCartel = ()=>{
          
          <div className="flex flex-wrap justify-end m-5 border-t border-solid border-slate-200 rounded-b">
          {
-            values.insumosArray.map(e=>(
+            values.insumosArray.map((e:any)=>(
                 <div className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150">{e.name}</div>
             ))
 
@@ -306,13 +318,15 @@ const addInsumoCartel = ()=>{
             </button>
           </div>
         </form>
-        <div className=" justify-center">
+        <div className="justify-center">
         <div>
         <h1 className="text-3xl font-semibold text-start">AGREGAR INSUMOS</h1>
             <select
+                    value={insumos.name}
                     onChange={handleChangeInsumo}
                     name="name"
-                    className="px-4  py-3 mr-1 w-60 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                    
+                    className="px-4  py-3 mr-1 w-40 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                   >
                     <option  disabled>
                       Seleccionar insumo
@@ -352,8 +366,7 @@ const addInsumoCartel = ()=>{
         </div>
           <select
            name="faz"
-            value={insumo.faz}
-            selected={false} 
+            value={insumo.faz[0]}
             className="px-4 py-3 mt-4 w-20 mr-1 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
             onChange={handleChangeInsumo}
             >
@@ -363,7 +376,7 @@ const addInsumoCartel = ()=>{
                   </select>
            
            <input
-            type="text"
+            type="number"
             name="cant1faz"
             className="px-4 py-3 mt-4 w-20 mr-1 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
             placeholder="C. 1 faz"
@@ -372,7 +385,7 @@ const addInsumoCartel = ()=>{
           />
 
           <input
-            type="text"
+            type="number"
             name="cant2faz"
             className="px-4 py-3 mt-4 w-20 rounded-md mr-1 border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
             placeholder="C. 2 faz"
@@ -380,27 +393,29 @@ const addInsumoCartel = ()=>{
             onChange={handleChangeInsumo}
           />
           <input
-            type="text"
+            type="number"
             name="costox1faz"
             className="px-4 py-3 mt-4 w-20 rounded-md  mr-1 border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
             placeholder="cantidad de 1 faz"
-            value={insumo.cant1faz?
+            value={
+              insumo.cant1faz?
                 insumo.costox1faz=multiplicar(insumo.cant1faz, insumo.costo)
                 :
-                "0"
+                "costo"
                 }
             onChange={handleChangeInsumo}
           />
     
         <input
-            type="text"
+            type="number"
             name="costox2faz"
             className="px-4 py-3 mt-4 w-20 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-            placeholder="cant 2 faz"
-            value={insumo.cant2faz?
+            placeholder="costo 2 faz"
+            value={
+              insumo.cant2faz?
             insumo.costox2faz=multiplicar(insumo.cant2faz, insumo.costo)
             :
-            "0"
+            "costo"
             }
             onChange={handleChangeInsumo}
           />
