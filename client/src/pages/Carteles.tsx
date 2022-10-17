@@ -5,9 +5,11 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewCartel from "../components/AddNewCartel";
 import shallow from "zustand/shallow";
-import { AiFillDelete } from 'react-icons/Ai';
-import { AiFillEdit } from 'react-icons/Ai';
-import { AiOutlineSearch} from 'react-icons/Ai';
+import { 
+	AiFillDelete,
+	AiFillEdit,
+	AiOutlineSearch
+} from 'react-icons/Ai';
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,

@@ -6,9 +6,11 @@ import Modal from "../components/Modal";
 import AddNewInsumo from "../components/addNewInsumo";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
-import { AiFillDelete } from 'react-icons/Ai';
-import { AiFillEdit } from 'react-icons/Ai';
-import { AiOutlineSearch} from 'react-icons/Ai';
+import { 
+	AiFillDelete,
+	AiFillEdit,
+	AiOutlineSearch
+} from 'react-icons/Ai';
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,

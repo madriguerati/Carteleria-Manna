@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
 import useUser from './../../store/user';
+import useHeaders from "../../hooks/useHeaders";
+
+import useLocalStorage from "../../hooks/useLocalStorage";
+
+const [accessToken] = useLocalStorage();
+const headers:any = useHeaders(accessToken);
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
-  const { getUser, tokken, user } = useUser((state) => state)
+  const { getUser, user } = useUser((state) => state)
 
   useEffect(() => {
-    getUser(tokken);
+    getUser(headers);
   }, []);
 
   console.log(user, 'user')

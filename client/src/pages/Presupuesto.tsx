@@ -19,7 +19,7 @@ import {
 } from "react-icons/md";
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
-import usePresupuesto from "../store/Presupuesto";
+import usePresupuesto from "../store/presupuesto";
 import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {

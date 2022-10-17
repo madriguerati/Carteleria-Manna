@@ -13,8 +13,7 @@ type Props = {
 const InsumoPost = ({ setShowModal }: Props) => {
   
 
-    const { insumo, success, postInsumo, closeModal} = useInsumo(
-      (state) => state);
+    const { insumo, success, postInsumo, closeModal} = useInsumo((state) => state);
       const [token] = useLocalStorage();
 
 
