@@ -5,9 +5,11 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewPresupuesto from "../components/AddNewPresupuesto";
 import shallow from "zustand/shallow";
-import { AiFillDelete } from 'react-icons/Ai';
-import { AiFillEdit } from 'react-icons/Ai';
-import { AiOutlineSearch} from 'react-icons/Ai';
+import { 
+	AiFillDelete,
+	AiFillEdit,
+	AiOutlineSearch
+} from 'React-icons/ai';
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,

@@ -10,7 +10,7 @@ import {
 	AiFillDelete,
 	AiFillEdit,
 	AiOutlineSearch
-} from 'react-icons/Ai';
+} from 'React-icons/ai';
 import {
 	MdKeyboardArrowRight,
 	MdKeyboardArrowLeft,
