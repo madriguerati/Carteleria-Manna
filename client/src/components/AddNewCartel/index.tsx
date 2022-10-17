@@ -88,14 +88,7 @@ const AddNewCartel = ({ setShowModal}: Props) => {
       ...insumo,
       [name]: value,
     });
-    console.log(insumo)
-    insumoparte = insumos.filter(
-        (element: any) => element.name === value
-      );
-
-      costoArray = insumoparte[0].costo
-      unidadArray = insumoparte[0].unidad
-      console.log("holaaaaa")
+   
 }
 
 const multiplicar = (a: number, b: number): number => {
@@ -173,16 +166,16 @@ const addInsumoCartel = ()=>{
 
 
   };
+const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  console.log(insumo)
+  insumoparte = insumos.filter(
+      (element: any) => element.name === e.target.value
+    );
 
-  // const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  // 	let { value } = e.currentTarget;
-
-  // 	setValues({
-  // 		...values,
-  // 		roles: [value],
-  // 	});
-  // };
-
+    costoArray = insumoparte[0].costo
+    unidadArray = insumoparte[0].unidad
+    console.log("holaaaaa")
+  }
   useEffect(() => {
     success &&
       setValues({
@@ -323,7 +316,7 @@ const addInsumoCartel = ()=>{
         <h1 className="text-3xl font-semibold text-start">AGREGAR INSUMOS</h1>
             <select
                     value={insumos.name}
-                    onChange={handleChangeInsumo}
+                    onChange={handleSelect}
                     name="name"
                     
                     className="px-4  py-3 mr-1 w-40 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
@@ -368,7 +361,7 @@ const addInsumoCartel = ()=>{
            name="faz"
             value={insumo.faz[0]}
             className="px-4 py-3 mt-4 w-20 mr-1 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-            onChange={handleChangeInsumo}
+            onChange={handleSelect}
             >
                     <option disabled>Seleccionar insumo</option>
                     <option value="simple">simple</option>
