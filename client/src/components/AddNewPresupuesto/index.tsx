@@ -19,8 +19,7 @@ interface Values {
 
 const AddNewClient = ({ setShowModal }: Props) => {
 
-	const { addClient, success, error, closeModal } = useClients(
-		(state) => state
+	const { addClient, success, error, closeModal } = useClients((state) => state
 	);
 	const [values, setValues] = useState<Values>({
 		name: "",

@@ -22,7 +22,7 @@ import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
-	const { presupuestos, getPresupuestos, loading, success, deletePresupuesto } = usePresupuesto((state) => state);
+	const { presupuestos, getPresupuestos, loading, success, deletePresupuestos } = usePresupuesto((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -45,7 +45,7 @@ const Clientes = () => {
 
 	//delete 
 	const DeletePresupuesto= (presupuesto:any)=>{
-		deletePresupuesto(presupuesto._id, headers)
+		deletePresupuestos(presupuesto._id, headers)
 		getPresupuestos(headers)
 	}
 

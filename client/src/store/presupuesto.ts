@@ -22,15 +22,16 @@ interface Cartel {
 }
 
 
-type CartelStore = {
+type PresupuestoStore = {
   presupuestos:any
   presupuesto: any
   tokken: any
   success: boolean
   error: boolean
+  loading: boolean
   //addCartel: (body:{}) => Promise<void>
   getPresupuestos: (headers:{})=>Promise<void>
-  //deleteCartel: (params:any, headers:any)=> Promise<void>
+  deletePresupuestos: (params:any, headers:any)=> Promise<void>
   closeModal: () => void;
 }
 
@@ -43,10 +44,11 @@ const usePresupuesto = create<PresupuestoStore>()(
       tokken: '',
       success: false,
       error: false,
+      loading: false,
   
       //actions
      
-      getPresupuestos: async (headers) => {
+      getPresupuestos: async (headers:any) => {
         try{
           const { data } = await axios.get('http://localhost:5000/api/presupuestos', headers )
           set((state) => ({ presupuestos: (state.presupuestos = data) }));
@@ -54,7 +56,7 @@ const usePresupuesto = create<PresupuestoStore>()(
           console.log(error)
         }
       },
-      deletePresupuestos: async (params, headers)=>{
+      deletePresupuestos: async (params:any, headers:any)=>{
       
         const { data } = await axios.delete(`http://localhost:5000/api/presupuestos/${params}`,  headers);
   
