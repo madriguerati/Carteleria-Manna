@@ -312,17 +312,17 @@ const Proveedores = () => {
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														<AiOutlineSearch/>
+														ver
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														<AiFillEdit />
+														editar
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteProveedores(proveedor)}>
-														<AiFillDelete/>
+														eliminar
 													</p>
 												</td>
 											</tr>
