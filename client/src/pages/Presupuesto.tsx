@@ -3,7 +3,7 @@ import Layout from "../components/Layout/index";
 import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
-import CreateNewUser from "../components/CreateNewUser";
+import AddNewPresupuesto from "../components/AddNewPresupuesto";
 import shallow from "zustand/shallow";
 import { AiFillDelete } from 'react-icons/Ai';
 import { AiFillEdit } from 'react-icons/Ai';
@@ -406,7 +406,7 @@ const Clientes = () => {
 					</button>
 				</div>
 				<Modal showModal={showModal} setShowModal={setShowModal}>
-					<AddNewClient setShowModal={setShowModal} />
+					<AddNewPresupuesto setShowModal={setShowModal} />
 				</Modal>
 			</div>
 		</Layout>
