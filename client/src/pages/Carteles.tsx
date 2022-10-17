@@ -43,8 +43,6 @@ const Clientes = () => {
 		//delete 
 		const DeleteCartel= (cartel:any)=>{
 			deleteCartel(cartel._id, headers)
-			getCarteles(headers)
-			console.log("holaaa perrito")
 		}
 	
 	
@@ -119,7 +117,7 @@ const Clientes = () => {
 				<div className='py-3'>
 					<div className='bg-[#77B327] h-16 flex items-center rounded'>
 						<h2 className='px-4 sm:px-4 text-3xl text-zinc-800 font-semibold leading-tight'>
-							Clientes
+							Carteles
 						</h2>
 					</div>
 					<div className='my-3 flex sm:flex-row flex-col'>
