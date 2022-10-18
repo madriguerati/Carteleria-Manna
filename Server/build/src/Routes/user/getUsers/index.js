@@ -13,13 +13,54 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const roles_1 = __importDefault(require("../../../Models/roles"));
 const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.get('/profile', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/allusers', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield user_1.default.find()
+        const page = parseInt(req.query.page) - 1 || 0;
+        const limit = parseInt(req.query.limit) || 12;
+        const search = req.query.search || '';
+        let sort = req.query.sort || 'username';
+        let roles = req.query.roles || 'all';
+        const rolesAll = yield roles_1.default.find();
+        const rolesOptions = rolesAll.map(role => role._id);
+        const rolesName = rolesAll.map(role => role.name);
+        roles === 'all'
+            ? (roles = [...rolesOptions])
+            : (roles = req.query.roles.split(','));
+        req.query.sort ? (sort = req.query.sort.split(',')) : (sort = [sort]);
+        let sortBy = {};
+        if (sort[1]) {
+            sortBy[sort[0]] = sort[1];
+        }
+        else {
+            sortBy[sort[0]] = 'asc';
+        }
+        const roleArray = yield roles_1.default.find({ name: roles });
+        const roleId = roleArray.map(role => role._id);
+        roleId.length && (roles = roleId);
+        const users = yield user_1.default.find({ username: { $regex: '.*' + search + '.*', $options: 'i' } })
+            .where('roles')
+            .in([...roles])
+            .sort(sortBy)
+            .skip(page * limit)
+            .limit(limit)
             .populate('roles');
-        res.status(200).json(users);
+        const total = yield user_1.default.countDocuments({
+            roles: { $in: [...roles] },
+            username: { $regex: search, $options: 'i' },
+        });
+        const response = {
+            error: false,
+            total,
+            page: page + 1,
+            totalPages: Math.ceil(total / limit),
+            limit,
+            roles: rolesName,
+            users,
+        };
+        res.status(200).json(response);
     }
     catch (error) {
         next(error);

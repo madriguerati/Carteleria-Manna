@@ -17,7 +17,7 @@ const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
 router.get('/profile', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_1.default.findById(req.userId);
+        const user = yield user_1.default.findById(req.userId, { password: 0 }).populate('roles');
         return res.status(200).json(user);
     }
     catch (error) {

@@ -16,9 +16,9 @@ const express_1 = require("express");
 const carteles_1 = __importDefault(require("../../../Models/carteles"));
 const router = (0, express_1.Router)();
 router.post('/create', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { cantidad, cartel, base, altura, medidas, faz, valor, total, estructura, archivo, otros } = req.body;
+    const { descripcion, costo1faz, costo2faz, insumos } = req.body;
     try {
-        const carteles = new carteles_1.default({ cantidad, cartel, base, altura, medidas, faz, valor, total, estructura, archivo, otros });
+        const carteles = new carteles_1.default({ descripcion, costo1faz, costo2faz, insumos: [insumos] });
         yield carteles.save();
         res.status(201).json('cartel adherido correctamente');
     }

@@ -13,36 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const createdToken_1 = __importDefault(require("../../../Controllers/Token/createdToken"));
 const user_1 = __importDefault(require("../../../Models/user"));
-const roles_1 = __importDefault(require("../../../Models/roles"));
+const createdToken_1 = __importDefault(require("../../../Controllers/Token/createdToken"));
+const jsonwebtoken_1 = require("jsonwebtoken");
 const router = (0, express_1.Router)();
-router.post('/signUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/refresh", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, name, lastname, email, password, roles } = req.body;
-        // Creating a new User Object
-        let newUser = new user_1.default({
-            username,
-            name,
-            lastname,
-            email,
-            password
-        });
-        if (roles) {
-            const foundRoles = yield roles_1.default.find({ name: { $in: roles } });
-            newUser.roles = foundRoles.map((role) => role._id);
+        const refresToken = req.headers["x-access-token"];
+        const payload = (0, jsonwebtoken_1.verify)(refresToken, 'refresh_secret');
+        if (!payload) {
+            return res.status(401).send({ message: 'unauthenticated a' });
         }
-        else {
-            const role = yield roles_1.default.findOne({ name: "user" });
-            newUser.roles = [role._id];
-        }
-        // Saving the User Object in Mongodb
-        const savedUser = yield newUser.save();
-        //return res.status(201).json(newUser);
-        return res.status(200).json({ token: (0, createdToken_1.default)(savedUser) });
+        const user = yield user_1.default.findById(payload.id);
+        const { accessToken, refreshToken } = (0, createdToken_1.default)(user);
+        return res.status(200).json({ accessToken, refreshToken });
     }
     catch (error) {
-        return res.status(500).json(error);
+        return res.status(401).send({ message: 'unauthenticated' });
     }
 }));
 exports.default = router;

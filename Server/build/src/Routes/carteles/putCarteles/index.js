@@ -16,10 +16,10 @@ const express_1 = require("express");
 const carteles_1 = __importDefault(require("../../../Models/carteles"));
 const router = (0, express_1.Router)();
 router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { cantidad, cartel, base, altura, medidas, faz, valor, total, estructura, archivo, otros, id } = req.body;
+    const { descripcion, costo1, costo2, insumos, id } = req.body;
     try {
         yield carteles_1.default.findByIdAndUpdate(id, {
-            cantidad, cartel, base, altura, medidas, faz, valor, total, estructura, archivo, otros
+            descripcion, costo1, costo2, insumos
         });
         // Send response in here
         res.send('Item Updated!');

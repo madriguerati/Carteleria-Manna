@@ -16,9 +16,9 @@ const express_1 = require("express");
 const insumo_1 = __importDefault(require("../../../Models/insumo"));
 const router = (0, express_1.Router)();
 router.post('/create', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, descripcion, unidad, costo, categoria } = req.body;
+    const { name, descripcion, unidad, costo, category, proveedor } = req.body;
     try {
-        const insumo = new insumo_1.default({ name, descripcion, unidad, costo, categoria: [categoria] });
+        const insumo = new insumo_1.default({ name, descripcion, unidad, costo, category: [category], proveedor });
         yield insumo.save();
         res.status(201).json('insumo adherido correctamente');
     }
