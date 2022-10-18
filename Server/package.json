@@ -5,10 +5,11 @@
   "main": "index.js",
   "proxy": "http://localhost:5000",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "types": "tsc --noEmit"
+    "ts:node": "ts-node src/index.ts",
+    "clean": "del build",
+    "build": "tsc",
+    "start": "node build/src",
+    "dev": "nodemon"
     
   },
   "author": "nexo",
