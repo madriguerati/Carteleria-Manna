@@ -43,7 +43,7 @@ server.use((_req, res, next) => {
 //passport
 server.use(passport.initialize());
 passport.use(passportmiddleware);
-
+//q
 //routes
 server.use('api/', routes);
 //cors
