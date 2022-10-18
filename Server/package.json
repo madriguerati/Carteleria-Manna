@@ -5,9 +5,12 @@
   "main": "index.js",
   "proxy": "http://localhost:5000",
   "scripts": {
-    "build": "tsc --build tsconfig.json && npx netlify-lambda@2.0.1 build app --config webpack.functions.js",
-    "serve": "tsc --build tsconfig.json && npx netlify-lambda@2.0.1 serve app --config webpack.functions.js",
-    "dev": "nodemon --exec ts-node server-local.ts"
+    "ts:node": "ts-node src/index.ts",
+    "clean": "del build",
+    "build": "tsc",
+    "start": "node build/src",
+    "dev": "nodemon"
+    
   },
   "author": "nexo",
   "license": "ISC",

@@ -14,6 +14,7 @@ const passport_2 = __importDefault(require("./middlewares/passport/passport"));
 require("../build/src/config/mongodb/db.js");
 const cors_1 = __importDefault(require("cors"));
 const initialSetUp_1 = require("./Lib/initialSetUp");
+const serverless = require("serverless-http");
 const server = (0, express_1.default)();
 exports.server = server;
 //const IoServer = http.createServer(server);
@@ -36,7 +37,7 @@ server.use((_req, res, next) => {
 server.use(passport_1.default.initialize());
 passport_1.default.use(passport_2.default);
 //routes
-server.use('/api', index_1.default);
+server.use(`/api`, index_1.default);
 //cors
 //server.use(cors());
 server.use((err, _req, res, _next) => {

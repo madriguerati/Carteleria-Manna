@@ -14,7 +14,6 @@ import {createRoles} from './Lib/initialSetUp'
 const serverless = require("serverless-http");
 
 const server = express();
-const appname = server
 //const IoServer = http.createServer(server);
 
 
@@ -46,7 +45,7 @@ server.use(passport.initialize());
 passport.use(passportmiddleware);
 
 //routes
-server.use(`/.netlify/functions/${appname}`, routes);
+server.use('api/', routes);
 //cors
 //server.use(cors());
 
@@ -58,5 +57,4 @@ server.use((err:any, _req:any, res:any, _next:any) => {
   });
   
 
-module.exports.handler = serverless(server);
 export {server};
