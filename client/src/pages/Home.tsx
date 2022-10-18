@@ -63,6 +63,7 @@ const Home = () => {
 					</figure>
 				</div>
 			</div>
+			<h1>prueba</h1>
 		</Layout>
 	);
 };
