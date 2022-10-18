@@ -3,15 +3,12 @@ import { Transition, Menu } from "@headlessui/react";
 import {
 	MdOutlineSpaceDashboard,
 	MdOutlineAnalytics,
-	MdOutlineSettings,
 	MdOutlineLogout,
 	MdOutlinePanorama,
 	MdOutlineAppRegistration,
 	MdOutlinePaid
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { FaRegComments } from "react-icons/fa";
-import { BiMessageSquareDots } from "react-icons/bi";
 import useUser from "./../../store/user";
 import { useEffect, Fragment, useState } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
