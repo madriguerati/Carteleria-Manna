@@ -11,6 +11,7 @@ import '../build/src/config/mongodb/db.js'
 import cors from 'cors';
 import http from 'http'
 import {createRoles} from './Lib/initialSetUp'
+const serverless = require("serverless-http");
 
 const server = express();
 
@@ -57,5 +58,5 @@ server.use((err:any, _req:any, res:any, _next:any) => {
   });
   
 
-
+module.exports.handler = serverless(server);
 export {server};
