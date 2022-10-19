@@ -7,7 +7,7 @@
   "scripts": {
     "ts:node": "ts-node src/index.ts",
     "clean": "del build",
-    "build": "CI=false && react-scripts build ",
+    "build": "CI=false build ",
     "start": "node build/src",
     "dev": "nodemon"
     
