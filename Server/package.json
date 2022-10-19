@@ -9,8 +9,8 @@
     "clean": "del build",
     "build": "CI=false",
     "start": "node build/src",
-    "dev": "nodemon"
-    
+    "dev": "nodemon",
+    "buildCommand": "next build"
   },
   "author": "nexo",
   "license": "ISC",
