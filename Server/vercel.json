@@ -1,18 +1,29 @@
-
-
 {
-  "env": {
-    "MONGODB_URI": "@mongodb-ur"
-  },
-  "headers": [
-    {
-      "source": "/(.*)",
+    "version":2,
+    "builds":[
+        {
+            "src":"./index.js",
+            "use":"@vercel-node"
+        }
+    ],
+    "routes":[
+        {
+            "src":"/(.*)",
+            "dest":"/"
+        }
+    ],
+    "env": {
+        "MONGODB_URI": "@mongodb-ur"
+      },
       "headers": [
         {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
+          "source": "/(.*)",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ]
         }
       ]
-    }
-  ]
 }
