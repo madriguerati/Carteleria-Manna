@@ -7,11 +7,9 @@
   "scripts": {
     "ts:node": "ts-node src/index.ts",
     "clean": "del build",
-    "build": "CI=false",
+    "build": "tsc -w",
     "start": "node build/src",
-    "dev": "nodemon",
-    "buildCommand": "next build",
-    "public": "true"
+    "dev": "nodemon"
   },
   "author": "nexo",
   "license": "ISC",
