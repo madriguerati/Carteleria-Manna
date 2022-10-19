@@ -36,8 +36,9 @@ server.use((_req, res, next) => {
 //passport
 server.use(passport_1.default.initialize());
 passport_1.default.use(passport_2.default);
+//q
 //routes
-server.use(`/api`, index_1.default);
+server.use('api/', index_1.default);
 //cors
 //server.use(cors());
 server.use((err, _req, res, _next) => {
