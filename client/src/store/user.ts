@@ -86,7 +86,7 @@ const useUser = create<UserStore>()(
 		signin: async (body) => {
 			try {
 				const { data } = await axios.post(
-					"http://localhost:5000/api/user/signIn",
+					"https://symptomatic-hole-production.up.railway.app/api/user/signIn",
 					body
 				);
 				localStorage.setItem("auth", JSON.stringify(data));
