@@ -9,27 +9,23 @@ const router = (0, express_1.Router)();
 //user
 const SignUp_1 = __importDefault(require("./user/SignUp"));
 const SignIn_1 = __importDefault(require("./user/SignIn"));
-const RefreshToken_1 = __importDefault(require("./user/RefreshToken"));
 const getUsers_1 = __importDefault(require("./user/getUsers"));
 const PutUserDatos_1 = __importDefault(require("./user/PutUserDatos"));
 const PutRoleUser_1 = __importDefault(require("./user/PutRoleUser"));
 const getUserById_1 = __importDefault(require("./user/getUserById"));
-const deleteUserById_1 = __importDefault(require("./user/deleteUserById"));
 router.use('/user', SignUp_1.default);
 router.use('/user', SignIn_1.default);
-router.use('/user', RefreshToken_1.default);
 router.use('/user', index_1.verifyToken, getUserById_1.default);
 router.use('/user', index_1.verifyToken, index_1.isGerente, getUsers_1.default);
 router.use('/user', index_1.verifyToken, index_1.isGerente, PutUserDatos_1.default);
 router.use('/user', index_1.verifyToken, index_1.isGerente, PutRoleUser_1.default);
-router.use('/user', index_1.verifyToken, index_1.isGerente, deleteUserById_1.default);
 //insumo
 const postInsumo_1 = __importDefault(require("./insumo/postInsumo"));
 const getInsumo_1 = __importDefault(require("./insumo/getInsumo"));
 const deleteInsumo_1 = __importDefault(require("./insumo/deleteInsumo"));
 const putInsumo_1 = __importDefault(require("./insumo/putInsumo"));
 router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, postInsumo_1.default);
-router.use('/insumos', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, getInsumo_1.default);
+router.use('/insumos', index_1.verifyToken, index_1.isGerente, getInsumo_1.default);
 router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, deleteInsumo_1.default);
 router.use('/insumo', index_1.verifyToken, index_1.isAdmin, index_1.isGerente, putInsumo_1.default);
 //clientes

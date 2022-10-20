@@ -19,12 +19,10 @@ const roles_1 = __importDefault(require("../../../Models/roles"));
 const router = (0, express_1.Router)();
 router.post('/signUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, name, lastname, email, password, roles } = req.body;
+        const { username, email, password, roles } = req.body;
         // Creating a new User Object
         let newUser = new user_1.default({
             username,
-            name,
-            lastname,
             email,
             password
         });

@@ -45,8 +45,5 @@ const presupuestoSchema = new mongoose_1.Schema({
         type: String,
         required: true
     }
-}, {
-    timestamps: true,
-    versionKey: false,
 });
 exports.default = (0, mongoose_1.model)("presupuesto", presupuestoSchema);

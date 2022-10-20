@@ -28,8 +28,8 @@ router.post('/signIn', (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     }
     const isMatch = yield user.comparePassword(req.body.password);
     if (isMatch) {
-        const { accessToken, refreshToken } = (0, createdToken_1.default)(user);
-        return res.status(200).json({ accessToken, refreshToken });
+        return res.status(200).json({ token: (0, createdToken_1.default)(user) });
+        console.log(user);
     }
     return res.status(400).json({
         msg: "The email or password are incorrect"

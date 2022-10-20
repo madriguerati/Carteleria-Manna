@@ -11,9 +11,9 @@ import '../build/src/config/mongodb/db.js'
 import cors from 'cors';
 import http from 'http'
 import {createRoles} from './Lib/initialSetUp'
-const serverless = require("serverless-http");
 
 const server = express();
+
 //const IoServer = http.createServer(server);
 
 
@@ -45,7 +45,7 @@ server.use(passport.initialize());
 passport.use(passportmiddleware);
 
 //routes
-server.use('api/', routes);
+server.use('/api', routes);
 //cors
 //server.use(cors());
 
@@ -56,5 +56,6 @@ server.use((err:any, _req:any, res:any, _next:any) => {
     res.status(status).send({message});
   });
   
+
 
 export {server};
