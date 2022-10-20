@@ -51,9 +51,9 @@ const useClients = create<ClientStore>()(
 			}
 		},
 		deleteClients: async (params, headers)=>{
-      
+			set({ loading: true}) 
 			const { data } = await axios.delete(`http://localhost:5000/api/clientes/${params}`,   headers);
-	  
+			set({ loading: false})  
 		  },
 		closeModal: () => {
 			set({ error: false, success: false });

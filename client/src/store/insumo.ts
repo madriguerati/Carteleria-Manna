@@ -51,11 +51,13 @@ const useInusmo = create<UserStore>()(
       },
       getInsumos: async (headers) => {
         try{
+          set({ loading: true}) 
           const { data } = await axios.get('http://localhost:5000/api/insumos', headers )
           set((state) => ({ insumos: (state.insumos = data) }));
         }catch(error){
           console.log(error)
         }
+        set({ loading: false})  
       },
       deleteIsumos: async (params, headers)=>{
       
