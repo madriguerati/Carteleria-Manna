@@ -41,7 +41,6 @@ const Clientes = () => {
 	
 	useEffect(() => {
 		getInsumos(headers);
-		console.log("holaaaaaa",headers)
 	}, []);
 
 	//delete 
@@ -52,7 +51,7 @@ const Clientes = () => {
 
 
 	const nextPage = (): void => {
-		page < users.totalPages && setPage(page + 1);
+		page < insumos.totalPages && setPage(page + 1);
 	};
 
 	const prevPage = (): void => {
@@ -64,7 +63,7 @@ const Clientes = () => {
 	};
 
 	const lastPage = (): void => {
-		page !== users.totalPages && setPage(users.totalPages);
+		page !== insumos.totalPages && setPage(insumos.totalPages);
 	};
 
 	const userPerPage = (
@@ -306,6 +305,11 @@ const Clientes = () => {
 													</p>
 												</td>
 												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap'>
+														{insumo.proveedor}
+													</p>
+												</td>
+												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
 														ver
 													</p>
@@ -349,13 +353,13 @@ const Clientes = () => {
 									</button>
 
 									<span className='text-base xs:text-xs text-gray-900'>
-										{`Página ${users.page} de ${users.totalPages}`}
+										{`Página ${insumos.page} de ${insumos.totalPages}`}
 									</span>
 
 									<button onClick={nextPage}>
 										<MdKeyboardArrowRight
 											className={`text-2xl text-red-600 ${
-												page === users.totalPages && "opacity-50"
+												page === insumos.totalPages && "opacity-50"
 											}`}
 										/>
 									</button>
@@ -363,7 +367,7 @@ const Clientes = () => {
 									<button onClick={lastPage}>
 										<MdLastPage
 											className={`text-2xl text-red-600 ${
-												page === users.totalPages && "opacity-50"
+												page === insumos.totalPages && "opacity-50"
 											}`}
 										/>
 									</button>
