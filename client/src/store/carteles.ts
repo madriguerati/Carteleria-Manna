@@ -43,7 +43,7 @@ const useCartel = create<CartelStore>()(
       //actions
       addCartel: async (body) => {
         try {
-          const { data } = await axios.post('http://localhost:5000/api/carteles/create', body );
+          const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/carteles/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });
@@ -52,7 +52,7 @@ const useCartel = create<CartelStore>()(
       },
       getCarteles: async (headers) => {
         try{
-          const { data } = await axios.get('http://localhost:5000/api/carteles', headers )
+          const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/carteles', headers )
           set((state) => ({ carteles: (state.carteles = data) }));
           if (!data) {
             set({ loading: true });
@@ -63,7 +63,7 @@ const useCartel = create<CartelStore>()(
       },
       deleteCartel: async (params, headers)=>{
       
-        const { data } = await axios.delete(`http://localhost:5000/api/carteles/${params}`,  headers);
+        const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/carteles/${params}`,  headers);
         if (!data) {
           set({ loading: true });
         }

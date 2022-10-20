@@ -46,13 +46,13 @@ const useInusmo = create<UserStore>()(
         "x-access-token" : token
       };
 
-        const { data } = await axios.post('http://localhost:5000/api/insumo/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/insumo/create', body, { headers: { "x-access-token": token} });
 
       },
       getInsumos: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('http://localhost:5000/api/insumos', headers )
+          const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/insumos', headers )
           set((state) => ({ insumos: (state.insumos = data) }));
         }catch(error){
           console.log(error)
@@ -61,7 +61,7 @@ const useInusmo = create<UserStore>()(
       },
       deleteIsumos: async (params, headers)=>{
       
-        const { data } = await axios.delete(`http://localhost:5000/api/insumo/${params}`,   headers);
+        const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/insumo/${params}`,   headers);
   
       },
       closeModal: () => {
