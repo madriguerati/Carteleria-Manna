@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import passportmiddleware from './middlewares/passport/passport'
-import '../build/src/config/mongodb/db.js'
+import '../src/config/mongodb/db'
 import cors from 'cors';
 import http from 'http'
 import {createRoles} from './Lib/initialSetUp'
