@@ -14,7 +14,9 @@ type Props = {
 };
 
 var totalArray:any= []
-var multi:any=0
+var totales:any =[]
+let sumTotales:any=[]
+var montofinal:any = 0
 
 
 interface Values {
@@ -73,6 +75,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
 	totales: [{}]
   });
   const [errors, setErrors] = useState<any>({});
+  const [monto, setMonto] = useState(montofinal)
+
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -85,8 +89,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
 		[name]: value,
 
 	  });
-		multi=cartel.cant
-
+	
+console.log("hola",cartel)
 
   };
 
@@ -158,6 +162,19 @@ const AddNewClient = ({ setShowModal }: Props) => {
 	}
   };
 
+  const crearCartel=()=>{
+	if(cartel.cant>0){
+		totales=[...totales, cartel]
+	console.log("totales es", totales)
+	sumTotales = totales.map((a:any)=>a.total)
+	montofinal = sumTotales.reduce((a:any, b:any) => a + b, 0)
+	setValues({
+		...values,
+		montototal:montofinal
+	})
+	}
+  }
+
   useEffect(() => {
     success &&
       setValues({
@@ -180,7 +197,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
 
   return (
-    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
+    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
       <div className="p-6 space-y-4 sm:p-8">
         <button
           className="absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300"
@@ -396,7 +413,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
           </div>
         </form>
       </div>
-	  <div className="justify-center">
+	  <div className="justify-center p-6 space-y-4 sm:p-8">
             <div>
               <h1>agregar un cartel</h1>
               <div className="flex">
@@ -513,7 +530,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
                     name="total"
                     value={
 						totalArray?
-						cartel.total=(multiplicar(cartel.medidas, totalArray.costo1faz))*multi
+						cartel.total=multiplicar(multiplicar(cartel.medidas, totalArray.costo1faz), cartel.cant)
 						:
 						""
 					}
@@ -531,9 +548,9 @@ const AddNewClient = ({ setShowModal }: Props) => {
                     className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-city"
                     type="text"
-                    placeholder="cant"
-                    name="operacion"
-                    value={values.operacion}
+                    placeholder="estructura"
+                    name="estructura"
+                    value={cartel.estructura}
                     onChange={handleChange}
                   />
                 </div>
@@ -545,15 +562,16 @@ const AddNewClient = ({ setShowModal }: Props) => {
                     className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-city"
                     type="text"
-                    placeholder="cant"
-                    name="operacion"
-                    value={values.operacion}
+                    placeholder="otros"
+                    name="otros"
+                    value={cartel.otros}
                     onChange={handleChange}
                   />
                 </div>
               </div>
             </div>
 			<button
+			onClick={crearCartel}
                   className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
                 >
                   crear insumo
