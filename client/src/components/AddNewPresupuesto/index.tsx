@@ -14,13 +14,16 @@ type Props = {
 };
 
 interface Values {
-	name: string;
-	telefono: string;
-	cuit: string;
-	email: string;
-	direccion: string;
-	condicioniva: string[];
-	razonsocial: string;
+	fecha: string,
+    clientes: string,// que muestre nombre de contacto y telefono en el front
+    carteles: string,
+    operacion:string,
+    lugardecolocacion: string,//lugar de entrega colocación/entrega
+    montototal: number,
+    formadepago:string,
+    plazodeentrega:number,
+    fechavalida: string,//presupuesto valido hasta 
+    observaciones:string
 }
 
 const AddNewClient = ({ setShowModal }: Props) => {
@@ -29,14 +32,28 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
 	const { carteles, getCarteles } = useCartel((state) => state);
 
+	const [cartel, setCartel]=useState({
+		cant: 0,
+		name:"",
+		base:0,
+		altura:0,
+		totalm2:0,
+		faz:"",
+		total:0,
+		estructura:"",
+		otro:""
+	})
 	const [values, setValues] = useState<Values>({
-		name: "",
-		telefono: "",
-		cuit: "",
-		email: "",
-		direccion: "",
-		condicioniva: [""],
-		razonsocial: "",
+		fecha:"",
+		clientes: '',// que muestre nombre de contacto y telefono en el front
+		carteles: '',
+		operacion:'',
+		lugardecolocacion: '',//lugar de entrega colocación/entrega
+		montototal: 0,
+		formadepago:'',
+		plazodeentrega:0,
+		fechavalida: '',//presupuesto valido hasta 
+		observaciones:''
 	});
 	const [errors, setErrors] = useState<any>({});
 
@@ -75,25 +92,28 @@ const AddNewClient = ({ setShowModal }: Props) => {
 		closeModal();
 	};
 
-	// const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-	// 	let { value } = e.currentTarget;
-
-	// 	setValues({
-	// 		...values,
-	// 		roles: [value],
-	// 	});
-	// };
+	const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+	let { value } = e.currentTarget;
+	setValues({
+	...values,
+	formadepago: value,
+	});
+	console.log("hola",values)
+	};
 
 	useEffect(() => {
 		success &&
 			setValues({
-				name: "",
-				telefono: "",
-				cuit: "",
-				email: "",
-				direccion: "",
-				condicioniva: [""],
-				razonsocial: "",
+				fecha:"",
+				clientes: '',// que muestre nombre de contacto y telefono en el front
+				carteles: '',
+				operacion:'',
+				lugardecolocacion: '',//lugar de entrega colocación/entrega
+				montototal: 0,
+				formadepago:'',
+				plazodeentrega:0,
+				fechavalida: '',//presupuesto valido hasta 
+				observaciones:''
 			});
 			getCarteles(headers)
 			getClients(headers)
@@ -149,7 +169,14 @@ const AddNewClient = ({ setShowModal }: Props) => {
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
         Fecha
       </label>
-      <input className="appearance-none block w-40 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="date" placeholder="Fecha"/>
+      <input className="appearance-none block w-40 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
+	  id="grid-first-name" 
+	  type="date" 
+	  placeholder="Fecha"
+	  name="fecha"
+	  value={values.fecha}
+	  onChange={handleChange}
+	  />
 
   <div className="flex flex-wrap -mx-3 mb-6">
     
@@ -171,28 +198,88 @@ const AddNewClient = ({ setShowModal }: Props) => {
 </button>
     </div>
 {/**Holaaa soy un cartel */}
-    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-        
-      <label className="block uppercase tracking-wide mt-4 text-gray-700 text-xs font-bold mb-2" >
-        Carteles
+</div>
+
+   
+{/**Holaaa soy un cartel */}
+<div className="justify-center">
+        <div>
+        <h1>agregar un cartel</h1>
+		<div className="flex">
+		<div>
+		<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
+        cant
       </label>
-      <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+      <input className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-city" 
+	  type="number" 
+	  placeholder="cant"
+	  name="operacion"
+	  value={values.operacion}
+	  onChange={handleChange}
+	  />
+		</div>
+		<div className="ml-2">
+		<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
+        cartel
+      </label>
+		<select className="block appearance-none w-40 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+		<option value='' defaultValue={''} disabled>Seleccionar cartel</option>
 	  {carteles.map((e: any) => (
                       <option value={e.descripcion}>{e.descripcion}</option>
                     ))}
         </select>
-        
-    </div>
-    <div className="w-full md:w-1/2 px-3">
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-6 py-2 px-4 rounded-full">
-  +
-</button>
-    </div>
-{/**Holaaa soy un cartel */}
+		</div>
+		<div>
+		<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
+        base
+      </label>
+      <input className="appearance-none ml-2 block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-city" 
+	  type="number" 
+	  placeholder="cant"
+	  name="operacion"
+	  value={values.operacion}
+	  onChange={handleChange}
+	  />
+		</div>
+		<div>
+		<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
+        base
+      </label>
+      <input className="appearance-none ml-2 block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-city" 
+	  type="number" 
+	  placeholder="cant"
+	  name="operacion"
+	  value={values.operacion}
+	  onChange={handleChange}
+	  />
+		</div>
+		</div>
 
+		<div className="flex">
+			<div>
+				Medidas
+			</div>
+			<div>
+				faz
+			</div>
+			<div>
+				total
+			</div>
+		</div>
 
+		<div className="flex">
+			<div>
+				estructura
+			</div>
+			<div>
+				otros
+			</div>
 
-
+		</div>
+		</div>
   </div>
   {/**Holaaa soy un opciones */}
   <div className="flex flex-wrap -mx-3 mb-2">
@@ -200,25 +287,58 @@ const AddNewClient = ({ setShowModal }: Props) => {
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
         operación
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque"/>
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-city" 
+	  type="text" 
+	  placeholder="operacion"
+	  name="operacion"
+	  value={values.operacion}
+	  onChange={handleChange}
+	  />
     </div>
     
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
         Colocación
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque"/>
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-city" 
+	  type="text" 
+	  placeholder="L. colocación"
+	  name="lugardecolocacion"
+	  value={values.lugardecolocacion}
+	  onChange={handleChange}
+	  />
     </div>
 
      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
      <label className="block uppercase tracking-wide  text-gray-700 text-xs font-bold mb-2" >
         Metodo
       </label>
-      <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>Cliente</option>
-          <option>Missouri</option>
-          <option>Texas</option>
-        </select>
+	  <select
+                    value={values.formadepago}
+                    onChange={handleSelect}
+                    name="formadepago"
+                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state"
+                  >
+					
+                    <option value='' defaultValue={''} disabled>
+                      Seleccionar cartel
+                    </option>
+					<option value="master" >
+                      master
+                    </option>
+					<option value="visa" >
+                      visa
+                    </option>
+					<option value="maestro" >
+                      visa
+                    </option>
+					<option value="efectivo" >
+                      efectivo
+                    </option>
+                   
+                  </select>
     </div>
   </div>
 {/**Holaaa soy un cartel */}
@@ -229,21 +349,42 @@ const AddNewClient = ({ setShowModal }: Props) => {
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
         Monto Total
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque"/>
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-city" 
+	  type="number" 
+	  placeholder="Monto total"
+	  name="montototal"
+	  value={values.montototal}
+	  onChange={handleChange}
+	  />
     </div>
     
     <div className="w-30 md:w-1/2 px-3 mb-6 md:mb-0">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
         Entrega
       </label>
-      <input className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque"/>
+      <input className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-city" 
+	  type="number" 
+	  placeholder="Albuquerque"
+	  name="plazodeentrega"
+	  value={values.plazodeentrega}
+	  onChange={handleChange}
+	  />
     </div>
 
      <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
         Fecha Válida
       </label>
-      <input className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="date" placeholder="Fecha"/>
+      <input className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
+	  id="grid-first-name" 
+	  type="date" 
+	  placeholder="Fecha"
+	  name="fechavalida"
+	  value={values.fechavalida}
+	  onChange={handleChange}
+	  />
     </div>
   </div>
 {/**Holaaa soy un cartel */}
@@ -252,7 +393,15 @@ const AddNewClient = ({ setShowModal }: Props) => {
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
         Observaciones
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 h-20 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="observaciones"/>
+      <input 
+	  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 h-20 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+	  id="grid-password" 
+	  type="text" 
+	  placeholder="observaciones"
+	  name="observaciones"
+	  onChange={handleChange}
+	  value={values.observaciones}
+	  />
       <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
     </div>
   </div>
