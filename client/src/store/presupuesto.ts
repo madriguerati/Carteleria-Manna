@@ -10,13 +10,8 @@ interface Headers {
 
 interface Cartel {
     fecha: Date,
-<<<<<<< Updated upstream
-    clientes: string[],// que muestre nombre de contacto y telefono en el front
-    carteles: string,
-=======
     clientes: [string],// que muestre nombre de contacto y telefono en el front
     carteles: [string],
->>>>>>> Stashed changes
     operacion:string,
     lugardecolocacion: string,//lugar de entrega colocación/entrega
     montototal: number,

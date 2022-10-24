@@ -5,7 +5,7 @@ export interface IPresupuesto extends mongoose.Document{
   clientes: Schema.Types.ObjectId,// que muestre nombre de contacto y telefono en el front
   //clientes: string,
   //contacto: string,
-  carteles: [string],
+  carteles: Schema.Types.ObjectId,
   operacion:string,
   lugardecolocacion: string,//lugar de entrega colocación/entrega
   //lugartraslado:string,
@@ -23,18 +23,7 @@ const presupuestoSchema = new Schema(
         type: Date,
         required: true
       },
-<<<<<<< Updated upstream
-      clientes: {
-        type:Schema.Types.ObjectId, 
-        ref:'clientes',
-        required: true
-      },
-      carteles:
-      {
-        type:Schema.Types.ObjectId, ref:'carteles',
-        required: true
-      },
-=======
+
       clientes: [
         {
           type: Schema.Types.ObjectId,
@@ -47,7 +36,6 @@ const presupuestoSchema = new Schema(
           ref: "carteles",
         },
       ],
->>>>>>> Stashed changes
       operacion:
       {
         type: String,

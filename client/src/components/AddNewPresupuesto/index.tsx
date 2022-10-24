@@ -25,8 +25,8 @@ var cartelSelect:any={}
 
 interface Values {
   fecha: string;
-  clientes: string; // que muestre nombre de contacto y telefono en el front
-  carteles: [string];
+  clientes: [string]; // que muestre nombre de contacto y telefono en el front
+  carteles: string[];
   operacion: string;
   lugardecolocacion: string; //lugar de entrega colocación/entrega
   montototal: number;
@@ -68,8 +68,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
   });
   const [values, setValues] = useState<Values>({
     fecha: "",
-    clientes: "", // que muestre nombre de contacto y telefono en el front
-    carteles: [""],
+    clientes: [""], // que muestre nombre de contacto y telefono en el front
+    carteles: [],
     operacion: "",
     lugardecolocacion: "", //lugar de entrega colocación/entrega
     montototal: 0,
@@ -144,7 +144,7 @@ console.log("hola",cartel)
         var cartelId= cartelSelect._id
 				setValues ({
 					...values,
-					carteles: [cartelId],
+					carteles: [...values.carteles, cartelId],
 				})
 				setCartel({
 					...cartel,
@@ -170,8 +170,7 @@ console.log("hola",cartel)
         var clienteId = clienteSelect._id
 				setValues({
 					...values,
-					clientes: clienteId
-					
+					clientes: [clienteId]
 				})
 				console.log("hola amiguitos dolos", clienteSelect)
 			}else{
@@ -211,8 +210,8 @@ console.log("hola",cartel)
     success &&
       setValues({
         fecha: "",
-        clientes: "", // que muestre nombre de contacto y telefono en el front
-        carteles: [""],
+        clientes:[""], // que muestre nombre de contacto y telefono en el front
+        carteles: [],
         operacion: "",
         lugardecolocacion: "", //lugar de entrega colocación/entrega
         montototal: 0,
