@@ -285,23 +285,13 @@ const Clientes = () => {
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{
-                            presupuesto.clientes?
-                            presupuesto.clientes
-                            :
-                            "hola"
-                            }
+													
 													</p>
 												</td>
 												
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-                          {
-                            presupuesto.carteles?
-                            presupuesto.carteles
-                            :
-                            "hola"
-                            }
+                          
 													</p>
 												</td>
                         <td className='px-3 py-2'>

@@ -3,7 +3,6 @@ import  mongoose,  {model, Document, Schema} from'mongoose';
 export interface IPresupuesto extends mongoose.Document{
   fecha: Date,
   clientes: Schema.Types.ObjectId,// que muestre nombre de contacto y telefono en el front
-
   //clientes: string,
   //contacto: string,
   carteles: [string],
@@ -24,6 +23,7 @@ const presupuestoSchema = new Schema(
         type: Date,
         required: true
       },
+<<<<<<< Updated upstream
       clientes: {
         type:Schema.Types.ObjectId, 
         ref:'clientes',
@@ -34,6 +34,20 @@ const presupuestoSchema = new Schema(
         type:Schema.Types.ObjectId, ref:'carteles',
         required: true
       },
+=======
+      clientes: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "clientes",
+        },
+      ],
+      carteles:[
+        {
+          type: Schema.Types.ObjectId,
+          ref: "carteles",
+        },
+      ],
+>>>>>>> Stashed changes
       operacion:
       {
         type: String,
