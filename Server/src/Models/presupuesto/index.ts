@@ -6,7 +6,7 @@ export interface IPresupuesto extends mongoose.Document{
 
   //clientes: string,
   //contacto: string,
-  carteles: Schema.Types.ObjectId,
+  carteles: [string],
   operacion:string,
   lugardecolocacion: string,//lugar de entrega colocación/entrega
   //lugartraslado:string,
@@ -31,8 +31,7 @@ const presupuestoSchema = new Schema(
       },
       carteles:
       {
-        type:Schema.Types.ObjectId, 
-        ref:'carteles',
+        type:Schema.Types.ObjectId, ref:'carteles',
         required: true
       },
       operacion:

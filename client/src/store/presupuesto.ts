@@ -10,7 +10,7 @@ interface Headers {
 
 interface Cartel {
     fecha: Date,
-    clientes: string,// que muestre nombre de contacto y telefono en el front
+    clientes: string[],// que muestre nombre de contacto y telefono en el front
     carteles: string,
     operacion:string,
     lugardecolocacion: string,//lugar de entrega colocación/entrega
@@ -50,7 +50,7 @@ const usePresupuesto = create<PresupuestoStore>()(
      
       addPresupuesto: async (body) => {
         try {
-          const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/presupuestos/create', body );
+          const { data } = await axios.post('http://localhost:5000/api/presupuestos/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });
