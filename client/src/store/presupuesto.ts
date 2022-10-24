@@ -10,8 +10,8 @@ interface Headers {
 
 interface Cartel {
     fecha: Date,
-    clientes: string,// que muestre nombre de contacto y telefono en el front
-    carteles: string,
+    clientes: [string],// que muestre nombre de contacto y telefono en el front
+    carteles: [string],
     operacion:string,
     lugardecolocacion: string,//lugar de entrega colocación/entrega
     montototal: number,
@@ -29,7 +29,7 @@ type PresupuestoStore = {
   success: boolean
   error: boolean
   loading: boolean
-  //addCartel: (body:{}) => Promise<void>
+  addPresupuesto: (body:{}) => Promise<void>
   getPresupuestos: (headers:{})=>Promise<void>
   deletePresupuestos: (params:any, headers:any)=> Promise<void>
   closeModal: () => void;
@@ -48,6 +48,15 @@ const usePresupuesto = create<PresupuestoStore>()(
   
       //actions
      
+      addPresupuesto: async (body) => {
+        try {
+          const { data } = await axios.post('http://localhost:5000/api/presupuestos/create', body );
+        set({ success: true, error: false });
+        } catch (error) {
+          set({ error: true, success: false });
+        }
+
+      },
       getPresupuestos: async (headers:any) => {
         try{
           const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/presupuestos', headers )
