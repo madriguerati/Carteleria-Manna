@@ -5,6 +5,7 @@ import useCartel from "../../store/carteles";
 import useClients from "../../store/clientes";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useHeaders from "../../hooks/useHeaders";
+import usePresupuesto from "../../store/presupuesto";
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
@@ -22,7 +23,7 @@ var montofinal:any = 0
 interface Values {
   fecha: string;
   clientes: string; // que muestre nombre de contacto y telefono en el front
-  carteles: string;
+  carteles: [object];
   operacion: string;
   lugardecolocacion: string; //lugar de entrega colocación/entrega
   montototal: number;
@@ -30,7 +31,6 @@ interface Values {
   plazodeentrega: number;
   fechavalida: string; //presupuesto valido hasta
   observaciones: string;
-  totales: [object]
 }
 interface Cartel {
 	cant: number;
@@ -45,10 +45,12 @@ interface Cartel {
 }
 
 const AddNewClient = ({ setShowModal }: Props) => {
-  const { addClient, getClients, clients, success, error, closeModal } =
-    useClients((state) => state);
+  const { addPresupuesto, success, error, closeModal } =
+    usePresupuesto((state) => state);
 
   const { carteles, getCarteles } = useCartel((state) => state);
+  const { clients, getClients } = useClients((state) => state);
+
 
   const [cartel, setCartel] = useState<Cartel>({
     cant: 1,
@@ -64,15 +66,14 @@ const AddNewClient = ({ setShowModal }: Props) => {
   const [values, setValues] = useState<Values>({
     fecha: "",
     clientes: "", // que muestre nombre de contacto y telefono en el front
-    carteles: "",
+    carteles: [{}],
     operacion: "",
     lugardecolocacion: "", //lugar de entrega colocación/entrega
     montototal: 0,
     formadepago: "",
     plazodeentrega: 0,
     fechavalida: "", //presupuesto valido hasta
-    observaciones: "",
-	totales: [{}]
+    observaciones: ""
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal)
@@ -113,7 +114,8 @@ console.log("hola",cartel)
     // if (Object.keys(error).length === 0) {
     // 	createNewUser(values);
     // }
-    addClient(values);
+    addPresupuesto(values);
+	console.log("hola soy un valie", values)
 
     setTimeout(() => {
       closeModal();
@@ -133,10 +135,12 @@ console.log("hola",cartel)
     });
     if (value){
 		const cartelSelect = carteles.find((e:any)=> e.descripcion===value)
+		const clienteSelect = clients.find((e:any)=> e.name===value)
+		console.log("hola soy un valor que si vale", cartelSelect)
 			if (cartelSelect){
 				setValues({
 					...values,
-					totales: [values.totales.concat(cartelSelect)],
+					[carteles]: [...values.carteles, cartelSelect._id],
 				})
 				setCartel({
 					...cartel,
@@ -158,6 +162,17 @@ console.log("hola",cartel)
 			}else{
 				totalArray.costo1faz=totalArray.costo1faz/2
 			}
+			if(clienteSelect){
+				setValues({
+					...values,
+					clientes: clienteSelect.name
+					
+				})
+				console.log("hola amiguitos dolos", clienteSelect)
+			}else{
+				console.log("holalkdjsldkjsdlksdjsldkjamiguitos dolos", clienteSelect)
+
+			}
 			
 	}
   };
@@ -172,7 +187,19 @@ console.log("hola",cartel)
 		...values,
 		montototal:montofinal
 	})
+
 	}
+	setCartel({
+		cant: 1,
+		name: "",
+		base: 0,
+		altura: 0,
+		medidas: 0,
+		faz: "",
+		total: 0,
+		estructura: "",
+		otros: "",
+	})
   }
 
   useEffect(() => {
@@ -180,15 +207,14 @@ console.log("hola",cartel)
       setValues({
         fecha: "",
         clientes: "", // que muestre nombre de contacto y telefono en el front
-        carteles: "",
+        carteles: [{}],
         operacion: "",
         lugardecolocacion: "", //lugar de entrega colocación/entrega
         montototal: 0,
         formadepago: "",
         plazodeentrega: 0,
         fechavalida: "", //presupuesto valido hasta
-        observaciones: "",
-	totales: [{}]
+        observaciones: ""
 
       });
     getCarteles(headers);
@@ -231,6 +257,7 @@ console.log("hola",cartel)
 
           {error && <MdError size={55} className="text-red-700 ml-1" />}
         </div>
+		
         <form onSubmit={handleSubmit} className="flex flex-col mt-4">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Fecha
@@ -253,6 +280,9 @@ console.log("hola",cartel)
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
+				name="clientes"
+				value={values.clientes}
+				onChange={handleSelect}
               >
                 {clients.map((e: any) => (
                   <option value={e.name}>{e.name}</option>
@@ -268,152 +298,7 @@ console.log("hola",cartel)
           </div>
 
           {/**Holaaa soy un cartel */}
-
-		  <br />
-		  <hr/>
-		  <br />
-
-          {/**Holaaa soy un opciones */}
-          <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                operación
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="text"
-                placeholder="operacion"
-                name="operacion"
-                value={values.operacion}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Colocación
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="text"
-                placeholder="L. colocación"
-                name="lugardecolocacion"
-                value={values.lugardecolocacion}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide  text-gray-700 text-xs font-bold mb-2">
-                Metodo
-              </label>
-              <select
-                value={values.formadepago}
-                onChange={handleSelect}
-                name="formadepago"
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-              >
-                <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
-                </option>
-                <option value="master">master</option>
-                <option value="visa">visa</option>
-                <option value="maestro">visa</option>
-                <option value="efectivo">efectivo</option>
-              </select>
-            </div>
-          </div>
-          {/**Holaaa soy un cartel */}
-
-          {/**Holaaa soy un opciones */}
-          <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Monto Total
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="number"
-                placeholder="Monto total"
-                name="montototal"
-                value={values.montototal}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="w-30 md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Entrega
-              </label>
-              <input
-                className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="number"
-                placeholder="Albuquerque"
-                name="plazodeentrega"
-                value={values.plazodeentrega}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Fecha Válida
-              </label>
-              <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="date"
-                placeholder="Fecha"
-                name="fechavalida"
-                value={values.fechavalida}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          {/**Holaaa soy un cartel */}
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full px-3">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Observaciones
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 h-20 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-password"
-                type="text"
-                placeholder="observaciones"
-                name="observaciones"
-                onChange={handleChange}
-                value={values.observaciones}
-              />
-              <p className="text-gray-600 text-xs italic">
-                Make it as long and as crazy as you'd like
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center mt-6 justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            <button
-              className="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              type="button"
-              onClick={handleCloseModal}
-            >
-              Cancelar
-            </button>
-            <button
-              className="bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              type="submit"
-            >
-              Aceptar
-            </button>
-          </div>
-        </form>
-      </div>
-	  <div className="justify-center p-6 space-y-4 sm:p-8">
+		  <div className="justify-center">
             <div>
               <h1>agregar un cartel</h1>
               <div className="flex">
@@ -577,6 +462,152 @@ console.log("hola",cartel)
                   crear insumo
                 </button>
           </div>
+
+		  <br />
+		  <hr/>
+		  <br />
+
+          {/**Holaaa soy un opciones */}
+          <div className="flex flex-wrap -mx-3 mb-2">
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                operación
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-city"
+                type="text"
+                placeholder="operacion"
+                name="operacion"
+                value={values.operacion}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Colocación
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-city"
+                type="text"
+                placeholder="L. colocación"
+                name="lugardecolocacion"
+                value={values.lugardecolocacion}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide  text-gray-700 text-xs font-bold mb-2">
+                Metodo
+              </label>
+              <select
+                value={values.formadepago}
+                onChange={handleSelect}
+                name="formadepago"
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state"
+              >
+                <option value="" defaultValue={""} disabled>
+                  Seleccionar cartel
+                </option>
+                <option value="master">master</option>
+                <option value="visa">visa</option>
+                <option value="maestro">visa</option>
+                <option value="efectivo">efectivo</option>
+              </select>
+            </div>
+          </div>
+          {/**Holaaa soy un cartel */}
+
+          {/**Holaaa soy un opciones */}
+          <div className="flex flex-wrap -mx-3 mb-2">
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Monto Total
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-city"
+                type="number"
+                placeholder="Monto total"
+                name="montototal"
+                value={values.montototal}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="w-30 md:w-1/2 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Entrega
+              </label>
+              <input
+                className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-city"
+                type="number"
+                placeholder="Albuquerque"
+                name="plazodeentrega"
+                value={values.plazodeentrega}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Fecha Válida
+              </label>
+              <input
+                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="date"
+                placeholder="Fecha"
+                name="fechavalida"
+                value={values.fechavalida}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          {/**Holaaa soy un cartel */}
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Observaciones
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 h-20 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-password"
+                type="text"
+                placeholder="observaciones"
+                name="observaciones"
+                onChange={handleChange}
+                value={values.observaciones}
+              />
+              <p className="text-gray-600 text-xs italic">
+                Make it as long and as crazy as you'd like
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center mt-6 justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+            <button
+              className="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={handleCloseModal}
+            >
+              Cancelar
+            </button>
+            <button
+              className="bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="submit"
+            >
+              Aceptar
+            </button>
+          </div>
+        </form>
+      </div>
+	 
     </div>
   );
 };
