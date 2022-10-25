@@ -50,7 +50,7 @@ const usePresupuesto = create<PresupuestoStore>()(
      
       addPresupuesto: async (body) => {
         try {
-          const { data } = await axios.post('http://localhost:5000/api/presupuestos/create', body );
+          const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/presupuestos/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });

@@ -291,7 +291,7 @@ console.log("hola",cartel)
 					value={cartel.name}
 					onChange={handleSelect}
                   >
-                    <option value="" defaultValue={""} disabled>
+                    <option defaultValue={""} disabled>
                       Seleccionar cartel
                     </option>
                     {carteles.map((e: any) => (
@@ -360,7 +360,7 @@ console.log("hola",cartel)
                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
                   >
-                    <option value="" defaultValue={""} disabled>
+                    <option defaultValue={""} disabled>
                       Seleccionar cartel
                     </option>
                     <option value="simple">simple</option>
@@ -515,7 +515,7 @@ console.log("hola",cartel)
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
               >
-                <option value="" defaultValue={""} disabled>
+                <option  defaultValue={""} disabled>
                   Seleccionar cartel
                 </option>
                 <option value="master">master</option>
@@ -590,7 +590,7 @@ console.log("hola",cartel)
                 value={values.observaciones}
               />
               <p className="text-gray-600 text-xs italic">
-                Make it as long and as crazy as you'd like
+                escribe algo
               </p>
             </div>
           </div>
