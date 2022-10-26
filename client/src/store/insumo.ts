@@ -22,6 +22,7 @@ type UserStore = {
   insumos:any
   tokken: any
   success: boolean
+  error: boolean
   loading: boolean,
   postInsumo: (body:any, token:any) => Promise<void>
   getInsumos: (token:any) => Promise<void>
@@ -37,6 +38,7 @@ const useInusmo = create<UserStore>()(
       insumos:[],
       tokken: '',
       success: false,
+      error: false,
       loading: false,
   
       //actions

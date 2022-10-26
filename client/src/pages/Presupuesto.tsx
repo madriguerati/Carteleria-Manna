@@ -20,7 +20,7 @@ import useHeaders from "../hooks/useHeaders";
 import usePresupuesto from "../store/presupuesto";
 import AddNewClient from "../components/AddNewClient";
 
-const Clientes = () => {
+const Presupuesto = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
 	const { presupuestos, getPresupuestos, loading, success, deletePresupuestos } = usePresupuesto((state) => state);
 	const [accessToken] = useLocalStorage();
@@ -400,4 +400,4 @@ const Clientes = () => {
 	);
 };
 
-export default Clientes;
+export default Presupuesto;
