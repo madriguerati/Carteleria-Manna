@@ -15,9 +15,10 @@ var costoArray:any=""
 var unidadArray:any=""
 var Arraycosto1faz:any=[]
 var totalcosto1faz:any=0;
-
+var nameInsumo:any=""
 var Arraycosto2faz:any=[]
 var totalcosto2faz:any=0;
+var insumosCartel:any=0
 
 
 
@@ -29,7 +30,7 @@ interface Values {
   descripcion: string;
   costo1faz: number;
   costo2faz: number;
-  insumosArray: [object];
+  insumosArray: string[];
 }
 
 interface Insumo {
@@ -54,7 +55,7 @@ const AddNewCartel = ({ setShowModal}: Props) => {
     descripcion: "",
     costo1faz: 0,
     costo2faz: 0,
-    insumosArray: [{}]
+    insumosArray: [""]
   });
 
 
@@ -96,9 +97,10 @@ const multiplicar = (a: number, b: number): number => {
   };
 
 const addInsumoCartel = ()=>{
+  console.log(insumo, values)
     setValues({
       ... values,
-      insumosArray:[values.insumosArray.concat(insumo)]
+      insumosArray:[...values.insumosArray, insumo.name]
     })
   if (insumo.cant1faz) {
     var suma1 = insumo.costox1faz
@@ -106,14 +108,14 @@ const addInsumoCartel = ()=>{
     totalcosto1faz=  Arraycosto1faz.reduce((a:any, b:any) => a + b, 0)
 
   }else{
-    totalcosto1faz= 0
+    console.log("hola")
   }
   if (insumo.cant2faz) {
     var suma2 = insumo.costox2faz
     Arraycosto2faz=[...Arraycosto2faz, suma2]
     totalcosto2faz=  Arraycosto2faz.reduce((a:any, b:any) => a + b, 0)
   }else{
-    totalcosto2faz=0
+    console.log("hola")
   }
   setInsumo({
     name:"",
@@ -125,7 +127,8 @@ const addInsumoCartel = ()=>{
     costox1faz: 0,
     costox2faz:0
   })
-  }
+  console.log("holaaaaa")
+}
 
 
 
@@ -147,7 +150,7 @@ const addInsumoCartel = ()=>{
       descripcion: "",
       costo1faz: 0,
       costo2faz: 0,
-      insumosArray: [{}]
+      insumosArray: [""]
     })
     
 
@@ -167,14 +170,26 @@ const addInsumoCartel = ()=>{
 
   };
 const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  let { value } = e.currentTarget;
   console.log(insumo)
-  insumoparte = insumos.filter(
-      (element: any) => element.name === e.target.value
-    );
-
-    costoArray = insumoparte[0].costo
-    unidadArray = insumoparte[0].unidad
-    console.log("holaaaaa")
+  if(value){
+    insumoparte = insumos.filter((e:any)=>e.name===value)
+    costoArray=insumoparte[0].costo
+    unidadArray=insumoparte[0].unidad
+    nameInsumo=insumoparte[0].name
+  if(insumoparte){
+    setInsumo({
+      ...insumo,
+      costo:costoArray,
+      unidad:unidadArray,
+      name: nameInsumo
+    })
+    console.log("holaaaaaaaaaaaaaa", insumo.costo, costoArray)
+  }
+  if(value=="simple"){
+    console.log("hola")
+  }
+  }
   }
   useEffect(() => {
     success &&
@@ -182,7 +197,7 @@ const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         descripcion: "",
         costo1faz: 0,
         costo2faz: 0,
-        insumosArray: [{}]
+        insumosArray: [""]
       });
       getInsumos(headers)
   }, [success]);
@@ -288,7 +303,7 @@ const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
          <div className="flex flex-wrap justify-end m-5 border-t border-solid border-slate-200 rounded-b">
          {
             values.insumosArray.map((e:any)=>(
-                <div className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150">{e.name}</div>
+                <div className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150">{e}</div>
             ))
 
           }
@@ -335,10 +350,10 @@ const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
             className="px-4 py-3 mt-4 mr-1 w-20 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
             placeholder="costo"
             value={
-                costoArray?
-                insumo.costo=costoArray
-                :
-                "costo"
+              insumo.costo?
+              insumo.costo
+              :
+              "hola"
             }
             onChange={handleChangeInsumo}
           />
@@ -359,7 +374,12 @@ const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         </div>
           <select
            name="faz"
-            value={insumo.faz[0]}
+            value={
+              insumo.faz?
+              insumo.faz
+              :
+              "simple"
+            }
             className="px-4 py-3 mt-4 w-20 mr-1 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
             onChange={handleSelect}
             >

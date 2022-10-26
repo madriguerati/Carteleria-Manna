@@ -2,30 +2,29 @@ import  mongoose,  {model, Document, Schema} from'mongoose';
 
 export interface ICarteles extends mongoose.Document{
 descripcion: string,
-costo1: number,
-consto2:number,
-insumos: string
+costo1faz: number,
+consto2faz:number,
+insumosArray: string
 
 };
 
 
 const cartelesSchema = new Schema(
     {
-        insumos:{
-        type:Schema.Types.ObjectId, 
-        ref:'insumos',
-        required: true
+        insumosArray:{
+            type: [String],
+            request:true,
         },
         descripcion:{
             type: String,
-            required: true
+            request: true
         },
-        costo1:
+        costo1faz:
         {
             type:Number,
             required: true
         },
-        costo2:
+        costo2faz:
         {
             type:Number,
             required: true

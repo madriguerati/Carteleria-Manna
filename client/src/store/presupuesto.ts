@@ -8,7 +8,7 @@ interface Headers {
 	"x-access-token": { token: string };
 }
 
-interface Cartel {
+interface Presupuesto {
     fecha: Date,
     clientes: [string],// que muestre nombre de contacto y telefono en el front
     carteles: [string],
