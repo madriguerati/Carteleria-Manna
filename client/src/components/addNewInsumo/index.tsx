@@ -4,7 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import useInsumo from '../../store/insumo';
 import useUser from '../../store/user';
 import useLocalStorage from "../../hooks/useLocalStorage";
-
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { MdError } from "react-icons/md";
 
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 const InsumoPost = ({ setShowModal }: Props) => {
   
 
-    const { insumo, success, postInsumo, closeModal} = useInsumo((state) => state);
+    const { insumo, success, postInsumo, closeModal, error} = useInsumo((state) => state);
       const [token] = useLocalStorage();
 
 
@@ -30,7 +31,7 @@ const InsumoPost = ({ setShowModal }: Props) => {
     });
    
 
-    
+    const [errors, setErrors] = useState<any>({});
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
     setValues({
@@ -58,78 +59,143 @@ const InsumoPost = ({ setShowModal }: Props) => {
   }
 
   return (
-    <>
-      <>
-      <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
+    <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
+    <div className='p-6 space-y-4 sm:p-8'>
       <button
-					className='absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300'
-					onClick={handleCloseModal}
-				>
-					x
-				</button>
-        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-4xl text-center font-bold">Crear Insumo</h1>
-          <form onSubmit={handleSubmit} className="flex flex-col mt-4">
-            <input
-                type="text"
-                name="name"
-                className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder="Nombre de insumo"
-                value={values.name}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="descripcion"
-                className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder="descripción"
-                value={values.descripcion}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="unidad"
-                className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder="unidad"
-                value={values.unidad}
-                onChange={handleChange}
-            />
-            <input
-                type="number"
-                name="costo"
-                className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder="costo"
-                value={values.costo}
-                onChange={handleChange}
-            />
-            <input
-                type="select"
-                name="category"
-                className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder="categoría"
-                value={values.category}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="proveedor"
-                className="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                placeholder="proveedor"
-                value={values.proveedor}
-                onChange={handleChange}
-            />
-            <button
-                type="submit"
-                className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
-            >
-              crear insumo
-            </button>
-           
-          </form>
-        </div>
+        className='absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300'
+        onClick={handleCloseModal}
+      >
+        x
+      </button>
+      <div
+        className={`flex items-center justify-center p-5 border-b border-solid border-slate-200 rounded ${
+          success
+            ? "bg-[#c2e593]"
+            : error
+            ? "bg-red-300"
+            : "bg-[#77B327]"
+        }`}
+      >
+        <h3
+          className={`text-3xl font-semibold text-center ${
+            success
+              ? "text-[#77B327]"
+              : error
+              ? "text-red-700"
+              : "text-zinc-800"
+          }`}
+        >
+          {success
+            ? "Insumo agregado exitosamente"
+            : error
+            ? "Ocurrio un error"
+            : "Nuevo Insumo"}
+        </h3>
+        {success && (
+          <BsFillCheckCircleFill
+            size={55}
+            className='text-[#77B327]'
+          />
+        )}
+
+        {error && (
+          <MdError size={55} className='text-red-700 ml-1' />
+        )}
       </div>
-    </>
-    </>
+      <form onSubmit={handleSubmit} className='flex flex-col mt-4'>
+        <input
+          type='text'
+          name='name'
+          className='px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
+          placeholder='Nombre'
+          value={values.name}
+          onChange={handleChange}
+        />
+        {errors.username && (
+          <p className='text-red-600 text-sm'>{errors.username}</p>
+        )}
+        <div className='flex gap-4'>
+          <div className='w-full'>
+            <input
+              type='text'
+              name='descripcion'
+              className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
+              placeholder='Descripción'
+              value={values.descripcion}
+              onChange={handleChange}
+            />
+            {errors.name && (
+              <p className='text-red-600 text-sm'>{errors.name}</p>
+            )}
+          </div>
+          <div className='w-full'>
+            <input
+              type='text'
+              name='unidad'
+              className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
+              placeholder='Unidad'
+              value={values.unidad}
+              onChange={handleChange}
+            />
+            {errors.lastname && (
+              <p className='text-red-600 text-sm'>
+                {errors.lastname}
+              </p>
+            )}
+          </div>
+        </div>
+        <input
+          type='text'
+          name='costo'
+          className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
+          placeholder='Costo'
+          value={values.costo}
+          onChange={handleChange}
+        />
+        {errors.email && (
+          <p className='text-red-600 text-sm'>{errors.email}</p>
+        )}
+        <input
+          type='text'
+          name='category'
+          className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
+          placeholder='Categoría'
+          value={values.category}
+          onChange={handleChange}
+        />
+        {errors.password && (
+          <p className='text-red-600 text-sm'>{errors.password}</p>
+        )}
+        <input
+          type='text'
+          name='proveedor'
+          className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
+          placeholder='Proveedor'
+          value={values.proveedor}
+          onChange={handleChange}
+        />
+        {errors.password2 && (
+          <p className='text-red-600 text-sm'>{errors.password2}</p>
+        )}
+       
+        <div className='flex items-center mt-6 justify-end p-6 border-t border-solid border-slate-200 rounded-b'>
+          <button
+            className='text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+            type='button'
+            onClick={handleCloseModal}
+          >
+            Cancelar
+          </button>
+          <button
+            className='bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+            type='submit'
+          >
+            Aceptar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
   )
 }
 
