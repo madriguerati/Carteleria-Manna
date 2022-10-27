@@ -28,7 +28,7 @@ import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
-	const { getInsumos, insumos, deleteIsumos, loading } = useInsumo((state) => state);
+	const { getInsumos, insumos, deleteIsumos, loading, success} = useInsumo((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -45,7 +45,7 @@ const Clientes = () => {
 	);
 	
 	useEffect(() => {
-		getInsumos(headers);
+		!success && getInsumos(headers);
 	}, []);
 
 	//delete 
