@@ -27,6 +27,7 @@ import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useClients from "../store/clientes";
 import AddNewClient from "../components/AddNewClient";
+import ModalEdit from "../components/ModalEdit";
 
 const Clientes = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
@@ -55,7 +56,8 @@ const Clientes = () => {
 	//delete 
 	const DeleteInsumo= (insumo:any)=>{
 		deleteIsumos(insumo._id, headers)
-		getInsumos(headers)
+		!success && getInsumos(headers);
+
 	}
 
 
@@ -331,9 +333,9 @@ const Clientes = () => {
 													>
 														<FiEdit3/>
 													</p>
-				<Modal showModal={showModal2} setShowModal={setShowModal2}>
+				<ModalEdit showModal2={showModal2} setShowModal2={setShowModal2}>
 					<EditInsumo setShowModal2={setShowModal2} insumo={insumo}/>
-				</Modal>
+				</ModalEdit>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeleteInsumo(insumo)}>

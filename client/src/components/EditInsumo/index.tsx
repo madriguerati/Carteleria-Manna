@@ -9,13 +9,13 @@ import { MdError } from "react-icons/md";
 
 
 type Props = {
-	setShowModal: any;
+	setShowModal2: any;
     insumo:any
 };
-const InsumoEdit = ({ setShowModal, inusmo }: Props) => {
+const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
   
 
-    const { success, postInsumo, closeModal, error} = useInsumo((state) => state);
+    const { success, putInsumo, closeModal, error} = useInsumo((state) => state);
       const [token] = useLocalStorage();
 
 
@@ -23,12 +23,13 @@ const InsumoEdit = ({ setShowModal, inusmo }: Props) => {
     const navigate = useNavigate();
     
     const [values, setValues] = useState({
-      name:'',
-      descripcion:'',
-      unidad:'',
-      costo:'',
-      category:'',
-      proveedor:''
+      id:insumo._id,
+      name:insumo.name,
+      descripcion:insumo.descripcion,
+      unidad:insumo.unidad,
+      costo:insumo.costo,
+      category:insumo.category,
+      proveedor:insumo.proveedor
     });
    
 
@@ -42,13 +43,14 @@ const InsumoEdit = ({ setShowModal, inusmo }: Props) => {
   };
 
   const handleCloseModal = () => {
-		setShowModal(false);
+		setShowModal2(false);
 		closeModal();
 	};
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-        postInsumo(values, token)
+        putInsumo(values, token)
+        success
        
   }
 
@@ -80,7 +82,7 @@ const InsumoEdit = ({ setShowModal, inusmo }: Props) => {
           }`}
         >
           {success
-            ? "Insumo agregado exitosamente"
+            ? "Insumo editado exitosamente"
             : error
             ? "Ocurrio un error"
             : "Editar Insumo"}
@@ -102,7 +104,7 @@ const InsumoEdit = ({ setShowModal, inusmo }: Props) => {
           name='name'
           className='px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
           placeholder='Nombre'
-          value={insumo.name}
+          value={values.name}
           onChange={handleChange}
         />
         {errors.username && (
