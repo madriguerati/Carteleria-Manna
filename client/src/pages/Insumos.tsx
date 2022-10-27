@@ -4,6 +4,8 @@ import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewInsumo from "../components/addNewInsumo";
+import EditInsumo from "../components/EditInsumo";
+
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
 
@@ -25,10 +27,11 @@ import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useClients from "../store/clientes";
 import AddNewClient from "../components/AddNewClient";
+import ModalEdit from "../components/ModalEdit";
 
 const Clientes = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
-	const { getInsumos, insumos, deleteIsumos, loading } = useInsumo((state) => state);
+	const { getInsumos, insumos, deleteIsumos, loading, success} = useInsumo((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -36,6 +39,8 @@ const Clientes = () => {
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(10);
 	const [showModal, setShowModal] = useState(false);
+	const [showModal2, setShowModal2] = useState(false);
+
 	const [sortUsername, setSortUsername] = useState<null | boolean>(
 		true
 	);
@@ -45,13 +50,14 @@ const Clientes = () => {
 	);
 	
 	useEffect(() => {
-		getInsumos(headers);
+		!success && getInsumos(headers);
 	}, []);
 
 	//delete 
 	const DeleteInsumo= (insumo:any)=>{
 		deleteIsumos(insumo._id, headers)
-		getInsumos(headers)
+		!success && getInsumos(headers);
+
 	}
 
 
@@ -320,9 +326,16 @@ const Clientes = () => {
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+												
+													<p 
+													className='text-gray-900 whitespace-no-wrap capitalize'
+													onClick={() => setShowModal2(true)}
+													>
 														<FiEdit3/>
 													</p>
+				<ModalEdit showModal2={showModal2} setShowModal2={setShowModal2}>
+					<EditInsumo setShowModal2={setShowModal2} insumo={insumo}/>
+				</ModalEdit>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeleteInsumo(insumo)}>
