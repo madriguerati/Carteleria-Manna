@@ -21,7 +21,6 @@ import useCarteles from "../store/carteles";
 import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
-	const { users, getUsers } = useUser((state) => state, shallow);
 	const { carteles, getCarteles, deleteCartel} = useCarteles((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
@@ -45,14 +44,14 @@ const Clientes = () => {
 	
 	
 	useEffect(() => {
-		getCarteles(headers);
-	}, []);
+		getCarteles(accessToken, sort, page, limit);
+	}, [rol, sort, page, limit]);
 
 
 	//delete 
 	
 	const nextPage = (): void => {
-		page < users.totalPages && setPage(page + 1);
+		page < carteles.totalPages && setPage(page + 1);
 	};
 
 	const prevPage = (): void => {
@@ -64,7 +63,7 @@ const Clientes = () => {
 	};
 
 	const lastPage = (): void => {
-		page !== users.totalPages && setPage(users.totalPages);
+		page !== carteles.totalPages && setPage(carteles.totalPages);
 	};
 
 	const userPerPage = (
@@ -328,13 +327,13 @@ const Clientes = () => {
 									</button>
 
 									<span className='text-base xs:text-xs text-gray-900'>
-										{`Página ${users.page} de ${users.totalPages}`}
+										{`Página ${carteles.page} de ${carteles.totalPages}`}
 									</span>
 
 									<button onClick={nextPage}>
 										<MdKeyboardArrowRight
 											className={`text-2xl text-red-600 ${
-												page === users.totalPages && "opacity-50"
+												page === carteles.totalPages && "opacity-50"
 											}`}
 										/>
 									</button>
@@ -342,7 +341,7 @@ const Clientes = () => {
 									<button onClick={lastPage}>
 										<MdLastPage
 											className={`text-2xl text-red-600 ${
-												page === users.totalPages && "opacity-50"
+												page === carteles.totalPages && "opacity-50"
 											}`}
 										/>
 									</button>
