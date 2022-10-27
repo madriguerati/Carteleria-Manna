@@ -15,6 +15,11 @@ import {
 	MdExpandLess,
 	MdExpandMore,
 } from "react-icons/md";
+
+import { BsSearch } from 'react-icons/bs'
+import { MdDelete } from 'react-icons/md'
+import { FiEdit3 } from 'react-icons/fi'
+
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import usePresupuesto from "../store/presupuesto";
@@ -221,34 +226,7 @@ const Presupuesto = () => {
 												</div>
 											</div>
 										</th>
-										<th
-											className='hover:bg-gray-300 px-3 py-3 border-b-2 border-gray-200 cursor-pointer tracking-wider'
-											onClick={sortByLastName}
-										>
-											<div className='flex justify-between gap-2'>
-												Carteles
-												<div
-													className={`${
-														sortLastName === null && "opacity-0"
-													}`}
-												>
-													<MdExpandLess
-														className={`text-red-600 ${
-															sortLastName
-																? "opacity-100"
-																: "opacity-40"
-														}`}
-													/>
-													<MdExpandMore
-														className={`-mt-2 text-red-600 ${
-															!sortLastName
-																? "opacity-100"
-																: "opacity-40"
-														}`}
-													/>
-												</div>
-											</div>
-										</th>
+										
 										<th className='px-3 py-3 border-b-2 border-gray-20 tracking-wider'>
 											Operación
 										</th>
@@ -285,15 +263,15 @@ const Presupuesto = () => {
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-													
+													{presupuesto.clientes?
+													presupuesto.clientes.name
+													:
+													"hola"
+												}
 													</p>
 												</td>
 												
-												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-                          
-													</p>
-												</td>
+
                         <td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
                           {
@@ -313,21 +291,21 @@ const Presupuesto = () => {
                             :
                             "hola"
                             }
+							</p>
+												</td>
+												<td className='px-3 py-2'>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+														<BsSearch/>
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														ver
+														<FiEdit3/>
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														editar
-													</p>
-												</td>
-												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeletePresupuesto(presupuesto)}>
-														eliminar
+													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeletePresupuesto(presupuesto)}>
+													{<MdDelete/>}
 													</p>
 												</td>
 											</tr>

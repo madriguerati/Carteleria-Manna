@@ -15,13 +15,16 @@ import {
 	MdExpandLess,
 	MdExpandMore,
 } from "react-icons/md";
+import { BsSearch } from 'react-icons/bs'
+import { MdDelete } from 'react-icons/md'
+import { FiEdit3 } from 'react-icons/fi'
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useCarteles from "../store/carteles";
 import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
-	const { carteles, getCarteles, deleteCartel} = useCarteles((state) => state);
+	const { carteles, getCarteles, deleteCartel, loading} = useCarteles((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -37,12 +40,7 @@ const Clientes = () => {
 		null
 	);
 
-		//delete 
-		const DeleteCartel= (cartel:any)=>{
-			deleteCartel(cartel._id, headers)
-		}
-	
-	
+
 	useEffect(() => {
 		getCarteles(accessToken, sort, page, limit);
 	}, [rol, sort, page, limit]);
@@ -108,6 +106,12 @@ const Clientes = () => {
 		setSortUsername(null);
 		setSortName(null);
 	};
+
+	const DeleteCartel= (cartel:any)=>{
+		console.log("hola delte")
+		deleteCartel(cartel._id, headers)
+		useEffect()
+	}
 	return (
 		<Layout>
 			<div className='xl:container mx-auto px-4 sm:px-8'>
@@ -289,17 +293,17 @@ const Clientes = () => {
 												
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														ver
+														<BsSearch/>
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														editar
+														<FiEdit3/>
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteCartel(cartel)}>
-														eliminar
+													<p className='text-gray-900 whitespace-no-wrap capitalize' style={{"cursor":"pointer"}} onClick={()=>DeleteCartel(cartel)}>
+													{<MdDelete/>}
 													</p>
 												</td>
 												
@@ -308,7 +312,11 @@ const Clientes = () => {
 									</tbody>
 								}
 							</table>
-							
+							{loading && (
+								<div>
+									<Loader />
+								</div>
+							)}
 							<div className='px-3 py-3 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between'>
 								<div className='flex gap-2 align-center items-center xs:mt-0'>
 									<button onClick={firtPage}>
