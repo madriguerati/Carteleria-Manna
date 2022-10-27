@@ -51,8 +51,8 @@ const Proveedores = () => {
 	}, []);
 
 	//delete 
-	const DeleteProveedores= (proveedores:any)=>{
-		deleteProveedores(proveedores._id, headers)
+	const DeleteProveedor= (proveedor:any)=>{
+		deleteProveedores(proveedor._id, headers)
 		getProveedores(headers)
 	}
 
@@ -327,7 +327,7 @@ const Proveedores = () => {
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteClients(client)}>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeleteProveedor(proveedor)}>
 													{<MdDelete/>}
 													</p>
 												</td>

@@ -49,7 +49,7 @@ const Clientes = () => {
 	}, []);
 
 	//delete 
-	const DeleteInsumos= (insumo:any)=>{
+	const DeleteInsumo= (insumo:any)=>{
 		deleteIsumos(insumo._id, headers)
 		getInsumos(headers)
 	}
@@ -325,7 +325,7 @@ const Clientes = () => {
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteClients(client)}>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeleteInsumo(insumo)}>
 													{<MdDelete/>}
 													</p>
 												</td>
