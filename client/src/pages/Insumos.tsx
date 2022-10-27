@@ -16,6 +16,11 @@ import {
 	MdExpandLess,
 	MdExpandMore,
 } from "react-icons/md";
+
+import { BsSearch } from 'react-icons/bs'
+import { MdDelete } from 'react-icons/md'
+import { FiEdit3 } from 'react-icons/fi'
+
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useClients from "../store/clientes";
@@ -311,17 +316,17 @@ const Clientes = () => {
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														ver
+														<BsSearch/>
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														editar
+														<FiEdit3/>
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteInsumos(insumo)}>
-														eliminar
+													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteClients(client)}>
+													{<MdDelete/>}
 													</p>
 												</td>
 											</tr>

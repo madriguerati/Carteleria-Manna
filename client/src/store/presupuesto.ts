@@ -58,12 +58,16 @@ const usePresupuesto = create<PresupuestoStore>()(
 
       },
       getPresupuestos: async (headers:any) => {
+        set({ loading: true });
+
         try{
           const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/presupuestos', headers )
           set((state) => ({ presupuestos: (state.presupuestos = data) }));
         }catch(error){
           console.log(error)
         }
+        set({ loading: false });
+
       },
       deletePresupuestos: async (params:any, headers:any)=>{
       

@@ -56,17 +56,16 @@ const useCartel = create<CartelStore>()(
 
       },
       getCarteles: async (token, sort, page, limit) => {
+        try{
+          set({ loading: true}) 
           const { data } = await axios.get(`http://localhost:5000/api/carteles?sort=${sort}&page=${page}&limit=${limit}`,
-          
           { headers: { "x-access-token": token } })
           set((state) => ({ carteles: (state.carteles = data) }));
-          if (!data) {
-            set({ loading: true });
-          }
-          if (!data) {
-            set({ loading: true });
-          }
-          set((state) => ({ ...state, carteles: (state.carteles = data) }));
+        } catch(error){
+          console.log(error)
+        }
+        set({ loading: false});
+          
       },
       deleteCartel: async (params, headers)=>{
       
