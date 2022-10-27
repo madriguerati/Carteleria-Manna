@@ -24,7 +24,12 @@ type CartelStore = {
   error: boolean
   loading: boolean
   addCartel: (body:{}) => Promise<void>
-  getCarteles: (headers:{})=>Promise<void>
+  getCarteles: (
+		token: string,
+		sort: string,
+		page: number,
+		limit: number
+	) => Promise<void>;
   deleteCartel: (params:any, headers:any)=> Promise<void>
   closeModal: () => void;
 }
@@ -50,16 +55,18 @@ const useCartel = create<CartelStore>()(
         }
 
       },
-      getCarteles: async (headers) => {
-        try{
-          const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/carteles', headers )
+      getCarteles: async (token, sort, page, limit) => {
+          const { data } = await axios.get(`http://localhost:5000/api/carteles?sort=${sort}&page=${page}&limit=${limit}`,
+          
+          { headers: { "x-access-token": token } })
           set((state) => ({ carteles: (state.carteles = data) }));
           if (!data) {
             set({ loading: true });
           }
-        }catch(error){
-          console.log(error)
-        }
+          if (!data) {
+            set({ loading: true });
+          }
+          set((state) => ({ ...state, carteles: (state.carteles = data) }));
       },
       deleteCartel: async (params, headers)=>{
       
