@@ -4,6 +4,8 @@ import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewInsumo from "../components/addNewInsumo";
+import EditInsumo from "../components/EditInsumo";
+
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
 
@@ -36,6 +38,8 @@ const Clientes = () => {
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(10);
 	const [showModal, setShowModal] = useState(false);
+	const [showModal2, setShowModal2] = useState(false);
+
 	const [sortUsername, setSortUsername] = useState<null | boolean>(
 		true
 	);
@@ -320,9 +324,16 @@ const Clientes = () => {
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize'>
+												
+													<p 
+													className='text-gray-900 whitespace-no-wrap capitalize'
+													onClick={() => setShowModal2(true)}
+													>
 														<FiEdit3/>
 													</p>
+				<Modal showModal={showModal2} setShowModal={setShowModal2}>
+					<EditInsumo setShowModal2={setShowModal2} insumo={insumo}/>
+				</Modal>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeleteInsumo(insumo)}>
