@@ -68,11 +68,10 @@ const useCartel = create<CartelStore>()(
           
       },
       deleteCartel: async (params, headers)=>{
-      
+        set({ loading: true });
         const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/carteles/${params}`,  headers);
-        if (!data) {
-          set({ loading: true });
-        }
+        set({ loading: false });
+
       },
       closeModal: () => {
         set({ error: false, success: false });

@@ -40,12 +40,7 @@ const Clientes = () => {
 		null
 	);
 
-		//delete 
-		const DeleteCartel= (cartel:any)=>{
-			deleteCartel(cartel._id, headers)
-		}
-	
-	
+
 	useEffect(() => {
 		getCarteles(accessToken, sort, page, limit);
 	}, [rol, sort, page, limit]);
@@ -111,6 +106,12 @@ const Clientes = () => {
 		setSortUsername(null);
 		setSortName(null);
 	};
+
+	const DeleteCartel= (cartel:any)=>{
+		console.log("hola delte")
+		deleteCartel(cartel._id, headers)
+		useEffect()
+	}
 	return (
 		<Layout>
 			<div className='xl:container mx-auto px-4 sm:px-8'>
@@ -301,7 +302,7 @@ const Clientes = () => {
 													</p>
 												</td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize' onClick={()=>DeleteClients(client)}>
+													<p className='text-gray-900 whitespace-no-wrap capitalize' style={{"cursor":"pointer"}} onClick={()=>DeleteCartel(cartel)}>
 													{<MdDelete/>}
 													</p>
 												</td>
