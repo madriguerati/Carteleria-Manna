@@ -23,7 +23,7 @@ const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
     const navigate = useNavigate();
     
     const [values, setValues] = useState({
-      id:insumo._id,
+      id:insumo.id,
       name:insumo.name,
       descripcion:insumo.descripcion,
       unidad:insumo.unidad,
@@ -50,6 +50,7 @@ const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
         putInsumo(values, token)
+        handleCloseModal()
         success
        
   }

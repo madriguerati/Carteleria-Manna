@@ -43,6 +43,7 @@ const Clientes = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [insumoEdit, setInsumoEdit] = useState({
+    id: "",
     name: "",
     descripcion: "",
     unidad: "",
@@ -125,8 +126,9 @@ const Clientes = () => {
   const edit = (insumo: any) => {
     if (insumo) {
       setShowModal2(true);
-      console.log("hola", insumo);
+      console.log("hola", insumo._id);
       setInsumoEdit({
+        id: insumo._id,
         name: insumo.name,
         descripcion: insumo.descripcion,
         unidad: insumo.unidad,
