@@ -110,7 +110,6 @@ const Clientes = () => {
 	const DeleteCartel= (cartel:any)=>{
 		console.log("hola delte")
 		deleteCartel(cartel._id, headers)
-		useEffect()
 	}
 	return (
 		<Layout>

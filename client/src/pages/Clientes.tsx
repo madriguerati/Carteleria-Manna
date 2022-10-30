@@ -39,6 +39,7 @@ const Clientes = () => {
   const [limit, setLimit] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const[refresh, setRefresh]=useState(false)
 
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
@@ -54,10 +55,17 @@ const Clientes = () => {
     razonsocial: "",
   });
 
+  const refreshPage = ()=>{
+      window.location.reload();
+ }
+
   useEffect(() => {
-    !success && getClients(headers);
-	
-  }, [success]);
+    getClients(headers);
+    if(refresh===true){
+      refreshPage()
+    }
+    console.log("hola",refresh)
+  }, []);
 
   //delete
   const DeleteCliente = (client: any) => {
@@ -353,6 +361,8 @@ const Clientes = () => {
                             <EditCliente
                               setShowModal2={setShowModal2}
                               client={clientEdit}
+                              setRefresh={setRefresh}
+                              refresh={refresh}
                             />
                           </ModalEdit>
                         </td>

@@ -10,9 +10,11 @@ import { MdError } from "react-icons/md";
 type Props = {
   setShowModal2: any;
   client: any;
+  setRefresh:any;
+  refresh:any;
 };
-const ClienteEdit = ({ setShowModal2, client}: Props) => {
-  const { success, putClient, closeModal, error, loading } = useClients(
+const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
+  const { success, putClients, closeModal, error, loading } = useClients(
     (state) => state
   );
   const [token] = useLocalStorage();
@@ -44,12 +46,15 @@ const ClienteEdit = ({ setShowModal2, client}: Props) => {
     setShowModal2(false);
     closeModal();
   };
+ 
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-    putClient(values, token);
+    putClients(values, token);
     handleCloseModal()
+    setRefresh(true)
     success;
     loading
+    console.log("holaaaaaaaaaaaaaaaaaaaaaaaa", refresh)
   };
 
   return (
