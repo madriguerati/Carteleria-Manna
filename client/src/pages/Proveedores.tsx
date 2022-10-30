@@ -66,7 +66,7 @@ const Proveedores = () => {
 	//delete 
 	const DeleteProveedor= (proveedor:any)=>{
 		deleteProveedores(proveedor._id, headers)
-		getProveedores(headers)
+		load(proveedores)
 	}
 
 
