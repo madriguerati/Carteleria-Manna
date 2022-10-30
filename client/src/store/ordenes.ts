@@ -25,7 +25,7 @@ type UserStore = {
   success: boolean
   error: boolean
   loading: boolean,
-  postInsumo: (body:any, token:any) => Promise<void>
+  postOrden: (body:any, token:any) => Promise<void>
   putInsumo: (body:any, token:any) => Promise<void>
   getOrdenes: (token:any) => Promise<void>
   deleteIsumos: (params:any, headers:any)=> Promise<void>
@@ -58,14 +58,14 @@ const useOrdenes = create<UserStore>()(
 
 
       },
-      postInsumo: async (body, token) => {
+      postOrden: async (body, token) => {
         
         let headers:any = {
         "x-access-token" : token
       };
       set({ loading: true})
        try{ 
-        const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/insumo/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/ordenes/create', body, { headers: { "x-access-token": token} });
        if(data){
        }
       }catch (error) {

@@ -5,7 +5,7 @@ import useCartel from "../../store/carteles";
 import useClients from "../../store/clientes";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useHeaders from "../../hooks/useHeaders";
-import usePresupuesto from "../../store/presupuesto";
+import useOrdenes from "../../store/ordenes";
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
@@ -24,16 +24,20 @@ var cartelSelect:any={}
 
 
 interface Values {
-  fecha: string;
-  clientes: [string]; // que muestre nombre de contacto y telefono en el front
-  carteles: string[];
-  operacion: string;
-  lugardecolocacion: string; //lugar de entrega colocación/entrega
-  montototal: number;
-  formadepago: string;
-  plazodeentrega: number;
-  fechavalida: string; //presupuesto valido hasta
-  observaciones: string;
+  fecha: string,
+  cliente: [string],
+  contacto: string,//nombre de contacto
+  carteles: string[],
+  operacion:string,
+  lugardecolocacion:string,
+  lugartraslado:string,
+  montototal: number,
+  seña: number,
+  formadepago: string,
+  fechaentrega: string,
+  facturanum: string,
+  plazodeentrega: string;
+  observaciones:string
 }
 interface Cartel {
 	cant: number;
@@ -48,8 +52,8 @@ interface Cartel {
 }
 
 const AddNewClient = ({ setShowModal }: Props) => {
-  const { addPresupuesto, success, error, closeModal } =
-    usePresupuesto((state) => state);
+  const { postOrden, success, error, closeModal } =
+    useOrdenes((state) => state);
 
   const { carteles, getCarteles } = useCartel((state) => state);
   const { clients, getClients } = useClients((state) => state);
@@ -68,15 +72,19 @@ const AddNewClient = ({ setShowModal }: Props) => {
   });
   const [values, setValues] = useState<Values>({
     fecha: "",
-    clientes: [""], // que muestre nombre de contacto y telefono en el front
-    carteles: [],
-    operacion: "",
-    lugardecolocacion: "", //lugar de entrega colocación/entrega
-    montototal: 0,
-    formadepago: "",
-    plazodeentrega: 0,
-    fechavalida: "", //presupuesto valido hasta
-    observaciones: ""
+		cliente: [""],
+		contacto: "",//nombre de contacto
+		carteles: [],
+		operacion:"",
+		lugardecolocacion:"",
+		lugartraslado: "",
+		seña: 0,
+    montototal:0,
+		formadepago: "",
+		fechaentrega: "",
+		facturanum: "",
+    plazodeentrega:'',
+		observaciones:""
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal)
@@ -117,8 +125,7 @@ console.log("hola",cartel)
     // if (Object.keys(error).length === 0) {
     // 	createNewUser(values);
     // }
-    addPresupuesto(values);
-	console.log("hola soy un valie", values)
+    postOrden(headers);
 
     setTimeout(() => {
       closeModal();
@@ -170,7 +177,7 @@ console.log("hola",cartel)
         var clienteId = clienteSelect._id
 				setValues({
 					...values,
-					clientes: [clienteId]
+					cliente: [clienteId]
 				})
 				console.log("hola amiguitos dolos", clienteSelect)
 			}else{
@@ -207,22 +214,27 @@ console.log("hola",cartel)
   }
 
   useEffect(() => {
+    success &&
       setValues({
         fecha: "",
-        clientes:[""], // que muestre nombre de contacto y telefono en el front
+        cliente: [""],
+        contacto: "",//nombre de contacto
         carteles: [],
-        operacion: "",
-        lugardecolocacion: "", //lugar de entrega colocación/entrega
-        montototal: 0,
+        operacion:"",
+        lugardecolocacion:"",
+        lugartraslado: "",
+        seña: 0,
+        montototal:0,
         formadepago: "",
-        plazodeentrega: 0,
-        fechavalida: "", //presupuesto valido hasta
-        observaciones: ""
+        fechaentrega: "",
+        facturanum: "",
+        plazodeentrega:"",
+        observaciones:""
 
       });
     getCarteles(headers);
     getClients(headers);
-  }, []);
+  }, [success]);
 
 
   return (
@@ -449,8 +461,8 @@ console.log("hola",cartel)
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
-				name="clientes"
-				value={values.clientes}
+				name="cliente"
+				value={values.cliente}
 				onChange={handleSelect}
               >
                 {clients.map((e: any) => (
@@ -558,20 +570,7 @@ console.log("hola",cartel)
               />
             </div>
 
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Fecha Válida
-              </label>
-              <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="date"
-                placeholder="Fecha"
-                name="fechavalida"
-                value={values.fechavalida}
-                onChange={handleChange}
-              />
-            </div>
+          
           </div>
           {/**Holaaa soy un cartel */}
           <div className="flex flex-wrap -mx-3 mb-6">

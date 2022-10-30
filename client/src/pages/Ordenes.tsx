@@ -5,11 +5,12 @@ import Layout from "../components/Layout/index";
 import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
-import AddNewProveedor from "../components/AddNewProveedor";
+import AddNewOrden from "../components/AddNewOrden";
 import ModalEdit from '../components/ModalEdit'
 import ProveedorEdit from '../components/ProveedorEdit'
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
+import moment from 'moment';
 
 
 import {
@@ -225,7 +226,7 @@ const Proveedores = () => {
 											onClick={sortByUsername}
 										>
 											<div className='flex justify-between gap-2'>
-												Nombre
+												FECHA
 												<div
 													className={`${
 														sortUsername === null && "opacity-0"
@@ -253,7 +254,7 @@ const Proveedores = () => {
 											onClick={sortByName}
 										>
 											<div className='flex justify-between gap-2'>
-												telefono
+												CLIENTE
 												<div
 													className={`${
 														sortName === null && "opacity-0"
@@ -277,7 +278,7 @@ const Proveedores = () => {
 											onClick={sortByLastName}
 										>
 											<div className='flex justify-between gap-2'>
-											direccion
+											CONTACTO
 												<div
 													className={`${
 														sortLastName === null && "opacity-0"
@@ -300,23 +301,24 @@ const Proveedores = () => {
 												</div>
 											</div>
 										</th>
-										<th className='px-3 py-3 border-b-2 border-gray-20 tracking-wider'>
-											email
-										</th>
-										<th className='px-3 py-3 border-b-2 border-gray-200  tracking-wider'>
-											cuit
+										
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
+											CARTELES
 										</th>
 										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
-											web
+											OPERACION
 										</th>
 										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
-											ver
+											N° FACTURA
 										</th>
 										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
-											editar
+											VER
 										</th>
 										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
-											eliminar
+											EDITAR   
+										</th>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
+											ELIMINAR
 										</th>
 									</tr>
 								</thead>
@@ -331,32 +333,32 @@ const Proveedores = () => {
 											>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
-														{orden.name}
+														{moment(orden.fecha).format('MM/DD/yyyy')}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{orden.telefono}
+														{orden.cliente}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{orden.direccion}
+														{orden.contacto}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
-														{orden.cuit}
+														{orden.carteles}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
-														{orden.email}
+														{orden.operacion}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{orden.web}
+														{orden.facturanum}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
@@ -447,7 +449,7 @@ const Proveedores = () => {
 					</button>
 				</div>
 				<Modal showModal={showModal} setShowModal={setShowModal}>
-				<AddNewProveedor setShowModal={setShowModal} />
+				<AddNewOrden setShowModal={setShowModal} />
 				</Modal>
 			</div>
 		</Layout>
