@@ -12,7 +12,7 @@ type Props = {
   client: any;
 };
 const ClienteEdit = ({ setShowModal2, client}: Props) => {
-  const { success, putClient, closeModal, error, loading } = useClients(
+  const { success, putClients, closeModal, error, loading } = useClients(
     (state) => state
   );
   const [token] = useLocalStorage();
@@ -46,7 +46,7 @@ const ClienteEdit = ({ setShowModal2, client}: Props) => {
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-    putClient(values, token);
+    putClients(values, token);
     handleCloseModal()
     success;
     loading

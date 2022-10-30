@@ -55,9 +55,10 @@ const Clientes = () => {
   });
 
   useEffect(() => {
-    !success && getClients(headers);
+    getClients(headers);
+    clients
 	
-  }, [success]);
+  }, []);
 
   //delete
   const DeleteCliente = (client: any) => {
