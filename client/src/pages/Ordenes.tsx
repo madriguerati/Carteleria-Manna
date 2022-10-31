@@ -34,7 +34,7 @@ import useProveedores from "../store/proveedores";
 import useClients from "../store/clientes";
 
 const Proveedores = () => {
-	const { users, getUsers } = useUser((state) => state, shallow);
+	const { users, user, getUsers } = useUser((state) => state, shallow);
 	const { ordenes, getOrdenes, deleteOrdenes, loading } = useOrdenes((state) => state);
 	const { clients, getClients } = useClients((state) => state);
 	const [accessToken] = useLocalStorage();
@@ -67,11 +67,13 @@ const Proveedores = () => {
 	const [sortLastName, setSortLastName] = useState<null | boolean>(
 		null
 	);
-	
+
 	useEffect(() => {
 		getOrdenes(headers);
-		console.log("holaaaaaa",ordenes)
+		console.log("holaaaaaa",user)
 		getClients(headers)
+		
+
 	}, []);
 
 	//delete 
@@ -221,7 +223,13 @@ const Proveedores = () => {
 					</div>
 					<div className='-mx-4 sm:-mx-8 px-4 sm:px-8  overflow-x-auto'>
 						<div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
-							<table className='min-w-full leading-normal relative'>
+							
+						{
+								user.roles?.find(
+									(e:any)=>
+									e.name ==="admin"|| e.name ==="gerente"
+								) && (
+									<table className='min-w-full leading-normal relative'>
 								<thead>
 									<tr className='bg-gray-100 text-left text-gray-600 font-semibold uppercase'>
 										<th
@@ -400,11 +408,56 @@ const Proveedores = () => {
 									</tbody>
 								}
 							</table>
-							{loading && (
-								<div>
-									<Loader />
-								</div>
-							)}
+							
+								)
+
+							}
+							{
+								user.roles?.find(
+									(e:any)=>
+									e.name ==="obrero"|| e.name ==="vendedor"
+								) && (
+									<div className="flex">
+										{
+											ordenes.map((orden:any)=>(
+												<div className="">
+<div className="">
+<div className="w-100 bg-white rounded-lg shadow-md p-10" style={{"cursor": "auto"}}>
+  <div className="w-16 mx-auto relative -mt-10 mb-3">
+  </div>
+  <span className="w-full sm:w-48  block leading-normal text-gray-800 text-md mb-3">We use cookies to provide a better user experience.</span>
+  <div className="flex items-center justify-between">
+    
+    <div className="w-full">
+      <button 
+	  type="button" 
+	  className="py-2 m-2 justify-center bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-20 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+	  >
+		Accept
+		</button>
+		<button 
+	  type="button" 
+	  className="py-2 m-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-20 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+	  >
+		en curso
+		</button>
+		<button 
+	  type="button" 
+	  className="py-2 m-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-20 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+	  >
+		finalizado
+		</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+											))
+										}
+									</div>
+								)
+
+							}
 							
 							<div className='px-3 py-3 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between'>
 								<div className='flex gap-2 align-center items-center xs:mt-0'>
