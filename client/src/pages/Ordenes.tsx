@@ -10,7 +10,7 @@ import ModalEdit from '../components/ModalEdit'
 import ProveedorEdit from '../components/ProveedorEdit'
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
-import moment from 'moment';
+//import moment from 'moment';
 
 
 import {
@@ -336,7 +336,7 @@ const Proveedores = () => {
 											>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
-														{moment(orden.fecha).format('MM/DD/yyyy')}
+														{orden.fecha}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
