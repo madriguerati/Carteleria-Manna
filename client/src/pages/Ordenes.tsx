@@ -341,7 +341,7 @@ const Proveedores = () => {
                             <p className="text-gray-900 whitespace-no-wrap">
                               {orden.carteles === null
                                 ? "hola"
-                                : orden.carteles.descripcion}
+                                : orden.carteles.length}
                             </p>
                           </td>
                           <td className="px-3 py-2">

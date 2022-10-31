@@ -11,7 +11,7 @@ interface Orden {
   fecha: string,
   cliente: string,
   contacto: string,//nombre de contacto
-  carteles: string[],
+  carteles: [string],
   operacion:string,
   lugardecolocacion:string,
   lugartraslado:string,
@@ -72,7 +72,7 @@ const useOrdenes = create<UserStore>()(
       };
       set({ loading: true})
        try{ 
-        const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/ordenes/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('http://localhost:5000/api/ordenes/create', body, { headers: { "x-access-token": token} });
        if(data){
        }
       }catch (error) {
@@ -84,7 +84,7 @@ const useOrdenes = create<UserStore>()(
       getOrdenes: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/ordenes', headers )
+          const { data } = await axios.get('http://localhost:5000/api/ordenes', headers )
           set((state) => ({ ordenes: (state.ordenes = data) }));
         }catch(error){
           console.log(error)

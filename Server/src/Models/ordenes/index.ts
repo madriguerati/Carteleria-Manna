@@ -37,11 +37,12 @@ const ordenesSchema = new Schema(
             required:true
 
         },
-        carteles:
+        carteles:[
         {
             type:Schema.Types.ObjectId, ref:'carteles',
             required: true
-        },
+        }
+    ],
         operacion:
         {
             type: String,
