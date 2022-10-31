@@ -349,7 +349,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
                 Seleccionar insumo
               </option>
               {insumos.map((e: any) => (
-                <option value={e.name}>{e.name}</option>
+                <option key={e.id} value={e.name}>{e.name}</option>
               ))}
             </select>
 
