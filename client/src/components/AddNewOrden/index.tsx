@@ -5,6 +5,7 @@ import useCartel from "../../store/carteles";
 import useClients from "../../store/clientes";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useHeaders from "../../hooks/useHeaders";
+import usePresupuesto from "../../store/presupuesto";
 import useOrdenes from "../../store/ordenes";
 
 const [accessToken] = useLocalStorage();
@@ -25,7 +26,7 @@ var cartelSelect:any={}
 
 interface Values {
   fecha: string,
-  cliente: [string],
+  cliente: string,
   contacto: string,//nombre de contacto
   carteles: string[],
   operacion:string,
@@ -72,7 +73,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
   });
   const [values, setValues] = useState<Values>({
     fecha: "",
-		cliente: [""],
+		cliente: "",
 		contacto: "",//nombre de contacto
 		carteles: [],
 		operacion:"",
@@ -125,7 +126,8 @@ console.log("hola",cartel)
     // if (Object.keys(error).length === 0) {
     // 	createNewUser(values);
     // }
-    postOrden(headers);
+    postOrden(values, headers);
+	console.log("hola soy un valie", values)
 
     setTimeout(() => {
       closeModal();
@@ -177,7 +179,7 @@ console.log("hola",cartel)
         var clienteId = clienteSelect._id
 				setValues({
 					...values,
-					cliente: [clienteId]
+					cliente: clienteId
 				})
 				console.log("hola amiguitos dolos", clienteSelect)
 			}else{
@@ -214,10 +216,9 @@ console.log("hola",cartel)
   }
 
   useEffect(() => {
-    success &&
       setValues({
         fecha: "",
-        cliente: [""],
+        cliente: "",
         contacto: "",//nombre de contacto
         carteles: [],
         operacion:"",
@@ -228,13 +229,13 @@ console.log("hola",cartel)
         formadepago: "",
         fechaentrega: "",
         facturanum: "",
-        plazodeentrega:"",
+        plazodeentrega:'',
         observaciones:""
 
       });
-    getCarteles(headers);
+    getCarteles(accessToken);
     getClients(headers);
-  }, [success]);
+  }, []);
 
 
   return (
@@ -461,7 +462,7 @@ console.log("hola",cartel)
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
-				name="cliente"
+				name="clientes"
 				value={values.cliente}
 				onChange={handleSelect}
               >
@@ -570,7 +571,76 @@ console.log("hola",cartel)
               />
             </div>
 
-          
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Fecha Válida
+              </label>
+              <input
+                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="date"
+                placeholder="Fecha"
+                name="fechaentrega"
+                value={values.fechaentrega}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                seña
+              </label>
+              <input
+                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="number"
+                placeholder="Seña"
+                name="seña"
+                value={values.seña}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                contacto
+              </label>
+              <input
+                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="text"
+                placeholder="Contacto"
+                name="contacto"
+                value={values.contacto}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                lugar traslado
+              </label>
+              <input
+                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="text"
+                placeholder="lugar traslado"
+                name="lugartraslado"
+                value={values.lugartraslado}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                factura numero
+              </label>
+              <input
+                className="appearance-none block w-30 bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="text"
+                placeholder="facturanum"
+                name="facturanum"
+                value={values.facturanum}
+                onChange={handleChange}
+              />
+            </div>
           </div>
           {/**Holaaa soy un cartel */}
           <div className="flex flex-wrap -mx-3 mb-6">

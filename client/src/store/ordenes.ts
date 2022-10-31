@@ -7,28 +7,35 @@ interface Headers {
 	"x-access-token": { token: string };
 }
 
-interface Insumo {
-  id:string;
-  name: string,
-  descripcion: string,
-  unidad: number,
-  costo: number,
-  category: string[],
-  proveedor: string
+interface Orden {
+  fecha: string,
+  cliente: string,
+  contacto: string,//nombre de contacto
+  carteles: string[],
+  operacion:string,
+  lugardecolocacion:string,
+  lugartraslado:string,
+  montototal: number,
+  seña: number,
+  formadepago: string,
+  fechaentrega: string,
+  facturanum: string,
+  plazodeentrega: string;
+  observaciones:string
 }
 
 
 type UserStore = {
-  insumo: any
+  orden: any
   ordenes:any
   tokken: any
   success: boolean
   error: boolean
   loading: boolean,
   postOrden: (body:any, token:any) => Promise<void>
-  putInsumo: (body:any, token:any) => Promise<void>
+  putOrden: (body:any, token:any) => Promise<void>
   getOrdenes: (token:any) => Promise<void>
-  deleteIsumos: (params:any, headers:any)=> Promise<void>
+  deleteOrdenes: (params:any, headers:any)=> Promise<void>
   closeModal: () => void
 }
 
@@ -36,7 +43,7 @@ type UserStore = {
 const useOrdenes = create<UserStore>()(
     devtools((set) => ({
       //states
-      insumo: {},
+      orden: {},
       ordenes:[],
       tokken: '',
       success: false,
@@ -44,14 +51,14 @@ const useOrdenes = create<UserStore>()(
       loading: false,
   
       //actions
-      putInsumo: async (body, token) => {
+      putOrden: async (body, token) => {
         
         let headers:any = {
         "x-access-token" : token
       };
       set({ success: true})
       set({ loading: true}) 
-        const { data } = await axios.put('https://symptomatic-hole-production.up.railway.app/api/insumo', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('https://symptomatic-hole-production.up.railway.app/api/ordenes', body, { headers: { "x-access-token": token} });
         set({ success: false})
         
         set({ loading: false}) 
@@ -65,7 +72,7 @@ const useOrdenes = create<UserStore>()(
       };
       set({ loading: true})
        try{ 
-        const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/ordenes/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('http://localhost:5000/api/ordenes/create', body, { headers: { "x-access-token": token} });
        if(data){
        }
       }catch (error) {
@@ -84,9 +91,9 @@ const useOrdenes = create<UserStore>()(
         }
         set({ loading: false})  
       },
-      deleteIsumos: async (params, headers)=>{
+      deleteOrdenes: async (params, headers)=>{
         set({ loading: true}) 
-        const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/insumo/${params}`,   headers);
+        const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/ordenes/${params}`,   headers);
         set({ loading: false})  
       },
       closeModal: () => {

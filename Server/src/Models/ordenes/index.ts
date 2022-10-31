@@ -5,13 +5,15 @@ export interface IOrdenes extends mongoose.Document{
    cliente: string,
    contacto: string,//nombre de contacto
    carteles: Schema.Types.ObjectId, ref:'carteles',
-   operacion:[string],
+   operacion:string,
    lugardecolocacion:string,
    lugartraslado: string,
    seña: number,
-   formadepago: [string],
+   montototal:number,// info puede venir de presupuesto cuando se transforme 
+   formadepago: string,
    fechaentrega: Date,
-   facturanum: number,
+   facturanum: string,
+   plazodeentrega:string,
    observaciones:string
    
 };
@@ -42,7 +44,7 @@ const ordenesSchema = new Schema(
         },
         operacion:
         {
-            type: [String],
+            type: String,
             required:true
         },
         lugardecolocacion:
@@ -62,7 +64,7 @@ const ordenesSchema = new Schema(
         },
         formadepago:
         {
-            type:[String],
+            type:String,
             required: true
         },
         fechaentrega:
@@ -71,6 +73,11 @@ const ordenesSchema = new Schema(
             required:true
         },
         facturanum:
+        {
+            type:String,
+            required:true
+        },
+        montototal:
         {
             type:Number,
             required:true

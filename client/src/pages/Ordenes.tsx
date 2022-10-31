@@ -31,10 +31,12 @@ import { FiEdit3 } from 'react-icons/fi'
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useProveedores from "../store/proveedores";
+import useClients from "../store/clientes";
 
 const Proveedores = () => {
 	const { users, getUsers } = useUser((state) => state, shallow);
-	const { ordenes, getOrdenes, loading } = useOrdenes((state) => state);
+	const { ordenes, getOrdenes, deleteOrdenes, loading } = useOrdenes((state) => state);
+	const { clients, getClients } = useClients((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -69,12 +71,13 @@ const Proveedores = () => {
 	useEffect(() => {
 		getOrdenes(headers);
 		console.log("holaaaaaa",ordenes)
+		getClients(headers)
 	}, []);
 
 	//delete 
-	const DeleteProveedor= (ordenes:any)=>{
-		//deleteProveedores(ordenes._id, headers)
-		//getProveedores(headers)
+	const DeleteOrden= (orden:any)=>{
+		deleteOrdenes(orden._id, headers)
+		getOrdenes(headers)
 	}
 
 
@@ -338,7 +341,9 @@ const Proveedores = () => {
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														{orden.cliente}
+													{
+													orden.cliente
+													}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
@@ -348,7 +353,12 @@ const Proveedores = () => {
 												</td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap'>
-														{orden.carteles}
+														{
+														 orden.carteles===null?
+														 "hola"
+														 : 
+														 orden.carteles.descripcion
+														}
 													</p>
 												</td>
 												<td className='px-3 py-2'>
@@ -381,7 +391,7 @@ const Proveedores = () => {
                           </ModalEdit>
                         </td>
 												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeleteProveedor(orden)}>
+													<p className='text-gray-900 whitespace-no-wrap capitalize'  style={{"cursor":"pointer"}} onClick={()=>DeleteOrden(orden)}>
 													{<MdDelete/>}
 													</p>
 												</td>
@@ -443,7 +453,7 @@ const Proveedores = () => {
 						onClick={() => setShowModal(true)}
 					>
 						<span className='text-white flex items-center gap-2'>
-							Agregar nuevo Proveedor{" "}
+							Agregar nueva orden{" "}
 							<MdOutlineAdd className='text-xl' />
 						</span>
 					</button>

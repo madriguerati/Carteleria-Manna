@@ -25,10 +25,7 @@ type CartelStore = {
   loading: boolean
   addCartel: (body:{}) => Promise<void>
   getCarteles: (
-		token: string,
-		sort: string,
-		page: number,
-		limit: number
+		token: string
 	) => Promise<void>;
   deleteCartel: (params:any, headers:any)=> Promise<void>
   closeModal: () => void;
@@ -55,10 +52,10 @@ const useCartel = create<CartelStore>()(
         }
 
       },
-      getCarteles: async (token, sort, page, limit) => {
+      getCarteles: async (token) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`http://localhost:5000/api/carteles?sort=${sort}&page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`http://localhost:5000/api/carteles`,
           { headers: { "x-access-token": token } })
           set((state) => ({ carteles: (state.carteles = data) }));
         } catch(error){

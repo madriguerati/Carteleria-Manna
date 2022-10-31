@@ -220,7 +220,7 @@ console.log("hola",cartel)
         observaciones: ""
 
       });
-    getCarteles(headers);
+    getCarteles(accessToken);
     getClients(headers);
   }, []);
 
