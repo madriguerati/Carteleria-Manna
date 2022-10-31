@@ -61,24 +61,49 @@ const Sidebar = () => {
 									Perfil
 								</h3>
 							</Link>
-							<Link to='/carteles' className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
-								<MdOutlinePanorama className='text-2xl text-gray-500 group-hover:text-white ' />
-								<h3 className='text-lg text-gray-400 group-hover:text-white font-semibold '>
-									Carteles
-								</h3>
-							</Link>
-							<Link to='/ordenes' className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
-								<MdOutlineAnalytics className='text-2xl text-gray-500 group-hover:text-white ' />
-								<h3 className='text-lg text-gray-400 group-hover:text-white font-semibold '>
-									Órdenes
-								</h3>
-							</Link>
-							<Link to='/presupuesto' className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+							{
+								user.roles?.find(
+									(e:any)=>
+									e.name ==="admin"|| e.name ==="gerente"
+								) && (
+									<Link to='/carteles' className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+									<MdOutlinePanorama className='text-2xl text-gray-500 group-hover:text-white ' />
+									<h3 className='text-lg text-gray-400 group-hover:text-white font-semibold '>
+										Carteles
+									</h3>
+								</Link>
+								)
+							}
+
+{
+								user.roles?.find(
+									(e:any)=>
+									e.name ==="admin"|| e.name ==="gerente"|| e.name==="vendedor"
+								) && (
+									<Link to='/ordenes' className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+									<MdOutlineAnalytics className='text-2xl text-gray-500 group-hover:text-white ' />
+									<h3 className='text-lg text-gray-400 group-hover:text-white font-semibold '>
+										Órdenes
+									</h3>
+								</Link>
+								)
+							}
+
+
+						
+							{
+								user.roles?.find(
+									(e:any)=>
+									e.name ==="admin"|| e.name ==="gerente" || e.name==="vendedor"
+								) && (
+									<Link to='/presupuesto' className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
 								<MdOutlinePaid className='text-2xl text-gray-500 group-hover:text-white ' />
 								<h3 className='text-lg text-gray-400 group-hover:text-white font-semibold '>
 									Presupuesto
 								</h3>
 							</Link>
+								)
+							}
 							{/* <div className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
 								<MdOutlineIntegrationInstructions className='text-2xl text-gray-500 group-hover:text-white ' />
 								<h3 className='text-lg text-gray-400 group-hover:text-white font-semibold '>
