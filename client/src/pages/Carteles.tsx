@@ -42,7 +42,7 @@ const Clientes = () => {
 
 
 	useEffect(() => {
-		getCarteles(accessToken, sort, page, limit);
+		getCarteles(accessToken);
 	}, [rol, sort, page, limit]);
 
 
