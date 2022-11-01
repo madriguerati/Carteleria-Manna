@@ -12,6 +12,7 @@ import PutUserDatos from './user/PutUserDatos'
 import PutRoleUser from './user/PutRoleUser'
 import GetUserById from './user/getUserById'
 import DeleteUserById from './user/deleteUserById'
+import GetUsersAll from './user/GetUsersAll'
 
 
 
@@ -25,6 +26,8 @@ router.use('/user', verifyToken, isGerente, GetUser)
 router.use('/user', verifyToken, isGerente, PutUserDatos)
 router.use('/user', verifyToken, isGerente, PutRoleUser)
 router.use('/user', verifyToken, isGerente, DeleteUserById)
+router.use('/user', verifyToken, isGerente, GetUsersAll)
+
 
 
 

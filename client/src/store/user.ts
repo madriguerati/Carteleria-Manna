@@ -76,7 +76,7 @@ const useUser = create<UserStore>()(
 		},
 		getUsers2: async (headers) => {
 			const { data } = await axios.get(
-				`https://symptomatic-hole-production.up.railway.app/api/user/allusers`, headers
+				`http://localhost:5000/api/user/all`, headers
 			);
 			if (!data) {
 				set({ loading: true });

@@ -369,7 +369,10 @@ const Proveedores = () => {
                             <ModalEdit
                               showModal2={showModal2}
                               setShowModal2={setShowModal2}
-                            ></ModalEdit>
+                            >
+                              
+
+                            </ModalEdit>
                           </td>
                           <td className="px-3 py-2">
                             <p

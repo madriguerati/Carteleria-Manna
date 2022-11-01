@@ -22,7 +22,7 @@ let sumTotales:any=[]
 var montofinal:any = 0
 var clienteSelect:any={}
 var cartelSelect:any={}
-
+var obreros: any =[]
 
 
 interface Values {
@@ -195,6 +195,10 @@ console.log("hola",cartel)
   };
   const handleSelectObrero=(e: React.ChangeEvent<HTMLSelectElement>)=>{
     let { value } = e.currentTarget;
+    setValues({
+      ...values,
+      obrero: value
+    })
   }
 
   const crearCartel=()=>{
@@ -244,8 +248,9 @@ console.log("hola",cartel)
     getCarteles(accessToken);
     getClients(headers);
     getUsers2(headers)
-    console.log("holaaaaaaaaaaa somo s usuariosa",users)
-   
+    console.log("holaaaaaaaaaaa somo s usuariosa",users.total)
+    obreros=users?.filter((e:any)=>e.roles.find((r:any)=>r.name==="obrero"))
+   console.log("hola me rio mucho de ti ", users)
   }, []);
 
 
@@ -581,23 +586,7 @@ console.log("hola",cartel)
                 onChange={handleChange}
               />
             </div>
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide  text-gray-700 text-xs font-bold mb-2">
-                Metodo
-              </label>
-              <select
-                value={values.obrero}
-                onChange={handleSelectObrero}
-                name="obrero"
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-              >
-                <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
-                </option>
-                
-              </select>
-            </div>
+            
 
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -668,6 +657,22 @@ console.log("hola",cartel)
                 value={values.facturanum}
                 onChange={handleChange}
               />
+            </div>
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Cliente
+              </label>
+              <select
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state"
+				name="clientes"
+				value={values.obrero}
+				onChange={handleSelectObrero}
+              >
+                {obreros.map((e: any) => (
+                  <option value={e.name}>{e.name}</option>
+                ))}
+              </select>
             </div>
           </div>
           {/**Holaaa soy un cartel */}
