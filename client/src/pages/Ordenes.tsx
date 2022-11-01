@@ -11,7 +11,6 @@ import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
 //import moment from 'moment';
-
 import {
   MdKeyboardArrowRight,
   MdKeyboardArrowLeft,
@@ -68,6 +67,7 @@ const Proveedores = () => {
     getOrdenes(headers);
     console.log("holaaaaaa", user);
     getClients(headers);
+    
   }, []);
 
   //delete

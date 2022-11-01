@@ -105,7 +105,7 @@ console.log("hola soy una orden", ordenes)
         </div>
       )}
       {user.roles?.find((e: any) => e.name === "obrero") && 
-	  <div className="flex">
+	  <div className="flex-wrap">
 		{
 		ordenes.map((orden:any)=>orden.obrero=== obrero &&
     <div className="max-w-sm rounded bg-white overflow-hidden shadow-lg m-3">
@@ -116,7 +116,7 @@ console.log("hola soy una orden", ordenes)
       <p>{ moment(orden.fecha).format('YYYY/MM/DD')}</p>
       </div>
       <div className="m-2">
-      <p>{orden.obrero}</p>
+      <p>{orden.carteles.descripcion}</p>
       </div>
       </div>
     </div>
