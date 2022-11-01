@@ -54,9 +54,7 @@ const Login = () => {
               Iniciar Sesión
             </button>
             <div className="flex flex-col items-center mt-5">
-              <p className="mt-1 text-sm font-base text-black">
-                No tienes cuenta?<Link to='/auth/register' className="ml-2 font-medium text-red-700 cursor-pointer">Registrarse</Link>
-                </p>
+              
             </div>
           </form>
         </div>

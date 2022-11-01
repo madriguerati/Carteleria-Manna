@@ -11,7 +11,6 @@ import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
 //import moment from 'moment';
-
 import {
   MdKeyboardArrowRight,
   MdKeyboardArrowLeft,
@@ -68,6 +67,7 @@ const Proveedores = () => {
     getOrdenes(headers);
     console.log("holaaaaaa", user);
     getClients(headers);
+    
   }, []);
 
   //delete
@@ -341,7 +341,7 @@ const Proveedores = () => {
                             <p className="text-gray-900 whitespace-no-wrap">
                               {orden.carteles === null
                                 ? "hola"
-                                : orden.carteles.descripcion}
+                                : orden.carteles.length}
                             </p>
                           </td>
                           <td className="px-3 py-2">
@@ -369,7 +369,10 @@ const Proveedores = () => {
                             <ModalEdit
                               showModal2={showModal2}
                               setShowModal2={setShowModal2}
-                            ></ModalEdit>
+                            >
+                              
+
+                            </ModalEdit>
                           </td>
                           <td className="px-3 py-2">
                             <p

@@ -15,6 +15,7 @@ export interface IOrdenes extends mongoose.Document{
    facturanum: string,
    plazodeentrega:string,
    observaciones:string
+   obrero:string
    
 };
 
@@ -31,17 +32,24 @@ const ordenesSchema = new Schema(
             required:true
 
         },
+        obrero:
+        {
+            type:String,
+            required:true
+
+        },
         contacto://nombre de contacto
         {
             type:String,
             required:true
 
         },
-        carteles:
+        carteles:[
         {
             type:Schema.Types.ObjectId, ref:'carteles',
             required: true
-        },
+        }
+    ],
         operacion:
         {
             type: String,
