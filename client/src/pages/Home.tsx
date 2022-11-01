@@ -11,10 +11,11 @@ const headers = useHeaders(accessToken);
 
 import { Link } from "react-router-dom";
 import shallow from "zustand/shallow";
-
 const Home = () => {
   const { users, user, getUsers } = useUser((state) => state, shallow);
   const { getOrdenes, ordenes} = useOrdenes((state) => state);
+var obrero:any = user.name
+
 useEffect(()=>{
 getOrdenes(headers)
 console.log("hola soy una orden", ordenes)
@@ -106,32 +107,32 @@ console.log("hola soy una orden", ordenes)
       {user.roles?.find((e: any) => e.name === "obrero") && 
 	  <div className="flex">
 		{
-		ordenes.map((orden:any)=>(
-			<div className="max-w-sm rounded bg-white overflow-hidden shadow-lg m-3">
-			<div className="px-6 py-4">
-			  <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-			  <div className="flex">
-				<div className="m-2">
-				<p>{ moment(orden.fecha).format('YYYY/MM/DD')}</p>
-				</div>
-				<div className="m-2">
-				<p>{orden.carteles.descripcion}</p>
-				</div>
-			  </div>
-			</div>
-			<div className="px-6 pt-4 pb-2">
-			<button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ">
-		Iniciada
-	  </button>
-	  <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ">
-		en curso
-	  </button>
-	  <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">
-		terminada
-	  </button>
-		  </div>
-		  </div>
-		))
+		ordenes.map((orden:any)=>orden.obrero=== obrero &&
+    <div className="max-w-sm rounded bg-white overflow-hidden shadow-lg m-3">
+    <div className="px-6 py-4">
+      <div className="font-bold text-center mb-2"><h1>Orden de fabricación</h1></div>
+      <div className="flex">
+      <div className="m-2">
+      <p>{ moment(orden.fecha).format('YYYY/MM/DD')}</p>
+      </div>
+      <div className="m-2">
+      <p>{orden.obrero}</p>
+      </div>
+      </div>
+    </div>
+    <div className="px-6 pt-4 pb-2">
+    <button className="m-1 bg-rose-500 hover:bg-rose-300 text-white font-bold py-2 px-4 ">
+  Iniciada
+  </button>
+  <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ">
+  en curso
+  </button>
+  <button className="m-1 bg-emerald-400 hover:bg-emerald-300 text-white font-bold py-2 px-4">
+  terminada
+  </button>
+    </div>
+    </div>
+    )
 	  }
 	  </div>
 	  }
