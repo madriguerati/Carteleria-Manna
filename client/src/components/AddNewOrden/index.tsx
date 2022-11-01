@@ -245,8 +245,7 @@ console.log("hola",cartel)
     getClients(headers);
     getUsers2(headers)
     console.log("holaaaaaaaaaaa somo s usuariosa",users)
-    var obrero: any = users?.users.filter((e:any)=>e.roles.includes(obrero))
-    console.log("esto es un monson", obrero)
+   
   }, []);
 
 
