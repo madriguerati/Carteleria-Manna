@@ -7,6 +7,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import useHeaders from "../../hooks/useHeaders";
 import usePresupuesto from "../../store/presupuesto";
 import useOrdenes from "../../store/ordenes";
+import useUser from "../../store/user";
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
@@ -38,7 +39,8 @@ interface Values {
   fechaentrega: string,
   facturanum: string,
   plazodeentrega: string;
-  observaciones:string
+  observaciones:string;
+  obrero: string
 }
 interface Cartel {
 	cant: number;
@@ -58,6 +60,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
   const { carteles, getCarteles } = useCartel((state) => state);
   const { clients, getClients } = useClients((state) => state);
+	const { getUsers2, users, logout } = useUser((state) => state);
 
 
   const [cartel, setCartel] = useState<Cartel>({
@@ -85,7 +88,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
 		fechaentrega: "",
 		facturanum: "",
     plazodeentrega:'',
-		observaciones:""
+		observaciones:"",
+    obrero: ""
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal)
@@ -189,6 +193,9 @@ console.log("hola",cartel)
 			
 	}
   };
+  const handleSelectObrero=(e: React.ChangeEvent<HTMLSelectElement>)=>{
+    let { value } = e.currentTarget;
+  }
 
   const crearCartel=()=>{
 	if(cartel.cant>0){
@@ -230,11 +237,16 @@ console.log("hola",cartel)
         fechaentrega: "",
         facturanum: "",
         plazodeentrega:'',
-        observaciones:""
+        observaciones:"",
+        obrero:""
 
       });
     getCarteles(accessToken);
     getClients(headers);
+    getUsers2(headers)
+    console.log("holaaaaaaaaaaa somo s usuariosa",users)
+    var obrero: any = users?.users.filter((e:any)=>e.roles.includes(obrero))
+    console.log("esto es un monson", obrero)
   }, []);
 
 
@@ -569,6 +581,23 @@ console.log("hola",cartel)
                 value={values.plazodeentrega}
                 onChange={handleChange}
               />
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide  text-gray-700 text-xs font-bold mb-2">
+                Metodo
+              </label>
+              <select
+                value={values.obrero}
+                onChange={handleSelectObrero}
+                name="obrero"
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state"
+              >
+                <option value="" defaultValue={""} disabled>
+                  Seleccionar cartel
+                </option>
+                
+              </select>
             </div>
 
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">

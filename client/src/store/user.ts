@@ -26,6 +26,8 @@ type UserStore = {
 	error: boolean;
 	loading: boolean;
 	getUser: (user: string) => Promise<void>;
+	getUsers2: (headers:any) => Promise<void>;
+
 	getUsers: (
 		token: string,
 		rol: string,
@@ -66,6 +68,15 @@ const useUser = create<UserStore>()(
 			const { data } = await axios.get(
 				`https://symptomatic-hole-production.up.railway.app/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}`,
 				{ headers: { "x-access-token": token } }
+			);
+			if (!data) {
+				set({ loading: true });
+			}
+			set((state) => ({ ...state, users: (state.users = data) }));
+		},
+		getUsers2: async (headers) => {
+			const { data } = await axios.get(
+				`https://symptomatic-hole-production.up.railway.app/api/user/allusers`, headers
 			);
 			if (!data) {
 				set({ loading: true });
