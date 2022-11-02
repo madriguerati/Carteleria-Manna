@@ -610,17 +610,36 @@ const AddNewClient = ({ setShowModal }: Props) => {
               />
             </div>
 
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div className="ml-2">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 seña
               </label>
               <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-20 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="number"
                 placeholder="Seña"
                 name="seña"
                 value={values.seña}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="ml-2">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Total
+              </label>
+              <input
+                className="appearance-none block w-40 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="number"
+                placeholder="Total"
+                name="montototal"
+                value={
+                  values.seña?
+                  values.montototal=montofinal-values.seña
+                  :
+                  values.montototal
+                }
                 onChange={handleChange}
               />
             </div>
