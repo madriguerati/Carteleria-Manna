@@ -13,6 +13,8 @@ export interface IUser extends Document {
   direccion: string;
   //sector: string;//roll
   comparePassword: (password: string) => Promise<Boolean>
+  ordenes: string;
+  
 };
 
 const userSchema = new Schema({
@@ -60,7 +62,13 @@ const userSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Role",
     },
-  ]
+  ],
+    ordenes:[
+      {
+        type: String,
+        request: true
+      }
+    ]
 
 },
 {
