@@ -228,6 +228,14 @@ console.log("hola",cartel)
   const agregarCartel = () => {
     hola == false ? setHola(true) : setHola(false);
   };
+
+  const handleSelectClient= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    let {value}= e.currentTarget;
+    setValues({
+      ...values,
+      cliente: value,
+    });
+  }
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
     <div className="p-6 space-y-4 sm:p-8">
@@ -473,10 +481,10 @@ console.log("hola",cartel)
               id="grid-state"
               name="clientes"
               value={values.cliente}
-              onChange={handleSelect}
+              onChange={handleSelectClient}
             >
               <option value="" defaultValue={""} disabled>
-                Seleccionar cartel
+                Seleccionar cliente
               </option>
               {clients.map((e: any) => (
                 <option value={e.name}>{e.name}</option>
