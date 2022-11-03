@@ -29,6 +29,7 @@ import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useProveedores from "../store/proveedores";
 import useClients from "../store/clientes";
+import moment from "moment";
 
 const Proveedores = () => {
   const { users, user, getUsers } = useUser((state) => state, shallow);
@@ -324,7 +325,7 @@ const Proveedores = () => {
                         >
                           <td className="px-3 py-2">
                             <p className="text-gray-900 whitespace-no-wrap">
-                              {orden.fecha}
+                              {moment(orden.fecha).format('L')}
                             </p>
                           </td>
                           <td className="px-3 py-2">

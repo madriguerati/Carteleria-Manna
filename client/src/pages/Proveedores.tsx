@@ -342,7 +342,7 @@ const Proveedores = () => {
                           >
                             <ProveedorEdit
                               setShowModal2={setShowModal2}
-                              proveedor={proveedor}
+                              proveedor={proveedorEdit}
                             />
                           </ModalEdit>
                         </td>

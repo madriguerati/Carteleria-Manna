@@ -32,6 +32,7 @@ const Clientes = () => {
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(10);
 	const [showModal, setShowModal] = useState(false);
+	const [showModal2, setShowModal2] = useState(false);
 	const [sortUsername, setSortUsername] = useState<null | boolean>(
 		true
 	);
@@ -39,7 +40,16 @@ const Clientes = () => {
 	const [sortLastName, setSortLastName] = useState<null | boolean>(
 		null
 	);
-
+	const [clientEdit, setClientEdit] = useState({
+		id: "",
+		name: "",
+		telefono: "",
+		cuit: "",
+		email: "",
+		direccion: "",
+		condicioniva: [""],
+		razonsocial: "",
+	  });
 
 	useEffect(() => {
 		getCarteles(accessToken);
@@ -111,6 +121,24 @@ const Clientes = () => {
 		console.log("hola delte")
 		deleteCartel(cartel._id, headers)
 	}
+
+	const edit = (client: any) => {
+		if (client) {
+		  setShowModal2(true);
+		  console.log("hola", client);
+		  setClientEdit({
+			id: client._id,
+			name: client.name,
+			telefono: client.telefono,
+			cuit: client.cuit,
+			email: client.email,
+			direccion: client.direccion,
+			condicioniva: client.condicioniva,
+			razonsocial: client.razonsocial,
+		  });
+		  console.log("insumo", clientEdit);
+		}
+	  };
 	return (
 		<Layout>
 			<div className='xl:container mx-auto px-4 sm:px-8'>
