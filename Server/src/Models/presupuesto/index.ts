@@ -2,7 +2,7 @@ import  mongoose,  {model, Document, Schema} from'mongoose';
 
 export interface IPresupuesto extends mongoose.Document{
   fecha: Date,
-  clientes: Schema.Types.ObjectId,// que muestre nombre de contacto y telefono en el front
+  clientes: string,// que muestre nombre de contacto y telefono en el front
   //clientes: string,
   //contacto: string,
   carteles: Schema.Types.ObjectId,
@@ -28,12 +28,12 @@ const presupuestoSchema = new Schema(
         type: String,
         request:true
       },
-      clientes: [
+      clientes: 
         {
-          type: Schema.Types.ObjectId,
-          ref: "clientes",
+          type: String,
+          request:true
         },
-      ],
+      
       carteles:[
         {
           type: Schema.Types.ObjectId,

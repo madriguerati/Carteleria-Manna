@@ -10,7 +10,7 @@ interface Headers {
 
 interface Presupuesto {
     fecha: Date,
-    clientes: [string],// que muestre nombre de contacto y telefono en el front
+    clientes: string,// que muestre nombre de contacto y telefono en el front
     carteles: [string],
     operacion:string,
     lugardecolocacion: string,//lugar de entrega colocación/entrega

@@ -26,7 +26,7 @@ var fechaActual: any =moment().format('MM/DD/YYYY')
 
 interface Values {
   fecha: string;
-  clientes: [string]; // que muestre nombre de contacto y telefono en el front
+  clientes: string; // que muestre nombre de contacto y telefono en el front
   carteles: string[];
   operacion: string;
   lugardecolocacion: string; //lugar de entrega colocación/entrega
@@ -69,7 +69,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
   });
   const [values, setValues] = useState<Values>({
     fecha: fechaActual,
-    clientes: [""], // que muestre nombre de contacto y telefono en el front
+    clientes: "", // que muestre nombre de contacto y telefono en el front
     carteles: [],
     operacion: "",
     lugardecolocacion: "", //lugar de entrega colocación/entrega
@@ -167,17 +167,7 @@ console.log("hola",cartel)
 			}else{
 				totalArray.costo1faz=totalArray.costo1faz/2
 			}
-			if(clienteSelect){
-        var clienteId = clienteSelect._id
-				setValues({
-					...values,
-					clientes: [clienteId]
-				})
-				console.log("hola amiguitos dolos", clienteSelect)
-			}else{
-				console.log("holalkdjsldkjsdlksdjsldkjamiguitos dolos", clienteSelect)
-
-			}
+			
 			
 	}
   };
@@ -210,7 +200,7 @@ console.log("hola",cartel)
   useEffect(() => {
       setValues({
         fecha: fechaActual,
-        clientes:[""], // que muestre nombre de contacto y telefono en el front
+        clientes:"", // que muestre nombre de contacto y telefono en el front
         carteles: [],
         operacion: "",
         lugardecolocacion: "", //lugar de entrega colocación/entrega
@@ -233,7 +223,7 @@ console.log("hola",cartel)
     let {value}= e.currentTarget;
     setValues({
       ...values,
-      cliente: value,
+      clientes: value,
     });
   }
   return (
@@ -480,7 +470,7 @@ console.log("hola",cartel)
               className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-state"
               name="clientes"
-              value={values.cliente}
+              value={values.clientes}
               onChange={handleSelectClient}
             >
               <option value="" defaultValue={""} disabled>
@@ -556,20 +546,6 @@ console.log("hola",cartel)
         {/**tercera columna  */}
 
         <div className="flex flex-wrap-mx-3">
-        <div className="">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              Fecha entrega
-            </label>
-            <input
-              className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-first-name"
-              type="date"
-              placeholder="Fecha"
-              name="fechaentrega"
-              value={values.fechaentrega}
-              onChange={handleChange}
-            />
-          </div>
 
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -608,20 +584,7 @@ console.log("hola",cartel)
         <div className="flex flex-wrap-mx-3">
         
        
-          <div className="">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              lugar traslado
-            </label>
-            <input
-              className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-first-name"
-              type="text"
-              placeholder="lugar traslado"
-              name="lugartraslado"
-              value={values.lugartraslado}
-              onChange={handleChange}
-            />
-          </div>
+          
           <div className="ml-2">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Total
