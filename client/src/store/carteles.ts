@@ -45,7 +45,7 @@ const useCartel = create<CartelStore>()(
       //actions
       addCartel: async (body) => {
         try {
-          const { data } = await axios.post('https://symptomatic-hole-production.up.railway.app/api/carteles/create', body );
+          const { data } = await axios.post('http://localhost:5000/api/carteles/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });

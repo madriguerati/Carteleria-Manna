@@ -49,7 +49,7 @@ const Presupuesto = () => {
 
   useEffect(() => {
     !success && getPresupuestos(headers);
-    console.log("holaaaaaaaaa", presupuestos, presupuestos[6].carteles);
+    console.log("holaaaaaaaaa", presupuestos);
   }, [success]);
 
   //delete

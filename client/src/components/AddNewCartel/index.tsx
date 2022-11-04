@@ -4,7 +4,7 @@ import { MdError } from "react-icons/md";
 import useCartel from "../../store/carteles";
 import useInusmo from '../../store/insumo';
 import useHeaders from "../../hooks/useHeaders";
-
+import Swal from 'sweetalert2'
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 const [accessToken] = useLocalStorage();
@@ -153,6 +153,15 @@ const AddNewCartel = ({ setShowModal }: Props) => {
       insumosArray: [""]
     })
 
+   if(values.descripcion){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Cartel creado exitosamente exitosamente',
+      showConfirmButton: false,
+      timer: 1500
+    })
+   }
 
     setTimeout(() => {
       closeModal();

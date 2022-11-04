@@ -6,7 +6,7 @@ import useUser from '../../store/user';
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError } from "react-icons/md";
-
+import Swal from 'sweetalert2'
 
 type Props = {
 	setShowModal2: any;
@@ -52,7 +52,13 @@ const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
         putInsumo(values, token)
         handleCloseModal()
         success
-       
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Cambios guardados exitosamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
   }
 
   return (

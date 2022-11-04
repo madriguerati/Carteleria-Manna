@@ -5,6 +5,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewCartel from "../components/AddNewCartel";
 import shallow from "zustand/shallow";
+import Swal from 'sweetalert2'
 
 import {
 	MdKeyboardArrowRight,
@@ -118,8 +119,27 @@ const Clientes = () => {
 	};
 
 	const DeleteCartel= (cartel:any)=>{
-		console.log("hola delte")
+		Swal.fire({
+			title: '¿Estas seguro?',
+			text: "No seras capaz de revertir los cambios",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#77B327',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminarlo!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Eliminado!',
+				'X ha sido eliminado',
+				'success'
+			  )
+			  console.log("hola delte")
 		deleteCartel(cartel._id, headers)
+			}
+		  })
+		
+	
 	}
 
 	const edit = (client: any) => {
@@ -138,6 +158,23 @@ const Clientes = () => {
 		  });
 		  console.log("insumo", clientEdit);
 		}
+		Swal.fire({
+			title: '¿Estas seguro?',
+			text: "No seras capaz de revertir los cambios",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#77B327',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminarlo!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Eliminado!',
+				'X ha sido eliminado',
+				'success'
+			  )
+			}
+		  })
 	  };
 	return (
 		<Layout>
