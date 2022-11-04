@@ -221,10 +221,14 @@ console.log("hola",cartel)
 
   const handleSelectClient= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;
-    setValues({
-      ...values,
-      clientes: value,
-    });
+    clienteSelect=clients.filter((e:any)=>e.name===value)
+    if(clienteSelect){
+      console.log("hola soy un cliente", clienteSelect, clienteSelect[0].name)
+      setValues({
+        ...values,
+        clientes: clienteSelect[0].name
+      });
+    }
   }
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">

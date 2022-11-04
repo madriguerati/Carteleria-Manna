@@ -25,6 +25,7 @@ import useHeaders from "../hooks/useHeaders";
 import usePresupuesto from "../store/presupuesto";
 import AddNewClient from "../components/AddNewClient";
 import moment from "moment";
+import Clientes from './Carteles';
 
 const Presupuesto = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
@@ -48,7 +49,7 @@ const Presupuesto = () => {
 
   useEffect(() => {
     !success && getPresupuestos(headers);
-    console.log("holaaaaaaaaa", presupuestos);
+    console.log("holaaaaaaaaa", presupuestos, presupuestos[6].carteles);
   }, [success]);
 
   //delete
@@ -254,9 +255,10 @@ const Presupuesto = () => {
                         </td>
                         <td className="px-3 py-2">
                           <p className="text-gray-900 whitespace-no-wrap capitalize">
-                            {presupuesto.clientes
-                              ? presupuesto.clientes.name
-                              : "hola"}
+                            {presupuesto.clientes?
+                            presupuesto.clientes.name
+                          :
+                          "no hay nombre"}
                           </p>
                         </td>
 

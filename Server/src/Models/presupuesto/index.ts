@@ -31,7 +31,7 @@ const presupuestoSchema = new Schema(
       clientes: 
         {
           type: String,
-          request:true
+          required:true
         },
       
       carteles:[
