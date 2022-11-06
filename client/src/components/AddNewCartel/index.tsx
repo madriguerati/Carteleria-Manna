@@ -153,7 +153,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
       insumosArray: [""]
     })
 
-   if(values.descripcion){
+   if(values.descripcion
+    ){
     Swal.fire({
       position: 'top-end',
       icon: 'success',
