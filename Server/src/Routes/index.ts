@@ -69,11 +69,15 @@ import PostCarteles from './carteles/postCarteles'
 import GetCarteles from './carteles/getCarteles'
 import PutCarteles from './carteles/putCarteles'
 import DeleteCarteles from './carteles/deleteCarteles'
+import GetCartelesAll from './carteles/getCartelesAllPages'
+
 
 router.use('/carteles',  PostCarteles)
 router.use('/carteles', GetCarteles)
 router.use('/carteles', PutCarteles)
 router.use('/carteles', DeleteCarteles)
+router.use('/carteles', GetCartelesAll)
+
 
 //ordenes
 import PostOrdenes from './ordenes/postOrdenes'
