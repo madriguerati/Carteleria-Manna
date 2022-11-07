@@ -5,7 +5,7 @@ descripcion: string,
 costo1faz: number,
 consto2faz:number,
 insumosArray: string
-
+category: string
 };
 
 
@@ -14,6 +14,10 @@ const cartelesSchema = new Schema(
         insumosArray:{
             type: [String],
             request:true,
+        },
+        category:{
+            type: String,
+            request: true
         },
         descripcion:{
             type: String,

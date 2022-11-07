@@ -25,7 +25,7 @@ import useCarteles from "../store/carteles";
 import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
-	const { carteles, getCarteles, deleteCartel, loading} = useCarteles((state) => state);
+	const { carteles, getCartelesAll, deleteCartel, loading} = useCarteles((state) => state);
 	const [accessToken] = useLocalStorage();
 	const headers = useHeaders(accessToken);
 	const [rol, setRol] = useState("");
@@ -53,7 +53,8 @@ const Clientes = () => {
 	  });
 
 	useEffect(() => {
-		getCarteles(accessToken);
+		getCartelesAll(accessToken, page, limit);
+		console.log("holaaaaaaaaaaaaaaaaaaaaaa", carteles)
 	}, [rol, sort, page, limit]);
 
 
@@ -332,7 +333,7 @@ const Clientes = () => {
 								</thead>
 								{
 									<tbody>
-										{carteles?.map((cartel: any, index: number) => (
+										{carteles.carteles?.map((cartel: any, index: number) => (
 											<tr
 												key={cartel._id}
 												className={`border-b border-gray-200 text-base ${
