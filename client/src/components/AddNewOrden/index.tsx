@@ -62,7 +62,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
   );
 
   const { carteles, getCarteles } = useCartel((state) => state);
-  const { clients, getClients } = useClients((state) => state);
+  const { clientes, getClients } = useClients((state) => state);
   const { getUsers2, users, logout } = useUser((state) => state);
   const [hola, setHola] = useState(false);
 
@@ -163,7 +163,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
     });
     if (value) {
       cartelSelect = carteles.find((e: any) => e.descripcion === value);
-      clienteSelect = clients.find((e: any) => e.name === value);
+      clienteSelect = clientes.find((e: any) => e.name === value);
       console.log("hola soy un valor que si vale", cartelSelect);
       if (cartelSelect) {
         var cartelId = cartelSelect._id;
@@ -525,7 +525,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 <option value="" defaultValue={""} disabled>
                   Seleccionar cartel
                 </option>
-                {clients.map((e: any) => (
+                {clientes.map((e: any) => (
                   <option value={e.name}>{e.name}</option>
                 ))}
               </select>
