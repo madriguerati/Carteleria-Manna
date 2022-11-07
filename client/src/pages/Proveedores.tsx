@@ -29,14 +29,14 @@ import useProveedores from "../store/proveedores";
 
 const Proveedores = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
-  const { getProveedores, proveedores, deleteProveedores, loading } =
+  const { getProveedoresAll, proveedores, deleteProveedores, loading } =
     useProveedores((state) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(10);
+  const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [proveedorEdit, setProveedorEdit] = useState({
@@ -54,17 +54,19 @@ const Proveedores = () => {
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
 
   useEffect(() => {
-    getProveedores(headers);
+    getProveedoresAll(accessToken, limit, page);
     console.log("holaaaaaa", proveedores);
   }, []);
 
   //delete
   const DeleteProveedor = (proveedor: any) => {
     deleteProveedores(proveedor._id, headers);
+    getProveedoresAll(accessToken, limit, page);
+
   };
 
   const nextPage = (): void => {
-    page < users.totalPages && setPage(page + 1);
+    page < proveedores.totalPages && setPage(page + 1);
   };
 
   const prevPage = (): void => {
@@ -76,7 +78,7 @@ const Proveedores = () => {
   };
 
   const lastPage = (): void => {
-    page !== users.totalPages && setPage(users.totalPages);
+    page !== proveedores.totalPages && setPage(proveedores.totalPages);
   };
 
   const userPerPage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -287,7 +289,7 @@ const Proveedores = () => {
                 </thead>
                 {
                   <tbody>
-                    {proveedores?.map((proveedor: any, index: number) => (
+                    {proveedores.proveedores?.map((proveedor: any, index: number) => (
                       <tr
                         key={proveedor._id}
                         className={`border-b border-gray-200 text-base ${
@@ -384,13 +386,13 @@ const Proveedores = () => {
                   </button>
 
                   <span className="text-base xs:text-xs text-gray-900">
-                    {`Página ${users.page} de ${users.totalPages}`}
+                    {`Página ${proveedores.page} de ${proveedores.totalPages}`}
                   </span>
 
                   <button onClick={nextPage}>
                     <MdKeyboardArrowRight
                       className={`text-2xl text-red-600 ${
-                        page === users.totalPages && "opacity-50"
+                        page === proveedores.totalPages && "opacity-50"
                       }`}
                     />
                   </button>
@@ -398,7 +400,7 @@ const Proveedores = () => {
                   <button onClick={lastPage}>
                     <MdLastPage
                       className={`text-2xl text-red-600 ${
-                        page === users.totalPages && "opacity-50"
+                        page === proveedores.totalPages && "opacity-50"
                       }`}
                     />
                   </button>

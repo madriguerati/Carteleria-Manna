@@ -66,11 +66,15 @@ import PostProveedores from './proveedores/postProveedores'
 import GetProveedores from './proveedores/getProveedores'
 import PutProveedores from './proveedores/putProveedores'
 import DeleteProveedores from './proveedores/deleteProveedores'
+import GetProveedoresAll from './proveedores/getProveedoresAllPages'
+
 
 router.use('/proveedores', PostProveedores)
 router.use('/proveedores', GetProveedores)
 router.use('/proveedores', PutProveedores)
 router.use('/proveedores', DeleteProveedores)
+router.use('/proveedores', GetProveedoresAll)
+
 
 //Carteles
 import PostCarteles from './carteles/postCarteles'
