@@ -34,6 +34,11 @@ type UserStore = {
   error: boolean
   loading: boolean,
   postOrden: (body:any, token:any) => Promise<void>
+  getOrdenesAll: (
+		token: string,
+		page: number,
+		limit: number
+	) => Promise<void>;
   putOrden: (body:any, token:any) => Promise<void>
   getOrdenes: (token:any) => Promise<void>
   deleteOrdenes: (params:any, headers:any)=> Promise<void>
@@ -92,6 +97,18 @@ const useOrdenes = create<UserStore>()(
         }
         set({ loading: false})  
       },
+      getOrdenesAll: async (token, page, limit) => {
+        try{
+          set({ loading: true}) 
+          const { data } = await axios.get(`http://localhost:5000/api/ordenes/allordenes?page=${page}&limit=${limit}`,
+          { headers: { "x-access-token": token } })
+          set((state) => ({ ordenes: (state.ordenes = data) }));
+        } catch(error){
+          console.log(error)
+        }
+        set({ loading: false});
+          
+        },
       deleteOrdenes: async (params, headers)=>{
         set({ loading: true}) 
         const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/ordenes/${params}`,   headers);

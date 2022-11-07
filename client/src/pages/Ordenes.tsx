@@ -33,16 +33,16 @@ import moment from "moment";
 
 const Proveedores = () => {
   const { users, user, getUsers } = useUser((state) => state, shallow);
-  const { ordenes, getOrdenes, deleteOrdenes, loading } = useOrdenes(
+  const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading } = useOrdenes(
     (state) => state
   );
-  const { clients, getClients } = useClients((state) => state);
+  const { clientes, getClients } = useClients((state) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(10);
+  const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [proveedorEdit, setProveedorEdit] = useState({
@@ -65,9 +65,10 @@ const Proveedores = () => {
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
 
   useEffect(() => {
-    getOrdenes(headers);
-    console.log("holaaaaaa", user);
+    getOrdenesAll(accessToken, limit, page);
+    console.log("holaaaaaa", ordenes);
     getClients(headers);
+
     
   }, []);
 
@@ -78,7 +79,7 @@ const Proveedores = () => {
   };
 
   const nextPage = (): void => {
-    page < users.totalPages && setPage(page + 1);
+    page < ordenes.totalPages && setPage(page + 1);
   };
 
   const prevPage = (): void => {
@@ -90,7 +91,7 @@ const Proveedores = () => {
   };
 
   const lastPage = (): void => {
-    page !== users.totalPages && setPage(users.totalPages);
+    page !== ordenes.totalPages && setPage(users.totalPages);
   };
 
   const userPerPage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -316,7 +317,7 @@ const Proveedores = () => {
                   </thead>
                   {
                     <tbody>
-                      {ordenes?.map((orden: any, index: number) => (
+                      {ordenes.ordenes?.map((orden: any, index: number) => (
                         <tr
                           key={orden._id}
                           className={`border-b border-gray-200 text-base ${
@@ -409,13 +410,13 @@ const Proveedores = () => {
                   </button>
 
                   <span className="text-base xs:text-xs text-gray-900">
-                    {`Página ${users.page} de ${users.totalPages}`}
+                    {`Página ${ordenes.page} de ${ordenes.totalPages}`}
                   </span>
 
                   <button onClick={nextPage}>
                     <MdKeyboardArrowRight
                       className={`text-2xl text-red-600 ${
-                        page === users.totalPages && "opacity-50"
+                        page === ordenes.totalPages && "opacity-50"
                       }`}
                     />
                   </button>

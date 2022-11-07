@@ -92,11 +92,15 @@ import PostOrdenes from './ordenes/postOrdenes'
 import GetOrdenes from './ordenes/getOrdenes'
 import PutOrdenes from './ordenes/putOrdenes'
 import DeleteOrdenes from './ordenes/deleteOrdenes'
+import GetOrdenesAll from './ordenes/getOrdenesAllPages'
+
 
 router.use('/ordenes', PostOrdenes)
 router.use('/ordenes', GetOrdenes)
 router.use('/ordenes', PutOrdenes)
 router.use('/ordenes', DeleteOrdenes)
+router.use('/ordenes', GetOrdenesAll)
+
 
 //presupuesto
 import PostPresupuesto from './presupuestos/postPresupuestos'
