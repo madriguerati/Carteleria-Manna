@@ -16,6 +16,11 @@ type ProveedoresStore = {
 	putProveedor: (body:any, token:any) => Promise<void>
 	addProveedores: (body: {}) => Promise<void>;
 	deleteProveedores: (params: {}, headers:any) => Promise<void>;
+	getProveedoresAll: (
+		token: string,
+		page: number,
+		limit: number
+	) => Promise<void>;
 	closeModal: () => void;
 };
 
@@ -56,6 +61,18 @@ const useProveedores = create<ProveedoresStore>()(
 			}
 			set({ loading: false})  
 		},
+		getProveedoresAll: async (token, page, limit) => {
+			try{
+			  set({ loading: true}) 
+			  const { data } = await axios.get(`http://localhost:5000/api/proveedores/allproveedores?page=${page}&limit=${limit}`,
+			  { headers: { "x-access-token": token } })
+			  set((state) => ({ proveedores: (state.proveedores = data) }));
+			} catch(error){
+			  console.log(error)
+			}
+			set({ loading: false});
+			  
+			},
 		addProveedores: async (body) => {
 			try {
 				await axios.post(
