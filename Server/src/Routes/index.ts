@@ -36,11 +36,15 @@ import PostInsumo from './insumo/postInsumo'
 import GetInsumo from './insumo/getInsumo'
 import DeleteInsumo from './insumo/deleteInsumo'
 import PutInsumo from './insumo/putInsumo'
+import GetInsumosAll from './insumo/getInsumosAllPages'
+
 
 router.use('/insumo', verifyToken, isAdmin, isGerente, PostInsumo)
 router.use('/insumos', verifyToken, isAdmin, isGerente, GetInsumo)
 router.use('/insumo', verifyToken, isAdmin, isGerente, DeleteInsumo)
 router.use('/insumo', verifyToken, isAdmin, isGerente, PutInsumo)
+router.use('/insumo', verifyToken, isAdmin, isGerente, GetInsumosAll)
+
 
 //clientes
 import PostClientes from './clientes/postClientes'

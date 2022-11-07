@@ -29,6 +29,11 @@ type UserStore = {
   putInsumo: (body:any, token:any) => Promise<void>
   getInsumos: (token:any) => Promise<void>
   deleteIsumos: (params:any, headers:any)=> Promise<void>
+  getInsumosAll: (
+		token: string,
+		page: number,
+		limit: number
+	) => Promise<void>;
   closeModal: () => void
 }
 
@@ -59,6 +64,18 @@ const useInusmo = create<UserStore>()(
 
 
       },
+      getInsumosAll: async (token, page, limit) => {
+        try{
+          set({ loading: true}) 
+          const { data } = await axios.get(`http://localhost:5000/api/insumo/allinsumos?page=${page}&limit=${limit}`,
+          { headers: { "x-access-token": token } })
+          set((state) => ({ insumos: (state.insumos = data) }));
+        } catch(error){
+          console.log(error)
+        }
+        set({ loading: false});
+          
+        },
       postInsumo: async (body, token) => {
         
         let headers:any = {
@@ -78,7 +95,7 @@ const useInusmo = create<UserStore>()(
       getInsumos: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/insumos', headers )
+          const { data } = await axios.get('http://localhost:5000/api/insumos', headers )
           set((state) => ({ insumos: (state.insumos = data) }));
         }catch(error){
           console.log(error)
