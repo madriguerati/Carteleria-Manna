@@ -29,6 +29,11 @@ type PresupuestoStore = {
   success: boolean
   error: boolean
   loading: boolean
+  getPresupuestosAll: (
+		token: string,
+		page: number,
+		limit: number
+	) => Promise<void>;
   addPresupuesto: (body:{}) => Promise<void>
   getPresupuestos: (headers:{})=>Promise<void>
   deletePresupuestos: (params:any, headers:any)=> Promise<void>
@@ -69,6 +74,18 @@ const usePresupuesto = create<PresupuestoStore>()(
         set({ loading: false });
 
       },
+      getPresupuestosAll: async (token, page, limit) => {
+        try{
+          set({ loading: true}) 
+          const { data } = await axios.get(`http://localhost:5000/api/presupuestos/allpresupuestos?page=${page}&limit=${limit}`,
+          { headers: { "x-access-token": token } })
+          set((state) => ({ presupuestos: (state.presupuestos = data) }));
+        } catch(error){
+          console.log(error)
+        }
+        set({ loading: false});
+          
+        },
       deletePresupuestos: async (params:any, headers:any)=>{
       
         const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/presupuestos/${params}`,  headers);

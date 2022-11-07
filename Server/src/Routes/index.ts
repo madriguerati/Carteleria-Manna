@@ -107,11 +107,15 @@ import PostPresupuesto from './presupuestos/postPresupuestos'
 import PutPresupuesto from './presupuestos/putPresupuestos'
 import GetPresupuesto from './presupuestos/getPresupuestos'
 import DeletePresupuesto from './presupuestos/deletePresupuestos'
+import GetPresupuestosAll from './presupuestos/getPresupuestosAllPages'
+
 
 router.use('/presupuestos', PostPresupuesto);
 router.use('/presupuestos', PutPresupuesto)
 router.use('/presupuestos', GetPresupuesto)
 router.use('/presupuestos', DeletePresupuesto)
+router.use('/presupuestos', GetPresupuestosAll)
+
 
 
 
