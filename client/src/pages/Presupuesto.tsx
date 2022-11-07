@@ -32,6 +32,7 @@ const Presupuesto = () => {
   const {
     presupuestos,
     getPresupuestos,
+    getPresupuestosAll,
     loading,
     success,
     deletePresupuestos,
@@ -40,26 +41,26 @@ const Presupuesto = () => {
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(10);
+  const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
 
   useEffect(() => {
-    !success && getPresupuestos(headers);
-    console.log("holaaaaaaaaa", presupuestos);
+    !success && getPresupuestosAll(accessToken, limit, page);
+    console.log("holaaaaaadsdsdsdsaaa", presupuestos);
   }, [success]);
 
   //delete
   const DeletePresupuesto = (presupuesto: any) => {
     deletePresupuestos(presupuesto._id, headers);
-    getPresupuestos(headers);
+    getPresupuestosAll(accessToken, limit, page)
   };
 
   const nextPage = (): void => {
-    page < users.totalPages && setPage(page + 1);
+    page < presupuestos.totalPages && setPage(page + 1);
   };
 
   const prevPage = (): void => {
@@ -71,7 +72,7 @@ const Presupuesto = () => {
   };
 
   const lastPage = (): void => {
-    page !== users.totalPages && setPage(users.totalPages);
+    page !== presupuestos.totalPages && setPage(presupuestos.totalPages);
   };
 
   const userPerPage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -241,7 +242,7 @@ const Presupuesto = () => {
                 </thead>
                 {!loading && (
                   <tbody>
-                    {presupuestos?.map((presupuesto: any, index: number) => (
+                    {presupuestos.presupuestos?.map((presupuesto: any, index: number) => (
                       <tr
                         key={presupuesto._id}
                         className={`border-b border-gray-200 text-base ${
@@ -256,9 +257,9 @@ const Presupuesto = () => {
                         <td className="px-3 py-2">
                           <p className="text-gray-900 whitespace-no-wrap capitalize">
                             {presupuesto.clientes?
-                            presupuesto.clientes.name
+                           presupuesto.clientes
                           :
-                          "no hay nombre"}
+                          "hola no hay "}
                           </p>
                         </td>
 
@@ -324,13 +325,13 @@ const Presupuesto = () => {
                   </button>
 
                   <span className="text-base xs:text-xs text-gray-900">
-                    {`Página ${users.page} de ${users.totalPages}`}
+                    {`Página ${presupuestos.page} de ${presupuestos.totalPages}`}
                   </span>
 
                   <button onClick={nextPage}>
                     <MdKeyboardArrowRight
                       className={`text-2xl text-red-600 ${
-                        page === users.totalPages && "opacity-50"
+                        page === presupuestos.totalPages && "opacity-50"
                       }`}
                     />
                   </button>
@@ -338,7 +339,7 @@ const Presupuesto = () => {
                   <button onClick={lastPage}>
                     <MdLastPage
                       className={`text-2xl text-red-600 ${
-                        page === users.totalPages && "opacity-50"
+                        page === presupuestos.totalPages && "opacity-50"
                       }`}
                     />
                   </button>

@@ -53,7 +53,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
     usePresupuesto((state) => state);
 
   const { carteles, getCarteles } = useCartel((state) => state);
-  const { clients, getClients } = useClients((state) => state);
+  const { clientes, getClients } = useClients((state) => state);
 
 
   const [cartel, setCartel] = useState<Cartel>({
@@ -139,7 +139,7 @@ console.log("hola",cartel)
     });
     if (value){
       cartelSelect = carteles.find((e:any)=> e.descripcion===value)
-		clienteSelect = clients.find((e:any)=> e.name===value)
+		clienteSelect = clientes.find((e:any)=> e.name===value)
 		console.log("hola soy un valor que si vale", cartelSelect)
 			if (cartelSelect){
         var cartelId= cartelSelect._id
@@ -221,7 +221,7 @@ console.log("hola",cartel)
 
   const handleSelectClient= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;
-    clienteSelect=clients.filter((e:any)=>e.name===value)
+    clienteSelect=clientes.filter((e:any)=>e.name===value)
     if(clienteSelect){
       console.log("hola soy un cliente", clienteSelect, clienteSelect[0].name)
       setValues({
@@ -480,7 +480,7 @@ console.log("hola",cartel)
               <option value="" defaultValue={""} disabled>
                 Seleccionar cliente
               </option>
-              {clients.map((e: any) => (
+              {clientes.map((e: any) => (
                 <option value={e.name}>{e.name}</option>
               ))}
             </select>
