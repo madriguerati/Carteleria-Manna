@@ -31,15 +31,15 @@ import ModalEdit from "../components/ModalEdit";
 
 const Clientes = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
-  const { getInsumos, insumos, deleteIsumos, loading, success } = useInsumo(
+  const { getInsumosAll, insumos, deleteIsumos, loading, success } = useInsumo(
     (state) => state
   );
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(10);
+  const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [insumoEdit, setInsumoEdit] = useState({
@@ -57,13 +57,13 @@ const Clientes = () => {
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
 
   useEffect(() => {
-    !success && getInsumos(headers);
+    getInsumosAll(accessToken, limit, page);
+    console.log("hahahhaahahahaha", insumos)
   }, []);
 
   //delete
   const DeleteInsumo = (insumo: any) => {
     deleteIsumos(insumo._id, headers);
-    !success && getInsumos(headers);
   };
 
   const nextPage = (): void => {
@@ -136,7 +136,6 @@ const Clientes = () => {
         category: insumo.category,
         proveedor: insumo.proveedor,
       });
-      console.log("insumo", insumoEdit);
     }
   };
   return (
@@ -289,7 +288,7 @@ const Clientes = () => {
                 </thead>
                 {
                   <tbody>
-                    {insumos?.map((insumo: any, index: number) => (
+                    {insumos.insumos?.map((insumo: any, index: number) => (
                       <tr
                         key={insumo._id}
                         className={`border-b border-gray-200 text-base ${
