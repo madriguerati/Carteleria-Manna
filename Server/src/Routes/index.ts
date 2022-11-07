@@ -47,11 +47,15 @@ import PostClientes from './clientes/postClientes'
 import GetClientes from './clientes/getClientes'
 import PutClientes from './clientes/putClientes'
 import DeleteClientes from './clientes/deleteClientes'
+import GetClientesAll from './clientes/getClientesAllPages'
+
 
 router.use('/clientes', PostClientes)
 router.use('/clientes', verifyToken, isAdmin, isGerente, GetClientes)
 router.use('/clientes', PutClientes)
 router.use('/clientes', DeleteClientes)
+router.use('/clientes', GetClientesAll)
+
 
 //proveedores
 import PostProveedores from './proveedores/postProveedores'

@@ -28,7 +28,7 @@ import ModalEdit from "../components/ModalEdit";
 
 const Clientes = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
-  const { clients, getClients, loading, success, deleteClients } = useClients(
+  const { clientes, getClients, getClientesAll, loading, success, deleteClients } = useClients(
     (state) => state
   );
   const [accessToken] = useLocalStorage();
@@ -55,27 +55,22 @@ const Clientes = () => {
     razonsocial: "",
   });
 
-  const refreshPage = ()=>{
-      window.location.reload();
- }
+ 
 
   useEffect(() => {
-    getClients(headers);
-    if(refresh===true){
-      refreshPage()
-    }
-    console.log("hola",refresh)
+    getClientesAll(accessToken, page, limit);
+    
+   
   }, []);
 
   //delete
   const DeleteCliente = (client: any) => {
     deleteClients(client._id, headers);
-    getClients(headers);
   };
-  console.log(clients);
+  console.log(clientes);
 
   const nextPage = (): void => {
-    page < users.totalPages && setPage(page + 1);
+    //page < clientes?.totalPages && setPage(page + 1);
   };
 
   const prevPage = (): void => {
@@ -87,7 +82,7 @@ const Clientes = () => {
   };
 
   const lastPage = (): void => {
-    page !== users.totalPages && setPage(users.totalPages);
+    page !== clientes.totalPages && setPage(clientes.totalPages);
   };
 
   const userPerPage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -299,7 +294,7 @@ const Clientes = () => {
                 </thead>
                 {!loading && (
                   <tbody>
-                    {clients?.map((client: any, index: number) => (
+                    {clientes.clientes?.map((client: any, index: number) => (
                       <tr
                         key={client._id}
                         className={`border-b border-gray-200 text-base ${
@@ -403,13 +398,13 @@ const Clientes = () => {
                   </button>
 
                   <span className="text-base xs:text-xs text-gray-900">
-                    {`Página ${users.page} de ${users.totalPages}`}
+                    {`Página ${clientes.page} de ${clientes.totalPages}`}
                   </span>
 
                   <button onClick={nextPage}>
                     <MdKeyboardArrowRight
                       className={`text-2xl text-red-600 ${
-                        page === users.totalPages && "opacity-50"
+                        page === clientes.totalPages && "opacity-50"
                       }`}
                     />
                   </button>
@@ -417,7 +412,7 @@ const Clientes = () => {
                   <button onClick={lastPage}>
                     <MdLastPage
                       className={`text-2xl text-red-600 ${
-                        page === users.totalPages && "opacity-50"
+                        page === clientes.totalPages && "opacity-50"
                       }`}
                     />
                   </button>

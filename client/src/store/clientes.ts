@@ -7,11 +7,16 @@ interface Headers {
 }
 
 type ClientStore = {
-	clients: [];
+	clientes: [];
 	success: boolean;
 	error: boolean;
 	loading: boolean
 	getClients: (headers: {}) => Promise<void>;
+	getClientesAll: (
+		token: string,
+		page: number,
+		limit: number
+	) => Promise<void>;
 	addClient: (body: {}) => Promise<void>;
 	putClients: (body:any, token:any) => Promise<void>
 	deleteClients: (params: {}, headers:any) => Promise<void>;
@@ -21,7 +26,7 @@ type ClientStore = {
 const useClients = create<ClientStore>()(
 	devtools((set) => ({
 		//initial state
-		clients: [],
+		clientes: [],
 		success: false,
 		error: false,
 		loading: false,
@@ -48,12 +53,24 @@ const useClients = create<ClientStore>()(
 					"https://symptomatic-hole-production.up.railway.app/api/clientes",
 					headers
 				);
-				set((state) => ({ clients: (state.clients = data) }));	
+				set((state) => ({ clientes: (state.clientes = data) }));	
 			} catch (error) {
 				console.log(error)
 			}
 			set({ loading: false})  
 		},
+		getClientesAll: async (token, page, limit) => {
+			try{
+			  set({ loading: true}) 
+			  const { data } = await axios.get(`http://localhost:5000/api/clientes/allclientes?page=${page}&limit=${limit}`,
+			  { headers: { "x-access-token": token } })
+			  set((state) => ({ clientes: (state.clientes = data) }));
+			} catch(error){
+			  console.log(error)
+			}
+			set({ loading: false});
+			  
+		  },
 		addClient: async (body) => {
 			try {
 				await axios.post(
