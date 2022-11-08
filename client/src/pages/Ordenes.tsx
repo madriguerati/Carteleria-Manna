@@ -30,6 +30,7 @@ import useHeaders from "../hooks/useHeaders";
 import useProveedores from "../store/proveedores";
 import useClients from "../store/clientes";
 import moment from "moment";
+import Swal from 'sweetalert2'
 
 const Proveedores = () => {
   const { users, user, getUsers } = useUser((state) => state, shallow);
@@ -74,8 +75,27 @@ const Proveedores = () => {
 
   //delete
   const DeleteOrden = (orden: any) => {
-    deleteOrdenes(orden._id, headers);
-    getOrdenes(headers);
+    
+    Swal.fire({
+			title: '¿Estás seguro?',
+			text: "No podrás revertir los cambios",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#77B327',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminarlo!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Eliminado!',
+				'X ha sido eliminado',
+				'success'
+			  )
+        deleteOrdenes(orden._id, headers);
+        getOrdenes(headers);
+			}
+		  })
+    
   };
 
   const nextPage = (): void => {
