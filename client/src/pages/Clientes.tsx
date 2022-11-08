@@ -6,6 +6,7 @@ import Modal from "../components/Modal";
 import CreateNewUser from "../components/CreateNewUser";
 import EditCliente from "../components/EditCliente";
 import shallow from "zustand/shallow";
+import Swal from 'sweetalert2'
 
 import {
   MdKeyboardArrowRight,
@@ -65,7 +66,25 @@ const Clientes = () => {
 
   //delete
   const DeleteCliente = (client: any) => {
-    deleteClients(client._id, headers);
+    
+    Swal.fire({
+			title: '¿Estás seguro?',
+			text: "No podrás revertir los cambios",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#77B327',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminarlo!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Eliminado!',
+				'X ha sido eliminado',
+				'success'
+			  )
+        deleteClients(client._id, headers);
+			}
+		  })
   };
   console.log(clientes);
 
