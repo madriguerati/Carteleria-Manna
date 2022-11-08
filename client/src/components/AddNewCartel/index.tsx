@@ -31,6 +31,7 @@ interface Values {
   costo1faz: number;
   costo2faz: number;
   insumosArray: string[];
+  category:string[]
 }
 
 interface Insumo {
@@ -55,7 +56,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     descripcion: "",
     costo1faz: 0,
     costo2faz: 0,
-    insumosArray: [""]
+    insumosArray: [""],
+    category:['']
   });
 
 
@@ -71,6 +73,9 @@ const AddNewCartel = ({ setShowModal }: Props) => {
   });
 
   const [errors, setErrors] = useState<any>({});
+  const [category, setCategory] = useState(["IMPRESIONES", "CARTELERIA"]);
+  const [click, setClick]=useState(false)
+
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -150,7 +155,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
       descripcion: "",
       costo1faz: 0,
       costo2faz: 0,
-      insumosArray: [""]
+      insumosArray: [""],
+      category:['']
     })
 
    if(values.descripcion
@@ -218,12 +224,33 @@ const AddNewCartel = ({ setShowModal }: Props) => {
         descripcion: "",
         costo1faz: 0,
         costo2faz: 0,
-        insumosArray: [""]
+        insumosArray: [""],
+        category:['']
       });
     getInsumos(headers)
   }, [success]);
 
-
+const categoryForm=(e:any) => {
+console.log("hola", e)
+setClick(true)
+if(values.category.includes(e)){
+  alert("noooooo")
+}else{
+  setValues({
+    ...values,
+    category:[...values.category, e]
+  })
+ 
+  if(click===true){
+    var nuevoArray:any = category.filter((item:any)=>item===e) 
+    setCategory(nuevoArray)
+    setClick(false)
+    console.log("hjola", click)
+  }
+console.log(click)
+}
+console.log("esto es un category", values.category)
+}
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
       <div className=" sm:p-8">
@@ -317,6 +344,17 @@ const AddNewCartel = ({ setShowModal }: Props) => {
                 <p className="text-red-600 text-sm">{errors.lastname}</p>
               )}
             </div>
+          </div>
+          <div className="flex">
+            {
+              category.map((e:any)=>(
+                <div key={e.id} className="m-2" >
+                  <p style={category.length===1 ?{"display":"none"}:{"cursor": "pointer"}} onClick={()=>categoryForm(e)}>
+{e}
+                  </p>
+                </div>
+              ))
+            }
           </div>
 
           <div className="flex flex-wrap justify-end m-5 border-t border-solid border-slate-200 rounded-b">
