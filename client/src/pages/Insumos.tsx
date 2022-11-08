@@ -5,7 +5,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewInsumo from "../components/addNewInsumo";
 import EditInsumo from "../components/EditInsumo";
-
+import Swal from 'sweetalert2'
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
 
@@ -63,7 +63,24 @@ const Clientes = () => {
 
   //delete
   const DeleteInsumo = (insumo: any) => {
-    deleteIsumos(insumo._id, headers);
+    Swal.fire({
+			title: '¿Estás seguro?',
+			text: "No podrás revertir los cambios",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#77B327',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminarlo!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Eliminado!',
+				'X ha sido eliminado',
+				'success'
+			  )
+        deleteIsumos(insumo._id, headers);
+			}
+		  })
   };
 
   const nextPage = (): void => {

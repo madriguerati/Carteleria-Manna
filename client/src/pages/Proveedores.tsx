@@ -22,6 +22,7 @@ import {
 import { BsSearch } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { FiEdit3 } from "react-icons/fi";
+import Swal from 'sweetalert2'
 
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
@@ -60,8 +61,26 @@ const Proveedores = () => {
 
   //delete
   const DeleteProveedor = (proveedor: any) => {
-    deleteProveedores(proveedor._id, headers);
+    
+    Swal.fire({
+			title: '¿Estás seguro?',
+			text: "No podrás revertir los cambios",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#77B327',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminarlo!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Eliminado!',
+				'X ha sido eliminado',
+				'success'
+			  )
+        deleteProveedores(proveedor._id, headers);
     getProveedoresAll(accessToken, limit, page);
+			}
+		  })
 
   };
 

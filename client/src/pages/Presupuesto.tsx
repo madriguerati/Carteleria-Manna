@@ -5,7 +5,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewPresupuesto from "../components/AddNewPresupuesto";
 import shallow from "zustand/shallow";
-
+import Swal from 'sweetalert2'
 import {
   MdKeyboardArrowRight,
   MdKeyboardArrowLeft,
@@ -55,8 +55,26 @@ const Presupuesto = () => {
 
   //delete
   const DeletePresupuesto = (presupuesto: any) => {
-    deletePresupuestos(presupuesto._id, headers);
-    getPresupuestosAll(accessToken, limit, page)
+   
+    Swal.fire({
+			title: '¿Estás seguro?',
+			text: "No podrás revertir los cambios",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#77B327',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, Eliminarlo!'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Eliminado!',
+				'X ha sido eliminado',
+				'success'
+			  )
+        deletePresupuestos(presupuesto._id, headers);
+        getPresupuestosAll(accessToken, limit, page)
+			}
+		  })
   };
 
   const nextPage = (): void => {
