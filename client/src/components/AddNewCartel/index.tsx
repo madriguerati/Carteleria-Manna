@@ -101,6 +101,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
   };
 
   const addInsumoCartel = () => {
+ 
     console.log(insumo, values)
     setValues({
       ...values,
@@ -148,6 +149,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     // if (Object.keys(error).length === 0) {
     // 	createNewUser(values);
     // }
+   
     addCartel(values);
     setValues({
       descripcion: "",
@@ -212,7 +214,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
           unidad: unidadArray,
           name: nameInsumo
         })
-   
+        
 
     }
   }
@@ -230,6 +232,9 @@ const AddNewCartel = ({ setShowModal }: Props) => {
 
 const categoryForm=(e: React.ChangeEvent<HTMLSelectElement>) => {
   let { value } = e.currentTarget;
+  
+  
+ 
 console.log("holaaaaaaaaaaaa", value)
 if (value === "IMPRESIONES"){
   if (values.category.includes(value)){
@@ -265,22 +270,27 @@ if (value === "IMPRESIONES"){
 
 }
 
+
+var array:any =  []
+var c1f:any=0
+var c2f:any=0
 const deleteInsumos =(e:any)=>{
-  console.log("Hola papi", e)
-var array:any =  values.insumosArray.filter((item:any)=>item!==e)
-console.log("jjjjjjjjjjjjjjjjjjjjjj", array)
-var c1f:any=totalcosto1faz-e.costox1faz
-var c2f:any=totalcosto2faz-e.costox2faz
-totalcosto1faz=c1f
-totalcosto2faz=c2f
-setValues({
-  ...values,
-  insumosArray: array
-})
-console.log("jjjjjjjjjjjjjjjjjjjjjj", c1f, values.insumosArray.length)
+  array = values.insumosArray.filter((item:any)=>item.name!==e.name)
+  setValues({
+    ...values,
+    insumosArray: array
+  })
+  Arraycosto1faz =array
+  Arraycosto2faz =array
 
+ c1f =totalcosto1faz-e.costox1faz
+ c2f =totalcosto2faz-e.costox2faz
 
-
+ totalcosto1faz=c1f
+ totalcosto2faz=c2f
+ 
+  console.log("hola esto soy", c1f)
+  console.log("hola soy un array eliminado", array.length, values.costo1faz, totalcosto1faz)
 }
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
@@ -345,12 +355,7 @@ console.log("jjjjjjjjjjjjjjjjjjjjjj", c1f, values.insumosArray.length)
                 name="costo1faz"
                 className="px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Costo de 1 faz"
-                value={
-                  Arraycosto1faz ?
-                    values.costo1faz = totalcosto1faz
-                    :
-                    0
-                }
+                value={values.costo1faz=totalcosto1faz}
                 onChange={handleChange}
               />
               {errors.name && (
