@@ -16,7 +16,7 @@ const cartelesSchema = new Schema(
             request:true,
         },
         category:{
-            type: String,
+            type: [String],
             request: true
         },
         descripcion:{

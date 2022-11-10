@@ -30,7 +30,7 @@ interface Values {
   descripcion: string;
   costo1faz: number;
   costo2faz: number;
-  insumosArray: string[];
+  insumosArray: object[];
   category:string[]
 }
 
@@ -56,8 +56,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     descripcion: "",
     costo1faz: 0,
     costo2faz: 0,
-    insumosArray: [""],
-    category:['']
+    insumosArray: [],
+    category:[]
   });
 
 
@@ -74,11 +74,6 @@ const AddNewCartel = ({ setShowModal }: Props) => {
 
   const [errors, setErrors] = useState<any>({});
   const [category, setCategory] = useState(["IMPRESIONES", "CARTELERIA"]);
-  const [newCategory, setNewCategory] = useState([]);
-
-  const [click1, setClick1]=useState(false)
-  const [click2, setClick2]=useState(false)
-
 
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -109,7 +104,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     console.log(insumo, values)
     setValues({
       ...values,
-      insumosArray: [...values.insumosArray, insumo.name]
+      insumosArray: [...values.insumosArray, insumo]
     })
     if (insumo.cant1faz) {
       var suma1 = insumo.costox1faz
@@ -136,7 +131,6 @@ const AddNewCartel = ({ setShowModal }: Props) => {
       costox1faz: 0,
       costox2faz: 0
     })
-    console.log("holaaaaa")
   }
 
 
@@ -159,8 +153,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
       descripcion: "",
       costo1faz: 0,
       costo2faz: 0,
-      insumosArray: [""],
-      category:['']
+      insumosArray: [],
+      category:[]
     })
 
    if(values.descripcion
@@ -228,8 +222,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
         descripcion: "",
         costo1faz: 0,
         costo2faz: 0,
-        insumosArray: [""],
-        category:['']
+        insumosArray: [],
+        category:[]
       });
     getInsumos(headers)
   }, [success]);
@@ -268,6 +262,24 @@ if (value === "IMPRESIONES"){
   }
   console.log("holaaaa", values.category)
 }
+
+}
+
+const deleteInsumos =(e:any)=>{
+  console.log("Hola papi", e)
+var array:any =  values.insumosArray.filter((item:any)=>item!==e)
+console.log("jjjjjjjjjjjjjjjjjjjjjj", array)
+var c1f:any=totalcosto1faz-e.costox1faz
+var c2f:any=totalcosto2faz-e.costox2faz
+totalcosto1faz=c1f
+totalcosto2faz=c2f
+setValues({
+  ...values,
+  insumosArray: array
+})
+console.log("jjjjjjjjjjjjjjjjjjjjjj", c1f, values.insumosArray.length)
+
+
 
 }
   return (
@@ -388,7 +400,7 @@ if (value === "IMPRESIONES"){
           <div className="flex flex-wrap justify-end m-5 border-t border-solid border-slate-200 rounded-b">
             {
               values.insumosArray.map((e: any) => (
-                <div className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150">{e}</div>
+                <div style={{"cursor":"pointer"}} onClick={()=>deleteInsumos(e)} className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150">{e.name}</div>
               ))
 
             }
@@ -411,6 +423,7 @@ if (value === "IMPRESIONES"){
             </button>
           </div>
         </form>
+
         <div className="justify-center">
           <div>
             <h1 className="text-3xl font-semibold text-start">AGREGAR INSUMOS</h1>
