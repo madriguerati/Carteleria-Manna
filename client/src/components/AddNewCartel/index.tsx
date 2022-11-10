@@ -74,7 +74,11 @@ const AddNewCartel = ({ setShowModal }: Props) => {
 
   const [errors, setErrors] = useState<any>({});
   const [category, setCategory] = useState(["IMPRESIONES", "CARTELERIA"]);
-  const [click, setClick]=useState(false)
+  const [newCategory, setNewCategory] = useState([]);
+
+  const [click1, setClick1]=useState(false)
+  const [click2, setClick2]=useState(false)
+
 
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -230,26 +234,41 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     getInsumos(headers)
   }, [success]);
 
-const categoryForm=(e:any) => {
-console.log("hola", e)
-setClick(true)
-if(values.category.includes(e)){
-  alert("noooooo")
-}else{
-  setValues({
-    ...values,
-    category:[...values.category, e]
-  })
- 
-  if(click===true){
-    var nuevoArray:any = category.filter((item:any)=>item===e) 
-    setCategory(nuevoArray)
-    setClick(false)
-    console.log("hjola", click)
+const categoryForm=(e: React.ChangeEvent<HTMLSelectElement>) => {
+  let { value } = e.currentTarget;
+console.log("holaaaaaaaaaaaa", value)
+if (value === "IMPRESIONES"){
+  if (values.category.includes(value)){
+    setValues({
+      ...values,
+      category: values.category.filter((e:any)=>e!==value)
+    })
+  }else{
+
+    setValues({
+      ...values,
+      category: [...values.category, value]
+    })
+    console.log("holaaaa", values.category)
   }
-console.log(click)
+}else{
+   if (values.category.includes(value)){
+    setValues({
+      ...values,
+      category: values.category.filter((e:any)=>e!==value)
+    })
+    console.log("dddddddddddddddd", values.category)
+  }else{
+    
+    setValues({
+      ...values,
+      category: [...values.category, value]
+    })
+    console.log("holaaaa", values.category)
+  }
+  console.log("holaaaa", values.category)
 }
-console.log("esto es un category", values.category)
+
 }
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
@@ -348,12 +367,21 @@ console.log("esto es un category", values.category)
           <div className="flex">
             {
               category.map((e:any)=>(
-                <div key={e.id} className="m-2" >
-                  <p style={category.length===1 ?{"display":"none"}:{"cursor": "pointer"}} onClick={()=>categoryForm(e)}>
-{e}
-                  </p>
-                </div>
-              ))
+                  <div className="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600" key={e.id}>
+          <div className="flex items-center pl-3">
+              <input 
+              id={e} 
+              type="checkbox" 
+              
+              value={e} 
+              onChange={(e:any)=>categoryForm(e)}
+              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+              />
+              <label key={e.id} className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">{e}</label>
+          </div>
+      </div>
+                )
+              )
             }
           </div>
 
