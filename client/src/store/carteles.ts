@@ -12,7 +12,8 @@ interface Cartel {
     descripcion: string,
     costo1faz: number,
     costo2faz:number,
-    insumosArray:[string]
+    insumosArray:[string],
+    category: string[]
 }
 
 
@@ -83,7 +84,7 @@ const useCartel = create<CartelStore>()(
       },
       deleteCartel: async (params, headers)=>{
         set({ loading: true });
-        const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/carteles/${params}`,  headers);
+        const { data } = await axios.delete(`http://localhost:5000/api/carteles/${params}`,  headers);
         set({ loading: false });
 
       },

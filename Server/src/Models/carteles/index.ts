@@ -4,7 +4,7 @@ export interface ICarteles extends mongoose.Document{
 descripcion: string,
 costo1faz: number,
 consto2faz:number,
-insumosArray: string
+insumosArray: object
 category: string
 };
 
@@ -12,11 +12,11 @@ category: string
 const cartelesSchema = new Schema(
     {
         insumosArray:{
-            type: [String],
+            type: [Object],
             request:true,
         },
         category:{
-            type: String,
+            type: [String],
             request: true
         },
         descripcion:{

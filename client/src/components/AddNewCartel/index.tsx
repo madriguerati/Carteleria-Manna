@@ -30,7 +30,8 @@ interface Values {
   descripcion: string;
   costo1faz: number;
   costo2faz: number;
-  insumosArray: string[];
+  insumosArray: object[];
+  category:string[]
 }
 
 interface Insumo {
@@ -55,7 +56,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     descripcion: "",
     costo1faz: 0,
     costo2faz: 0,
-    insumosArray: [""]
+    insumosArray: [],
+    category:[]
   });
 
 
@@ -71,6 +73,8 @@ const AddNewCartel = ({ setShowModal }: Props) => {
   });
 
   const [errors, setErrors] = useState<any>({});
+  const [category, setCategory] = useState(["IMPRESIONES", "CARTELERIA"]);
+
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -97,10 +101,11 @@ const AddNewCartel = ({ setShowModal }: Props) => {
   };
 
   const addInsumoCartel = () => {
+ 
     console.log(insumo, values)
     setValues({
       ...values,
-      insumosArray: [...values.insumosArray, insumo.name]
+      insumosArray: [...values.insumosArray, insumo]
     })
     if (insumo.cant1faz) {
       var suma1 = insumo.costox1faz
@@ -127,7 +132,6 @@ const AddNewCartel = ({ setShowModal }: Props) => {
       costox1faz: 0,
       costox2faz: 0
     })
-    console.log("holaaaaa")
   }
 
 
@@ -145,12 +149,14 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     // if (Object.keys(error).length === 0) {
     // 	createNewUser(values);
     // }
+   
     addCartel(values);
     setValues({
       descripcion: "",
       costo1faz: 0,
       costo2faz: 0,
-      insumosArray: [""]
+      insumosArray: [],
+      category:[]
     })
 
    if(values.descripcion
@@ -208,7 +214,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
           unidad: unidadArray,
           name: nameInsumo
         })
-   
+        
 
     }
   }
@@ -218,12 +224,74 @@ const AddNewCartel = ({ setShowModal }: Props) => {
         descripcion: "",
         costo1faz: 0,
         costo2faz: 0,
-        insumosArray: [""]
+        insumosArray: [],
+        category:[]
       });
     getInsumos(headers)
   }, [success]);
 
+const categoryForm=(e: React.ChangeEvent<HTMLSelectElement>) => {
+  let { value } = e.currentTarget;
+  
+  
+ 
+console.log("holaaaaaaaaaaaa", value)
+if (value === "IMPRESIONES"){
+  if (values.category.includes(value)){
+    setValues({
+      ...values,
+      category: values.category.filter((e:any)=>e!==value)
+    })
+  }else{
 
+    setValues({
+      ...values,
+      category: [...values.category, value]
+    })
+    console.log("holaaaa", values.category)
+  }
+}else{
+   if (values.category.includes(value)){
+    setValues({
+      ...values,
+      category: values.category.filter((e:any)=>e!==value)
+    })
+    console.log("dddddddddddddddd", values.category)
+  }else{
+    
+    setValues({
+      ...values,
+      category: [...values.category, value]
+    })
+    console.log("holaaaa", values.category)
+  }
+  console.log("holaaaa", values.category)
+}
+
+}
+
+
+var array:any =  []
+var c1f:any=0
+var c2f:any=0
+const deleteInsumos =(e:any)=>{
+  array = values.insumosArray.filter((item:any)=>item.name!==e.name)
+  setValues({
+    ...values,
+    insumosArray: array
+  })
+  Arraycosto1faz =array
+  Arraycosto2faz =array
+
+ c1f =totalcosto1faz-e.costox1faz
+ c2f =totalcosto2faz-e.costox2faz
+
+ totalcosto1faz=c1f
+ totalcosto2faz=c2f
+ 
+  console.log("hola esto soy", c1f)
+  console.log("hola soy un array eliminado", array.length, values.costo1faz, totalcosto1faz)
+}
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
       <div className=" sm:p-8">
@@ -287,12 +355,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
                 name="costo1faz"
                 className="px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Costo de 1 faz"
-                value={
-                  Arraycosto1faz ?
-                    values.costo1faz = totalcosto1faz
-                    :
-                    0
-                }
+                value={values.costo1faz=totalcosto1faz}
                 onChange={handleChange}
               />
               {errors.name && (
@@ -318,11 +381,31 @@ const AddNewCartel = ({ setShowModal }: Props) => {
               )}
             </div>
           </div>
+          <div className="flex">
+            {
+              category.map((e:any)=>(
+                  <div className="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600" key={e.id}>
+          <div className="flex items-center pl-3">
+              <input 
+              id={e} 
+              type="checkbox" 
+              
+              value={e} 
+              onChange={(e:any)=>categoryForm(e)}
+              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+              />
+              <label key={e.id} className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">{e}</label>
+          </div>
+      </div>
+                )
+              )
+            }
+          </div>
 
           <div className="flex flex-wrap justify-end m-5 border-t border-solid border-slate-200 rounded-b">
             {
               values.insumosArray.map((e: any) => (
-                <div className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150">{e}</div>
+                <div style={{"cursor":"pointer"}} onClick={()=>deleteInsumos(e)} className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150">{e.name}</div>
               ))
 
             }
@@ -345,6 +428,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
             </button>
           </div>
         </form>
+
         <div className="justify-center">
           <div>
             <h1 className="text-3xl font-semibold text-start">AGREGAR INSUMOS</h1>
