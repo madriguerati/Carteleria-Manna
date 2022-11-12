@@ -275,6 +275,9 @@ console.log("hola",cartel)
           agregar cartel (+)
         </h1>
       </div>
+
+      
+
       <div
         className="justify-center"
         style={hola === false ? { display: "none" } : { cursor: "pointer" }}
