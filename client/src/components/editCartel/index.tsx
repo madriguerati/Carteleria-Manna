@@ -23,6 +23,9 @@ const ClienteEdit = ({ setShowModal2, cartel }: Props) => {
   var costoArray: any = "";
   var unidadArray: any = "";
   var Arraycosto1faz: any = [];
+
+  var Arraycosto1fazSup: any = [cartel.costo1faz]
+
   var totalcosto1faz: any = 0;
   var nameInsumo: any = "";
   var Arraycosto2faz: any = [];
@@ -34,6 +37,8 @@ var c2f:any=0
 
 useEffect(() => {
   getInsumos(headers)
+  totalcosto1faz=cartel.costo1faz
+  console.log("hola", totalcosto1faz, Arraycosto1fazSup)
 }, []);
 
   const { success, putClients, closeModal, error, loading } = useClients(
@@ -46,14 +51,17 @@ useEffect(() => {
   const navigate = useNavigate();
   const addInsumoCartel = () => {
     console.log(insumo, values);
-    setValues({
-      ...values,
-      insumosArray: [...values.insumosArray, insumo],
-    });
     if (insumo.cant1faz) {
       var suma1 = insumo.costox1faz;
       Arraycosto1faz = [...Arraycosto1faz, suma1];
-      totalcosto1faz = Arraycosto1faz.reduce((a: any, b: any) => a + b, 0);
+      Arraycosto1fazSup=[...Arraycosto1fazSup, suma1]
+      totalcosto1faz = Arraycosto1fazSup.reduce((a: any, b: any) => a + b, 0);
+      console.log("hola aca hay una nueva suma", totalcosto1faz)
+      setValues({
+        ...values,
+        insumosArray: [...values.insumosArray, insumo],
+        costo1faz: totalcosto1faz
+      })
     } else {
       console.log("hola");
     }
@@ -93,7 +101,7 @@ useEffect(() => {
     costox1faz: 0,
     costox2faz: 0,
   });
-
+  const [hola, setHola] = useState(false);
   const [errors, setErrors] = useState<any>({});
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -183,7 +191,7 @@ useEffect(() => {
     }
   };
   
-  const [hola, setHola] = useState(false);
+ 
   const agregarCartel = () => {
     hola == false ? setHola(true) : setHola(false);
   };
@@ -211,18 +219,10 @@ useEffect(() => {
     Arraycosto1faz =array
     Arraycosto2faz =array
   
-   c1f =totalcosto1faz-e.costox1faz
-   c2f =totalcosto2faz-e.costox2faz
-  
-   totalcosto1faz=c1f
-   totalcosto2faz=c2f
-   
-    console.log("hola esto soy", c1f)
-    console.log("hola soy un array eliminado", array.length, values.costo1faz, totalcosto1faz)
-  }
+    }
 
   return (
-    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
+    
       <div className="p-6 space-y-4 sm:p-8">
         <button
           className="absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300"
@@ -475,7 +475,6 @@ useEffect(() => {
             ))}
           </div>
         </form>
-      </div>
     </div>
   );
 };
