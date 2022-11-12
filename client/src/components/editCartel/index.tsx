@@ -24,9 +24,9 @@ const ClienteEdit = ({ setShowModal2, cartel }: Props) => {
   var unidadArray: any = "";
   var Arraycosto1faz: any = [];
 
-  var Arraycosto1fazSup: any = [cartel.costo1faz]
+  var Arraycosto1fazSup: any =0
 
-  var totalcosto1faz: any = 0;
+  var totalcosto1faz: any = cartel.costo1faz;
   var nameInsumo: any = "";
   var Arraycosto2faz: any = [];
   var totalcosto2faz: any = 0;
@@ -86,7 +86,7 @@ useEffect(() => {
   const [values, setValues] = useState({
     descripcion: cartel.descripcion,
     id: cartel.id,
-    costo1faz: cartel.costo1faz,
+    costo1faz: 0,
     costo2faz: cartel.costo2faz,
     category: [""],
     insumosArray: cartel.insumosArray,
@@ -212,13 +212,27 @@ useEffect(() => {
 
   const deleteInsumos =(e:any)=>{
     array = values.insumosArray.filter((item:any)=>item.name!==e.name)
-    setValues({
-      ...values,
-      insumosArray: array
-    })
+    
     Arraycosto1faz =array
     Arraycosto2faz =array
-  
+    c1f =totalcosto1faz-e.costox1faz
+    c2f =totalcosto2faz-e.costox2faz
+   
+    totalcosto1faz=c1f
+    totalcosto2faz=c2f
+    if(totalcosto1faz<0){
+      totalcosto1faz=0
+      setValues({
+        ...values,
+        insumosArray: array,
+        costo1faz: totalcosto1faz
+      })
+    }
+    setValues({
+      ...values,
+      insumosArray: array,
+      costo1faz: totalcosto1faz
+    })
     }
 
   return (
@@ -415,7 +429,7 @@ useEffect(() => {
                 name="descripcion"
                 className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Nombre"
-                value={values.costo1faz}
+                value={values.costo1faz=totalcosto1faz}
                 onChange={handleChange}
               />
               {errors.username && (
