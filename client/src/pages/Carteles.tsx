@@ -6,6 +6,8 @@ import Modal from "../components/Modal";
 import AddNewCartel from "../components/AddNewCartel";
 import shallow from "zustand/shallow";
 import Swal from 'sweetalert2'
+import EditCartel from "../components/editCartel";
+import ModalEdit from "../components/ModalEdit";
 
 import {
 	MdKeyboardArrowRight,
@@ -41,15 +43,13 @@ const Clientes = () => {
 	const [sortLastName, setSortLastName] = useState<null | boolean>(
 		null
 	);
-	const [clientEdit, setClientEdit] = useState({
+	const [cartelEdit, setCartelEdit] = useState({
 		id: "",
-		name: "",
-		telefono: "",
-		cuit: "",
-		email: "",
-		direccion: "",
-		condicioniva: [""],
-		razonsocial: "",
+		descripcion: "",
+		costo1faz: 0,
+		costo2faz:0,
+		insumosArray:[],
+		category:[]
 	  });
 
 	useEffect(() => {
@@ -143,39 +143,20 @@ const Clientes = () => {
 	
 	}
 
-	const edit = (client: any) => {
-		if (client) {
+	const edit = (cartel: any) => {
+		if (cartel) {
 		  setShowModal2(true);
-		  console.log("hola", client);
-		  setClientEdit({
-			id: client._id,
-			name: client.name,
-			telefono: client.telefono,
-			cuit: client.cuit,
-			email: client.email,
-			direccion: client.direccion,
-			condicioniva: client.condicioniva,
-			razonsocial: client.razonsocial,
+		  console.log("hola", cartel);
+		  setCartelEdit({
+			id: cartel._id,
+			descripcion: cartel.descripcion,
+			costo1faz: cartel.costo1faz,
+		costo2faz:cartel.costo2faz,
+		insumosArray:cartel.insumosArray,
+		category:cartel.insumosArray
 		  });
-		  console.log("insumo", clientEdit);
 		}
-		Swal.fire({
-			title: '¿Estas seguro?',
-			text: "No seras capaz de revertir los cambios",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#77B327',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si, Eliminarlo!'
-		  }).then((result) => {
-			if (result.isConfirmed) {
-			  Swal.fire(
-				'Eliminado!',
-				'X ha sido eliminado',
-				'success'
-			  )
-			}
-		  })
+		
 	  };
 	return (
 		<Layout>
@@ -361,11 +342,23 @@ const Clientes = () => {
 														<BsSearch/>
 													</p>
 												</td>
-												<td className='px-3 py-2'>
-													<p className='text-gray-900 whitespace-no-wrap capitalize'>
-														<FiEdit3/>
-													</p>
-												</td>
+												<td className="px-3 py-2">
+                          <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => edit(cartel)}
+                          >
+                            <FiEdit3 />
+                          </p>
+                          <ModalEdit
+                            showModal2={showModal2}
+                            setShowModal2={setShowModal2}
+                          >
+                            <EditCartel
+                              setShowModal2={setShowModal2}
+                              cartel={cartelEdit}
+                            />
+                          </ModalEdit>
+                        </td>
 												<td className='px-3 py-2'>
 													<p className='text-gray-900 whitespace-no-wrap capitalize' style={{"cursor":"pointer"}} onClick={()=>DeleteCartel(cartel)}>
 													{<MdDelete/>}
