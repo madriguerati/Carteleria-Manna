@@ -19,26 +19,34 @@ type Props = {
   cartel: any;
 };
 const ClienteEdit = ({ setShowModal2, cartel }: Props) => {
+
+  const [values, setValues] = useState({
+    descripcion: cartel.descripcion,
+    id: cartel.id,
+    costo1faz: 0,
+    costo2faz: cartel.costo2faz,
+    category: [""],
+    insumosArray: cartel.insumosArray,
+  });
   var insumoparte: any = "";
   var costoArray: any = "";
   var unidadArray: any = "";
   var Arraycosto1faz: any = [];
 
-  var Arraycosto1fazSup: any =0
 
-  var totalcosto1faz: any = cartel.costo1faz;
   var nameInsumo: any = "";
   var Arraycosto2faz: any = [];
   var totalcosto2faz: any = 0;
   var insumosCartel: any = 0;
+  var Arraycosto1fazSup: any =values.insumosArray.map((e:any)=>e.costox1faz)
+
   var array:any =  []
 var c1f:any=0
 var c2f:any=0
 
 useEffect(() => {
   getInsumos(headers)
-  totalcosto1faz=cartel.costo1faz
-  console.log("hola", totalcosto1faz, Arraycosto1fazSup)
+  console.log("hola", Arraycosto1fazSup)
 }, []);
 
   const { success, putClients, closeModal, error, loading } = useClients(
@@ -47,21 +55,30 @@ useEffect(() => {
   const { insumos, getInsumos } = useInusmo((state) => state);
   const [token] = useLocalStorage();
   const [category, setCategory] = useState(["IMPRESIONES", "CARTELERIA"]);
+  const [totalcosto1faz, setTotalcosto1faz] = useState(cartel.costo1faz)
+  const [click, setClick] = useState(false)
+
 
   const navigate = useNavigate();
   const addInsumoCartel = () => {
     console.log(insumo, values);
     if (insumo.cant1faz) {
+    var comprobacionInsumos: any = values.insumosArray.map((e:any)=>e.name)
+    if(comprobacionInsumos.includes(insumo.name)){
+      alert("nooooooooooooooooooo")
+    }else{
       var suma1 = insumo.costox1faz;
       Arraycosto1faz = [...Arraycosto1faz, suma1];
       Arraycosto1fazSup=[...Arraycosto1fazSup, suma1]
-      totalcosto1faz = Arraycosto1fazSup.reduce((a: any, b: any) => a + b, 0);
-      console.log("hola aca hay una nueva suma", totalcosto1faz)
+      var newtotalcosto1faz = Arraycosto1fazSup.reduce((a: any, b: any) => a + b, 0);
+      console.log("hola aca hay una nueva suma", totalcosto1faz, comprobacionInsumos)
+      setTotalcosto1faz(newtotalcosto1faz)
       setValues({
         ...values,
         insumosArray: [...values.insumosArray, insumo],
-        costo1faz: totalcosto1faz
       })
+      console.log("ahiiiiiiiiiiiiiiii", totalcosto1faz)
+    }
     } else {
       console.log("hola");
     }
@@ -83,14 +100,7 @@ useEffect(() => {
       costox2faz: 0,
     });
   };
-  const [values, setValues] = useState({
-    descripcion: cartel.descripcion,
-    id: cartel.id,
-    costo1faz: 0,
-    costo2faz: cartel.costo2faz,
-    category: [""],
-    insumosArray: cartel.insumosArray,
-  });
+ 
   const [insumo, setInsumo] = useState({
     name: "",
     costo: 0,
@@ -217,22 +227,28 @@ useEffect(() => {
     Arraycosto2faz =array
     c1f =totalcosto1faz-e.costox1faz
     c2f =totalcosto2faz-e.costox2faz
-   
-    totalcosto1faz=c1f
-    totalcosto2faz=c2f
-    if(totalcosto1faz<0){
-      totalcosto1faz=0
+   console.log("jaaaaaaaaaaaaaaaa", c1f)
+    if(c1f<0){
+      setTotalcosto1faz(0)
+      
+    } 
+    
+    setTotalcosto1faz(c1f)
       setValues({
         ...values,
         insumosArray: array,
-        costo1faz: totalcosto1faz
+        costo1faz: c1f
       })
-    }
-    setValues({
-      ...values,
-      insumosArray: array,
-      costo1faz: totalcosto1faz
-    })
+      console.log("hola perrrisssss", array.length, totalcosto1faz, cartel.costo1faz)
+      if(array.length===0){
+        setClick(true)
+        console.log(cartel.costo1faz, click)
+      }console.log(cartel.costo1faz, click)
+      console.log("jajajajaja", cartel.costo1faz)
+    totalcosto2faz=c2f
+  console.log("hola", Arraycosto1fazSup)
+    
+   
     }
 
   return (
@@ -429,7 +445,11 @@ useEffect(() => {
                 name="descripcion"
                 className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Nombre"
-                value={values.costo1faz=totalcosto1faz}
+                value={totalcosto1faz?
+                values.costo1faz=totalcosto1faz
+                :
+                0
+                }
                 onChange={handleChange}
               />
               {errors.username && (
