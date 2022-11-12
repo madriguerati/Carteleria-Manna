@@ -232,9 +232,6 @@ const AddNewCartel = ({ setShowModal }: Props) => {
 
 const categoryForm=(e: React.ChangeEvent<HTMLSelectElement>) => {
   let { value } = e.currentTarget;
-  
-  
- 
 console.log("holaaaaaaaaaaaa", value)
 if (value === "IMPRESIONES"){
   if (values.category.includes(value)){
