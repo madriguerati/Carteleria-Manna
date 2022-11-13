@@ -26,7 +26,7 @@ const ClienteEdit = ({ setShowModal2, cartel }: Props) => {
     descripcion: cartel.descripcion,
     id: cartel.id,
     costo1faz: 0,
-    costo2faz: cartel.costo2faz,
+    costo2faz: 0,
     category: [""],
     insumosArray: cartel.insumosArray,
   });
@@ -38,9 +38,10 @@ const ClienteEdit = ({ setShowModal2, cartel }: Props) => {
 
   var nameInsumo: any = "";
   var Arraycosto2faz: any = [];
-  var totalcosto2faz: any = 0;
   var insumosCartel: any = 0;
   var Arraycosto1fazSup: any =values.insumosArray.map((e:any)=>e.costox1faz)
+  var Arraycosto2fazSup: any =values.insumosArray.map((e:any)=>e.costox2faz)
+
 
   var array:any =  []
 var c1f:any=0
@@ -58,50 +59,13 @@ useEffect(() => {
   const [token] = useLocalStorage();
   const [category, setCategory] = useState(["IMPRESIONES", "CARTELERIA"]);
   const [totalcosto1faz, setTotalcosto1faz] = useState(cartel.costo1faz)
+  const [totalcosto2faz, setTotalcosto2faz] = useState(cartel.costo2faz)
+
   const [click, setClick] = useState(false)
 
 
   const navigate = useNavigate();
-  const addInsumoCartel = () => {
-    console.log(insumo, values);
-    if (insumo.cant1faz) {
-    var comprobacionInsumos: any = values.insumosArray.map((e:any)=>e.name)
-    if(comprobacionInsumos.includes(insumo.name)){
-      alert("nooooooooooooooooooo")
-    }else{
-      var suma1 = insumo.costox1faz;
-      Arraycosto1faz = [...Arraycosto1faz, suma1];
-      Arraycosto1fazSup=[...Arraycosto1fazSup, suma1]
-      var newtotalcosto1faz = Arraycosto1fazSup.reduce((a: any, b: any) => a + b, 0);
-      console.log("hola aca hay una nueva suma", totalcosto1faz, comprobacionInsumos)
-      setTotalcosto1faz(newtotalcosto1faz)
-      setValues({
-        ...values,
-        insumosArray: [...values.insumosArray, insumo],
-      })
-      console.log("ahiiiiiiiiiiiiiiii", totalcosto1faz)
-    }
-    } else {
-      console.log("hola");
-    }
-    if (insumo.cant2faz) {
-      var suma2 = insumo.costox2faz;
-      Arraycosto2faz = [...Arraycosto2faz, suma2];
-      totalcosto2faz = Arraycosto2faz.reduce((a: any, b: any) => a + b, 0);
-    } else {
-      console.log("hola");
-    }
-    setInsumo({
-      name: "",
-      costo: 0,
-      faz: "",
-      cant1faz: 0,
-      cant2faz: 0,
-      unidad: "",
-      costox1faz: 0,
-      costox2faz: 0,
-    });
-  };
+
  
   const [insumo, setInsumo] = useState({
     name: "",
@@ -136,6 +100,40 @@ useEffect(() => {
     loading;
   };
 
+  const addInsumoCartel = () => {
+    var comprobacionInsumos: any = values.insumosArray.map((e:any)=>e.name)
+    if(comprobacionInsumos.includes(insumo.name)){
+    }else{
+        var suma1 = insumo.costox1faz;
+      Arraycosto1faz = [...Arraycosto1faz, suma1];
+      Arraycosto1fazSup=[...Arraycosto1fazSup, suma1]
+      var newtotalcosto1faz = Arraycosto1fazSup.reduce((a: any, b: any) => a + b, 0);
+        var suma2 = insumo.costox2faz;
+        Arraycosto2faz = [...Arraycosto2faz, suma2];
+        var newtotalcosto2faz = Arraycosto2fazSup.reduce((a: any, b: any) => a + b, 0);
+        setTotalcosto2faz(newtotalcosto2faz)
+      setTotalcosto1faz(newtotalcosto1faz)
+
+
+    
+      setValues({
+        ...values,
+        insumosArray: [...values.insumosArray, insumo],
+      })
+    }
+    
+    setInsumo({
+      name: "",
+      costo: 0,
+      faz: "",
+      cant1faz: 0,
+      cant2faz: 0,
+      unidad: "",
+      costox1faz: 0,
+      costox2faz: 0,
+    });
+  };
+ 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let { value } = e.currentTarget;
     console.log(insumo);
@@ -229,27 +227,32 @@ useEffect(() => {
     Arraycosto2faz =array
     c1f =totalcosto1faz-e.costox1faz
     c2f =totalcosto2faz-e.costox2faz
-   console.log("jaaaaaaaaaaaaaaaa", c1f)
-    if(c1f<0){
-      setTotalcosto1faz(0)
-      
-    } 
+   console.log("jaaaaaaaaaaaaghghghghghaaaa", c2f)
+    
     
     setTotalcosto1faz(c1f)
+    setTotalcosto2faz(c2f)
+
       setValues({
         ...values,
         insumosArray: array,
-        costo1faz: c1f
+        costo1faz: c1f,
+        costo2faz: c2f
+
       })
       console.log("hola perrrisssss", array.length, totalcosto1faz, cartel.costo1faz)
       if(array.length===0){
         setClick(true)
         console.log(cartel.costo1faz, click)
-      }console.log(cartel.costo1faz, click)
+      }
+      console.log(cartel.costo1faz, click)
       console.log("jajajajaja", cartel.costo1faz)
-    totalcosto2faz=c2f
   console.log("hola", Arraycosto1fazSup)
+  if(c1f<0 || c2f<0){
+    setTotalcosto1faz(0)
+    setTotalcosto2faz(0)
     
+  } 
    
     }
 
@@ -444,7 +447,7 @@ useEffect(() => {
               </label>
               <input
                 type="text"
-                name="descripcion"
+                name="costo1faz"
                 className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Nombre"
                 value={totalcosto1faz?
@@ -464,10 +467,14 @@ useEffect(() => {
               </label>
               <input
                 type="text"
-                name="descripcion"
+                name="costo2faz"
                 className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Nombre"
-                value={values.costo2faz}
+                value={totalcosto2faz?
+                  values.costo2faz=totalcosto2faz
+                  :
+                  0
+                  }
                 onChange={handleChange}
               />
               {errors.username && (
