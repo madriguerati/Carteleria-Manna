@@ -5,10 +5,11 @@ import Carteles from '../../../Models/carteles'
 const router = Router();
 
 router.put('/', async(req, res, next)=>{
-    const {descripcion, costo1, costo2, insumos, id} =req.body;
+    const {descripcion, costo1faz, costo2faz, category, insumosArray, id} =req.body;
+    console.log("hola", descripcion, costo1faz, costo2faz, category, insumosArray, id)
     try{
         await Carteles.findByIdAndUpdate(id, {
-            descripcion, costo1, costo2, insumos
+            descripcion, costo1faz, costo2faz, category, insumosArray
           });
           // Send response in here
           res.send('Item Updated!');    

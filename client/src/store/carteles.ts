@@ -28,6 +28,7 @@ type CartelStore = {
   getCarteles: (
 		token: string
 	) => Promise<void>;
+  putCarteles: (body:any, token:any) => Promise<void>
   getCartelesAll: (
 		token: string,
 		page: number,
@@ -58,6 +59,20 @@ const useCartel = create<CartelStore>()(
         }
 
       },
+      putCarteles: async (body, token) => {
+        
+        let headers:any = {
+        "x-access-token" : token
+        };
+        set({ success: true})
+        set({ loading: true}) 
+        const { data } = await axios.put('http://localhost:5000/api/carteles', body, { headers: { "x-access-token": token} });
+        set({ success: false})
+        
+        set({ loading: false}) 
+    
+    
+        },
       getCarteles: async (token) => {
         try{
           set({ loading: true}) 

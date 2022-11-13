@@ -2,6 +2,8 @@ import useForm from "../../hooks/useForm";
 
 import { useNavigate, Link } from "react-router-dom";
 import useClients from "../../store/clientes";
+import useCarteles from "../../store/carteles";
+
 import useUser from "../../store/user";
 
 import { BsFillCheckCircleFill } from "react-icons/bs";
@@ -49,7 +51,7 @@ useEffect(() => {
   console.log("hola", Arraycosto1fazSup)
 }, []);
 
-  const { success, putClients, closeModal, error, loading } = useClients(
+  const { success, putCarteles, closeModal, error, loading } = useCarteles(
     (state) => state
   );
   const { insumos, getInsumos } = useInusmo((state) => state);
@@ -128,7 +130,7 @@ useEffect(() => {
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-    putClients(values, token);
+    putCarteles(values, token);
     handleCloseModal();
     success;
     loading;
@@ -508,6 +510,22 @@ useEffect(() => {
               </div>
             ))}
           </div>
+
+          <div className="flex items-center mt-6 justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+          <button
+            className="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={handleCloseModal}
+          >
+            Cancelar
+          </button>
+          <button
+            className="bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="submit"
+          >
+            Aceptar
+          </button>
+        </div>
         </form>
     </div>
   );
