@@ -3,6 +3,7 @@ import Layout from "../components/Layout/index";
 import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
+import useHeaders from "../hooks/useHeaders";
 import CreateNewUser from "../components/CreateNewUser";
 //import shallow from "zustand/shallow";
 import {
@@ -17,7 +18,7 @@ import {
 import Loader from "../components/Loader";
 
 const Users = () => {
-	const { users, getUsers } = useUser((state) => state);
+	const { users, getUsers, deleteUsers } = useUser((state) => state);
 	const [accessToken] = useLocalStorage();
 	const [rol, setRol] = useState("");
 	const [sort, setSort] = useState("");
@@ -31,6 +32,7 @@ const Users = () => {
 	const [sortLastName, setSortLastName] = useState<null | boolean>(
 		null
 	);
+	const headers = useHeaders(accessToken);
 
 	useEffect(() => {
 		getUsers(accessToken, rol, sort, page, limit);
@@ -101,6 +103,30 @@ const Users = () => {
 		setSortUsername(null);
 		setSortName(null);
 	};
+  //delete
+  const deleteUser = (user: any) => {
+    
+	Swal.fire({
+		title: '¿Estás seguro?',
+		text: "No podrás revertir los cambios",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#77B327',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Si, Eliminarlo!'
+	  }).then((result) => {
+		if (result.isConfirmed) {
+		  Swal.fire(
+			'Eliminado!',
+			'X ha sido eliminado',
+			'success'
+		  )
+		  deleteUsers(user._id, headers);
+		  console.log(user)
+		}
+	  })
+        
+  };
 
 	return (
 		<Layout>
@@ -268,6 +294,9 @@ const Users = () => {
 										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
 											Stado
 										</th>
+										<th className='px-3 py-3 border-b-2 border-gray-200 tracking-wider'>
+											eliminar
+										</th>
 									</tr>
 								</thead>
 								{
@@ -320,6 +349,12 @@ const Users = () => {
 															className='absolute inset-0 bg-green-100 rounded-full'
 														></span>
 														<span className='relative'>Activo</span>
+													</span>
+												</td>
+												<td className='px-3 py-2'>
+													<span className='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+														
+														<span className='relative' style={{"cursor":"pointer"}} onClick={()=>deleteUser(user)}>Eliminar</span>
 													</span>
 												</td>
 											</tr>

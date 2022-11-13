@@ -37,6 +37,7 @@ type UserStore = {
 	) => Promise<void>;
 	createNewUser: (body: any) => Promise<void>;
 	signin: (body: UserLogin) => Promise<void>;
+	deleteUsers: (params: {}, headers:any) => Promise<void>;
 	logout: () => void;
 	closeModal: () => void;
 	updateToken: (refreshToken: string) => Promise<void>;
@@ -86,7 +87,7 @@ const useUser = create<UserStore>()(
 		createNewUser: async (body) => {
 			try {
 				await axios.post(
-					"https://symptomatic-hole-production.up.railway.app/api/user/signUp",
+					"http://localhost:5000/api/user/signUp",
 					body
 				);
 				set({ success: true, error: false });
@@ -106,6 +107,11 @@ const useUser = create<UserStore>()(
 				console.log(error)
 			}
 		},
+		deleteUsers: async (params, headers)=>{
+      
+			const { data } = await axios.delete(`http://localhost:5000/api/user/${params}`,   headers);
+	  
+		  },
 		logout: () => {
 			localStorage.removeItem("auth");
 		},
