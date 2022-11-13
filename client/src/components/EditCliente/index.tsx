@@ -6,6 +6,7 @@ import useUser from "../../store/user";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError } from "react-icons/md";
+import Swal from "sweetalert2";
 
 type Props = {
   setShowModal2: any;
@@ -49,9 +50,25 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
  
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-    putClients(values, token);
-    handleCloseModal()
-    setRefresh(true)
+    e.preventDefault()
+
+    Swal.fire({
+      title: '¿Desea guardar los cambios?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonColor: '#77B327',
+      confirmButtonText: 'Guardar',
+      denyButtonText: `No guardar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Guardado exitosamente!', '', 'success')
+        putClients(values, token);
+    handleCloseModal();
+      } else if (result.isDenied) {
+        Swal.fire('Los cambios no han sido guardados', '', 'info')
+      
+      }
+    })
     success;
     loading
     console.log("holaaaaaaaaaaaaaaaaaaaaaaaa", refresh)

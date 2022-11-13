@@ -49,15 +49,25 @@ const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-        putInsumo(values, token)
-        handleCloseModal()
-        success
+        
+
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Cambios guardados exitosamente',
-          showConfirmButton: false,
-          timer: 1500
+          title: '¿Desea guardar los cambios?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonColor: '#77B327',
+          confirmButtonText: 'Guardar',
+          denyButtonText: `No guardar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire('¡Guardado exitosamente!', '', 'success')
+            putInsumo(values, token)
+            handleCloseModal()
+            success
+          } else if (result.isDenied) {
+            Swal.fire('Los cambios no han sido guardados', '', 'info')
+          
+          }
         })
   }
 

@@ -94,10 +94,24 @@ useEffect(() => {
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-    putCarteles(values, token);
+    Swal.fire({
+      title: '¿Desea guardar los cambios?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonColor: '#77B327',
+      confirmButtonText: 'Guardar',
+      denyButtonText: `No guardar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Guardado exitosamente!', '', 'success')
+        putCarteles(values, token);
     handleCloseModal();
-    success;
-    loading;
+      } else if (result.isDenied) {
+        Swal.fire('Los cambios no han sido guardados', '', 'info')
+      }
+    })
+    
+   
   };
 
   const addInsumoCartel = () => {

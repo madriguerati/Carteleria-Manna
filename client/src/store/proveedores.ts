@@ -41,7 +41,7 @@ const useProveedores = create<ProveedoresStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put('https://symptomatic-hole-production.up.railway.app/api/proveedores', body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put('http://localhost:5000/api/proveedores', body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 

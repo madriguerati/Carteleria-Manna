@@ -6,6 +6,7 @@ import useUser from '../../store/user';
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError } from "react-icons/md";
+import Swal from 'sweetalert2';
 
 
 type Props = {
@@ -23,7 +24,7 @@ const ProveedorEdit = ({ setShowModal2, proveedor }: Props) => {
     const navigate = useNavigate();
     
     const [values, setValues] = useState({
-      id:proveedor._id,
+      id:proveedor.id,
 			name: proveedor.name,
 		telefono: proveedor.telefono,
 		cuit: proveedor.cuit,
@@ -49,9 +50,25 @@ const ProveedorEdit = ({ setShowModal2, proveedor }: Props) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-        putProveedor(values, token)
-        handleCloseModal()
-        success
+       
+        Swal.fire({
+          title: '¿Desea guardar los cambios?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonColor: '#77B327',
+          confirmButtonText: 'Guardar',
+          denyButtonText: `No guardar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire('¡Guardado exitosamente!', '', 'success')
+            putProveedor(values, token)
+            handleCloseModal()
+            success
+          } else if (result.isDenied) {
+            Swal.fire('Los cambios no han sido guardados', '', 'info')
+          
+          }
+        })
        
   }
 

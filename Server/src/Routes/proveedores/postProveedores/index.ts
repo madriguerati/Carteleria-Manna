@@ -11,6 +11,7 @@ router.post('/create', async(req, res, next)=>{
         const proveedores = new Proveedores({name, direccion,telefono, cuit, email, web})
         await proveedores.save()
         res.status(201).json('proveedor adherido correctamente')
+        
     } catch (error){
         next(error)
     }
