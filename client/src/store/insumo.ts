@@ -56,7 +56,7 @@ const useInusmo = create<UserStore>()(
       };
      
        try{
-        const { data } = await axios.put('https://symptomatic-hole-production.up.railway.app/api/insumo', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('http://localhost:5000/api/insumo', body, { headers: { "x-access-token": token} });
         set({ success: true, error: false });
        }catch(error){
         set({ error: true, success: false });

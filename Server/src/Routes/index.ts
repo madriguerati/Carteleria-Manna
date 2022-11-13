@@ -39,11 +39,11 @@ import PutInsumo from './insumo/putInsumo'
 import GetInsumosAll from './insumo/getInsumosAllPages'
 
 
-router.use('/insumo', verifyToken, isAdmin, isGerente, PostInsumo)
-router.use('/insumos', verifyToken, isAdmin, isGerente, GetInsumo)
-router.use('/insumo', verifyToken, isAdmin, isGerente, DeleteInsumo)
-router.use('/insumo', verifyToken, isAdmin, isGerente, PutInsumo)
-router.use('/insumo', verifyToken, isAdmin, isGerente, GetInsumosAll)
+router.use('/insumo', verifyToken,  isGerente, PostInsumo)
+router.use('/insumos', verifyToken,  isGerente, GetInsumo)
+router.use('/insumo', verifyToken,  isGerente, DeleteInsumo)
+router.use('/insumo', verifyToken,  isGerente, PutInsumo)
+router.use('/insumo', verifyToken, isGerente, GetInsumosAll)
 
 
 //clientes
@@ -55,7 +55,7 @@ import GetClientesAll from './clientes/getClientesAllPages'
 
 
 router.use('/clientes', PostClientes)
-router.use('/clientes', verifyToken, isAdmin, isGerente, GetClientes)
+router.use('/clientes', verifyToken, isGerente, GetClientes)
 router.use('/clientes', PutClientes)
 router.use('/clientes', DeleteClientes)
 router.use('/clientes', GetClientesAll)

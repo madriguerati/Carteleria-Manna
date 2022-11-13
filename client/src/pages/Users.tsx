@@ -16,6 +16,7 @@ import {
 	MdExpandMore,
 } from "react-icons/md";
 import Loader from "../components/Loader";
+import Swal from "sweetalert2";
 
 const Users = () => {
 	const { users, getUsers, deleteUsers } = useUser((state) => state);

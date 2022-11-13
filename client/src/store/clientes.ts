@@ -39,7 +39,7 @@ const useClients = create<ClientStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put('https://symptomatic-hole-production.up.railway.app/api/clientes', body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put('http://localhost:5000/api/clientes', body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 
@@ -50,7 +50,7 @@ const useClients = create<ClientStore>()(
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					"https://symptomatic-hole-production.up.railway.app/api/clientes",
+					"http://localhost:5000/api/clientes",
 					headers
 				);
 				set((state) => ({ clientes: (state.clientes = data) }));	
@@ -74,7 +74,7 @@ const useClients = create<ClientStore>()(
 		addClient: async (body) => {
 			try {
 				await axios.post(
-					"https://symptomatic-hole-production.up.railway.app/api/clientes/create",
+					"http://localhost:5000/api/clientes/create",
 					body
 				);
 				set({ success: true, error: false });
@@ -84,7 +84,7 @@ const useClients = create<ClientStore>()(
 		},
 		deleteClients: async (params, headers)=>{
 			set({ loading: true}) 
-			const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/clientes/${params}`,   headers);
+			const { data } = await axios.delete(`http://localhost:5000/api/clientes/${params}`,   headers);
 			set({ loading: false})  
 		  },
 		closeModal: () => {

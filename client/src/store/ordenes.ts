@@ -64,7 +64,7 @@ const useOrdenes = create<UserStore>()(
       };
       set({ success: true})
       set({ loading: true}) 
-        const { data } = await axios.put('https://symptomatic-hole-production.up.railway.app/api/ordenes', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('http://localhost:5000/api/ordenes', body, { headers: { "x-access-token": token} });
         set({ success: false})
         
         set({ loading: false}) 
@@ -111,7 +111,7 @@ const useOrdenes = create<UserStore>()(
         },
       deleteOrdenes: async (params, headers)=>{
         set({ loading: true}) 
-        const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/ordenes/${params}`,   headers);
+        const { data } = await axios.delete(`http://localhost:5000/api/ordenes/${params}`,   headers);
         set({ loading: false})  
       },
       closeModal: () => {
