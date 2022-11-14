@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/create', async(req, res, next)=>{
     const {fecha, cliente, fechaentrega,  montototal, contacto, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, facturanum, observaciones} =req.body;
-    console.log("hola soy una orden", fecha)
+    console.log("hola soy una orden", carteles)
     try{
         const ordenes = new Ordenes({fecha, cliente, contacto, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones, montototal})
         await ordenes.save()

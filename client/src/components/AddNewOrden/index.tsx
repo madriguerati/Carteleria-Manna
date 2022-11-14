@@ -30,7 +30,7 @@ interface Values {
   fecha: string;
   cliente: string;
   contacto: string; //nombre de contacto
-  carteles: string[];
+  carteles: object[];
   operacion: string;
   lugardecolocacion: string;
   lugartraslado: string;
@@ -52,6 +52,7 @@ interface Cartel {
   total: number;
   estructura: string;
   otros: string;
+  category: string[]
 }
 
 const AddNewClient = ({ setShowModal }: Props) => {
@@ -73,6 +74,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
     faz: "",
     total: 0,
     estructura: "",
+    category: [],
     otros: "",
   });
   const [values, setValues] = useState<Values>({
@@ -162,14 +164,10 @@ const AddNewClient = ({ setShowModal }: Props) => {
       clienteSelect = clientes.find((e: any) => e.name === value);
       console.log("hola soy un valor que si vale", cartelSelect);
       if (cartelSelect) {
-        var cartelId = cartelSelect._id;
-        setValues({
-          ...values,
-          carteles: [...values.carteles, cartelId],
-        });
         setCartel({
           ...cartel,
           name: value,
+          category: cartelSelect.category
         });
         totalArray = carteles.find((cartel: any) => cartel.costo1faz);
       }
@@ -215,6 +213,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       setValues({
         ...values,
         montototal: montofinal,
+        carteles: [...values.carteles.concat(totales)]
       });
     }
     setCartel({
@@ -226,6 +225,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       faz: "",
       total: 0,
       estructura: "",
+      category: [],
       otros: "",
     });
   };

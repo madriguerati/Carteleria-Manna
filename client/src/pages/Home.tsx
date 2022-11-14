@@ -1,10 +1,12 @@
 import Layout from "../components/Layout";
 import useUser from "./../store/user";
 import useOrdenes from "./../store/ordenes";
-import { useEffect} from "react";
+import useCarteles from "./../store/carteles";
+
+import { useEffect } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useHeaders from "../hooks/useHeaders";
-import moment from 'moment'
+import moment from "moment";
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
@@ -13,13 +15,24 @@ import { Link } from "react-router-dom";
 import shallow from "zustand/shallow";
 const Home = () => {
   const { users, user, getUsers } = useUser((state) => state, shallow);
-  const { getOrdenes, ordenes} = useOrdenes((state) => state);
-var obrero:any = user.name
+  const { getOrdenes, ordenes } = useOrdenes((state) => state);
+  const { getCarteles, carteles } = useCarteles((state) => state);
 
-useEffect(()=>{
-getOrdenes(headers)
-console.log("hola soy una orden", ordenes)
-}, [])
+  var obrero: any = user.name;
+  var ord: any[];
+  ord = ordenes.map((e: any) =>
+    e.carteles.map(
+      (item: any) => item.category.includes("CARTELERIA") && e
+    )
+  );
+  console.log("hoooooooooooooolaaaa", ord);
+
+  useEffect(() => {
+    getOrdenes(headers);
+    getCarteles(accessToken);
+
+    console.log("hola soy una orden", ordenes);
+  }, []);
 
   return (
     <Layout>
@@ -104,38 +117,60 @@ console.log("hola soy una orden", ordenes)
           </div>
         </div>
       )}
-      {user.roles?.find((e: any) => e.name === "obrero") && 
-	  <div className="flex-wrap">
-		{
-		ordenes.map((orden:any)=>orden.obrero=== obrero &&
-    <div className="max-w-sm rounded bg-white overflow-hidden shadow-lg m-3">
-    <div className="px-6 py-4">
-      <div className="font-bold text-center mb-2"><h1>Orden de fabricación</h1></div>
-      <div className="flex">
-      <div className="m-2">
-      <p>{ moment(orden.fecha).format('YYYY/MM/DD')}</p>
-      </div>
-      <div className="m-2">
-      <p>{orden.carteles.descripcion}</p>
-      </div>
-      </div>
-    </div>
-    <div className="px-6 pt-4 pb-2">
-    <button className="m-1 bg-rose-500 hover:bg-rose-300 text-white font-bold py-2 px-4 ">
-  Iniciada
-  </button>
-  <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ">
-  en curso
-  </button>
-  <button className="m-1 bg-emerald-400 hover:bg-emerald-300 text-white font-bold py-2 px-4">
-  terminada
-  </button>
-    </div>
-    </div>
-    )
-	  }
-	  </div>
-	  }
+      {user.roles?.find((e: any) => e.name === "obrero") && (
+        <div className="flex-wrap">
+          {ord.map((orden: any) => orden.map((e:any)=> e &&
+            <div className="block bg-red-200 m-5 p-5 ">
+            <div className="flex bg-white m-5">
+              <div className="m-2">
+                <h1>
+                  <b>Orden N° </b>
+                  {e.facturanum}
+                </h1>
+                <div className="flex">
+                  <div className="mt-2 mb-2">
+                    <h1>
+                      <b>cliente: </b>
+                      {e.cliente}
+                    </h1>
+                  </div>
+                </div>
+                <div className="flex">
+                  <div className="m-2">
+                  <h1>tipo de cartel</h1>
+                    {
+                      e.carteles.map((item:any)=>(
+                        <div>
+                          <h1>
+                          {item.name}
+                          </h1>
+                          <h1>
+                          {item.base}
+                          </h1>
+                        </div>
+                        
+                        )
+                      )
+                    }
+                    
+                  </div>
+                  <div className="m-2">
+                    <h1>medidas</h1>
+                  </div>
+                </div>
+              </div>
+              <div className="justify-end m-2">
+                <h1 className="justify-end">{moment(e.fecha).format("L")}</h1>
+                <div>
+                  <h1>estados</h1>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white m-5">{e.observaciones}</div>
+          </div>
+          ))}
+        </div>
+      )}
     </Layout>
   );
 };
