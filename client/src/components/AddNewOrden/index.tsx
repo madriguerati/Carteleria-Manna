@@ -8,7 +8,6 @@ import useHeaders from "../../hooks/useHeaders";
 import usePresupuesto from "../../store/presupuesto";
 import useOrdenes from "../../store/ordenes";
 import useUser from "../../store/user";
-import { holandas } from "./operaciones";
 import moment from 'moment'
 
 const [accessToken] = useLocalStorage();
@@ -42,7 +41,6 @@ interface Values {
   facturanum: string;
   plazodeentrega: string;
   observaciones: string;
-  obrero: string;
 }
 interface Cartel {
   cant: number;
@@ -92,7 +90,6 @@ const AddNewClient = ({ setShowModal }: Props) => {
     facturanum: "",
     plazodeentrega: "",
     observaciones: "",
-    obrero: "",
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal);
@@ -143,7 +140,6 @@ const AddNewClient = ({ setShowModal }: Props) => {
       facturanum: "",
       plazodeentrega: "",
       observaciones: "",
-      obrero: "",
     });
     setTimeout(() => {
       closeModal();
@@ -208,14 +204,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       cliente: value,
     });
   }
-  const handleSelectObrero = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    let { value } = e.currentTarget;
-    setValues({
-      ...values,
-      obrero: value,
-    });
-
-  };
+  
 
   const crearCartel = () => {
     if (cartel.cant > 0) {
@@ -256,8 +245,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       fechaentrega: "",
       facturanum: "",
       plazodeentrega: "",
-      observaciones: "",
-      obrero: "",
+      observaciones: ""
     });
     getCarteles(accessToken);
     getClients(headers);
@@ -267,7 +255,6 @@ const AddNewClient = ({ setShowModal }: Props) => {
       e.roles.find((r: any) => r.name === "obrero")
     );
     console.log("hola me rio mucho de ti ", users);
-    var jesus = holandas(5, 3);
    
   }, []);
 
@@ -696,25 +683,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Asignar esta orden
-              </label>
-              <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-                name="obrero"
-                value={values.obrero}
-                onChange={handleSelectObrero}
-              >
-                <option value="" defaultValue={""} disabled>
-                  asigne cartel
-                </option>
-                {obreros?.map((e: any) => (
-                  <option value={e.name}>{e.name}</option>
-                ))}
-              </select>
-            </div>
+            
           </div>
     
           <div className="flex flex-wrap -mx-3 mb-2">
