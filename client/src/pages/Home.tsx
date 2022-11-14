@@ -1,10 +1,12 @@
 import Layout from "../components/Layout";
 import useUser from "./../store/user";
 import useOrdenes from "./../store/ordenes";
-import { useEffect} from "react";
+import useCarteles from "./../store/carteles";
+
+import { useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useHeaders from "../hooks/useHeaders";
-import moment from 'moment'
+import moment from "moment";
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
@@ -13,13 +15,26 @@ import { Link } from "react-router-dom";
 import shallow from "zustand/shallow";
 const Home = () => {
   const { users, user, getUsers } = useUser((state) => state, shallow);
-  const { getOrdenes, ordenes} = useOrdenes((state) => state);
-var obrero:any = user.name
+  const { getOrdenes, ordenes } = useOrdenes((state) => state);
+  const { getCarteles, carteles } = useCarteles((state) => state);
+  const [openTab, setOpenTab] = useState(1);
+  var color:any="white"
 
-useEffect(()=>{
-getOrdenes(headers)
-console.log("hola soy una orden", ordenes)
-}, [])
+  var obrero: any = user.name;
+  var ord: any[];
+  ord = ordenes.map((e: any) =>
+    e.carteles.map(
+      (item: any) => item.category.includes("CARTELERIA") && e
+    )
+  );
+  console.log("hoooooooooooooolaaaa", ord);
+
+  useEffect(() => {
+    getOrdenes(headers);
+    getCarteles(accessToken);
+
+    console.log("hola soy una orden", ordenes);
+  }, []);
 
   return (
     <Layout>
@@ -104,38 +119,153 @@ console.log("hola soy una orden", ordenes)
           </div>
         </div>
       )}
-      {user.roles?.find((e: any) => e.name === "obrero") && 
-	  <div className="flex-wrap">
-		{
-		ordenes.map((orden:any)=>orden.obrero=== obrero &&
-    <div className="max-w-sm rounded bg-white overflow-hidden shadow-lg m-3">
-    <div className="px-6 py-4">
-      <div className="font-bold text-center mb-2"><h1>Orden de fabricación</h1></div>
-      <div className="flex">
-      <div className="m-2">
-      <p>{ moment(orden.fecha).format('YYYY/MM/DD')}</p>
+      {user.roles?.find((e: any) => e.name === "obrero") && (
+        <div className="flex flex-wrap m-5">
+        <div className="w-full">
+          <ul
+            className="flex mb-0 list-none flex-wrap pt-3  flex-row"
+            role="tablist"
+          >
+            <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+              <a
+                className={
+                  "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
+                  (openTab === 1
+                    ? "text-black bg-white"
+                    : "text-" + color + "-600 bg-red-600")
+                }
+                onClick={e => {
+                  e.preventDefault();
+                  setOpenTab(1);
+                }}
+                data-toggle="tab"
+                href="#link1"
+                role="tablist"
+              >
+                Pendientes
+              </a>
+            </li>
+            <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+              <a
+                className={
+                  "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
+                  (openTab === 2
+                    ? "text-black bg-white"
+                    : "text-" + color + "-600 bg-green-600")
+                }
+                onClick={e => {
+                  e.preventDefault();
+                  setOpenTab(2);
+                }}
+                data-toggle="tab"
+                href="#link2"
+                role="tablist"
+              >
+                 Hechas
+              </a>
+            </li>
+            <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
+              <a
+                className={
+                  "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
+                  (openTab === 3
+                    ? "text-black bg-white"
+                    : "text-" + color + "-600 bg-blue-600")
+                }
+                onClick={e => {
+                  e.preventDefault();
+                  setOpenTab(3);
+                }}
+                data-toggle="tab"
+                href="#link3"
+                role="tablist"
+              >
+                 Entregadas
+              </a>
+            </li>
+          </ul>
+          <div className="relative flex flex-col min-w-0 break-words bg-white w-full  shadow-lg rounded">
+            <div className="px-4 py-5 flex-auto">
+              <div className="tab-content tab-space">
+                <div className={openTab === 1 ? "block" : "hidden"} id="link1">
+                {ord.map((orden: any) => orden.map((e:any)=> e &&
+            <div className="block bg-red-200 m-5 p-5 ">
+            <div className="flex bg-white m-5">
+              <div className="m-2">
+                <h1>
+                  <b>Orden N° </b>
+                  {e.facturanum}
+                </h1>
+                <div className="flex">
+                  <div className="mt-2 mb-2">
+                    <h1>
+                      <b>cliente: </b>
+                      {e.cliente}
+                    </h1>
+                  </div>
+                </div>
+                <div className="flex">
+                  <div className="m-2">
+                  <h1>tipo de cartel</h1>
+                    {
+                      e.carteles.map((item:any)=>(
+                        <div>
+                          <h1>
+                          {item.name}
+                          </h1>
+                          <h1>
+                          {item.base}
+                          </h1>
+                        </div>
+                        
+                        )
+                      )
+                    }
+                    
+                  </div>
+                  <div className="m-2">
+                    <h1>medidas</h1>
+                  </div>
+                </div>
+              </div>
+              <div className="justify-end m-2">
+                <h1 className="justify-end">{moment(e.fecha).format("L")}</h1>
+                <div>
+                  <h1>estados</h1>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white m-5">{e.observaciones}</div>
+          </div>
+          ))}
+                </div>
+                <div className={openTab === 2 ? "block" : "hidden"} id="link2">
+                  <p>
+                    Completely synergize resource taxing relationships via
+                    premier niche markets. Professionally cultivate one-to-one
+                    customer service with robust ideas.
+                    <br />
+                    <br />
+                    Dynamically innovate resource-leveling customer service for
+                    state of the art customer service.
+                  </p>
+                </div>
+                <div className={openTab === 3 ? "block" : "hidden"} id="link3">
+                  <p>
+                    Efficiently unleash cross-media information without
+                    cross-media value. Quickly maximize timely deliverables for
+                    real-time schemas.
+                    <br />
+                    <br /> Dramatically maintain clicks-and-mortar solutions
+                    without functional solutions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="m-2">
-      <p>{orden.carteles.descripcion}</p>
-      </div>
-      </div>
-    </div>
-    <div className="px-6 pt-4 pb-2">
-    <button className="m-1 bg-rose-500 hover:bg-rose-300 text-white font-bold py-2 px-4 ">
-  Iniciada
-  </button>
-  <button className="m-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ">
-  en curso
-  </button>
-  <button className="m-1 bg-emerald-400 hover:bg-emerald-300 text-white font-bold py-2 px-4">
-  terminada
-  </button>
-    </div>
-    </div>
-    )
-	  }
-	  </div>
-	  }
+      )}
     </Layout>
   );
 };

@@ -22,7 +22,6 @@ interface Orden {
   facturanum: string,
   plazodeentrega: string;
   observaciones:string
-  obrero:string
 }
 
 
