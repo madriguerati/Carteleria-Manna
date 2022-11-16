@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useHeaders from "../hooks/useHeaders";
 import moment from "moment";
-import { BsSearch, BsPrinter } from 'react-icons/bs'
+import { BsSearch, BsPrinter } from "react-icons/bs";
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
@@ -35,30 +35,30 @@ const Home = () => {
     console.log("hola soy una orden", ordenes);
   }, []);
 
-  const aceptar =(e:any)=>{
-    e.stateCarteleria=true
-console.log("holaaaaaaaaaaaaa soy un camboio aaa", ord)
-var values: any = {
-  ...values,
+  const aceptar = (e: any) => {
+    e.stateCarteleria = true;
+    console.log("holaaaaaaaaaaaaa soy un camboio aaa", ord);
+    var values: any = {
+      ...values,
       stateCarteleria: true,
-      id: e._id
-}
-console.log("holaaaaaaaaaaaaa soy un camboio aaa", values)
+      id: e._id,
+    };
+    console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
 
-putOrden(values, headers)
-  }
-  const deshacer =(e:any)=>{
-    e.stateCarteleria=false
-console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id)
-var values: any = {
-  ...values,
+    putOrden(values, headers);
+  };
+  const deshacer = (e: any) => {
+    e.stateCarteleria = false;
+    console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
+    var values: any = {
+      ...values,
       stateCarteleria: false,
-      id: e._id
-}
-console.log("holaaaaaaaaaaaaa soy un camboio aaa", values)
+      id: e._id,
+    };
+    console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
 
-putOrden(values, headers)
-  }
+    putOrden(values, headers);
+  };
 
   return (
     <Layout>
@@ -216,180 +216,203 @@ putOrden(values, headers)
                     id="link1"
                   >
                     {ord.map((orden: any) =>
-                      orden.map(
-                        (e: any) =>
-                        e.stateCarteleria === false ?
-                            <div className="mb-2 rounded-lg  border-2 border-gray-200 border-b-gray-500">
-                              <div className="block  mr-5 mt-5 ml-5 mb-1 p-1 rounded ">
-                                <div className="flex bg-white m-1 rounded  ">
-                                  <div className="m-2 w-3/4">
-                                    <div className="flex w-full">
-                                      <h1 className="w-5/6">
-                                        <b>Orden N° </b>
-                                        {e.facturanum}
-                                      </h1>
-                                      <h1 className="w-5/6">
-                                        {moment(e.fecha).format("L")}
-                                      </h1>
-
-                                      <h1 className="text-white bg-red-600 p-2 rounded-lg text-center w-1/6">Pendiente</h1>
-                                    </div>
-                                    <div className="flex">
-                                      <div className="mt-2 mb-2">
-                                        <h1>
-                                          <b>cliente: </b>
-                                          {e.cliente}
-                                        </h1>
-                                      </div>
-                                    </div>
-                                    <div className="flex w-full">
-                                      <div className="m-2 w-80">
-                                        <h1>tipo de cartel</h1>
-                                        {e.carteles.map((item: any) => (
-                                          <div>
-                                            <h1>{item.name}</h1>
-                                            
-                                          </div>
-                                        ))}
-                                      </div>
-                                      <div className="m-2">
-                                        <h1>medidas</h1>
-                                        {e.carteles.map((item: any) => (
-                                        <h1>{item.base} x {item.altura}</h1>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="justify-end m-2 w-1/4 p-2">
-                                    <div className="flex justify-end">
-                                      <h1 className="align-center mr-2">
-                                        <BsSearch/>
-                                      </h1>
-                                      <h1 className="align-center mr-2">
-                                        <BsPrinter/>
-                                      </h1>
-                                    </div>
-                                  <p>Observaciones:</p>
-                                  {e.observaciones} 
-                                    <div></div>
-                                  </div>
-                                </div>
-                               
+                      orden.map((e: any) =>
+                        e.stateCarteleria === false ? (
+                          <div className="mb-2 rounded-lg  border-2 border-gray-200 border-b-gray-500">
+                          <div className="block  mr-5 mt-5 ml-5 mb-1 p-1 rounded ">
+                            <div className="flex w-full border-b-2">
+                              <div className=" flex w-5/6  mt-2 mb-2">
+                                <h1 className="m-4">
+                                  <b>Orden N° </b>
+                                  {e.facturanum}
+                                </h1>
+                                <h1 className="m-4">
+                                  <b>cliente: </b>
+                                  {e.cliente}
+                                </h1>
                               </div>
-                              <div className="flex justify-start ml-5 mr-5 mb-2 mt-1">
-                                
-                                <button
-                                  className="text-emerald-500 w-40 items-center h-15 shadow border border-emerald-500 hover:bg-emerald-500 hover:text-white active:bg-emerald-600 font-bold uppercase text-sm px-2 py-1 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                  onClick={()=>aceptar(e)}
-                                  type="button"
-                                >
-                                  aceptar
-                                </button>
-                                <h1 className="flex justify-center items-center m-5">Cancelar</h1>
+                              <div className="flex">
+                                <h1 className="w-5/6 m-4">
+                                  {moment(e.fecha).format("L")}
+                                </h1>
+                                <div>
+                                  <h1 className="text-white bg-red-600 rounded-lg align-center text-center p-2 m-2">
+                                    Pendiente
+                                  </h1>
+                                </div>
+                                <div className="flex justify-end m-4">
+                                  <h1 className="align-center mr-2">
+                                    <BsSearch />
+                                  </h1>
+                                  <h1 className="align-center mr-2">
+                                    <BsPrinter />
+                                  </h1>
+                                </div>{" "}
                               </div>
                             </div>
-                            : 
-                            ""
-                          )
+                            <div className="flex m-1 rounded  ">
+                              <div className="m-2   w-2/3">
+                                <div className="flex w-full">
+                                  <div className="m-2 w-40">
+                                    <h1>tipo de cartel</h1>
+                                    {e.carteles.map((item: any) => (
+                                      <div>
+                                        <h1>{item.name}</h1>
+                                      </div>
+                                    ))}
+                                  </div>
+                                  <div className="m-2">
+                                    <h1>medidas</h1>
+                                    {e.carteles.map((item: any) => (
+                                      <h1>
+                                        {item.base} x {item.altura}
+                                      </h1>
+                                    ))}
+                                  </div>
+                                  <div className="m-2">
+                                    <h1>ESTRUCTURA</h1>
+                                    {e.carteles.map((item: any) => (
+                                      <h1>{item.estructura}</h1>
+                                    ))}
+                                  </div>
+                                  <div className="m-2">
+                                    <h1>OTROS</h1>
+                                    {e.carteles.map((item: any) => (
+                                      <h1>{item.otros}</h1>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="justify-end m-2 w-2/4 p-2 bg-gray-100 rounded ">
+                                
+                                <p>Observaciones:</p>
+                                {e.observaciones}
+                                <div></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex justify-start ml-5 mb-2 mt-1">
+                            <button
+                              className="text-blue-500 w-40 items-center h-15 shadow border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-2 py-1 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                              type="button"
+                            >
+                              aceptar
+                            </button>
+                            <h1
+                              className="flex justify-center items-center text-red-600 m-5"
+                              onClick={() => aceptar(e)}
+                              style={{ cursor: "pointer" }}
+                            >
+                              Cancelar
+                            </h1>
+                          </div>
+                        </div>
+                        ) : (
+                          ""
+                        )
                       )
-                    }
+                    )}
                   </div>
-                  
+
                   <div
                     className={openTab === 2 ? "block" : "hidden"}
                     id="link2"
                   >
                     {ord.map((orden: any) =>
-                      orden.map(
-                        (e: any) => e.stateCarteleria === true ?
-                        <div className="mb-2 rounded-lg  border-2 border-gray-200 border-b-gray-500">
-                        <div className="block  mr-5 mt-5 ml-5 mb-1 p-1 rounded ">
-                          <div className="flex bg-white m-1 rounded  ">
-                            <div className="m-2 w-3/4">
-                              <div className="flex w-full">
-                                <h1 className="w-5/6">
-                                  <b>Orden N° </b>
-                                  {e.facturanum}
-                                </h1>
-                                <h1 className="w-5/6">
-                                  {moment(e.fecha).format("L")}
-                                </h1>
-
-                                                             </div>
-                              <div className="flex">
-                                <div className="mt-2 mb-2">
-                                  <h1>
+                      orden.map((e: any) =>
+                        e.stateCarteleria === true ? (
+                          <div className="mb-2 rounded-lg  border-2 border-gray-200 border-b-gray-500">
+                            <div className="block  mr-5 mt-5 ml-5 mb-1 p-1 rounded ">
+                              <div className="flex w-full border-b-2">
+                                <div className=" flex w-5/6  mt-2 mb-2">
+                                  <h1 className="m-4">
+                                    <b>Orden N° </b>
+                                    {e.facturanum}
+                                  </h1>
+                                  <h1 className="m-4">
                                     <b>cliente: </b>
                                     {e.cliente}
                                   </h1>
                                 </div>
+                                <div className="flex">
+                                  <h1 className="w-5/6 m-4">
+                                    {moment(e.fecha).format("L")}
+                                  </h1>
+                                  <div>
+                                    <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 m-2">
+                                      Realizada
+                                    </h1>
+                                  </div>
+                                  <div className="flex justify-end m-4">
+                                    <h1 className="align-center mr-2">
+                                      <BsSearch />
+                                    </h1>
+                                    <h1 className="align-center mr-2">
+                                      <BsPrinter />
+                                    </h1>
+                                  </div>{" "}
+                                </div>
                               </div>
-                              <div className="flex w-full">
-                                <div className="m-2 w-40">
-                                  <h1>tipo de cartel</h1>
-                                  {e.carteles.map((item: any) => (
-                                    <div>
-                                      <h1>{item.name}</h1>
-                                      
+                              <div className="flex m-1 rounded  ">
+                                <div className="m-2   w-2/3">
+                                  <div className="flex w-full">
+                                    <div className="m-2 w-40">
+                                      <h1>tipo de cartel</h1>
+                                      {e.carteles.map((item: any) => (
+                                        <div>
+                                          <h1>{item.name}</h1>
+                                        </div>
+                                      ))}
                                     </div>
-                                  ))}
+                                    <div className="m-2">
+                                      <h1>medidas</h1>
+                                      {e.carteles.map((item: any) => (
+                                        <h1>
+                                          {item.base} x {item.altura}
+                                        </h1>
+                                      ))}
+                                    </div>
+                                    <div className="m-2">
+                                      <h1>ESTRUCTURA</h1>
+                                      {e.carteles.map((item: any) => (
+                                        <h1>{item.estructura}</h1>
+                                      ))}
+                                    </div>
+                                    <div className="m-2">
+                                      <h1>OTROS</h1>
+                                      {e.carteles.map((item: any) => (
+                                        <h1>{item.otros}</h1>
+                                      ))}
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="m-2">
-                                  <h1>medidas</h1>
-                                  {e.carteles.map((item: any) => (
-                                  <h1>{item.base} x {item.altura}</h1>
-                                  ))}
-                                </div>
-                                <div className="m-2">
-                                  <h1>ESTRUCTURA</h1>
-                                  {e.carteles.map((item: any) => (
-                                  <h1>{item.estructura}</h1>
-                                  ))}
-                                 
-                                </div>
-                                <div className="m-2">
-                                <h1>OTROS</h1>
-                                  {e.carteles.map((item: any) => (
-                                  <h1>{item.otros}</h1>
-                                  ))}
+                                <div className="justify-end m-2 w-2/4 p-2 bg-gray-100 rounded ">
+                                  
+                                  <p>Observaciones:</p>
+                                  {e.observaciones}
+                                  <div></div>
                                 </div>
                               </div>
                             </div>
-                            <div className="justify-end m-2 w-1/4 p-2">
-                              <div className="flex justify-end">
-                                <h1 className="align-center mr-2 mt-2">
-                                  imprimir
-                                </h1>
-                                <h1 className="align-center mr-2 mt-2">
-                                  ver
-                                </h1>
-                                <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 ">Realizada</h1>
-                              </div>
-                            <p>Observaciones:</p>
-                            {e.observaciones} 
-                              <div></div>
+                            <div className="flex justify-start ml-5 mb-2 mt-1">
+                              <button
+                                className="text-blue-500 w-40 items-center h-15 shadow border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-2 py-1 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button"
+                              >
+                                aceptar
+                              </button>
+                              <h1
+                                className="flex justify-center items-center text-red-600 m-5"
+                                onClick={() => deshacer(e)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                Cancelar
+                              </h1>
                             </div>
                           </div>
-                         
-                        </div>
-                        <div className="flex justify-start ml-5 mb-2 mt-1">
-                         
-                          <button
-                            className="text-blue-500 w-40 items-center h-15 shadow border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-2 py-1 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                           
-                            type="button"
-                          >
-                            aceptar
-                          </button>
-                          <h1 
-                          className="flex justify-center items-center text-red-600 m-5"
-                          onClick={()=>deshacer(e)}
-                          style={{"cursor":"pointer"}}
-                          >Cancelar</h1>
-                        </div>
-                      </div>
-                          :
+                        ) : (
                           ""
+                        )
                       )
                     )}
                   </div>
@@ -411,8 +434,7 @@ putOrden(values, headers)
             </div>
           </div>
         </div>
-
-)}
+      )}
     </Layout>
   );
 };
