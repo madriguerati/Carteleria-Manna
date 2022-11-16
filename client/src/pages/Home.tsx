@@ -315,8 +315,7 @@ putOrden(values, headers)
                                   {moment(e.fecha).format("L")}
                                 </h1>
 
-                                <h1 className="text-white bg-green-600 rounded-lg text-center p-2 w-1/6">Realizada</h1>
-                              </div>
+                                                             </div>
                               <div className="flex">
                                 <div className="mt-2 mb-2">
                                   <h1>
@@ -326,7 +325,7 @@ putOrden(values, headers)
                                 </div>
                               </div>
                               <div className="flex w-full">
-                                <div className="m-2 w-80">
+                                <div className="m-2 w-40">
                                   <h1>tipo de cartel</h1>
                                   {e.carteles.map((item: any) => (
                                     <div>
@@ -341,16 +340,30 @@ putOrden(values, headers)
                                   <h1>{item.base} x {item.altura}</h1>
                                   ))}
                                 </div>
+                                <div className="m-2">
+                                  <h1>ESTRUCTURA</h1>
+                                  {e.carteles.map((item: any) => (
+                                  <h1>{item.estructura}</h1>
+                                  ))}
+                                 
+                                </div>
+                                <div className="m-2">
+                                <h1>OTROS</h1>
+                                  {e.carteles.map((item: any) => (
+                                  <h1>{item.otros}</h1>
+                                  ))}
+                                </div>
                               </div>
                             </div>
                             <div className="justify-end m-2 w-1/4 p-2">
                               <div className="flex justify-end">
-                                <h1 className="align-center mr-2">
+                                <h1 className="align-center mr-2 mt-2">
                                   imprimir
                                 </h1>
-                                <h1 className="align-center mr-2">
+                                <h1 className="align-center mr-2 mt-2">
                                   ver
                                 </h1>
+                                <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 ">Realizada</h1>
                               </div>
                             <p>Observaciones:</p>
                             {e.observaciones} 
@@ -398,7 +411,8 @@ putOrden(values, headers)
             </div>
           </div>
         </div>
-      )}
+
+)}
     </Layout>
   );
 };
