@@ -145,6 +145,20 @@ const Home = () => {
       )}
       {user.roles?.find((e: any) => e.name === "obrero") && (
         <div className="flex flex-wrap m-5">
+          <div className="block relative">
+              <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 fill-current text-gray-500"
+                >
+                  <path d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"></path>
+                </svg>
+              </span>
+              <input
+                placeholder="Buscar"
+                className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-80 bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+              />
+            </div>
           <div className="w-full">
             <ul
               className="flex mb-0 list-none flex-wrap pt-3  flex-row"
@@ -241,10 +255,10 @@ const Home = () => {
                                   </h1>
                                 </div>
                                 <div className="flex justify-end m-4">
-                                  <h1 className="align-center mr-2">
+                                  <h1 className="align-center mr-2" style={{ cursor: "pointer" }}>
                                     <BsSearch />
                                   </h1>
-                                  <h1 className="align-center mr-2">
+                                  <h1 className="align-center mr-2" style={{ cursor: "pointer" }}>
                                     <BsPrinter />
                                   </h1>
                                 </div>{" "}
@@ -254,7 +268,7 @@ const Home = () => {
                               <div className="m-2   w-2/3">
                                 <div className="flex w-full">
                                   <div className="m-2 w-40">
-                                    <h1>tipo de cartel</h1>
+                                    <h1><b>TIPO DE CARTEL</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <div>
                                         <h1>{item.name}</h1>
@@ -262,7 +276,7 @@ const Home = () => {
                                     ))}
                                   </div>
                                   <div className="m-2">
-                                    <h1>medidas</h1>
+                                    <h1><b>MEDIDAS</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>
                                         {item.base} x {item.altura}
@@ -270,22 +284,23 @@ const Home = () => {
                                     ))}
                                   </div>
                                   <div className="m-2">
-                                    <h1>ESTRUCTURA</h1>
+                                    <h1><b>ESTRUCTURA</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>{item.estructura}</h1>
                                     ))}
                                   </div>
                                   <div className="m-2">
-                                    <h1>OTROS</h1>
+                                    <h1><b>OTROS</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>{item.otros}</h1>
                                     ))}
                                   </div>
                                 </div>
                               </div>
-                              <div className="justify-end m-2 w-2/4 p-2 bg-gray-100 rounded ">
+                              <div className="justify-end m-2 w-2/4 p-3 bg-gray-100 rounded ">
                                 
-                                <p>Observaciones:</p>
+                                <b>OBSERVACIONES:</b>
+                                <br />
                                 {e.observaciones}
                                 <div></div>
                               </div>
@@ -293,18 +308,13 @@ const Home = () => {
                           </div>
                           <div className="flex justify-start ml-5 mb-2 mt-1">
                             <button
-                              className="text-blue-500 w-40 items-center h-15 shadow border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-2 py-1 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                              className="text-blue-500 w-40 items-center p-5 h-15 shadow border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-2 py-4 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                               type="button"
+                              onClick={() => aceptar(e)}
                             >
                               aceptar
                             </button>
-                            <h1
-                              className="flex justify-center items-center text-red-600 m-5"
-                              onClick={() => aceptar(e)}
-                              style={{ cursor: "pointer" }}
-                            >
-                              Cancelar
-                            </h1>
+                            
                           </div>
                         </div>
                         ) : (
@@ -344,20 +354,25 @@ const Home = () => {
                                     </h1>
                                   </div>
                                   <div className="flex justify-end m-4">
-                                    <h1 className="align-center mr-2">
+                                    <h1 className="align-center mr-2" style={{ cursor: "pointer" }}>
                                       <BsSearch />
                                     </h1>
-                                    <h1 className="align-center mr-2">
+                                    <h1 className="align-center mr-2" style={{ cursor: "pointer" }}>
                                       <BsPrinter />
                                     </h1>
                                   </div>{" "}
                                 </div>
                               </div>
+                              <div className="ml-2 mt-2 flex">
+                                      <b className="m-2">Fecha de entrega: </b>
+                                      <p className="m-2">{moment(e.fechaentrega).format('L')}</p>
+                                    </div>
                               <div className="flex m-1 rounded  ">
                                 <div className="m-2   w-2/3">
                                   <div className="flex w-full">
+                                    
                                     <div className="m-2 w-40">
-                                      <h1>tipo de cartel</h1>
+                                      <h1><b>TIPO DE CARTEL</b></h1>
                                       {e.carteles.map((item: any) => (
                                         <div>
                                           <h1>{item.name}</h1>
@@ -365,7 +380,7 @@ const Home = () => {
                                       ))}
                                     </div>
                                     <div className="m-2">
-                                      <h1>medidas</h1>
+                                      <h1><b>MEDIDAS</b></h1>
                                       {e.carteles.map((item: any) => (
                                         <h1>
                                           {item.base} x {item.altura}
@@ -373,13 +388,13 @@ const Home = () => {
                                       ))}
                                     </div>
                                     <div className="m-2">
-                                      <h1>ESTRUCTURA</h1>
+                                      <h1><b>ESTRUCTURA</b></h1>
                                       {e.carteles.map((item: any) => (
                                         <h1>{item.estructura}</h1>
                                       ))}
                                     </div>
                                     <div className="m-2">
-                                      <h1>OTROS</h1>
+                                      <h1><b>OTROS</b></h1>
                                       {e.carteles.map((item: any) => (
                                         <h1>{item.otros}</h1>
                                       ))}
@@ -388,7 +403,8 @@ const Home = () => {
                                 </div>
                                 <div className="justify-end m-2 w-2/4 p-2 bg-gray-100 rounded ">
                                   
-                                  <p>Observaciones:</p>
+                                  <b>OBSERVACIONES:</b>
+                                  <br />
                                   {e.observaciones}
                                   <div></div>
                                 </div>
