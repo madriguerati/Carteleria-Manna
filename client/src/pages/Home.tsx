@@ -3,6 +3,8 @@ import useUser from "./../store/user";
 import useOrdenes from "./../store/ordenes";
 import useCarteles from "./../store/carteles";
 import HomeCarteleria from './HomeCarteleria'
+import HomeImpresiones from './HomeImpresiones'
+
 
 import { useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -24,9 +26,14 @@ const Home = () => {
 
   var obrero: any = user.name;
   var ord: any[];
+  var ordImpresiones: any[];
+
   ord = ordenes.map((e: any) =>
     e.carteles.map((item: any) => item.category.includes("CARTELERIA") && e)
   );
+  ordImpresiones = ordenes.map((e: any) =>
+  e.carteles.map((item: any) => item.category.includes("IMPRESIONES") && e)
+);
   console.log("hoooooooooooooolaaaa", ord);
 
   useEffect(() => {
@@ -64,7 +71,7 @@ const Home = () => {
   return (
     <Layout>
       {user.roles?.find(
-        (e: any) => e.name === "admin" || e.name === "gerente"
+        (e: any) => e.name === "gerente"
       ) && (
         <div className="xl:container mx-auto px-4 sm:px-8 h-screen my-auto grid items-center">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 md:gap-x-16 gap-y-16 py-16 md:py-0 text-center items-center">
@@ -148,7 +155,7 @@ const Home = () => {
         <HomeCarteleria ord={ord} />
       )}
       {user.roles?.find((e: any) => e.name === "admin") && (
-        <HomeCarteleria ord={ord} />
+        <HomeImpresiones ordImpresiones={ordImpresiones} />
       )}
     </Layout>
   );

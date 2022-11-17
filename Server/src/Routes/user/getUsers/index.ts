@@ -16,6 +16,7 @@ router.get('/allusers', async(req: any, res: any, next)=>{
 
 
         const rolesAll = await Role.find();
+        console.log("hola", rolesAll)
         const rolesOptions = rolesAll.map(role => role._id);
         const rolesName = rolesAll.map(role => role.name);
 
@@ -34,6 +35,7 @@ router.get('/allusers', async(req: any, res: any, next)=>{
         const roleArray = await Role.find({ name: roles })
         const roleId = roleArray.map(role => role._id)
         roleId.length && (roles = roleId)
+        console.log("hola", roleArray)
 
         const users = await User.find({ username: { $regex: '.*' + search + '.*', $options: 'i' }}) 
             .where('roles')

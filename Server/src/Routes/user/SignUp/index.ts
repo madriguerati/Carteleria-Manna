@@ -10,7 +10,7 @@ const router = Router();
 router.post('/signUp', async(req, res, next) =>{
 try{
   const { username, name, lastname, email, password, roles } = req.body;
-
+console.log("hola soy un role", roles)
   // Creating a new User Object
   let newUser:any = new User({
     username,
@@ -22,6 +22,8 @@ try{
   if (roles) {
     const foundRoles = await Role.find({ name: { $in: roles } });
     newUser.roles = foundRoles.map((role) => role._id);
+console.log("hola soy un role", foundRoles)
+
   } else {
     const role:any = await Role.findOne({ name: "user" });
     newUser.roles = [role._id];

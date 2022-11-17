@@ -57,7 +57,7 @@ const useUser = create<UserStore>()(
 		getUser: async (token) => {
 			try {
 				const { data } = await axios.get(
-					"https://symptomatic-hole-production.up.railway.app/api/user/profile",
+					"http://localhost:5000/api/user/profile",
 					{ headers: { "x-access-token": token } }
 				);
 				set((state) => ({ ...state, user: (state.user = data) }));
@@ -67,7 +67,7 @@ const useUser = create<UserStore>()(
 		},
 		getUsers: async (token, rol, sort, page, limit) => {
 			const { data } = await axios.get(
-				`https://symptomatic-hole-production.up.railway.app/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}`,
+				`http://localhost:5000/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}`,
 				{ headers: { "x-access-token": token } }
 			);
 			if (!data) {
@@ -98,7 +98,7 @@ const useUser = create<UserStore>()(
 		signin: async (body) => {
 			try {
 				const { data } = await axios.post(
-					"https://symptomatic-hole-production.up.railway.app/api/user/signIn",
+					"http://localhost:5000/api/user/signIn",
 					body
 				);
 				localStorage.setItem("auth", JSON.stringify(data));

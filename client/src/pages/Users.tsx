@@ -37,6 +37,7 @@ const Users = () => {
 
 	useEffect(() => {
 		getUsers(accessToken, rol, sort, page, limit);
+		console.log("holaaaaaaaaaaaaaaaaaaa", users)
 	}, [rol, sort, page, limit]);
 
 	const nextPage = (): void => {
