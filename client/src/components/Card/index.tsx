@@ -12,7 +12,7 @@ type Props = {
     e: any;
   };
 
-
+var num: any =0
 function Card({ e }: Props) {
 
     const { putOrden, success, error, closeModal } = useOrdenes(
@@ -85,6 +85,16 @@ function Card({ e }: Props) {
                             <div className="flex m-1 rounded  ">
                               <div className="m-2   w-2/3">
                                 <div className="flex w-full">
+                                <div className="m-2 w-20">
+                                    <h1><b>N°</b></h1>
+                                    {e.carteles.map((item: any) => (
+                                      <div>
+                                        <h1>
+                                            *
+                                        </h1>
+                                      </div>
+                                    ))}
+                                  </div>
                                   <div className="m-2 w-40">
                                     <h1><b>TIPO DE CARTEL</b></h1>
                                     {e.carteles.map((item: any) => (
