@@ -89,14 +89,28 @@ function Card({ e }: Props) {
                                 </h1>
                                 <div>
                                   {
-                                    e.stateCarteleria === false
+                                    e.stateCarteleria === false && e.entregadoCarteleria ===false
                                     ? <h1 className="text-white bg-red-600 rounded-lg align-center text-center p-2 m-2">
                                     Pendiente
                                   </h1>
                                   :
-                                  <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 m-2">
-                                    Realizada
+                                 ""
+                                  }
+                                  {
+                                     e.stateCarteleria === true && e.entregadoCarteleria ===false
+                                     ? <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 m-2">
+                                     Realizada
+                                   </h1>
+                                   :
+                                  "" 
+                                  }
+                                  {
+                                    e.stateCarteleria ===true && e.entregadoCarteleria===true
+                                    ?
+                                    <h1 className="text-white bg-blue-600 rounded-lg align-center text-center p-2 m-2">
+                                    Entregado
                                   </h1>
+                                  : ""
                                   }
                                 </div>
                                 <div className="flex justify-end m-4">
@@ -175,7 +189,11 @@ function Card({ e }: Props) {
 
                             }
                             >
-                              aceptar hola
+                              {
+                                e.stateCarteleria===false
+                                ?<p>Aceptar Orden</p>
+                                :<p>Entregar Orden</p>
+                              }
                             </button>
                             :
                             ""
@@ -187,7 +205,7 @@ function Card({ e }: Props) {
                                 onClick={deshacer}
                                 style={{ cursor: "pointer" }}
                               >
-                                Cancelar qq
+                                Cancelar
                               </h1>
                               :
                               <h1
@@ -195,7 +213,7 @@ function Card({ e }: Props) {
                                 onClick={deshacer}
                                 style={{ cursor: "pointer" }}
                               >
-                                Cancelar hola
+                                Cancelar
                               </h1>
                             }
                           </div>
