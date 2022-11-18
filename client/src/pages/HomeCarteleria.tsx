@@ -114,7 +114,7 @@ var color: any = "white";
                   >
                     {ord.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateCarteleria === true ? (
+                        e.stateCarteleria === true && e.entregadoCarteleria===false? (
                           <Card e={e} />
                         ) : (
                           ""
@@ -126,7 +126,15 @@ var color: any = "white";
                     className={openTab === 3 ? "block" : "hidden"}
                     id="link3"
                   >
-                   
+                   {ord.map((orden: any) =>
+                      orden.map((e: any) =>
+                        e.stateCarteleria === true && e.entregadoCarteleria ===true ? (
+                          <Card e={e} />
+                        ) : (
+                          ""
+                        )
+                      )
+                    )}
                   </div>
                 </div>
               </div>

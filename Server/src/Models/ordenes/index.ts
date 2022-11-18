@@ -27,6 +27,7 @@ const ordenesSchema = new Schema(
             type: Date,
             required: true
         },
+
         cliente:
         {
             type:String,
@@ -38,6 +39,11 @@ const ordenesSchema = new Schema(
             type:String,
             required:true
 
+        },
+        entregadoCarteleria:
+        {
+            type: Boolean,
+            request: true
         },
         stateCarteleria:
         {
