@@ -45,6 +45,11 @@ const ordenesSchema = new Schema(
             type: Boolean,
             request: true
         },
+        entregadoImpresiones:
+        {
+            type: Boolean,
+            request: true
+        },
         stateCarteleria:
         {
             type: Boolean,

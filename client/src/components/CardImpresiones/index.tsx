@@ -30,11 +30,38 @@ function Card({ e }: Props) {
         putOrden(values, headers);
       };
       const deshacer = () => {
-        e.stateImpresiones= false;
+       
+        if(e.stateImpresiones === true && e.entregadoImpresiones ===true){
+          
+          e.entregadoImpresiones  =false
+          var values: any = {
+            ...values,
+            entregadoImpresiones : false,
+            id: e._id,
+          };
+          console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
+      
+          putOrden(values, headers);
+        } else {
+          e.stateImpresiones= false;
+          console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
+          var values: any = {
+            ...values,
+            stateImpresiones: false,
+            id: e._id,
+          };
+          console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
+      
+          putOrden(values, headers);
+        }
+      };
+
+      const entregado = () => {
+        e.entregadoImpresiones = true;
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
         var values: any = {
           ...values,
-          stateImpresiones: false,
+          entregadoImpresiones: true,
           id: e._id,
         };
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
@@ -62,14 +89,28 @@ function Card({ e }: Props) {
                                 </h1>
                                 <div>
                                   {
-                                    e.stateImpresiones === false
+                                    e.stateImpresiones   === false && e.entregadoImpresiones  ===false
                                     ? <h1 className="text-white bg-red-600 rounded-lg align-center text-center p-2 m-2">
                                     Pendiente
                                   </h1>
                                   :
-                                  <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 m-2">
-                                    Realizada
+                                 ""
+                                  }
+                                  {
+                                     e.stateImpresiones  === true && e.entregadoImpresiones  ===false
+                                     ? <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 m-2">
+                                     Realizada
+                                   </h1>
+                                   :
+                                  "" 
+                                  }
+                                  {
+                                    e.stateImpresiones  ===true && e.entregadoImpresiones ===true
+                                    ?
+                                    <h1 className="text-white bg-blue-600 rounded-lg align-center text-center p-2 m-2">
+                                    Entregada
                                   </h1>
+                                  : ""
                                   }
                                 </div>
                                 <div className="flex justify-end m-4">
@@ -130,25 +171,36 @@ function Card({ e }: Props) {
                                 <b>OBSERVACIONES:</b>
                                 <br />
                                 {e.observaciones}
-                                <div></div>
+                               
                               </div>
+                              <div><p>Entrega</p>{moment(e.fechaentrega).format('L')}</div>
                             </div>
                           </div>
                           <div className="flex justify-start ml-5 mb-2 mt-1">
-                            <button
+                            {
+                              e.entregadoImpresiones == false
+                              ?
+                              <button
                               className="text-blue-500 w-40 items-center p-5 h-15 shadow border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-2 py-4 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                               type="button"
                               onClick={
-                                e.stateImpresiones===false
+                                e.stateImpresiones ===false
                                 ? aceptar
-                                : deshacer
+                                : entregado
 
                             }
                             >
-                              aceptar
+                              {
+                                e.stateImpresiones ===false
+                                ?<p>Aceptar Orden</p>
+                                :<p>Entregar Orden</p>
+                              }
                             </button>
+                            :
+                            ""
+                            }
                             {
-                                e.stateImpresiones===true
+                                e.stateImpresiones ===true && e.entregadoImpresiones  ===true
                                 ?  <h1
                                 className="flex justify-center items-center text-red-600 m-5"
                                 onClick={deshacer}
@@ -157,7 +209,13 @@ function Card({ e }: Props) {
                                 Cancelar
                               </h1>
                               :
-                              ""
+                              <h1
+                                className="flex justify-center items-center text-red-600 m-5"
+                                onClick={deshacer}
+                                style={{ cursor: "pointer" }}
+                              >
+                                Cancelar
+                              </h1>
                             }
                           </div>
                         </div>

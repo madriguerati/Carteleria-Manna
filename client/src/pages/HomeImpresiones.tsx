@@ -114,7 +114,7 @@ var color: any = "white";
                   >
                     {ordImpresiones.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateImpresiones === true ? (
+                        e.stateImpresiones === true && e.entregadoImpresiones === false ? (
                           <Card e={e} />
                         ) : (
                           ""
@@ -126,7 +126,15 @@ var color: any = "white";
                     className={openTab === 3 ? "block" : "hidden"}
                     id="link3"
                   >
-                    
+                     {ordImpresiones.map((orden: any) =>
+                      orden.map((e: any) =>
+                        e.stateImpresiones === true && e.entregadoImpresiones ===true ? (
+                          <Card e={e} />
+                        ) : (
+                          ""
+                        )
+                      )
+                    )}
                   </div>
                 </div>
               </div>
