@@ -43,12 +43,12 @@ const ordenesSchema = new Schema(
         entregadoCarteleria:
         {
             type: Boolean,
-            request: true
+            default: false
         },
         entregadoImpresiones:
         {
             type: Boolean,
-            request: true
+            default: false
         },
         stateCarteleria:
         {
