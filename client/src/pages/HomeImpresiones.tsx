@@ -126,15 +126,7 @@ var color: any = "white";
                     className={openTab === 3 ? "block" : "hidden"}
                     id="link3"
                   >
-                    {ordImpresiones.map((orden: any) =>
-                      orden.map((e: any) =>
-                        e.stateImpresiones === true && e.stateCarteleria === true? (
-                          <Card e={e} />
-                        ) : (
-                          ""
-                        )
-                      )
-                    )}
+                    
                   </div>
                 </div>
               </div>
