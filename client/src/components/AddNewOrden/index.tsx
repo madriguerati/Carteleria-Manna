@@ -41,7 +41,8 @@ interface Values {
   facturanum: string;
   plazodeentrega: string;
   observaciones: string;
-  stateCarteleria: boolean
+  stateCarteleria: boolean;
+  stateImpresiones: boolean;
 }
 interface Cartel {
   cant: number;
@@ -93,7 +94,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
     facturanum: "",
     plazodeentrega: "",
     observaciones: "",
-    stateCarteleria: false
+    stateCarteleria: false,
+    stateImpresiones: false
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal);
@@ -144,7 +146,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
       facturanum: "",
       plazodeentrega: "",
       observaciones: "",
-      stateCarteleria: false
+      stateCarteleria: false,
+      stateImpresiones: false
     });
     setTimeout(() => {
       closeModal();
@@ -249,7 +252,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
       facturanum: "",
       plazodeentrega: "",
       observaciones: "",
-      stateCarteleria: false
+      stateCarteleria: false,
+      stateImpresiones: false
     });
     getCarteles(accessToken);
     getClients(headers);

@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from "../components/Card";
+import Card from "../components/CardImpresiones";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -13,7 +13,6 @@ var color: any = "white";
 
   return (
     <div className="flex flex-wrap m-5">
-        <h1>Hol impresiones</h1>
           <div className="block relative">
               <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                 <svg
@@ -100,7 +99,7 @@ var color: any = "white";
                   >
                     {ordImpresiones.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateCarteleria === false ? (
+                        e.stateImpresiones === false ? (
                          <Card e={e} />
                         ) : (
                           ""
@@ -115,7 +114,7 @@ var color: any = "white";
                   >
                     {ordImpresiones.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateCarteleria === true ? (
+                        e.stateImpresiones === true ? (
                           <Card e={e} />
                         ) : (
                           ""
@@ -127,14 +126,15 @@ var color: any = "white";
                     className={openTab === 3 ? "block" : "hidden"}
                     id="link3"
                   >
-                    <p>
-                      Efficiently unleash cross-media information without
-                      cross-media value. Quickly maximize timely deliverables
-                      for real-time schemas.
-                      <br />
-                      <br /> Dramatically maintain clicks-and-mortar solutions
-                      without functional solutions.
-                    </p>
+                    {ordImpresiones.map((orden: any) =>
+                      orden.map((e: any) =>
+                        e.stateImpresiones === true && e.stateCarteleria === true? (
+                          <Card e={e} />
+                        ) : (
+                          ""
+                        )
+                      )
+                    )}
                   </div>
                 </div>
               </div>

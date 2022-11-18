@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from "../components/Card";
+import Card from "../components/CardCarteleria";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -126,14 +126,15 @@ var color: any = "white";
                     className={openTab === 3 ? "block" : "hidden"}
                     id="link3"
                   >
-                    <p>
-                      Efficiently unleash cross-media information without
-                      cross-media value. Quickly maximize timely deliverables
-                      for real-time schemas.
-                      <br />
-                      <br /> Dramatically maintain clicks-and-mortar solutions
-                      without functional solutions.
-                    </p>
+                    {ord.map((orden: any) =>
+                      orden.map((e: any) =>
+                        e.stateImpresiones === true && e.stateCarteleria === true? (
+                          <Card e={e} />
+                        ) : (
+                          ""
+                        )
+                      )
+                    )}
                   </div>
                 </div>
               </div>

@@ -34,7 +34,7 @@ const Home = () => {
   ordImpresiones = ordenes.map((e: any) =>
   e.carteles.map((item: any) => item.category.includes("IMPRESIONES") && e)
 );
-  console.log("hoooooooooooooolaaaa", ord);
+  console.log("hoooooooooooooolaaggdgdfgdgdfgdfgdgdgaa",  ordImpresiones);
 
   useEffect(() => {
     getOrdenes(headers);
@@ -43,30 +43,7 @@ const Home = () => {
     console.log("hola soy una orden", ordenes);
   }, []);
 
-  const aceptar = (e: any) => {
-    e.stateCarteleria = true;
-    console.log("holaaaaaaaaaaaaa soy un camboio aaa", ord);
-    var values: any = {
-      ...values,
-      stateCarteleria: true,
-      id: e._id,
-    };
-    console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
-
-    putOrden(values, headers);
-  };
-  const deshacer = (e: any) => {
-    e.stateCarteleria = false;
-    console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
-    var values: any = {
-      ...values,
-      stateCarteleria: false,
-      id: e._id,
-    };
-    console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
-
-    putOrden(values, headers);
-  };
+  
 
   return (
     <Layout>
