@@ -34,11 +34,26 @@ const Home = () => {
   ordImpresiones = ordenes.map((e: any) =>
   e.carteles.map((item: any) => item.category.includes("IMPRESIONES") && e)
 );
-  console.log("hoooooooooooooolaaggdgdfgdgdfgdfgdgdgaa",  ordImpresiones);
+var ordenados : any = {}
+var finalOrd:any =[]
+for (let i = 0; i<ordImpresiones.length; i++){
+  console.log("hola esto es un for", ordImpresiones)
+  if(ordImpresiones[i].length>1){
+    console.log("hay mas de un arreglo aca ")
+    var ordenamiento: any = ordImpresiones[i].map((e:any)=>e)
+    console.log("hay mas de un arreglo aca ", ordenamiento)
+    ordImpresiones[i]=[ordenamiento[1]]
+
+  }
+  console.log("jolaaaaaaa", ordImpresiones)
+
+}
+
 
   useEffect(() => {
     getOrdenes(headers);
     getCarteles(accessToken);
+  
 
     console.log("hola soy una orden", ordenes);
   }, []);
@@ -134,6 +149,7 @@ const Home = () => {
       {user.roles?.find((e: any) => e.name === "admin") && (
         <HomeImpresiones ordImpresiones={ordImpresiones} />
       )}
+
     </Layout>
   );
 };
