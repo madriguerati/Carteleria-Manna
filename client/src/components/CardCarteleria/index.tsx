@@ -15,7 +15,7 @@ type Props = {
 var num: any =0
 function Card({ e }: Props) {
 
-    const { putOrden, success, error, closeModal } = useOrdenes(
+    const { putOrden, getOrdenesAll, success, error, closeModal } = useOrdenes(
         (state) => state
       );
       const aceptar = () => {
@@ -65,7 +65,6 @@ function Card({ e }: Props) {
           id: e._id,
         };
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
-    
         putOrden(values, headers);
       };
 

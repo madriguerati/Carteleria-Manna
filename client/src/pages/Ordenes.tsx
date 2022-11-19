@@ -324,6 +324,13 @@ const Proveedores = () => {
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         N° FACTURA
                       </th>
+                      <th className="px-3 py-3 border-b-2 border-gray-200 text-center tracking-wider">
+                        Impresiones
+                      </th>
+                      <th className="px-3 py-3 border-b-2 text-center border-gray-200 tracking-wider">
+                        Talleres
+                      </th>
+                      
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         VER
                       </th>
@@ -374,6 +381,47 @@ const Proveedores = () => {
                           <td className="px-3 py-2">
                             <p className="text-gray-900 whitespace-no-wrap capitalize">
                               {orden.facturanum}
+                            </p>
+                          </td>
+                          
+                          <td className="">
+                            <p className="text-gray-900 whitespace-no-wrap capitalize">
+                              {
+                              orden.stateImpresiones ===true && orden.entregadoImpresiones === false
+                              ?<p className="text-white w-20 bg-green-600 rounded-lg p-1 text-center">Realizada</p>
+                              :""
+                              }
+                              {
+                              orden.stateImpresiones ===false
+                              ?<p className="text-white w-20 bg-red-600 rounded-lg align-center text-center p-1">Pendiente</p>
+                              :""
+                              }
+                              {
+                                orden.entregadoImpresiones === true 
+                                ? <p className="text-white  w-20 bg-blue-600 rounded-lg align-center text-center p-1">Entregada</p>
+                                :
+                                ""
+                              }
+                            </p>
+                          </td>
+                          <td className="px-3 py-2">
+                            <p className="text-gray-900 whitespace-no-wrap capitalize">
+                              {
+                              orden.stateCarteleria === true && orden.entregadoCarteleria===false
+                              ?<p className="text-white bg-green-600 rounded-lg align-center text-center p-1">Realizada</p>
+                              :""
+                              }
+                              {
+                              orden.stateCarteleria === false 
+                              ?<p className="text-white bg-red-600 rounded-lg align-center text-center p-1">Pendiente</p>
+                              :""
+                              }
+                              {
+                                orden.entregadoCarteleria === true
+                                ? <p className="text-white bg-blue-600 rounded-lg align-center text-center p-1">Entregada</p>
+                                :
+                                ""
+                              }
                             </p>
                           </td>
                           <td className="px-3 py-2">
