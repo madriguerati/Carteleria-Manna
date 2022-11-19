@@ -45,6 +45,13 @@ for (let i = 0; i<ordImpresiones.length; i++){
     ordImpresiones[i]=[ordenamiento[1]]
 
   }
+  if(ord[i].length>1){
+    console.log("hay mas de un arreglo aca ")
+    var ordenamientoCartel: any = ord[i].map((e:any)=>e)
+    console.log("hay mas de un arreglo aca ", ordenamiento)
+    ord[i]=[ordenamientoCartel[1]]
+
+  }
   console.log("jolaaaaaaa", ordImpresiones)
 
 }
