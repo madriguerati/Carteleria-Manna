@@ -10,7 +10,6 @@ import ModalEdit from "../components/ModalEdit";
 import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
-//import moment from 'moment';
 import {
   MdKeyboardArrowRight,
   MdKeyboardArrowLeft,
