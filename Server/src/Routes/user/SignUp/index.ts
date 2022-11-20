@@ -17,13 +17,14 @@ console.log("hola soy un role", roles)
     name,
     lastname,
     email,
-    password
+    password,
+    roles
   });
+
   if (roles) {
     const foundRoles = await Role.find({ name: { $in: roles } });
     newUser.roles = foundRoles.map((role) => role._id);
-console.log("hola soy un role", foundRoles)
-
+    console.log("holaaaaaa", Role)
   } else {
     const role:any = await Role.findOne({ name: "user" });
     newUser.roles = [role._id];

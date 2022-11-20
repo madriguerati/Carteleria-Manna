@@ -150,10 +150,10 @@ for (let i = 0; i<ordImpresiones.length; i++){
           </div>
         </div>
       )}
-      {user.roles?.find((e: any) => e.name === "obrero") && (
+      {user.roles?.find((e: any) => e.name === "carteleria") && (
         <HomeCarteleria ord={ord} />
-      )}
-      {user.roles?.find((e: any) => e.name === "admin") && (
+      )}q
+      {user.roles?.find((e: any) => e.name === "impresiones") && (
         <HomeImpresiones ordImpresiones={ordImpresiones} />
       )}
 

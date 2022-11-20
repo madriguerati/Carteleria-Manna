@@ -27,7 +27,7 @@ type UserStore = {
 	loading: boolean;
 	getUser: (user: string) => Promise<void>;
 	getUsers2: (headers:any) => Promise<void>;
-
+	putUser: (body:any, token:any) => Promise<void>
 	getUsers: (
 		token: string,
 		rol: string,
@@ -54,6 +54,20 @@ const useUser = create<UserStore>()(
 		loading: false,
 
 		//actions
+		putUser: async (body, token) => {
+        
+			let headers:any = {
+			"x-access-token" : token
+		  };
+		  set({ success: true})
+		  set({ loading: true}) 
+			const { data } = await axios.put('http://localhost:5000/api/users/dato', body, { headers: { "x-access-token": token} });
+			set({ success: false})
+			
+			set({ loading: false}) 
+	
+	
+		  },
 		getUser: async (token) => {
 			try {
 				const { data } = await axios.get(

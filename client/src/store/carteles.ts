@@ -76,7 +76,7 @@ const useCartel = create<CartelStore>()(
       getCarteles: async (token) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://symptomatic-hole-production.up.railway.app/api/carteles`,
+          const { data } = await axios.get(`http://localhost:5000/api/carteles`,
           { headers: { "x-access-token": token } })
           set((state) => ({ carteles: (state.carteles = data) }));
         } catch(error){

@@ -222,9 +222,9 @@ const CreateNewUser = ({ setShowModal }: Props) => {
 							className='appearance-none h-full rounded-r border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 						>
 							<option value='' defaultValue={''}></option>
-							<option value='admin'>Admin</option>
+							<option value='impresiones'>Impresiones</option>
 							<option value='gerente'>Gerente</option>
-							<option value='obrero'>Obrero</option>
+							<option value='carteleria'>Carteleria</option>
 							<option value='vendedor'>Vendedor</option>
 							<option value='user'>User</option>
 						</select>

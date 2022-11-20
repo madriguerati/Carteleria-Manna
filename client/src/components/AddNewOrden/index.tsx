@@ -64,7 +64,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
   const { carteles, getCarteles } = useCartel((state) => state);
   const { clientes, getClients } = useClients((state) => state);
-  const { getUsers2, users, logout } = useUser((state) => state);
+  const { getUsers2, users, logout, user, putUser } = useUser((state) => state);
   const [hola, setHola] = useState(false);
 
   const [cartel, setCartel] = useState<Cartel>({
@@ -149,6 +149,11 @@ const AddNewClient = ({ setShowModal }: Props) => {
       stateCarteleria: false,
       stateImpresiones: false
     });
+    var ordeness: any = {
+      id: user._id,
+      ordenes: [...ordeness.ordenes, values ]
+    }
+putUser(accessToken, ordeness)
     setTimeout(() => {
       closeModal();
     }, 2000);
@@ -258,7 +263,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
     getCarteles(accessToken);
     getClients(headers);
     getUsers2(headers);
-    console.log("holaaaaaaaaaaa somo s usuariosa", users.total);
+    console.log("holaaaaaaaaaaa somo s usuariosa", user);
     obreros = users?.filter((e: any) =>
       e.roles.find((r: any) => r.name === "obrero")
     );

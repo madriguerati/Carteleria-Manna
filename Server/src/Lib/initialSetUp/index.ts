@@ -6,8 +6,9 @@ try {
     if (count > 0) return;
     const values = await Promise.all([
         new Role ({name: 'user'}).save(),
-        new Role ({name: 'admin'}).save(),
-        new Role ({name: 'obrero'}).save(),
+        new Role ({name: 'vendedor'}).save(),
+        new Role ({name: 'impresiones'}).save(),
+        new Role ({name: 'carteleria'}).save(),
         new Role ({name: 'gerente'}).save()
     ])
 

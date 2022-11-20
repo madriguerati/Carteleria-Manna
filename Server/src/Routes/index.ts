@@ -23,7 +23,7 @@ router.use('/user', SignIn)
 router.use('/user', RefreshToken)
 router.use('/user', verifyToken, GetUserById)
 router.use('/user', verifyToken, isGerente, GetUser)
-router.use('/user', verifyToken, isGerente, PutUserDatos)
+router.use('/users',  PutUserDatos)
 router.use('/user', verifyToken, isGerente, PutRoleUser)
 router.use('/user', verifyToken, isGerente, DeleteUserById)
 router.use('/user', verifyToken, isGerente, GetUsersAll)
@@ -55,7 +55,7 @@ import GetClientesAll from './clientes/getClientesAllPages'
 
 
 router.use('/clientes', PostClientes)
-router.use('/clientes', verifyToken, isGerente, GetClientes)
+router.use('/clientes',  GetClientes)
 router.use('/clientes', PutClientes)
 router.use('/clientes', DeleteClientes)
 router.use('/clientes', GetClientesAll)

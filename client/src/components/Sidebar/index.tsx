@@ -57,14 +57,14 @@ const Sidebar = () => {
             </Link>
             <div className=" my-4 border-b border-gray-100 pb-4">
               <div className="m-4 text-center">
-                {user.roles?.find((e: any) => e.name === "admin") && (
+                {user.roles?.find((e: any) => e.name === "impresiones") && (
                   <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
                     IMPRESIONES
                   </h3>
                 )}
               </div>
               <div className="m-4 text-center">
-                {user.roles?.find((e: any) => e.name === "obrero") && (
+                {user.roles?.find((e: any) => e.name === "carteleria") && (
                   <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
                     CARTELERIA
                   </h3>

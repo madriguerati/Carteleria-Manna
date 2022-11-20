@@ -4,11 +4,11 @@ import User, { IUser } from '../../../Models/user';
 
 const router = Router();
 
-router.put('/datoss', async(req, res, next)=>{
-    const {name, lastname, dni, fechaNacimiento, direccion, id} =req.body;
+router.put('/dato', async(req, res, next)=>{
+    const {name, lastname, dni, fechaNacimiento, direccion, id, ordenes} =req.body;
     try{
         await User.findByIdAndUpdate(id, {
-            name, lastname, dni, fechaNacimiento, direccion
+            name, lastname, dni, fechaNacimiento, direccion, ordenes
           });
           // Send response in here
           res.send('Item Updated!');    
