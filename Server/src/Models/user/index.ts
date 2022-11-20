@@ -13,7 +13,7 @@ export interface IUser extends Document {
   direccion: string;
   //sector: string;//roll
   comparePassword: (password: string) => Promise<Boolean>
-  ordenes: string;
+  ordenes: object;
   
 };
 
@@ -65,7 +65,7 @@ const userSchema = new Schema({
   ],
     ordenes:[
       {
-        type: String,
+        type: Object,
         request: true
       }
     ]

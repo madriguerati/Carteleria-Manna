@@ -1,15 +1,24 @@
 import {Router} from 'express';
 import Ordenes from '../../../Models/ordenes'
+import User from '../../../Models/user'
+
 
 
 const router = Router();
 
 router.post('/create', async(req, res, next)=>{
-    const {fecha, cliente, entregadoCarteleria, entregadoImpresiones, fechaentrega,  montototal, contacto, stateImpresiones, carteles, stateCarteleria, operacion, lugardecolocacion, lugartraslado, seña, formadepago, facturanum, observaciones} =req.body;
-    console.log("hola soy una orden", carteles)
+    const {idUser, fecha, cliente, entregadoCarteleria, entregadoImpresiones, fechaentrega,  montototal, contacto, stateImpresiones, carteles, stateCarteleria, operacion, lugardecolocacion, lugartraslado, seña, formadepago, facturanum, observaciones} =req.body;
+    
     try{
-        const ordenes = new Ordenes({fecha, cliente, entregadoImpresiones,entregadoCarteleria, contacto, stateImpresiones, stateCarteleria, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones, montototal})
-        await ordenes.save()
+        const ordenesNew:any = new Ordenes({fecha, cliente, entregadoImpresiones,entregadoCarteleria, contacto, stateImpresiones, stateCarteleria, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones, montototal})
+        await ordenesNew.save()
+        const user:any = await User.findById(idUser)
+
+       if(user){
+        user.ordenes.push(ordenesNew._id);
+        await user.save(ordenesNew._id);
+        console.log("hola soy un user", ordenesNew._id)
+       }
         res.status(201).json('insumo adherido correctamente')
     } catch (error){
         next(error)

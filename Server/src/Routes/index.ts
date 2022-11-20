@@ -26,7 +26,7 @@ router.use('/user', verifyToken, isGerente, GetUser)
 router.use('/users',  PutUserDatos)
 router.use('/user', verifyToken, isGerente, PutRoleUser)
 router.use('/user', verifyToken, isGerente, DeleteUserById)
-router.use('/user', verifyToken, isGerente, GetUsersAll)
+router.use('/users', GetUsersAll)
 
 
 

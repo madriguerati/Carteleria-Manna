@@ -27,6 +27,7 @@ var obreros: any = [];
 var fechaActual: any =moment().format('MM/DD/YYYY')
 
 interface Values {
+  idUser: string;
   fecha: string;
   cliente: string;
   contacto: string; //nombre de contacto
@@ -80,6 +81,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
     otros: "",
   });
   const [values, setValues] = useState<Values>({
+    idUser: user._id,
     fecha: "",
     cliente: "",
     contacto: "", //nombre de contacto
@@ -131,7 +133,9 @@ const AddNewClient = ({ setShowModal }: Props) => {
     // }
     postOrden(values, headers);
     console.log("hola soy un valie", values);
+ 
     setValues({
+      idUser: user._id,
       fecha: "",
       cliente: "",
       contacto: "", //nombre de contacto
@@ -149,11 +153,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       stateCarteleria: false,
       stateImpresiones: false
     });
-    var ordeness: any = {
-      id: user._id,
-      ordenes: [...ordeness.ordenes, values ]
-    }
-putUser(accessToken, ordeness)
+     
     setTimeout(() => {
       closeModal();
     }, 2000);
@@ -243,6 +243,7 @@ putUser(accessToken, ordeness)
 
   useEffect(() => {
     setValues({
+      idUser: user._id,
       fecha: "",
       cliente: "",
       contacto: "", //nombre de contacto
@@ -264,6 +265,8 @@ putUser(accessToken, ordeness)
     getClients(headers);
     getUsers2(headers);
     console.log("holaaaaaaaaaaa somo s usuariosa", user);
+   
+    
     obreros = users?.filter((e: any) =>
       e.roles.find((r: any) => r.name === "obrero")
     );

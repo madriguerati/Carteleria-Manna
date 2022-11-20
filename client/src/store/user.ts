@@ -91,7 +91,7 @@ const useUser = create<UserStore>()(
 		},
 		getUsers2: async (headers) => {
 			const { data } = await axios.get(
-				`http://localhost:5000/api/user/all`, headers
+				`http://localhost:5000/api/users/all`, headers
 			);
 			if (!data) {
 				set({ loading: true });
