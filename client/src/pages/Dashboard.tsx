@@ -33,6 +33,7 @@ import {
 import moment from "moment";
 
 const Dashboard = () => {
+  var fechaActual: any =moment().format('MM/DD/YYYY')
   const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading } =
     useOrdenes((state) => state);
   const { getUsers2, users, logout, user } = useUser((state) => state);
@@ -43,16 +44,16 @@ const Dashboard = () => {
   useEffect(() => {
     getOrdenes(accessToken);
     getUsers2(headers);
-    ordenar();
+    searchByDate()
     console.log("holaaaaa", ordenesGlobales)
   }, []);
-
+  
   //Start operadores
-  var totalOrdenes: any = ordenes.map((e: any) => 1);
+  var totalOrdenes: any = ordenesGlobales.map((e: any) => 1);
   var sumTotalOrdenes: any = totalOrdenes.reduce((a: any, b: any) => a + b, 0);
   
   //pendientes
-  var ordenesPendientes: any = ordenes.map(
+  var ordenesPendientes: any = ordenesGlobales.map(
     (e: any) => e.stateImpresiones === false && e.stateCarteleria === false
   );
   var sumOrdenesPendientes: any = ordenesPendientes.reduce(
@@ -60,7 +61,7 @@ const Dashboard = () => {
     0
   );
   //realizadas
-  var ordenesRealizadas: any = ordenes.map(
+  var ordenesRealizadas: any = ordenesGlobales.map(
     (e: any) => e.stateImpresiones === true && e.stateCarteleria === true
   );
   var sumOrdenesRealizadas: any = ordenesRealizadas.reduce(
@@ -68,7 +69,7 @@ const Dashboard = () => {
     0
   );
   //entregados
-  var ordenesEntregados: any = ordenes.map(
+  var ordenesEntregados: any = ordenesGlobales.map(
     (e: any) =>
       e.entregadoImpresiones === true && e.entregadoCarteleria === true
   );
@@ -81,19 +82,10 @@ const Dashboard = () => {
   var vendedores: any = users.filter((e: any) =>
     e.roles.find((e: any) => e.name === "vendedor")
   );
-  var vendedoressort: any = [];
-  const comparar = (a: any, b: any) => {
-    return b - a;
-  };
-  function ordenar() {
-    vendedoressort = vendedores
-      .map((e: any) => e.ordenes.length)
-      .sort(comparar)
-      .map((e: any) => e.ordenes.length);
-  }
+
   const [values, setValues]= useState({
-    date1: "",
-    date2: ""
+    date1: fechaActual,
+    date2: fechaActual+1
   }
   )
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -107,10 +99,9 @@ const Dashboard = () => {
 
   const searchByDate=()=>{
     let busca: any = ordenes.filter(
-      (n: any) => moment(n.fecha).format('L') >= values.date1 && moment(n.fecha).format('L') === values.date2
-    );
+      (n: any) => moment(n.fecha).format('L') >= moment(values.date1).format('L') && moment(n.fecha).format('L') <= moment(values.date2).format('L')    );
     setOrdenesGlobales(busca)
-    console.log("holaaaaa", ordenesGlobales)
+    console.log("holsdsdsdsdsdaaaaa", values.date2)
   }
   return (
     <Layout>
