@@ -91,7 +91,6 @@ const Proveedores = () => {
 				'success'
 			  )
         deleteOrdenes(orden._id, headers);
-        getOrdenes(headers);
 			}
 		  })
     

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
+    "@material-tailwind/react": "^1.2.4",
     "axios": "^0.27.2",
     "gridjs": "^5.1.0",
     "gridjs-react": "^5.1.0",

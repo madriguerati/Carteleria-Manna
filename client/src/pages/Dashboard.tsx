@@ -4,6 +4,9 @@ import useLocalStorage from "../hooks/useLocalStorage";
 const [accessToken] = useLocalStorage();
 import { useEffect, useState, Fragment } from "react";
 import useUser from "../store/user";
+import useCartel from "../store/carteles";
+import { Progress } from "@material-tailwind/react";
+
 import useHeaders from "../hooks/useHeaders";
 import { AiOutlineUser } from "react-icons/ai";
 import { Grid } from "gridjs-react";
@@ -33,25 +36,55 @@ import {
 import moment from "moment";
 
 const Dashboard = () => {
-  var fechaActual: any =moment().format('MM/DD/YYYY')
+  var fechaActual: any = moment().format("MM/DD/YYYY");
   const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading } =
     useOrdenes((state) => state);
+  const { carteles, cartel, getCarteles } = useCartel((state) => state);
   const { getUsers2, users, logout, user } = useUser((state) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
-  const [ordenesGlobales, setOrdenesGlobales] = useState(ordenes)
-
+  const [ordenesGlobales, setOrdenesGlobales] = useState(ordenes);
+ 
   useEffect(() => {
     getOrdenes(accessToken);
     getUsers2(headers);
-    searchByDate()
-    console.log("holaaaaa", ordenesGlobales)
+    getCarteles(accessToken);
+    searchByDate();
+    console.log("holaaaaa", arrayprueba, hola);
   }, []);
-  
+  var arrayprueba: any = carteles.map((e: any) => ({
+    cartel: e.descripcion,
+    item: [],
+  }));
+  var cont: any = 0;
+
+  for (let i = 0; i < carteles.length; i++) {
+    for (let k = 0; k < ordenesGlobales.length; k++) {
+      //console.log(" en mi orden", ordenesGlobales[k].carteles.length, "factura", ordenesGlobales[k].facturanum)
+      var arregloOrdenes: any = [];
+      arregloOrdenes = ordenesGlobales[k].carteles.map((e: any) => e.name);
+      
+      if (arregloOrdenes.includes(carteles[i].descripcion)) {
+        var filtrado: any = ordenesGlobales[k].carteles.filter(
+          (e: any) => e.name === carteles[i].descripcion
+        );
+        
+        var nuevoarrr: any = arrayprueba.find(
+          (item: any) => item.cartel === carteles[i].descripcion
+        );
+        if (nuevoarrr) {
+          arrayprueba[i].item.unshift(filtrado.length);
+        }
+      } else {
+        //console.log("hola");
+        //console.log(" en mi orden", ordenesGlobales[k].carteles.length, "factura", ordenesGlobales[k].facturanum)
+      }
+    }
+  }
   //Start operadores
   var totalOrdenes: any = ordenesGlobales.map((e: any) => 1);
   var sumTotalOrdenes: any = totalOrdenes.reduce((a: any, b: any) => a + b, 0);
-  
+
   //pendientes
   var ordenesPendientes: any = ordenesGlobales.map(
     (e: any) => e.stateImpresiones === false && e.stateCarteleria === false
@@ -80,16 +113,10 @@ const Dashboard = () => {
   //End operadores
 
   //totales
- var totalesSeña: any = ordenesGlobales.map((e:any)=>e.seña)
- var sumSeñas: any = totalesSeña.reduce(
-  (a: any, b: any) => a + b,
-  0
-);
-var totales: any = ordenesGlobales.map((e:any)=>e.montototal)
- var sumTotales: any = totales.reduce(
-  (a: any, b: any) => a + b,
-  0
-);
+  var totalesSeña: any = ordenesGlobales.map((e: any) => e.seña);
+  var sumSeñas: any = totalesSeña.reduce((a: any, b: any) => a + b, 0);
+  var totales: any = ordenesGlobales.map((e: any) => e.montototal);
+  var sumTotales: any = totales.reduce((a: any, b: any) => a + b, 0);
   //totales
 
   //vendedores
@@ -97,36 +124,49 @@ var totales: any = ordenesGlobales.map((e:any)=>e.montototal)
     e.roles.find((e: any) => e.name === "vendedor")
   );
 
-  const [values, setValues]= useState({
+  const [values, setValues] = useState({
     date1: fechaActual,
-    date2: fechaActual+1
-  }
-  )
+    date2: fechaActual + 1,
+  });
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
     setValues({
       ...values,
-      [name]: value
+      [name]: value,
     });
-    console.log("una fecha ", values)
+    console.log("una fecha ", values);
   };
-
-  const searchByDate=()=>{
+  const searchByDate = () => {
     let busca: any = ordenes.filter(
-      (n: any) => moment(n.fecha).format('L') >= moment(values.date1).format('L') && moment(n.fecha).format('L') <= moment(values.date2).format('L')    );
-    setOrdenesGlobales(busca)
-    console.log("holsdsdsdsdsdaaaaa", values.date2)
-  }
+      (n: any) =>
+        moment(n.fecha).format("L") >= moment(values.date1).format("L") &&
+        moment(n.fecha).format("L") <= moment(values.date2).format("L")
+    );
+    setOrdenesGlobales(busca);
+
+  };
+  //carteles rating
+  var num: any = arrayprueba.map((e: any) =>
+    e.item.reduce((a: any, b: any) => a + b, 0)
+  );
+  //fin carteles
+  var hola: any =num.sort(function(a:any, b:any){return b- a})
   return (
     <Layout>
       <div>
         <div className="rounded p-2">
-          <h1 className="text-4xl text-start text-gray-400">Hola, {user.name}</h1>
+          <h1 className="text-4xl text-start text-gray-400">
+            Hola, {user.name}
+          </h1>
         </div>
         <div className=" mr-2 mb-2 ml-2 rounded  flex justify-end">
-          <h1 className="text-xl text-gray-400 text-center pt-3">Filtrar resultadosq por fecha</h1>
+          <h1 className="text-xl text-gray-400 text-center pt-3">
+            Filtrar resultadosq por fecha
+          </h1>
           <div className="w-1/4 flex justify-end align-center pt-2 ml-2">
-            <h1 className="text-1xl text-gray-600 text-center mr-1 pt-2 ">desde</h1>
+            <h1 className="text-1xl text-gray-600 text-center mr-1 pt-2 ">
+              desde
+            </h1>
 
             <input
               type="date"
@@ -137,7 +177,9 @@ var totales: any = ordenesGlobales.map((e:any)=>e.montototal)
               value={values.date1}
               onChange={handleChange}
             />
-            <h1 className="text-1xl text-gray-600 pt-2 mr-1 ml-1 content-center flex">hasta</h1>
+            <h1 className="text-1xl text-gray-600 pt-2 mr-1 ml-1 content-center flex">
+              hasta
+            </h1>
 
             <input
               type="date"
@@ -148,7 +190,10 @@ var totales: any = ordenesGlobales.map((e:any)=>e.montototal)
               value={values.date2}
               onChange={handleChange}
             />
-            <button className="ml-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={searchByDate}>
+            <button
+              className="ml-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              onClick={searchByDate}
+            >
               filtrar
             </button>
           </div>
@@ -185,7 +230,7 @@ var totales: any = ordenesGlobales.map((e:any)=>e.montototal)
               </div>
             </div>
             <div>
-              <div className="font-bold text-5xl">{sumTotales+sumSeñas}</div>
+              <div className="font-bold text-5xl">{sumTotales + sumSeñas}</div>
               <div className="font-bold text-sm">Totales</div>
             </div>
           </div>
@@ -287,45 +332,53 @@ var totales: any = ordenesGlobales.map((e:any)=>e.montototal)
               </div>
             </div>
             <div>
-              <div className="font-bold text-5xl text-center">{sumTotalOrdenes}</div>
+              <div className="font-bold text-5xl text-center">
+                {sumTotalOrdenes}
+              </div>
               <div className="font-bold text-sm">ventas</div>
             </div>
           </div>
         </div>
 
-        <div className="flex">
-          <div className="w-1/2  bg-white rounded overflow-hidden shadow-lg m-2">
-            <div className="p-5 mr-15">
-            <Chart height={300} width={600}>
-              <Bars
-                colors="category10"
-                groupPadding="3%"
-                innerPadding="0.5%"
-                minY={0}
-                series={[
-                  {
-                    data: [1, 2, 3],
-                  },
-                  {
-                    data: [
-                      5,
-                      {
-                        color: "violet",
-                        y: 7,
-                      },
-                      11,
-                    ],
-                  },
-                  {
-                    data: [13, 17, 19],
-                  },
-                ]}
-              />
-            </Chart>
+        <div className="flex ">
+          <div className="bg-white rounded overflow-hidden shadow-lg m-2"></div>
+
+          <div className="w-1/3  bg-white rounded shadow-lg mt-2">
+            <div className=" m-1/2 overflow-x-auto relative shadow-md ">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="py-3 px-6">
+                      Vendedor
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                     Ventas
+                    </th>
+                    <th scope="col" className="py-3 px-6">
+                      Estado
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vendedores.map((e: any) => (
+                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th
+                        scope="row"
+                        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        {e.name} {e.lastname}
+                      </th>
+                      <td className="py-4 px-6">{e.ordenes.length}</td>
+                      <td className="py-4 px-6">Laptop</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-          <div className="flex">
-            <div className="w-80 bg-white rounded overflow-hidden shadow-lg m-2">
+
+          <div>
+            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-2 mt-2">
               <div className="  flex justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
@@ -366,130 +419,44 @@ var totales: any = ordenesGlobales.map((e:any)=>e.montototal)
               </div>
               <h1 className="text-center text-xl m-5">ordenes totales</h1>
             </div>
-            <div className="w-80 bg-white rounded  shadow-lg m-2">
-              <div>
-                <h1 className="text-center border-b-2 bg-white p-2">
-                  Vendedores
-                </h1>
-              </div>
-              <div className="">
-                {vendedores.map((e: any) => (
-                  <div className="m-2 p-2 flex rounded  shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">{e.name}</h1>
-                      <h1 className="text-2xl text-start ">{e.lastname}</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      {e.ordenes.length}
-                    </h1>
-                  </div>
+          </div>
+
+          <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="py-3 px-6">
+                    Producto
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    sidebar
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    porcentaje
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {arrayprueba.map((e: any) => (
+                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {e.cartel}
+                    </th>
+                    <td className="py-4 px-6">
+                    <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+    <div className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full `}> {e.item.reduce((a: any, b: any) => a + b, 0)}</div>
+  </div>
+                    </td>
+                    <td className="py-4 px-6">{e.item.reduce((a: any, b: any) => a + b, 0)}</td>
+                  </tr>
                 ))}
-                <div className="m-2 p-2 flex rounded overflow-hidden shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">hola</h1>
-                      <h1 className="text-2xl text-start ">holaaaaa</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      comoooo
-                    </h1>
-                  </div>
-
-                  <div className="m-2 p-2 flex rounded overflow-hidden shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">hola</h1>
-                      <h1 className="text-2xl text-start ">holaaaaa</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      comoooo
-                    </h1>
-                  </div>
-
-                  <div className="m-2 p-2 flex rounded overflow-hidden shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">hola</h1>
-                      <h1 className="text-2xl text-start ">holaaaaa</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      comoooo
-                    </h1>
-                  </div>
-
-                  <div className="m-2 p-2 flex rounded overflow-hidden shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">hola</h1>
-                      <h1 className="text-2xl text-start ">holaaaaa</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      comoooo
-                    </h1>
-                  </div>
-
-                  <div className="m-2 p-2 flex rounded overflow-hidden shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">hola</h1>
-                      <h1 className="text-2xl text-start ">holaaaaa</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      comoooo
-                    </h1>
-                  </div>
-
-                  <div className="m-2 p-2 flex rounded overflow-hidden shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">hola</h1>
-                      <h1 className="text-2xl text-start ">holaaaaa</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      comoooo
-                    </h1>
-                  </div>
-
-                  <div className="m-2 p-2 flex rounded overflow-hidden shadow-lg">
-                    <div className="w-1/3 text-3xl text-gray-200 text-center ">
-                      <AiOutlineUser />
-                    </div>
-                    <div className="w-1/2 flex">
-                      <h1 className="text-2xl text-start mr-2 ">hola</h1>
-                      <h1 className="text-2xl text-start ">holaaaaa</h1>
-                    </div>
-                    <h1 className=" w-1/5 text-2xl text-center ">
-                      comoooo
-                    </h1>
-                  </div>
-
-
-              </div>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div className="flex">
-          <div className="w-1/2 p-5  bg-white rounded overflow-hidden shadow-lg m-2">
-           
-          </div>
-        </div>
-
-
       </div>
     </Layout>
   );
