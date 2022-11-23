@@ -125,6 +125,8 @@ const Dashboard = () => {
   var vendedores: any = users.filter((e: any) =>
     e.roles.find((e: any) => e.name === "vendedor")
   );
+  var ordenesByDateforVendedoresRanking: any = ordenesGlobales.map((e:any)=>e.id)
+  //var totalOrdenesVendedores : any = vendedores.ordenes.map((e:any)=>ordenesByDateforVendedoresRanking.includes(e.id))
 
   const [values, setValues] = useState({
     date1: fechaActual,
