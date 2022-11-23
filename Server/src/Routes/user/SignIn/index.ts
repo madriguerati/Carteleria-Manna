@@ -15,14 +15,17 @@ router.post('/signIn', async(req, res, next) =>{
       const user:any = await User.findOne({ email: req.body.email }).populate(
         "roles"
       );
+      
       if (!user) {
         return res.status(400).json({ msg: "The User does not exists" });
       }
     
       const isMatch = await user.comparePassword(req.body.password);
       if (isMatch) {
+        
         const { accessToken, refreshToken } = createToken(user);
         return res.status(200).json({ accessToken, refreshToken });
+
       }
     
       return res.status(400).json({

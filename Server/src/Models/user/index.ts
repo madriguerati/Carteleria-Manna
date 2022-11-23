@@ -14,6 +14,7 @@ export interface IUser extends Document {
   //sector: string;//roll
   comparePassword: (password: string) => Promise<Boolean>
   ordenes: object;
+  state: boolean;
   
 };
 
@@ -52,6 +53,10 @@ const userSchema = new Schema({
   telefono: {
     type: Number,
     request: true
+  },
+  state: {
+    type: Boolean,
+    default: false
   },
   direccion: {
     type: String,

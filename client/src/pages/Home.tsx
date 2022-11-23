@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import shallow from "zustand/shallow";
 
 const Home = () => {
-  const { users, user, getUsers } = useUser((state) => state, shallow);
+  const { users, user, getUsers, putUser } = useUser((state) => state, shallow);
   const { getOrdenes, ordenes, putOrden } = useOrdenes((state) => state);
   const { getCarteles, carteles } = useCarteles((state) => state);
 
@@ -56,11 +56,14 @@ for (let i = 0; i<ordImpresiones.length; i++){
 
 }
 
-
+const [values, setValues] =useState({
+  id: user._id, 
+  state: true
+})
   useEffect(() => {
     getOrdenes(headers);
     getCarteles(accessToken);
-  
+  putUser(accessToken, values)
 
     console.log("hola soy una orden", ordenes);
   }, []);

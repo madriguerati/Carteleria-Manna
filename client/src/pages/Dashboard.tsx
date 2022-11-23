@@ -50,7 +50,7 @@ const Dashboard = () => {
     getUsers2(headers);
     getCarteles(accessToken);
     searchByDate();
-    console.log("holaaaaa", arrayprueba, hola);
+    console.log("holaaaaa", vendedores);
   }, []);
   var arrayprueba: any = carteles.map((e: any) => ({
     cartel: e.descripcion,
@@ -369,7 +369,11 @@ const Dashboard = () => {
                         {e.name} {e.lastname}
                       </th>
                       <td className="py-4 px-6">{e.ordenes.length}</td>
-                      <td className="py-4 px-6">Laptop</td>
+                      <td className="py-4 px-6">{
+                      e.state === false
+                      ? <h1 className="bg-gray-200">Fuera de sesión</h1>
+                      : <h1 className="bg-green-200">Activo</h1>
+                      }</td>
                     </tr>
                   ))}
                 </tbody>
@@ -447,7 +451,7 @@ const Dashboard = () => {
                     </th>
                     <td className="py-4 px-6">
                     <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-    <div className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full `}> {e.item.reduce((a: any, b: any) => a + b, 0)}</div>
+    <div className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full  `} style={{"width":40}}> {e.item.reduce((a: any, b: any) => a + b, 0)}</div>
   </div>
                     </td>
                     <td className="py-4 px-6">{e.item.reduce((a: any, b: any) => a + b, 0)}</td>
