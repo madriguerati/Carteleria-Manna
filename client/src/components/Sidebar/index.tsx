@@ -16,18 +16,33 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [show, setShow] = useState(false);
-  const { getUser, user, logout } = useUser((state) => state);
+  const { getUser, putUserState, user, logout } = useUser((state) => state);
   const [accessToken] = useLocalStorage();
-
+  const [body, setBody] =useState({
+    id: user.id, 
+    state:false
+  })
   useEffect(() => {
     getUser(accessToken);
-  }, []);
+    }, []);
 
   const AdminOptions = ["Clientes", "Insumos", "Proveedores", "Usuarios"];
-
+ 
   const handleLogout = () => {
-    logout();
-    location.reload();
+    setBody({
+      ...body,
+      id: user._id,
+      state: false
+    })
+    putUserState(body, accessToken)
+    user.state===false
+    if (user._id === body.id){
+     
+  
+      logout();
+     location.reload();
+    }
+ 
   };
 
   return (

@@ -36,7 +36,7 @@ import {
 import moment from "moment";
 
 const Dashboard = () => {
-  var fechaActual: any = moment().format("MM/DD/YYYY");
+  
   const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading } =
     useOrdenes((state) => state);
   const { carteles, cartel, getCarteles } = useCartel((state) => state);
@@ -44,14 +44,16 @@ const Dashboard = () => {
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [ordenesGlobales, setOrdenesGlobales] = useState(ordenes);
- 
+  var fechaActual: any = moment().format("MM/DD/YYYY");
   useEffect(() => {
     getOrdenes(accessToken);
     getUsers2(headers);
     getCarteles(accessToken);
     searchByDate();
     console.log("holaaaaa", vendedores);
+   
   }, []);
+ 
   var arrayprueba: any = carteles.map((e: any) => ({
     cartel: e.descripcion,
     item: [],
@@ -371,8 +373,8 @@ const Dashboard = () => {
                       <td className="py-4 px-6">{e.ordenes.length}</td>
                       <td className="py-4 px-6">{
                       e.state === false
-                      ? <h1 className="bg-gray-200">Fuera de sesión</h1>
-                      : <h1 className="bg-green-200">Activo</h1>
+                      ? <h1 className="bg-gray-200 rounded text-center">Fuera de sesión</h1>
+                      : <h1 className="bg-green-200 rounded text-center">Activo</h1>
                       }</td>
                     </tr>
                   ))}

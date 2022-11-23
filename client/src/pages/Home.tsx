@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import shallow from "zustand/shallow";
 
 const Home = () => {
-  const { users, user, getUsers, putUser } = useUser((state) => state, shallow);
+  const { users, user, getUsers, putUserState } = useUser((state) => state, shallow);
   const { getOrdenes, ordenes, putOrden } = useOrdenes((state) => state);
   const { getCarteles, carteles } = useCarteles((state) => state);
 
@@ -37,38 +37,40 @@ const Home = () => {
 var ordenados : any = {}
 var finalOrd:any =[]
 for (let i = 0; i<ordImpresiones.length; i++){
-  console.log("hola esto es un for", ordImpresiones)
   if(ordImpresiones[i].length>1){
-    console.log("hay mas de un arreglo aca ")
     var ordenamiento: any = ordImpresiones[i].map((e:any)=>e)
-    console.log("hay mas de un arreglo aca ", ordenamiento)
     ordImpresiones[i]=[ordenamiento[1]]
 
   }
   if(ord[i].length>1){
-    console.log("hay mas de un arreglo aca ")
     var ordenamientoCartel: any = ord[i].map((e:any)=>e)
-    console.log("hay mas de un arreglo aca ", ordenamiento)
     ord[i]=[ordenamientoCartel[1]]
 
   }
-  console.log("jolaaaaaaa", ordImpresiones)
-
 }
 
-const [values, setValues] =useState({
-  id: user._id, 
+var bodys = ({
+  id: user.id, 
   state: true
 })
+
   useEffect(() => {
     getOrdenes(headers);
     getCarteles(accessToken);
-  putUser(accessToken, values)
+    
+    if(user.state===false){
+     
+      user.state=true
+  bodys =({
+    id: user._id,
+    state: true
+  })
+  putUserState(bodys, accessToken)
+     }
 
-    console.log("hola soy una orden", ordenes);
   }, []);
 
-  
+
 
   return (
     <Layout>
@@ -121,7 +123,7 @@ const [values, setValues] =useState({
                   src="https://carteleriamanna.com.ar/sistema/img/escritorio/ordenes_96x96.png"
                   alt="Ordenes logo"
                 />
-                <figcaption className="text-[#77B327] text-xl font-semibold tracking-wide mt-6">
+                <figcaption className="text-[#77B327] text-xl font-semibold tracking-wide mt-6" >
                   ORDENES
                 </figcaption>
               </figure>
@@ -155,7 +157,7 @@ const [values, setValues] =useState({
       )}
       {user.roles?.find((e: any) => e.name === "carteleria") && (
         <HomeCarteleria ord={ord} />
-      )}q
+      )}
       {user.roles?.find((e: any) => e.name === "impresiones") && (
         <HomeImpresiones ordImpresiones={ordImpresiones} />
       )}
