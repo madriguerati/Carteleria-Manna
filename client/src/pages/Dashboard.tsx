@@ -201,8 +201,8 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex">
-          <div className="flex flex-wrap flex-row sm:flex-col m-1 justify-center items-center w-full sm:w-1/4 p-5 bg-white rounded-md shadow-xl border-l-4 border-blue-300">
+        <div className="flex m-2 content-center">
+          <div className="flex flex-wrap flex-row sm:flex-col m-1 mr-3 justify-center items-center w-full sm:w-1/3 p-5 bg-white rounded-md shadow-xl border-l-4 border-blue-300">
             <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
@@ -236,7 +236,7 @@ const Dashboard = () => {
               <div className="font-bold text-sm">Totales</div>
             </div>
           </div>
-          <div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full sm:w-1/4 p-5 bg-white rounded-md shadow-xl border-l-4 border-purple-300">
+          <div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full sm:w-1/5 mr-4 p-5 bg-white rounded-md shadow-xl border-l-4 border-purple-300">
             <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
@@ -270,7 +270,7 @@ const Dashboard = () => {
               <div className="font-bold text-sm">por cobrar</div>
             </div>
           </div>
-          <div className="flex flex-wrap flex-row  m-1 sm:flex-col justify-center items-center w-full sm:w-1/4 p-5 bg-white rounded-md shadow-xl border-l-4 border-red-300">
+          <div className="flex flex-wrap flex-row  m-1 sm:flex-col justify-center items-center w-full sm:w-1/5 mr-4 p-5 bg-white rounded-md shadow-xl border-l-4 border-red-300">
             <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
@@ -304,7 +304,7 @@ const Dashboard = () => {
               <div className="font-bold text-sm">Señas cobradas</div>
             </div>
           </div>
-          <div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full sm:w-1/4 p-5 bg-white rounded-md shadow-xl border-l-4 border-green-300">
+          <div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full sm:w-1/5  mr-6    p-5 bg-white rounded-md shadow-xl border-l-4 border-green-300">
             <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
@@ -342,10 +342,10 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex ">
-          <div className="bg-white rounded overflow-hidden shadow-lg m-2"></div>
+        <div className="flex m-2 ">
+          <div className="bg-white rounded overflow-hidden shadow-lg m-1"></div>
 
-          <div className="w-1/3  bg-white rounded shadow-lg mt-2">
+          <div className="w-1/4  bg-white rounded shadow-lg mt-2">
             <div className=" m-1/2 overflow-x-auto relative shadow-md ">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -383,8 +383,9 @@ const Dashboard = () => {
             </div>
           </div>
 
+          <div className="flex w-1/3">
           <div>
-            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-2 mt-2">
+            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-7 mt-2">
               <div className="  flex justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
@@ -427,42 +428,99 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="py-3 px-6">
-                    Producto
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    sidebar
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    porcentaje
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {arrayprueba.map((e: any) => (
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th
-                      scope="row"
-                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {e.cartel}
-                    </th>
-                    <td className="py-4 px-6">
-                    <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-    <div className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full  `} style={{"width":40}}> {e.item.reduce((a: any, b: any) => a + b, 0)}</div>
-  </div>
-                    </td>
-                    <td className="py-4 px-6">{e.item.reduce((a: any, b: any) => a + b, 0)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div>
+            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-7 mt-2">
+              <div className="  flex justify-center content-center ">
+                <div className="relative p-5">
+                  <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
+                    {sumTotalOrdenes}
+                  </b>
+                  <Chart
+                    height={250}
+                    series={[
+                      {
+                        data: [
+                          sumOrdenesPendientes,
+                          sumOrdenesRealizadas,
+                          sumOrdenesEntregados,
+                        ],
+                      },
+                    ]}
+                    width={250}
+                  >
+                    <Transform method={["transpose", "stackNormalized"]}>
+                      <Pies
+                        colors={["red", "green", "blue"]}
+                        combined
+                        cornerRadius={5}
+                        innerPadding={10}
+                        innerRadius="40%"
+                        padAngle={0.025}
+                        pieAttributes={{
+                          onMouseLeave: function noRefCheck() {},
+                          onMouseMove: function noRefCheck() {},
+                        }}
+                        pieStyle={{
+                          opacity: 2,
+                        }}
+                      />
+                    </Transform>
+                  </Chart>
+                </div>
+              </div>
+              <h1 className="text-center text-xl m-5">ordenes totales</h1>
+            </div>
           </div>
+          <div>
+            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-7 mt-2">
+              <div className="  flex justify-center content-center ">
+                <div className="relative p-5">
+                  <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
+                    {sumTotalOrdenes}
+                  </b>
+                  <Chart
+                    height={250}
+                    series={[
+                      {
+                        data: [
+                          sumOrdenesPendientes,
+                          sumOrdenesRealizadas,
+                          sumOrdenesEntregados,
+                        ],
+                      },
+                    ]}
+                    width={250}
+                  >
+                    <Transform method={["transpose", "stackNormalized"]}>
+                      <Pies
+                        colors={["red", "green", "blue"]}
+                        combined
+                        cornerRadius={5}
+                        innerPadding={10}
+                        innerRadius="40%"
+                        padAngle={0.025}
+                        pieAttributes={{
+                          onMouseLeave: function noRefCheck() {},
+                          onMouseMove: function noRefCheck() {},
+                        }}
+                        pieStyle={{
+                          opacity: 2,
+                        }}
+                      />
+                    </Transform>
+                  </Chart>
+                </div>
+              </div>
+              <h1 className="text-center text-xl m-5">ordenes totales</h1>
+            </div>
+            </div>
+           
+          
+      
+         
         </div>
+        </div>
+ 
       </div>
     </Layout>
   );
