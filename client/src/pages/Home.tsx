@@ -49,24 +49,13 @@ for (let i = 0; i<ordImpresiones.length; i++){
   }
 }
 
-var bodys = ({
-  id: user.id, 
-  state: true
-})
+
 
   useEffect(() => {
     getOrdenes(headers);
     getCarteles(accessToken);
     
-    if(user.state===false){
-     
-      user.state=true
-  bodys =({
-    id: user._id,
-    state: true
-  })
-  putUserState(bodys, accessToken)
-     }
+   
 
   }, []);
 
