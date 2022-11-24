@@ -99,7 +99,7 @@ var color: any = "white";
                   >
                     {ordImpresiones.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateImpresiones === false ? (
+                        e.stateImpresiones === "pendiente" ? (
                          <Card e={e} />
                         ) : (
                           ""
@@ -114,7 +114,7 @@ var color: any = "white";
                   >
                     {ordImpresiones.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateImpresiones === true && e.entregadoImpresiones === false ? (
+                        e.stateImpresiones === "realizada" ? (
                           <Card e={e} />
                         ) : (
                           ""
@@ -128,7 +128,7 @@ var color: any = "white";
                   >
                      {ordImpresiones.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateImpresiones === true && e.entregadoImpresiones ===true ? (
+                        e.stateImpresiones === "entregada" ? (
                           <Card e={e} />
                         ) : (
                           ""

@@ -45,13 +45,16 @@ const Dashboard = () => {
   const headers = useHeaders(accessToken);
   const [ordenesGlobales, setOrdenesGlobales] = useState(ordenes);
   var fechaActual: any = moment().format("MM/DD/YYYY");
+  const [fecha, setFecha]=useState(fechaActual)
+  const [values, setValues] = useState({
+    date1: fecha,
+    date2: fecha+1,
+  });
   useEffect(() => {
     getOrdenes(accessToken);
     getUsers2(headers);
     getCarteles(accessToken);
-    searchByDate();
-    console.log("holaaaaa", vendedores);
-   
+    
   }, []);
  
   var arrayprueba: any = carteles.map((e: any) => ({
@@ -89,26 +92,72 @@ const Dashboard = () => {
 
   //pendientes
   var ordenesPendientes: any = ordenesGlobales.map(
-    (e: any) => e.stateImpresiones === false && e.stateCarteleria === false
+    (e: any) => e.stateImpresiones === "pendiente" && e.stateCarteleria === "pendiente"
+  );
+  var ordenesPendientesCarteleria: any = ordenesGlobales.map(
+    (e: any) => e.stateCarteleria === "pendiente"
+  );
+  var ordenesPendientesImpresiones: any = ordenesGlobales.map(
+    (e: any) => e.stateImpresiones === "pendiente"
   );
   var sumOrdenesPendientes: any = ordenesPendientes.reduce(
     (a: any, b: any) => a + b,
     0
   );
+  var sumOrdenesPendientesCarteleria: any = ordenesPendientesCarteleria.reduce(
+    (a: any, b: any) => a + b,
+    0
+  );
+  var sumOrdenesPendientesImpresiones: any = ordenesPendientesImpresiones.reduce(
+    (a: any, b: any) => a + b,
+    0
+  );
   //realizadas
   var ordenesRealizadas: any = ordenesGlobales.map(
-    (e: any) => e.stateImpresiones === true && e.stateCarteleria === true
+    (e: any) => e.stateImpresiones === "realizada" && e.stateCarteleria === "realizada"
+  );
+  var ordenesRealizadasCarteleria: any = ordenesGlobales.map(
+    (e: any) => e.stateCarteleria === "realizada"
+  );
+  var ordenesRealizadasImpresiones: any = ordenesGlobales.map(
+    (e: any) => e.stateImpresiones === "realizada"
   );
   var sumOrdenesRealizadas: any = ordenesRealizadas.reduce(
+    (a: any, b: any) => a + b,
+    0
+  );
+  var sumOrdenesRealizadasCarteleria: any = ordenesRealizadasCarteleria.reduce(
+    (a: any, b: any) => a + b,
+    0
+  );
+  var sumOrdenesRealizadasImpresiones: any = ordenesRealizadasImpresiones.reduce(
     (a: any, b: any) => a + b,
     0
   );
   //entregados
   var ordenesEntregados: any = ordenesGlobales.map(
     (e: any) =>
-      e.entregadoImpresiones === true && e.entregadoCarteleria === true
+      e.stateImpresiones === "entregada" && e.stateCarteleria === "entregada"
   );
+  var ordenesEntregadosCarteleria: any = ordenesGlobales.map(
+    (e: any) =>
+    e.stateCarteleria === "entregada"
+  );
+ 
+  var ordenesEntregadosImpresiones: any = ordenesGlobales.map(
+    (e: any) =>
+    e.stateImpresiones === "entregada"
+  );
+  
   var sumOrdenesEntregados: any = ordenesEntregados.reduce(
+    (a: any, b: any) => a + b,
+    0
+  );
+  var sumOrdenesEntregadosImpresiones: any = ordenesEntregadosImpresiones.reduce(
+    (a: any, b: any) => a + b,
+    0
+  );
+  var sumOrdenesEntregadosCarteleria: any = ordenesEntregadosCarteleria.reduce(
     (a: any, b: any) => a + b,
     0
   );
@@ -126,10 +175,7 @@ const Dashboard = () => {
     e.roles.find((e: any) => e.name === "vendedor")
   );
   
-  const [values, setValues] = useState({
-    date1: fechaActual,
-    date2: fechaActual + 1,
-  });
+ 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
     setValues({
@@ -139,13 +185,23 @@ const Dashboard = () => {
     console.log("una fecha ", values);
   };
   const searchByDate = () => {
+    setValues({
+      ...values,
+      date1: fechaActual,
+      date2: fechaActual+1
+    })
     let busca: any = ordenes.filter(
       (n: any) =>
         moment(n.fecha).format("L") >= moment(values.date1).format("L") &&
         moment(n.fecha).format("L") <= moment(values.date2).format("L")
     );
     setOrdenesGlobales(busca);
-
+console.log("hola", sumOrdenesPendientes,
+sumOrdenesRealizadas,
+sumOrdenesEntregados,
+sumOrdenesPendientesCarteleria,
+                          sumOrdenesRealizadasCarteleria,
+                          sumOrdenesEntregadosCarteleria,)
   };
   //carteles rating
   var num: any = arrayprueba.map((e: any) =>
@@ -396,9 +452,9 @@ const Dashboard = () => {
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientes,
-                          sumOrdenesRealizadas,
-                          sumOrdenesEntregados,
+                          sumOrdenesPendientesCarteleria+sumOrdenesPendientesImpresiones,
+                          sumOrdenesRealizadasCarteleria+ sumOrdenesRealizadasImpresiones,
+                          sumOrdenesEntregadosCarteleria+ sumOrdenesEntregadosImpresiones,
                         ],
                       },
                     ]}
@@ -440,9 +496,9 @@ const Dashboard = () => {
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientes,
-                          sumOrdenesRealizadas,
-                          sumOrdenesEntregados,
+                          sumOrdenesPendientesImpresiones,
+                          sumOrdenesRealizadasImpresiones,
+                          sumOrdenesEntregadosImpresiones,
                         ],
                       },
                     ]}
@@ -468,7 +524,7 @@ const Dashboard = () => {
                   </Chart>
                 </div>
               </div>
-              <h1 className="text-center text-xl m-5">ordenes totales</h1>
+              <h1 className="text-center text-xl m-5">Impresiones</h1>
             </div>
           </div>
           <div>
@@ -483,9 +539,9 @@ const Dashboard = () => {
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientes,
-                          sumOrdenesRealizadas,
-                          sumOrdenesEntregados,
+                          sumOrdenesPendientesCarteleria,
+                          sumOrdenesRealizadasCarteleria,
+                          sumOrdenesEntregadosCarteleria,
                         ],
                       },
                     ]}
@@ -511,7 +567,7 @@ const Dashboard = () => {
                   </Chart>
                 </div>
               </div>
-              <h1 className="text-center text-xl m-5">ordenes totales</h1>
+              <h1 className="text-center text-xl m-5">Carteleria</h1>
             </div>
             </div>
            
@@ -520,7 +576,98 @@ const Dashboard = () => {
          
         </div>
         </div>
- 
+        <div className="flex">
+        <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="py-3 px-6">
+                    Producto
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    sidebar
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    porcentaje
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {arrayprueba.map((e: any) => (
+                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {e.cartel}
+                    </th>
+                    <td className="py-4 px-6">
+                    <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+    <div className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full  `} style={{"width":40}}> {e.item.reduce((a: any, b: any) => a + b, 0)}</div>
+  </div>
+                    </td>
+                    <td className="py-4 px-6">{e.item.reduce((a: any, b: any) => a + b, 0)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                <th scope="col" className="py-3 px-6">
+                    Fecha
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    N° factura
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                   cliente
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    carteles
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    Entrega
+                  </th>
+                  
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {ordenesGlobales.map((e: any) => (
+                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th
+                      scope="row"
+                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {moment(e.fecha).format("L")}
+                    </th>
+                    <th
+                      scope="row"
+                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {e.facturanum}
+                    </th>
+                    <td className="py-4 px-6">
+                    
+          {e.cliente}
+                    </td>
+                    <td className="py-4 px-6">{e.carteles.length}</td>
+                    <td className="py-4 px-6">
+                    
+          {e.fechaentrega}
+                    </td>
+                    
+                    
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </Layout>
   );

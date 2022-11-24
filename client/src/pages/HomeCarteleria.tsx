@@ -99,7 +99,7 @@ var color: any = "white";
                   >
                     {ord.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateCarteleria === false ? (
+                        e.stateCarteleria === "pendiente" ? (
                          <Card e={e} />
                         ) : (
                           ""
@@ -114,7 +114,7 @@ var color: any = "white";
                   >
                     {ord.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateCarteleria === true && e.entregadoCarteleria===false? (
+                        e.stateCarteleria === "realizada"? (
                           <Card e={e} />
                         ) : (
                           ""
@@ -128,7 +128,7 @@ var color: any = "white";
                   >
                    {ord.map((orden: any) =>
                       orden.map((e: any) =>
-                        e.stateCarteleria === true && e.entregadoCarteleria ===true ? (
+                        e.stateCarteleria === "entregada"? (
                           <Card e={e} />
                         ) : (
                           ""

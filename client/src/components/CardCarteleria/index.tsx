@@ -19,10 +19,10 @@ function Card({ e }: Props) {
         (state) => state
       );
       const aceptar = () => {
-        e.stateCarteleria = true;
+        e.stateCarteleria = "realizada";
         var values: any = {
           ...values,
-          stateCarteleria: true,
+          stateCarteleria:"realizada",
           id:e._id
         };
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", values, e);
@@ -31,23 +31,23 @@ function Card({ e }: Props) {
       };
       const deshacer = () => {
        
-        if(e.stateCarteleria=== true && e.entregadoCarteleria===true){
+        if(e.stateCarteleria=== "entregada"){
           
-          e.entregadoCarteleria =false
+          e.stateCarteleria ="realizada"
           var values: any = {
             ...values,
-            entregadoCarteleria: false,
+            stateCarteleria: "realizada",
             id: e._id,
           };
           console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
       
           putOrden(values, headers);
-        } else {
-          e.stateCarteleria = false;
+        } else if(e.stateCarteleria==="realizada") {
+          e.stateCarteleria = "pendiente";
           console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
           var values: any = {
             ...values,
-            stateCarteleria: false,
+            stateCarteleria: "pendiente",
             id: e._id,
           };
           console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
@@ -57,11 +57,11 @@ function Card({ e }: Props) {
       };
 
       const entregado = () => {
-        e.entregadoCarteleria = true;
+        e.stateCarteleria = "entregada";
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
         var values: any = {
           ...values,
-          entregadoCarteleria: true,
+          stateCarteleria: "entregada",
           id: e._id,
         };
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
@@ -88,7 +88,7 @@ function Card({ e }: Props) {
                                 </h1>
                                 <div>
                                   {
-                                    e.stateCarteleria === false && e.entregadoCarteleria ===false
+                                    e.stateCarteleria === "pendiente"
                                     ? <h1 className="text-white bg-red-600 rounded-lg align-center text-center p-2 m-2">
                                     Pendiente
                                   </h1>
@@ -96,7 +96,7 @@ function Card({ e }: Props) {
                                  ""
                                   }
                                   {
-                                     e.stateCarteleria === true && e.entregadoCarteleria ===false
+                                     e.stateCarteleria ==="realizada"
                                      ? <h1 className="text-white bg-green-600 rounded-lg align-center text-center p-2 m-2">
                                      Realizada
                                    </h1>
@@ -104,7 +104,7 @@ function Card({ e }: Props) {
                                   "" 
                                   }
                                   {
-                                    e.stateCarteleria ===true && e.entregadoCarteleria===true
+                                    e.stateCarteleria ==="entregada"
                                     ?
                                     <h1 className="text-white bg-blue-600 rounded-lg align-center text-center p-2 m-2">
                                     Entregado
@@ -176,29 +176,44 @@ function Card({ e }: Props) {
                           </div>
                           <div className="flex justify-start ml-5 mb-2 mt-1">
                             {
-                              e.entregadoCarteleria== false
+                              e.stateCarteleria== "realizada"
                               ?
                               <button
                               className="text-blue-500 w-40 items-center p-5 h-15 shadow border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-2 py-4 rounded  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                               type="button"
                               onClick={
-                                e.stateCarteleria===false
+                                e.stateCarteleria==="pendiente"
                                 ? aceptar
                                 : entregado
 
                             }
                             >
                               {
-                                e.stateCarteleria===false
+                                e.stateCarteleria==="pendiente"
                                 ?<p>Aceptar Orden</p>
-                                :<p>Entregar Orden</p>
+                                :""
+                              }
+                              {
+                                e.stateCarteleria==="realizada"?
+                                <p>Entregar Orden</p>
+                                :
+                                ""
                               }
                             </button>
                             :
                             ""
+                            
                             }
                             {
-                                e.stateCarteleria===true && e.entregadoCarteleria ===true
+                              e.stateCarteleria== "entregada"
+                              ?
+                            ""
+                            :
+                            ""
+                            
+                            }
+                            {
+                                e.stateCarteleria==="realizada"
                                 ?  <h1
                                 className="flex justify-center items-center text-red-600 m-5"
                                 onClick={deshacer}
@@ -207,13 +222,19 @@ function Card({ e }: Props) {
                                 Cancelar
                               </h1>
                               :
-                              <h1
+                             ""
+                            }
+                            {
+                                e.stateCarteleria==="entregada"
+                                ?  <h1
                                 className="flex justify-center items-center text-red-600 m-5"
                                 onClick={deshacer}
                                 style={{ cursor: "pointer" }}
                               >
                                 Cancelar
                               </h1>
+                              :
+                             ""
                             }
                           </div>
                         </div>

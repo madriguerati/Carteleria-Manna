@@ -385,17 +385,17 @@ const Proveedores = () => {
                           <td className="">
                             <p className="text-gray-900 whitespace-no-wrap capitalize">
                               {
-                              orden.stateImpresiones ===true && orden.entregadoImpresiones === false
+                              orden.stateImpresiones ==="realizada"
                               ?<p className="text-white w-20 bg-green-600 rounded-lg p-1 text-center">Realizada</p>
                               :""
                               }
                               {
-                              orden.stateImpresiones ===false
+                              orden.stateImpresiones ==="pendiente"
                               ?<p className="text-white w-20 bg-red-600 rounded-lg align-center text-center p-1">Pendiente</p>
                               :""
                               }
                               {
-                                orden.entregadoImpresiones === true 
+                                orden.stateImpresiones === "entregada"
                                 ? <p className="text-white  w-20 bg-blue-600 rounded-lg align-center text-center p-1">Entregada</p>
                                 :
                                 ""
@@ -404,19 +404,19 @@ const Proveedores = () => {
                           </td>
                           <td className="px-3 py-2">
                             <p className="text-gray-900 whitespace-no-wrap capitalize">
-                              {
-                              orden.stateCarteleria === true && orden.entregadoCarteleria===false
-                              ?<p className="text-white bg-green-600 rounded-lg align-center text-center p-1">Realizada</p>
+                            {
+                              orden.stateCarteleria ==="realizada"
+                              ?<p className="text-white w-20 bg-green-600 rounded-lg p-1 text-center">Realizada</p>
                               :""
                               }
                               {
-                              orden.stateCarteleria === false 
-                              ?<p className="text-white bg-red-600 rounded-lg align-center text-center p-1">Pendiente</p>
+                              orden.stateCarteleria ==="pendiente"
+                              ?<p className="text-white w-20 bg-red-600 rounded-lg align-center text-center p-1">Pendiente</p>
                               :""
                               }
                               {
-                                orden.entregadoCarteleria === true
-                                ? <p className="text-white bg-blue-600 rounded-lg align-center text-center p-1">Entregada</p>
+                                orden.stateCarteleria === "entregada"
+                                ? <p className="text-white  w-20 bg-blue-600 rounded-lg align-center text-center p-1">Entregada</p>
                                 :
                                 ""
                               }

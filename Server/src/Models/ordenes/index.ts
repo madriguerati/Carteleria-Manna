@@ -15,8 +15,8 @@ export interface IOrdenes extends mongoose.Document{
    facturanum: string,
    plazodeentrega:string,
    observaciones:string,
-   stateCarteleria: boolean,
-   stateImpresiones: boolean
+   stateCarteleria: string,
+   stateImpresiones: string
    
 };
 
@@ -40,25 +40,16 @@ const ordenesSchema = new Schema(
             required:true
 
         },
-        entregadoCarteleria:
-        {
-            type: Boolean,
-            default: false
-        },
-        entregadoImpresiones:
-        {
-            type: Boolean,
-            default: false
-        },
+        
         stateCarteleria:
         {
-            type: Boolean,
-            request: true
+            type: String,
+            default: "pendiente"
         },
         stateImpresiones:
         {
-            type: Boolean,
-            request: true
+            type: String,
+            default: "pendiente"
         },
         carteles:
         {

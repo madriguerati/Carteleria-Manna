@@ -7,10 +7,10 @@ import User from '../../../Models/user'
 const router = Router();
 
 router.post('/create', async(req, res, next)=>{
-    const {idUser, fecha, cliente, entregadoCarteleria, entregadoImpresiones, fechaentrega,  montototal, contacto, stateImpresiones, carteles, stateCarteleria, operacion, lugardecolocacion, lugartraslado, seña, formadepago, facturanum, observaciones} =req.body;
+    const {idUser, fecha, cliente, fechaentrega,  montototal, contacto, stateImpresiones, carteles, stateCarteleria, operacion, lugardecolocacion, lugartraslado, seña, formadepago, facturanum, observaciones} =req.body;
     
     try{
-        const ordenesNew:any = new Ordenes({fecha, cliente, entregadoImpresiones,entregadoCarteleria, contacto, stateImpresiones, stateCarteleria, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones, montototal})
+        const ordenesNew:any = new Ordenes({fecha, cliente,  contacto, stateImpresiones, stateCarteleria, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones, montototal})
         await ordenesNew.save()
         const user:any = await User.findById(idUser)
 
