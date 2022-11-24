@@ -258,8 +258,8 @@ sumOrdenesPendientesCarteleria,
         </div>
 
         <div className="flex m-2 content-center">
-          <div className="flex flex-wrap flex-row sm:flex-col m-1 mr-3 justify-center items-center w-full sm:w-1/3 p-5 bg-white rounded-md shadow-xl border-l-4 border-blue-300">
-            <div className="flex justify-between w-full">
+          <div className="flex-wrap flex-1 flex-row sm:flex-col m-1 mr-3 justify-center items-center w-full sm:w-1/3 p-5 bg-white rounded-md shadow-xl border-l-4 border-blue-300">
+          <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
                   <svg
@@ -326,7 +326,9 @@ sumOrdenesPendientesCarteleria,
               <div className="font-bold text-sm">por cobrar</div>
             </div>
           </div>
+    
           <div className="flex flex-wrap flex-row  m-1 sm:flex-col justify-center items-center w-full sm:w-1/5 mr-4 p-5 bg-white rounded-md shadow-xl border-l-4 border-red-300">
+            
             <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
@@ -398,11 +400,14 @@ sumOrdenesPendientesCarteleria,
           </div>
         </div>
 
-        <div className="flex m-2 ">
-          <div className="bg-white rounded overflow-hidden shadow-lg m-1"></div>
+        
 
-          <div className="w-1/4  bg-white rounded shadow-lg mt-2">
-            <div className=" m-1/2 overflow-x-auto relative shadow-md ">
+          
+        <div className="flex grid sm:gap-1  sm:grid-cols-1
+          md:gap-4 md:grid-cols-4">
+        
+        <div className="bg-white rounded shadow-lg mt-2">
+            <div className=" m-1/4 overflow-x-auto relative shadow-md ">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -429,8 +434,8 @@ sumOrdenesPendientesCarteleria,
                       <td className="py-4 px-6">{e.ordenes.length}</td>
                       <td className="py-4 px-6">{
                       e.state === false
-                      ? <h1 className="bg-gray-200 rounded text-center">Fuera de sesión</h1>
-                      : <h1 className="bg-green-200 rounded text-center">Activo</h1>
+                      ? <h1 className="bg-gray-600 rounded text-center text-white">off</h1>
+                      : <h1 className="bg-blue-600 rounded text-center text-white">on</h1>
                       }</td>
                     </tr>
                   ))}
@@ -438,11 +443,10 @@ sumOrdenesPendientesCarteleria,
               </table>
             </div>
           </div>
-
-          <div className="flex w-1/3">
-          <div>
-            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-7 mt-2">
-              <div className="  flex justify-center content-center ">
+          
+          <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160">
+            <div className=" w-full ">
+              <div className="  flex w-full justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
                     {sumTotalOrdenes}
@@ -458,7 +462,7 @@ sumOrdenesPendientesCarteleria,
                         ],
                       },
                     ]}
-                    width={250}
+                    width={200}
                   >
                     <Transform method={["transpose", "stackNormalized"]}>
                       <Pies
@@ -484,9 +488,9 @@ sumOrdenesPendientesCarteleria,
             </div>
           </div>
 
-          <div>
-            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-7 mt-2">
-              <div className="  flex justify-center content-center ">
+          <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160">
+            <div className=" w-full ">
+              <div className="  flex w-full justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
                     {sumTotalOrdenes}
@@ -496,13 +500,13 @@ sumOrdenesPendientesCarteleria,
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientesImpresiones,
-                          sumOrdenesRealizadasImpresiones,
-                          sumOrdenesEntregadosImpresiones,
+                          sumOrdenesPendientesCarteleria+sumOrdenesPendientesImpresiones,
+                          sumOrdenesRealizadasCarteleria+ sumOrdenesRealizadasImpresiones,
+                          sumOrdenesEntregadosCarteleria+ sumOrdenesEntregadosImpresiones,
                         ],
                       },
                     ]}
-                    width={250}
+                    width={200}
                   >
                     <Transform method={["transpose", "stackNormalized"]}>
                       <Pies
@@ -524,12 +528,13 @@ sumOrdenesPendientesCarteleria,
                   </Chart>
                 </div>
               </div>
-              <h1 className="text-center text-xl m-5">Impresiones</h1>
+              <h1 className="text-center text-xl m-5">ordenes totales</h1>
             </div>
           </div>
-          <div>
-            <div className="w-80 bg-white rounded overflow-hidden shadow-lg  ml-7 mt-2">
-              <div className="  flex justify-center content-center ">
+
+          <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160">
+            <div className=" w-full ">
+              <div className="  flex w-full justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
                     {sumTotalOrdenes}
@@ -539,13 +544,13 @@ sumOrdenesPendientesCarteleria,
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientesCarteleria,
-                          sumOrdenesRealizadasCarteleria,
-                          sumOrdenesEntregadosCarteleria,
+                          sumOrdenesPendientesCarteleria+sumOrdenesPendientesImpresiones,
+                          sumOrdenesRealizadasCarteleria+ sumOrdenesRealizadasImpresiones,
+                          sumOrdenesEntregadosCarteleria+ sumOrdenesEntregadosImpresiones,
                         ],
                       },
                     ]}
-                    width={250}
+                    width={200}
                   >
                     <Transform method={["transpose", "stackNormalized"]}>
                       <Pies
@@ -567,15 +572,14 @@ sumOrdenesPendientesCarteleria,
                   </Chart>
                 </div>
               </div>
-              <h1 className="text-center text-xl m-5">Carteleria</h1>
+              <h1 className="text-center text-xl m-5">ordenes totales</h1>
             </div>
-            </div>
-           
-          
-      
-         
+          </div>
+       
+        
         </div>
-        </div>
+
+
         <div className="flex">
         <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -613,61 +617,11 @@ sumOrdenesPendientesCarteleria,
             </table>
           </div>
 
-          <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                <th scope="col" className="py-3 px-6">
-                    Fecha
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    N° factura
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                   cliente
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    carteles
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Entrega
-                  </th>
-                  
-                  
-                </tr>
-              </thead>
-              <tbody>
-                {ordenesGlobales.map((e: any) => (
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th
-                      scope="row"
-                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {moment(e.fecha).format("L")}
-                    </th>
-                    <th
-                      scope="row"
-                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {e.facturanum}
-                    </th>
-                    <td className="py-4 px-6">
-                    
-          {e.cliente}
-                    </td>
-                    <td className="py-4 px-6">{e.carteles.length}</td>
-                    <td className="py-4 px-6">
-                    
-          {e.fechaentrega}
-                    </td>
-                    
-                    
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          
         </div>
+
+        
+
       </div>
     </Layout>
   );
