@@ -35,7 +35,6 @@ interface Values {
   carteles: object[];
   operacion: string;
   lugardecolocacion: string;
-  lugartraslado: string;
   montototal: number;
   seña: number;
   formadepago: string;
@@ -145,7 +144,6 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       carteles: [],
       operacion: "",
       lugardecolocacion: "",
-      lugartraslado: "",
       seña: 0,
       montototal: 0,
       formadepago: "",
@@ -276,7 +274,6 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       carteles: [],
       operacion: "",
       lugardecolocacion: "",
-      lugartraslado: "",
       seña: 0,
       montototal: 0,
       formadepago: "",

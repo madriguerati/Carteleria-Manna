@@ -7,7 +7,6 @@ export interface IOrdenes extends mongoose.Document{
    carteles: object,
    operacion:string,
    lugardecolocacion:string,
-   lugartraslado: string,
    seña: number,
    montototal:number,// info puede venir de presupuesto cuando se transforme 
    formadepago: string,
@@ -65,11 +64,6 @@ const ordenesSchema = new Schema(
         lugardecolocacion:
         {
             type:String,
-            required:true
-        },
-        lugartraslado:
-        {
-            type: String,
             required:true
         },
         seña:
