@@ -208,42 +208,34 @@ const Dashboard = () => {
   return (
     <Layout>
       <div>
-        <div className="rounded p-2">
-          <h1 className="text-4xl text-start text-gray-400">
-            Hola, {user.name}
+        <div className="p-2 bg-[#77B327] m-2 rounded">
+          <h1 className="text-4xl text-start text-white m-5">
+            Hola, {user.name} {user.lastname}
           </h1>
         </div>
-        <div className=" mr-2 mb-2 ml-2 rounded  flex justify-end">
-          <h1 className="text-xl text-gray-400 text-center pt-3">
-            Filtrar resultadosq por fecha
-          </h1>
+        <div className=" mr-2 mb-2 ml-2 rounded mt-2 p-2  flex justify-end">
           <div className="w-1/4 flex justify-end align-center pt-2 ml-2">
-            <h1 className="text-1xl text-gray-600 text-center mr-1 pt-2 ">
-              desde
-            </h1>
+            
 
-            <input
-              type="date"
-              id="input-group-1"
-              className="bg-gray-50 border w-1/4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2 pr-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@flowbite.com"
-              name="date1"
+            <div date-rangepicker className="flex items-center">
+  <div className="relative">
+    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+        <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+    </div>
+    <input name="date1"
               value={values.date1}
-              onChange={handleChange}
-            />
-            <h1 className="text-1xl text-gray-600 pt-2 mr-1 ml-1 content-center flex">
-              hasta
-            </h1>
-
-            <input
-              type="date"
-              id="input-group-1"
-              className="bg-gray-50 border w-1/4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-2 pr-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@flowbite.com"
-              name="date2"
+              onChange={handleChange} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-40 sm:w-20 text-center pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start"/>
+  </div>
+  <span className="mx-4 text-gray-500">to</span>
+  <div className="relative">
+    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+        <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+    </div>
+    <input name="date1"
               value={values.date2}
-              onChange={handleChange}
-            />
+              onChange={handleChange} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  md:w-40 sm:w-20 pl-10 p-2.5 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end"/>
+</div>
+</div>
             <button
               className="ml-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
               onClick={searchByDate}

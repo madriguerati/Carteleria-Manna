@@ -7,6 +7,7 @@ import {
   MdOutlinePanorama,
   MdOutlineAppRegistration,
   MdOutlinePaid,
+  MdDashboardCustomize
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import useUser from "./../../store/user";
@@ -87,6 +88,7 @@ const Sidebar = () => {
               </div>
 
               {user.roles?.find((e: any) => e.name === "gerente") && (
+                <>
                 <Link
                   to="/carteles"
                   className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
@@ -96,6 +98,16 @@ const Sidebar = () => {
                     Carteles
                   </h3>
                 </Link>
+                <Link
+                  to="/dashboard"
+                  className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+                >
+                  <MdDashboardCustomize className="text-2xl text-gray-500 group-hover:text-white " />
+                  <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
+                    Dashboard
+                  </h3>
+                </Link>
+                </>
               )}
 
               {user.roles?.find(
@@ -143,6 +155,7 @@ const Sidebar = () => {
                       Presupuesto
                     </h3>
                   </Link>
+                 
                 </>
               )}
               {/* <div className='flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
