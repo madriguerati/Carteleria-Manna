@@ -224,7 +224,7 @@ const Dashboard = () => {
     </div>
     <input name="date1"
               value={values.date1}
-              onChange={handleChange} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-40 sm:w-20 text-center pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start"/>
+              onChange={handleChange} type="text" className="text-2xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-40 sm:w-20 text-center pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start"/>
   </div>
   <span className="mx-4 text-gray-500">to</span>
   <div className="relative">
@@ -233,11 +233,11 @@ const Dashboard = () => {
     </div>
     <input name="date1"
               value={values.date2}
-              onChange={handleChange} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  md:w-40 sm:w-20 pl-10 p-2.5 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end"/>
+              onChange={handleChange} type="text" className=" text-2xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  block  md:w-40 sm:w-20 pl-10 p-2.5 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end"/>
 </div>
 </div>
             <button
-              className="ml-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              className="ml-2 bg-transparent hover:bg-blue-500 text-blue-700 text-2xl font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
               onClick={searchByDate}
             >
               filtrar
@@ -407,7 +407,7 @@ const Dashboard = () => {
           <div className="bg-white rounded shadow-lg mt-2">
             <div className=" m-1/4 overflow-x-auto relative shadow-md ">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead className="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="py-3 px-6">
                       Vendedor
@@ -422,7 +422,7 @@ const Dashboard = () => {
                 </thead>
                 <tbody>
                   {vendedores.map((e: any) => (
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr className="bg-white text-lg border-b dark:bg-gray-800 dark:border-gray-700">
                       <th
                         scope="row"
                         className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -436,7 +436,7 @@ const Dashboard = () => {
                             off
                           </h1>
                         ) : (
-                          <h1 className="bg-blue-600 rounded text-center text-white">
+                          <h1 className="bg-green-600 rounded text-center text-white">
                             on
                           </h1>
                         )}
@@ -593,7 +593,7 @@ const Dashboard = () => {
        
 <div className="overflow-x-auto relative shadow-md sm:rounded-lg w-full mt-2 bg-white">
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" className="py-3 px-6">
                     N° factura
@@ -615,7 +615,7 @@ const Dashboard = () => {
         <tbody>
             {
               ordenesGlobales.map((e:any)=>(
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr className="bg-white border-b text-lg dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {e.facturanum}
                 </th>
@@ -644,7 +644,7 @@ const Dashboard = () => {
 
           <div className=" w-full bg-white rounded mt-2 shadow-lg ">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <thead className="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="py-3 px-6">
                     Producto
@@ -659,7 +659,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {arrayprueba.map((e: any) => (
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <tr className="bg-white border-b text-lg dark:bg-gray-800 dark:border-gray-700">
                     <th
                       scope="row"
                       className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
