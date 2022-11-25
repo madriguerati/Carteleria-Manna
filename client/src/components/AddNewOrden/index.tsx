@@ -9,6 +9,7 @@ import usePresupuesto from "../../store/presupuesto";
 import useOrdenes from "../../store/ordenes";
 import useUser from "../../store/user";
 import moment from 'moment'
+import { value } from "rumble-charts/types/helpers";
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
@@ -42,6 +43,7 @@ interface Values {
   facturanum: string;
   plazodeentrega: string;
   observaciones: string;
+  porcentaje: number;
 }
 interface Cartel {
   cant: number;
@@ -56,7 +58,7 @@ interface Cartel {
   category: string[]
 }
 
-const AddNewClient = ({ setShowModal }: Props) => {
+const AddNewOrden = ({ setShowModal }: Props) => {
   const { postOrden, success, error, closeModal } = useOrdenes(
     (state) => state
   );
@@ -65,7 +67,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
   const { clientes, getClients } = useClients((state) => state);
   const { getUsers2, users, logout, user } = useUser((state) => state);
   const [hola, setHola] = useState(false);
-
+const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
   const [cartel, setCartel] = useState<Cartel>({
     cant: 1,
     name: "",
@@ -94,10 +96,11 @@ const AddNewClient = ({ setShowModal }: Props) => {
     facturanum: "",
     plazodeentrega: "",
     observaciones: "",
+    porcentaje: 0
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal);
-
+  var totalganancia : any =0
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
     setValues({
@@ -108,6 +111,10 @@ const AddNewClient = ({ setShowModal }: Props) => {
       ...cartel,
       [name]: value,
     });
+
+   
+    
+    console.log("esto es el total ", values.montototal)
   };
 
   const multiplicar = (a: number, b: number): number => {
@@ -146,6 +153,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       facturanum: "",
       plazodeentrega: "",
       observaciones: "",
+      porcentaje: 0
     });
      
     setTimeout(() => {
@@ -207,7 +215,31 @@ const AddNewClient = ({ setShowModal }: Props) => {
       cliente: value,
     });
   }
-  
+  const handleSelectOperación= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    let {value}= e.currentTarget;
+    setValues({
+      ...values,
+      operacion: value,
+    });
+  }
+  const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    let {value}= e.currentTarget;
+    var holaaa: any =montofinal
+   if(value){
+    var valuesporcen: any = value
+    var porcentaje: any  = 0
+    var montototalissimo: 0
+    totalganancia=0
+    porcentaje=(valuesporcen/100)
+      totalganancia = multiplicar(porcentaje, holaaa)
+      montototalissimo = totalganancia + holaaa
+      setValues({
+        ...values,
+        montototal: montototalissimo
+      })
+    console.log("esto es el total sdsdsds ", montototalissimo)
+   }
+  }
 
   const crearCartel = () => {
     if (cartel.cant > 0) {
@@ -251,7 +283,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
       fechaentrega: "",
       facturanum: "",
       plazodeentrega: "",
-      observaciones: ""
+      observaciones: "",
+      porcentaje: 0
     });
     getCarteles(accessToken);
     getClients(headers);
@@ -294,10 +327,10 @@ const AddNewClient = ({ setShowModal }: Props) => {
             }`}
           >
             {success
-              ? "Presupuesto agregado exitosamente"
+              ? "Orden agregada exitosamente"
               : error
               ? "Ocurrió un error"
-              : "Nuevo Presupuesto"}
+              : "Nueva Orden"}
           </h3>
           {success && (
             <BsFillCheckCircleFill size={55} className="text-[#77B327]" />
@@ -316,11 +349,11 @@ const AddNewClient = ({ setShowModal }: Props) => {
           </h1>
         </div>
         <div
-          className="justify-center"
+          className="justify-center border-2 pl-2 pt-2" 
           style={hola === false ? { display: "none" } : { cursor: "pointer" }}
         >
-          <div>
-            <div className="flex">
+          <div className="">
+            <div className="flex ">
               <div>
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   cant
@@ -382,10 +415,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
                   onChange={handleChange}
                 />
               </div>
-            </div>
-
-            <div className="flex">
-              <div>
+              <div className="ml-2">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   medidas
                 </label>
@@ -406,30 +436,12 @@ const AddNewClient = ({ setShowModal }: Props) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="ml-2">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  faz
-                </label>
-                <select
-                  value={cartel.faz}
-                  onChange={handleSelect}
-                  name="faz"
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-state"
-                >
-                  <option value="" defaultValue={""} disabled>
-                    Seleccionar cartel
-                  </option>
-                  <option value="simple">simple</option>
-                  <option value="doble">doble</option>
-                </select>
-              </div>
               <div className="ml-1">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   total
                 </label>
                 <input
-                  className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
                   placeholder="total"
@@ -448,7 +460,26 @@ const AddNewClient = ({ setShowModal }: Props) => {
             </div>
 
             <div className="flex">
-              <div>
+              
+              <div >
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  faz
+                </label>
+                <select
+                  value={cartel.faz}
+                  onChange={handleSelect}
+                  name="faz"
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-state"
+                >
+                  <option value="" defaultValue={""} disabled>
+                    Seleccionar cartel
+                  </option>
+                  <option value="simple">simple</option>
+                  <option value="doble">doble</option>
+                </select>
+              </div>
+              <div className="ml-2">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   estructura
                 </label>
@@ -478,12 +509,14 @@ const AddNewClient = ({ setShowModal }: Props) => {
               </div>
             </div>
           </div>
-          <button
+         <div className="justify-end flex pr-3 pb-3">
+         <button
             onClick={crearCartel}
-            className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
+            className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-blue-500 hover:bg-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-40 justify-center items-center font-medium focus:outline-none"
           >
-            crear insumo
+           Agregar cartel
           </button>
+         </div>
         </div>
         {/**form cartel */}
 
@@ -497,7 +530,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
             Fecha
           </label>
           <input
-            className="appearance-none block w-40 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="appearance-none block w-20 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-first-name"
             type="string"
             placeholder="hola"
@@ -526,51 +559,64 @@ const AddNewClient = ({ setShowModal }: Props) => {
               </select>
             </div>
 
-            <div className="">
+            <div className="w-40 md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                operación
+                Operación
               </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="text"
+              <select
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state"
                 placeholder="operacion"
                 name="operacion"
                 value={values.operacion}
-                onChange={handleChange}
-              />
+                onChange={handleSelectOperación}
+              >
+                <option value="" defaultValue={""} disabled>
+                  Seleccionar cartel
+                </option>
+                <option value="colocacion">
+                  Colocación
+                </option>
+                <option value="retiro">
+                  Retiro en oficina
+                </option>
+                <option value="traslado">
+                  Traslado
+                </option>
+                
+              </select>
             </div>
-
           </div>
           
 
           {/**segunda columna  */}
 
-          <div className="flex flex-wrap-mx-3 mb-3">
-          <div className="">
+          <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
+          md:gap-3 md:grid-cols-3">
+          <div className="w-full">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Colocación
+                Dirección de colocación
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-city"
                 type="text"
-                placeholder="L. colocación"
+                placeholder="D. colocación"
                 name="lugardecolocacion"
                 value={values.lugardecolocacion}
                 onChange={handleChange}
               />
             </div>
 
-            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide  text-gray-700 text-xs font-bold mb-2">
+            <div className="w-full px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide w-full text-gray-700 text-xs font-bold mb-2">
                 Metodo de pago
               </label>
               <select
                 value={values.formadepago}
                 onChange={handleSelect}
                 name="formadepago"
-                className="block appearance-none w-60 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
               >
                 <option value="" defaultValue={""} disabled>
@@ -583,19 +629,12 @@ const AddNewClient = ({ setShowModal }: Props) => {
               </select>
             </div>
 
-           
-          </div>
-
-
-          {/**tercera columna  */}
-
-          <div className="flex flex-wrap-mx-3">
-          <div className="">
+            <div className="w-full">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Fecha entrega
               </label>
               <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="date"
                 placeholder="Fecha"
@@ -604,13 +643,48 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 onChange={handleChange}
               />
             </div>
+          </div>
 
-            <div className="ml-2">
+
+          {/**tercera columna  */}
+
+          <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
+          md:gap-3 md:grid-cols-3 ">
+          
+          
+            
+            <div className="w-full mb-6 ">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                porcentaje
+              </label>
+              <select
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state"
+                placeholder="operacion"
+                name="porcentaje"
+                value={values.porcentaje}
+                onChange={handleSelectPorcentaje}
+              >
+                <option value="" defaultValue={""} disabled>
+                  Seleccionar cartel
+                </option>
+                {
+                  porcentaje.map((e:any)=>(
+                    <option value={e}>
+                  {e}
+                </option>
+                  ))
+                }
+               
+                
+              </select>
+            </div>
+              <div>
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 seña
               </label>
               <input
-                className="appearance-none block w-20 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="number"
                 placeholder="Seña"
@@ -619,25 +693,28 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="ml-2">
+            <div className="ml-1">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Total
               </label>
               <input
-                className="appearance-none block w-40 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="number"
                 placeholder="Total"
                 name="montototal"
                 value={
                   values.seña?
-                  values.montototal=montofinal-values.seña
+                  values.montototal+totalganancia-values.seña
                   :
                   values.montototal
                 }
                 onChange={handleChange}
               />
             </div>
+
+          
+          
           </div>
 
           
@@ -645,34 +722,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
           <div className="flex flex-wrap-mx-3">
           
-          <div className="mr-2">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                contacto
-              </label>
-              <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                placeholder="Contacto"
-                name="contacto"
-                value={values.contacto}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                lugar traslado
-              </label>
-              <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                placeholder="lugar traslado"
-                name="lugartraslado"
-                value={values.lugartraslado}
-                onChange={handleChange}
-              />
-            </div>
+          
           </div>
           {/** ultima comuna */}
           <div className="flex flex-wrap-mx-3">
@@ -691,7 +741,20 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 onChange={handleChange}
               />
             </div>
-            
+            <div className="ml-2">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                contacto
+              </label>
+              <input
+                className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                id="grid-first-name"
+                type="text"
+                placeholder="Contacto"
+                name="contacto"
+                value={values.contacto}
+                onChange={handleChange}
+              />
+            </div>
           </div>
     
           <div className="flex flex-wrap -mx-3 mb-2">
@@ -737,4 +800,4 @@ const AddNewClient = ({ setShowModal }: Props) => {
   );
 };
 
-export default AddNewClient;
+export default AddNewOrden;

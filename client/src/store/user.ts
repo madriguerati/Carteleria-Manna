@@ -134,7 +134,7 @@ const useUser = create<UserStore>()(
 		},
 		updateToken: async (refreshToken) => {
 			const { data } = await axios.post(
-				"https://symptomatic-hole-production.up.railway.app/api/user/refresh",
+				"http://localhost:5000/api/user/refresh",
 				{},
 				{ headers: { "x-access-token": refreshToken } }
 			);
