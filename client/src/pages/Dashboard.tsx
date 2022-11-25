@@ -36,7 +36,7 @@ import {
 import moment from "moment";
 
 const Dashboard = () => {
-  
+
   const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading } =
     useOrdenes((state) => state);
   const { carteles, cartel, getCarteles } = useCartel((state) => state);
@@ -45,18 +45,18 @@ const Dashboard = () => {
   const headers = useHeaders(accessToken);
   const [ordenesGlobales, setOrdenesGlobales] = useState(ordenes);
   var fechaActual: any = moment().format("MM/DD/YYYY");
-  const [fecha, setFecha]=useState(fechaActual)
+  const [fecha, setFecha] = useState(fechaActual)
   const [values, setValues] = useState({
     date1: fecha,
-    date2: fecha+1,
+    date2: fecha + 1,
   });
   useEffect(() => {
     getOrdenes(accessToken);
     getUsers2(headers);
     getCarteles(accessToken);
-    
+
   }, []);
- 
+
   var arrayprueba: any = carteles.map((e: any) => ({
     cartel: e.descripcion,
     item: [],
@@ -68,12 +68,12 @@ const Dashboard = () => {
       //console.log(" en mi orden", ordenesGlobales[k].carteles.length, "factura", ordenesGlobales[k].facturanum)
       var arregloOrdenes: any = [];
       arregloOrdenes = ordenesGlobales[k].carteles.map((e: any) => e.name);
-      
+
       if (arregloOrdenes.includes(carteles[i].descripcion)) {
         var filtrado: any = ordenesGlobales[k].carteles.filter(
           (e: any) => e.name === carteles[i].descripcion
         );
-        
+
         var nuevoarrr: any = arrayprueba.find(
           (item: any) => item.cartel === carteles[i].descripcion
         );
@@ -141,14 +141,14 @@ const Dashboard = () => {
   );
   var ordenesEntregadosCarteleria: any = ordenesGlobales.map(
     (e: any) =>
-    e.stateCarteleria === "entregada"
+      e.stateCarteleria === "entregada"
   );
- 
+
   var ordenesEntregadosImpresiones: any = ordenesGlobales.map(
     (e: any) =>
-    e.stateImpresiones === "entregada"
+      e.stateImpresiones === "entregada"
   );
-  
+
   var sumOrdenesEntregados: any = ordenesEntregados.reduce(
     (a: any, b: any) => a + b,
     0
@@ -174,8 +174,8 @@ const Dashboard = () => {
   var vendedores: any = users.filter((e: any) =>
     e.roles.find((e: any) => e.name === "vendedor")
   );
-  
- 
+
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
     setValues({
@@ -188,7 +188,7 @@ const Dashboard = () => {
     setValues({
       ...values,
       date1: fechaActual,
-      date2: fechaActual+1
+      date2: fechaActual + 1
     })
     let busca: any = ordenes.filter(
       (n: any) =>
@@ -196,19 +196,19 @@ const Dashboard = () => {
         moment(n.fecha).format("L") <= moment(values.date2).format("L")
     );
     setOrdenesGlobales(busca);
-console.log("hola", sumOrdenesPendientes,
-sumOrdenesRealizadas,
-sumOrdenesEntregados,
-sumOrdenesPendientesCarteleria,
-                          sumOrdenesRealizadasCarteleria,
-                          sumOrdenesEntregadosCarteleria,)
+    console.log("hola", sumOrdenesPendientes,
+      sumOrdenesRealizadas,
+      sumOrdenesEntregados,
+      sumOrdenesPendientesCarteleria,
+      sumOrdenesRealizadasCarteleria,
+      sumOrdenesEntregadosCarteleria,)
   };
   //carteles rating
   var num: any = arrayprueba.map((e: any) =>
     e.item.reduce((a: any, b: any) => a + b, 0)
   );
   //fin carteles
-  var hola: any =num.sort(function(a:any, b:any){return b- a})
+  var hola: any = num.sort(function (a: any, b: any) { return b - a })
   return (
     <Layout>
       <div>
@@ -258,8 +258,19 @@ sumOrdenesPendientesCarteleria,
         </div>
 
         <div className="flex m-2 content-center">
-          <div className="flex-wrap flex-1 flex-row sm:flex-col m-1 mr-3 justify-center items-center w-full sm:w-1/3 p-5 bg-white rounded-md shadow-xl border-l-4 border-blue-300">
-          <div className="flex justify-between w-full">
+        
+          
+          
+
+          
+        </div>
+
+<div className="flex grid sm:gap-1  sm:grid-cols-1
+          md:gap-2 md:grid-cols-2">
+  <div className="flex">
+
+          <div className="flex  flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160 p-5 bg-white rounded-md shadow-xl border-l-4 border-purple-300">
+            <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
                   <svg
@@ -292,7 +303,8 @@ sumOrdenesPendientesCarteleria,
               <div className="font-bold text-sm">Totales</div>
             </div>
           </div>
-          <div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full sm:w-1/5 mr-4 p-5 bg-white rounded-md shadow-xl border-l-4 border-purple-300">
+          
+<div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160 mr-4 p-5 bg-white rounded-md shadow-xl border-l-4 border-purple-300">
             <div className="flex justify-between w-full">
               <div>
                 <div className="p-2">
@@ -326,87 +338,90 @@ sumOrdenesPendientesCarteleria,
               <div className="font-bold text-sm">por cobrar</div>
             </div>
           </div>
-    
-          <div className="flex flex-wrap flex-row  m-1 sm:flex-col justify-center items-center w-full sm:w-1/5 mr-4 p-5 bg-white rounded-md shadow-xl border-l-4 border-red-300">
-            
-            <div className="flex justify-between w-full">
-              <div>
-                <div className="p-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <div
-                  style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
-                  className="flex items-center text-xs px-3 bg-red-200 text-red-800 rounded-full"
-                >
-                  50%
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="font-bold text-5xl text-center">{sumSeñas}</div>
-              <div className="font-bold text-sm">Señas cobradas</div>
-            </div>
-          </div>
-          <div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full sm:w-1/5  mr-6    p-5 bg-white rounded-md shadow-xl border-l-4 border-green-300">
-            <div className="flex justify-between w-full">
-              <div>
-                <div className="p-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <div
-                  style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
-                  className="flex items-center text-xs px-3 bg-green-200 text-green-800 rounded-full"
-                >
-                  25%
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="font-bold text-5xl text-center">
-                {sumTotalOrdenes}
-              </div>
-              <div className="font-bold text-sm">ventas</div>
-            </div>
-          </div>
-        </div>
+  </div>
+  <div className="flex">
+  <div className="flex flex-wrap flex-row  m-1 sm:flex-col justify-center items-center w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160 mr-4 p-5 bg-white rounded-md shadow-xl border-l-4 border-red-300">
 
-        
+<div className="flex justify-between w-full">
+  <div>
+    <div className="p-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+        />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div
+      style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
+      className="flex items-center text-xs px-3 bg-red-200 text-red-800 rounded-full"
+    >
+      50%
+    </div>
+  </div>
+</div>
+<div>
+  <div className="font-bold text-5xl text-center">{sumSeñas}</div>
+  <div className="font-bold text-sm">Señas cobradas</div>
+</div>
+</div>
+<div className="flex flex-wrap flex-row m-1 sm:flex-col justify-center items-center w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160  mr-6    p-5 bg-white rounded-md shadow-xl border-l-4 border-green-300">
+<div className="flex justify-between w-full">
+  <div>
+    <div className="p-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+        />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div
+      style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
+      className="flex items-center text-xs px-3 bg-green-200 text-green-800 rounded-full"
+    >
+      25%
+    </div>
+  </div>
+</div>
+<div>
+  <div className="font-bold text-5xl text-center">
+    {sumTotalOrdenes}
+  </div>
+  <div className="font-bold text-sm">ventas</div>
+</div>
+</div>
+
+  </div>
 
           
+</div>
+
+
         <div className="flex grid sm:gap-1  sm:grid-cols-1
           md:gap-4 md:grid-cols-4">
-        
-        <div className="bg-white rounded shadow-lg mt-2">
+
+          <div className="bg-white rounded shadow-lg mt-2">
             <div className=" m-1/4 overflow-x-auto relative shadow-md ">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -415,7 +430,7 @@ sumOrdenesPendientesCarteleria,
                       Vendedor
                     </th>
                     <th scope="col" className="py-3 px-6">
-                     Ventas
+                      Ventas
                     </th>
                     <th scope="col" className="py-3 px-6">
                       Estado
@@ -433,9 +448,9 @@ sumOrdenesPendientesCarteleria,
                       </th>
                       <td className="py-4 px-6">{e.ordenes.length}</td>
                       <td className="py-4 px-6">{
-                      e.state === false
-                      ? <h1 className="bg-gray-600 rounded text-center text-white">off</h1>
-                      : <h1 className="bg-blue-600 rounded text-center text-white">on</h1>
+                        e.state === false
+                          ? <h1 className="bg-gray-600 rounded text-center text-white">off</h1>
+                          : <h1 className="bg-blue-600 rounded text-center text-white">on</h1>
                       }</td>
                     </tr>
                   ))}
@@ -443,7 +458,7 @@ sumOrdenesPendientesCarteleria,
               </table>
             </div>
           </div>
-          
+
           <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160">
             <div className=" w-full ">
               <div className="  flex w-full justify-center content-center ">
@@ -456,9 +471,9 @@ sumOrdenesPendientesCarteleria,
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientesCarteleria+sumOrdenesPendientesImpresiones,
-                          sumOrdenesRealizadasCarteleria+ sumOrdenesRealizadasImpresiones,
-                          sumOrdenesEntregadosCarteleria+ sumOrdenesEntregadosImpresiones,
+                          sumOrdenesPendientesCarteleria + sumOrdenesPendientesImpresiones,
+                          sumOrdenesRealizadasCarteleria + sumOrdenesRealizadasImpresiones,
+                          sumOrdenesEntregadosCarteleria + sumOrdenesEntregadosImpresiones,
                         ],
                       },
                     ]}
@@ -473,8 +488,8 @@ sumOrdenesPendientesCarteleria,
                         innerRadius="40%"
                         padAngle={0.025}
                         pieAttributes={{
-                          onMouseLeave: function noRefCheck() {},
-                          onMouseMove: function noRefCheck() {},
+                          onMouseLeave: function noRefCheck() { },
+                          onMouseMove: function noRefCheck() { },
                         }}
                         pieStyle={{
                           opacity: 2,
@@ -500,9 +515,8 @@ sumOrdenesPendientesCarteleria,
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientesCarteleria+sumOrdenesPendientesImpresiones,
-                          sumOrdenesRealizadasCarteleria+ sumOrdenesRealizadasImpresiones,
-                          sumOrdenesEntregadosCarteleria+ sumOrdenesEntregadosImpresiones,
+                          sumOrdenesPendientesImpresiones, sumOrdenesRealizadasImpresiones, sumOrdenesEntregadosImpresiones
+
                         ],
                       },
                     ]}
@@ -517,8 +531,8 @@ sumOrdenesPendientesCarteleria,
                         innerRadius="40%"
                         padAngle={0.025}
                         pieAttributes={{
-                          onMouseLeave: function noRefCheck() {},
-                          onMouseMove: function noRefCheck() {},
+                          onMouseLeave: function noRefCheck() { },
+                          onMouseMove: function noRefCheck() { },
                         }}
                         pieStyle={{
                           opacity: 2,
@@ -544,9 +558,10 @@ sumOrdenesPendientesCarteleria,
                     series={[
                       {
                         data: [
-                          sumOrdenesPendientesCarteleria+sumOrdenesPendientesImpresiones,
-                          sumOrdenesRealizadasCarteleria+ sumOrdenesRealizadasImpresiones,
-                          sumOrdenesEntregadosCarteleria+ sumOrdenesEntregadosImpresiones,
+                          sumOrdenesPendientesCarteleria,
+                          sumOrdenesRealizadasCarteleria,
+                          sumOrdenesEntregadosCarteleria
+
                         ],
                       },
                     ]}
@@ -561,8 +576,8 @@ sumOrdenesPendientesCarteleria,
                         innerRadius="40%"
                         padAngle={0.025}
                         pieAttributes={{
-                          onMouseLeave: function noRefCheck() {},
-                          onMouseMove: function noRefCheck() {},
+                          onMouseLeave: function noRefCheck() { },
+                          onMouseMove: function noRefCheck() { },
                         }}
                         pieStyle={{
                           opacity: 2,
@@ -575,13 +590,13 @@ sumOrdenesPendientesCarteleria,
               <h1 className="text-center text-xl m-5">ordenes totales</h1>
             </div>
           </div>
-       
-        
+
+
         </div>
 
 
         <div className="flex">
-        <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
+          <div className=" w-1/2  bg-white rounded shadow-lg m-2 ">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -606,9 +621,9 @@ sumOrdenesPendientesCarteleria,
                       {e.cartel}
                     </th>
                     <td className="py-4 px-6">
-                    <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-    <div className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full  `} style={{"width":40}}> {e.item.reduce((a: any, b: any) => a + b, 0)}</div>
-  </div>
+                      <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                        <div className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full  `} style={{ "width": 40 }}> {e.item.reduce((a: any, b: any) => a + b, 0)}</div>
+                      </div>
                     </td>
                     <td className="py-4 px-6">{e.item.reduce((a: any, b: any) => a + b, 0)}</td>
                   </tr>
@@ -617,10 +632,10 @@ sumOrdenesPendientesCarteleria,
             </table>
           </div>
 
-          
+
         </div>
 
-        
+
 
       </div>
     </Layout>
