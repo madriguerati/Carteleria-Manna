@@ -60,6 +60,8 @@ const Proveedores = () => {
     fechaentrega: "",
     facturanum: "",
     observaciones: "",
+    montototal:"",
+    porcentaje:0
   });
   const [proveedorEdit, setProveedorEdit] = useState({
     fecha: "",
@@ -186,6 +188,8 @@ const Proveedores = () => {
         fechaentrega: orden.fechaentrega,
         facturanum: orden.facturanum,
         observaciones: orden.observaciones,
+        montototal: orden.montototal,
+        porcentaje: orden.porcentaje
       });
       console.log("insumo", ordenEdit);
     }
