@@ -64,6 +64,7 @@ const Sidebar = () => {
           } lg:left-0 lg:w-60 peer:transition ease-out delay-150 duration-200`}
         >
           <div className="flex flex-col justify-start item-center">
+            
             <Link to="/" className="border-b border-gray-100 pb-4 w-full">
               <img
                 src="https://carteleriamanna.com.ar/sistema/img/generales/logo.png"
@@ -89,6 +90,24 @@ const Sidebar = () => {
 
               {user.roles?.find((e: any) => e.name === "gerente") && (
                 <>
+                <Link
+                    to="/"
+                    className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+                  >
+                    <MdOutlineSpaceDashboard className="text-2xl text-gray-500 group-hover:text-white " />
+                    <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
+                      Inicio
+                    </h3>
+                  </Link>
+                  <Link
+                    to="/account/perfil"
+                    className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+                  >
+                    <CgProfile className="text-2xl text-gray-500 group-hover:text-white " />
+                    <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
+                      Perfil
+                    </h3>
+                  </Link>
                 <Link
                   to="/carteles"
                   className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
@@ -128,24 +147,7 @@ const Sidebar = () => {
                 (e: any) => e.name === "gerente" || e.name === "vendedor"
               ) && (
                 <>
-                  <Link
-                    to="/"
-                    className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
-                  >
-                    <MdOutlineSpaceDashboard className="text-2xl text-gray-500 group-hover:text-white " />
-                    <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
-                      Inicio
-                    </h3>
-                  </Link>
-                  <Link
-                    to="/account/perfil"
-                    className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
-                  >
-                    <CgProfile className="text-2xl text-gray-500 group-hover:text-white " />
-                    <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
-                      Perfil
-                    </h3>
-                  </Link>
+                  
                   <Link
                     to="/presupuesto"
                     className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"

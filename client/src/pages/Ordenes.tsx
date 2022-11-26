@@ -7,6 +7,8 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewOrden from "../components/AddNewOrden";
 import ModalEdit from "../components/ModalEdit";
+import EditOrden from "../components/editOrden";
+
 import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
@@ -45,6 +47,20 @@ const Proveedores = () => {
   const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const [ordenEdit, setOrdenEdit] = useState({
+    fecha: "",
+    cliente: "",
+    contacto: "", //nombre de contacto
+    carteles: "",
+    operacion: "",
+    lugardecolocacion: "",
+    lugartraslado: "",
+    seña: "",
+    formadepago: "",
+    fechaentrega: "",
+    facturanum: "",
+    observaciones: "",
+  });
   const [proveedorEdit, setProveedorEdit] = useState({
     fecha: "",
     cliente: "",
@@ -153,25 +169,25 @@ const Proveedores = () => {
     setSortName(null);
   };
 
-  const edit = (ordenes: any) => {
+  const edit = (orden: any) => {
     if (ordenes) {
       setShowModal2(true);
       console.log("hola", ordenes);
-      setProveedorEdit({
-        fecha: "",
-        cliente: "",
-        contacto: "", //nombre de contacto
-        carteles: "",
-        operacion: "",
-        lugardecolocacion: "",
-        lugartraslado: "",
-        seña: "",
-        formadepago: "",
-        fechaentrega: "",
-        facturanum: "",
-        observaciones: "",
+      setOrdenEdit({
+        fecha: orden.fecha,
+        cliente: orden.cliente,
+        contacto: orden.contacto, //nombre de contacto
+        carteles: orden.contacto,
+        operacion: orden.operacion,
+        lugardecolocacion: orden.lugardecolocacion,
+        lugartraslado: orden.lugartraslado,
+        seña: orden.seña,
+        formadepago: orden.formadepago,
+        fechaentrega: orden.fechaentrega,
+        facturanum: orden.facturanum,
+        observaciones: orden.observaciones,
       });
-      console.log("insumo", proveedorEdit);
+      console.log("insumo", ordenEdit);
     }
   };
 
@@ -428,19 +444,21 @@ const Proveedores = () => {
                             </p>
                           </td>
                           <td className="px-3 py-2">
-                            <p
-                              className="text-gray-900 whitespace-no-wrap capitalize"
-                              onClick={() => edit(ordenes)}
-                            >
-                              <FiEdit3 />
-                            </p>
-                            <ModalEdit
-                              showModal2={showModal2}
+                          <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => edit(orden)}
+                          >
+                            <FiEdit3 />
+                          </p>
+                          <ModalEdit
+                            showModal2={showModal2}
+                            setShowModal2={setShowModal2}
+                          >
+                            <EditOrden
                               setShowModal2={setShowModal2}
-                            >
-                              
-
-                            </ModalEdit>
+                              orden={ordenEdit}
+                            />
+                          </ModalEdit>
                           </td>
                           <td className="px-3 py-2">
                             <p

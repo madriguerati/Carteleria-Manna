@@ -24,7 +24,6 @@ import { FiEdit3 } from "react-icons/fi";
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useCarteles from "../store/carteles";
-import AddNewClient from "../components/AddNewClient";
 
 const Clientes = () => {
   const { carteles, getCartelesAll, deleteCartel, loading } = useCarteles(
