@@ -24,6 +24,7 @@ var insumosCartel: any = 0
 
 type Props = {
   setShowModal: any;
+  carteles: any ;
 };
 
 interface Values {
@@ -45,7 +46,7 @@ interface Insumo {
   costox2faz: number
 }
 
-const AddNewCartel = ({ setShowModal }: Props) => {
+const AddNewCartel = ({ setShowModal, carteles }: Props) => {
   const { addCartel, success, error, closeModal } = useCartel(
     (state) => state
   );
@@ -151,6 +152,7 @@ const AddNewCartel = ({ setShowModal }: Props) => {
     // }
    
     addCartel(values);
+    carteles.unshift(values)
     setValues({
       descripcion: "",
       costo1faz: 0,

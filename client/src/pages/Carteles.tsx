@@ -8,6 +8,10 @@ import shallow from "zustand/shallow";
 import Swal from "sweetalert2";
 import EditCartel from "../components/editCartel";
 import ModalEdit from "../components/ModalEdit";
+import ModalVer from "../components/ModalVer";
+import VerCartel from "../components/VerCartel";
+
+
 
 import {
   MdKeyboardArrowRight,
@@ -37,6 +41,8 @@ const Clientes = () => {
   const [limit, setLimit] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
+
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
@@ -48,10 +54,12 @@ const Clientes = () => {
     insumosArray: [],
     category: [],
   });
+  const [cartelesGlobales, setCartelesGlobales]=useState([])
 
   useEffect(() => {
     getCartelesAll(accessToken, page, limit);
     console.log("holaaaaaaaaaaaaaaaaaaaaaa", carteles);
+    setCartelesGlobales(carteles.carteles)
   }, [rol, sort, page, limit]);
 
   //delete
@@ -127,6 +135,8 @@ const Clientes = () => {
         Swal.fire("Eliminado!", "X ha sido eliminado", "success");
         console.log("hola delte");
         deleteCartel(cartel._id, headers);
+        var array: any = cartelesGlobales.filter((e:any)=>e._id!==cartel._id)
+setCartelesGlobales(array)
       }
     });
   };
@@ -143,6 +153,21 @@ const Clientes = () => {
         insumosArray: cartel.insumosArray,
         category: cartel.insumosArray,
       });
+    }
+  };
+  const ver = (cartel: any) => {
+    if (cartel) {
+      setShowModal3(true);
+      console.log("hola", cartel);
+      setCartelEdit({
+        id: cartel._id,
+        descripcion: cartel.descripcion,
+        costo1faz: cartel.costo1faz,
+        costo2faz: cartel.costo2faz,
+        insumosArray: cartel.insumosArray,
+        category: cartel.category,
+      });
+      console.log("holasasasasasasasasasasasa", cartelEdit.insumosArray)
     }
   };
   return (
@@ -287,7 +312,7 @@ const Clientes = () => {
                 </thead>
                 {
                   <tbody>
-                    {carteles.carteles?.map((cartel: any, index: number) => (
+                    {cartelesGlobales?.map((cartel: any, index: number) => (
                       <tr
                         key={cartel._id}
                         className={`border-b border-gray-200 text-base ${
@@ -311,9 +336,21 @@ const Clientes = () => {
                         </td>
 
                         <td className="px-3 py-2">
-                          <p className="text-gray-900 whitespace-no-wrap capitalize">
-                            <BsSearch />
+                        <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => ver(cartel)}
+                          >
+                             <BsSearch />
                           </p>
+                          <ModalVer
+                            showModal3={showModal3}
+                            setShowModal3={setShowModal3}
+                          >
+                            <VerCartel
+                              setShowModal3={setShowModal3}
+                              cartel={cartelEdit}
+                            />
+                          </ModalVer>
                         </td>
                         <td className="px-3 py-2">
                           <p
@@ -403,7 +440,7 @@ const Clientes = () => {
           </button>
         </div>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <AddNewCartel setShowModal={setShowModal} />
+          <AddNewCartel setShowModal={setShowModal} carteles={cartelesGlobales}/>
         </Modal>
       </div>
     </Layout>

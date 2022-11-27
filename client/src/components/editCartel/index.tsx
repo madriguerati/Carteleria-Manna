@@ -94,22 +94,25 @@ useEffect(() => {
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-    Swal.fire({
-      title: '¿Desea guardar los cambios?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonColor: '#77B327',
-      confirmButtonText: 'Guardar',
-      denyButtonText: `No guardar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('¡Guardado exitosamente!', '', 'success')
-        putCarteles(values, token);
-    handleCloseModal();
-      } else if (result.isDenied) {
-        Swal.fire('Los cambios no han sido guardados', '', 'info')
-      }
-    })
+    e.preventDefault()
+        
+        Swal.fire({
+          title: '¿Estas seguro?',
+          text: "Queres hacer estos cambios",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#77B327',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, modificarlo!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            putCarteles(values, token);
+            Swal.fire(
+              'Modificado'
+            )
+          }
+        })
+     
     
    
   };
