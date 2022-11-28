@@ -54,7 +54,7 @@ const Clientes = () => {
     insumosArray: [],
     category: [],
   });
-  const [cartelesGlobales, setCartelesGlobales]=useState([])
+  const [cartelesGlobales, setCartelesGlobales]=useState(carteles.carteles)
 
   useEffect(() => {
     getCartelesAll(accessToken, page, limit);

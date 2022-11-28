@@ -6,6 +6,10 @@ import Modal from "../components/Modal";
 import AddNewPresupuesto from "../components/AddNewPresupuesto";
 import shallow from "zustand/shallow";
 import Swal from 'sweetalert2'
+import ModalEdit from "../components/ModalEdit";
+import EditPresupuesto from "../components/editPresupuesto";
+import ModalVer from "../components/ModalVer";
+import VerOrden from "../components/VerOrden";
 import {
   MdKeyboardArrowRight,
   MdKeyboardArrowLeft,
@@ -44,9 +48,28 @@ const Presupuesto = () => {
   const [page, setPage] = useState(10);
   const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
+
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
+  const [presupuestoEdit, setPresupuestoEdit] = useState({
+    fecha: "",
+    cliente: "",
+    contacto: "", //nombre de contacto
+    carteles: "",
+    operacion: "",
+    lugardecolocacion: "",
+    lugartraslado: "",
+    seña: "",
+    formadepago: "",
+    fechaentrega: "",
+    facturanum: "",
+    observaciones: "",
+    montototal:"",
+    porcentaje:0
+  });
 
   useEffect(() => {
     !success && getPresupuestosAll(accessToken, limit, page);
@@ -132,6 +155,29 @@ const Presupuesto = () => {
     }
     setSortUsername(null);
     setSortName(null);
+  };
+
+  const edit = (presupuesto: any) => {
+    if (presupuesto) {
+      setShowModal2(true);
+      setPresupuestoEdit({
+        fecha: presupuesto.fecha,
+        cliente: presupuesto.cliente,
+        contacto: presupuesto.contacto, //nombre de contacto
+        carteles: presupuesto.contacto,
+        operacion: presupuesto.operacion,
+        lugardecolocacion: presupuesto.lugardecolocacion,
+        lugartraslado: presupuesto.lugartraslado,
+        seña: presupuesto.seña,
+        formadepago: presupuesto.formadepago,
+        fechaentrega: presupuesto.fechaentrega,
+        facturanum: presupuesto.facturanum,
+        observaciones: presupuesto.observaciones,
+        montototal: presupuesto.montototal,
+        porcentaje: presupuesto.porcentaje
+      });
+      console.log("insumo", presupuestoEdit);
+    }
   };
   return (
     <Layout>
@@ -302,10 +348,22 @@ const Presupuesto = () => {
                           </p>
                         </td>
                         <td className="px-3 py-2">
-                          <p className="text-gray-900 whitespace-no-wrap capitalize">
+                          <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => edit(presupuesto)}
+                          >
                             <FiEdit3 />
                           </p>
-                        </td>
+                          <ModalEdit
+                            showModal2={showModal2}
+                            setShowModal2={setShowModal2}
+                          >
+                            <EditPresupuesto
+                              setShowModal2={setShowModal2}
+                              presupuesto={presupuestoEdit}
+                            />
+                          </ModalEdit>
+                          </td>
                         <td className="px-3 py-2">
                           <p
                             className="text-gray-900 whitespace-no-wrap capitalize"

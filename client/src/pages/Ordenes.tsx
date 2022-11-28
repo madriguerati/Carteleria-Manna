@@ -8,6 +8,8 @@ import Modal from "../components/Modal";
 import AddNewOrden from "../components/AddNewOrden";
 import ModalEdit from "../components/ModalEdit";
 import EditOrden from "../components/editOrden";
+import ModalVer from "../components/ModalVer";
+import VerOrden from "../components/VerOrden";
 
 import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
@@ -47,6 +49,8 @@ const Proveedores = () => {
   const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
+
   const [ordenEdit, setOrdenEdit] = useState({
     fecha: "",
     cliente: "",
@@ -171,6 +175,29 @@ const Proveedores = () => {
     setSortName(null);
   };
 
+  const ver = (orden: any) => {
+    if (ordenes) {
+      setShowModal3(true);
+      console.log("hola", ordenes);
+      setOrdenEdit({
+        fecha: orden.fecha,
+        cliente: orden.cliente,
+        contacto: orden.contacto, //nombre de contacto
+        carteles: orden.contacto,
+        operacion: orden.operacion,
+        lugardecolocacion: orden.lugardecolocacion,
+        lugartraslado: orden.lugartraslado,
+        seña: orden.seña,
+        formadepago: orden.formadepago,
+        fechaentrega: orden.fechaentrega,
+        facturanum: orden.facturanum,
+        observaciones: orden.observaciones,
+        montototal: orden.montototal,
+        porcentaje: orden.porcentaje
+      });
+      console.log("insumo", ordenEdit);
+    }
+  };
   const edit = (orden: any) => {
     if (ordenes) {
       setShowModal2(true);
@@ -194,7 +221,6 @@ const Proveedores = () => {
       console.log("insumo", ordenEdit);
     }
   };
-
   return (
     <Layout>
       <div className="xl:container mx-auto px-4 sm:px-8">
@@ -443,10 +469,22 @@ const Proveedores = () => {
                             </p>
                           </td>
                           <td className="px-3 py-2">
-                            <p className="text-gray-900 whitespace-no-wrap capitalize">
-                              <BsSearch />
-                            </p>
-                          </td>
+                        <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => ver(orden)}
+                          >
+                             <BsSearch />
+                          </p>
+                          <ModalVer
+                            showModal3={showModal3}
+                            setShowModal3={setShowModal3}
+                          >
+                            <VerOrden
+                              setShowModal3={setShowModal3}
+                              orden={ordenEdit}
+                            />
+                          </ModalVer>
+                        </td>
                           <td className="px-3 py-2">
                           <p
                             className="text-gray-900 whitespace-no-wrap capitalize"
