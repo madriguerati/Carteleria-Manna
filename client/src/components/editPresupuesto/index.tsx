@@ -29,9 +29,9 @@ const ClienteEdit = ({ setShowModal2, presupuesto }: Props) => {
 
   const [values, setValues] = useState({
     fecha: presupuesto.fecha,
-    cliente: presupuesto.cliente,
+    cliente: presupuesto.clientes,
     contacto: presupuesto.contacto, //nombre de contacto
-    carteles: presupuesto.contacto,
+    carteles: presupuesto.carteles,
     operacion: presupuesto.operacion,
     lugardecolocacion: presupuesto.lugardecolocacion,
     lugartraslado: presupuesto.lugartraslado,
@@ -93,7 +93,8 @@ const ClienteEdit = ({ setShowModal2, presupuesto }: Props) => {
         })
   }
 const changeOrden=()=>{
-postOrden(values)
+postOrden(values, headers)
+console.log("hola", values)
 }
 
   return (

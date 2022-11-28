@@ -56,7 +56,7 @@ const Presupuesto = () => {
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
   const [presupuestoEdit, setPresupuestoEdit] = useState({
     fecha: "",
-    cliente: "",
+    clientes: "",
     contacto: "", //nombre de contacto
     carteles: "",
     operacion: "",
@@ -160,16 +160,17 @@ const Presupuesto = () => {
   const edit = (presupuesto: any) => {
     if (presupuesto) {
       setShowModal2(true);
+      console.log("holaaa esto es lo que mando", presupuesto)
       setPresupuestoEdit({
         fecha: presupuesto.fecha,
-        cliente: presupuesto.cliente,
+        clientes: presupuesto.clientes,
         contacto: presupuesto.contacto, //nombre de contacto
-        carteles: presupuesto.contacto,
+        carteles: presupuesto.carteles,
         operacion: presupuesto.operacion,
         lugardecolocacion: presupuesto.lugardecolocacion,
         lugartraslado: presupuesto.lugartraslado,
         seña: presupuesto.seña,
-        formadepago: presupuesto.formadepago,
+        formadepago: JSON.stringify(presupuesto.formadepago),
         fechaentrega: presupuesto.fechaentrega,
         facturanum: presupuesto.facturanum,
         observaciones: presupuesto.observaciones,
