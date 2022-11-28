@@ -183,7 +183,7 @@ const Proveedores = () => {
         fecha: orden.fecha,
         cliente: orden.cliente,
         contacto: orden.contacto, //nombre de contacto
-        carteles: orden.contacto,
+        carteles: orden.carteles,
         operacion: orden.operacion,
         lugardecolocacion: orden.lugardecolocacion,
         lugartraslado: orden.lugartraslado,
