@@ -65,7 +65,7 @@ const Proveedores = () => {
     facturanum: "",
     observaciones: "",
     montototal:"",
-    porcentaje:0
+    porcentaje:""
   });
   const [proveedorEdit, setProveedorEdit] = useState({
     fecha: "",
@@ -206,7 +206,7 @@ const Proveedores = () => {
         fecha: orden.fecha,
         cliente: orden.cliente,
         contacto: orden.contacto, //nombre de contacto
-        carteles: orden.contacto,
+        carteles: orden.carteles,
         operacion: orden.operacion,
         lugardecolocacion: orden.lugardecolocacion,
         lugartraslado: orden.lugartraslado,
@@ -432,17 +432,17 @@ const Proveedores = () => {
                             <p className="text-gray-900 whitespace-no-wrap capitalize">
                               {
                               orden.stateImpresiones ==="realizada"
-                              ?<p className="text-white w-20 bg-green-600 rounded-lg p-1 text-center">Realizada</p>
+                              ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
                               :""
                               }
                               {
                               orden.stateImpresiones ==="pendiente"
-                              ?<p className="text-white w-20 bg-red-600 rounded-lg align-center text-center p-1">Pendiente</p>
+                              ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
                               :""
                               }
                               {
                                 orden.stateImpresiones === "entregada"
-                                ? <p className="text-white  w-20 bg-blue-600 rounded-lg align-center text-center p-1">Entregada</p>
+                                ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Entregada</p>
                                 :
                                 ""
                               }
@@ -452,17 +452,17 @@ const Proveedores = () => {
                             <p className="text-gray-900 whitespace-no-wrap capitalize">
                             {
                               orden.stateCarteleria ==="realizada"
-                              ?<p className="text-white w-20 bg-green-600 rounded-lg p-1 text-center">Realizada</p>
+                              ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
                               :""
                               }
                               {
                               orden.stateCarteleria ==="pendiente"
-                              ?<p className="text-white w-20 bg-red-600 rounded-lg align-center text-center p-1">Pendiente</p>
+                              ?<p className="text-white w-20 bg-red-600 rounded  align-center text-center p-1">Pendiente</p>
                               :""
                               }
                               {
                                 orden.stateCarteleria === "entregada"
-                                ? <p className="text-white  w-20 bg-blue-600 rounded-lg align-center text-center p-1">Entregada</p>
+                                ? <p className="text-white w-20 bg-blue-600 rounded align-center text-center p-1">Entregada</p>
                                 :
                                 ""
                               }

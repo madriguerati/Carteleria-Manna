@@ -232,9 +232,9 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       montototalissimo = totalganancia + holaaa
       setValues({
         ...values,
-        montototal: montototalissimo
+        montototal: montototalissimo,
       })
-    console.log("esto es el total sdsdsds ", montototalissimo)
+    console.log("esto es el total sdsdsds ",totalganancia)
    }
   }
 
@@ -701,7 +701,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                 name="montototal"
                 value={
                   values.seña?
-                  values.montototal+totalganancia-values.seña
+                  values.montototal-values.seña
                   :
                   values.montototal
                 }

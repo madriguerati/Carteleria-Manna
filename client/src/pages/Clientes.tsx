@@ -7,6 +7,8 @@ import CreateNewUser from "../components/CreateNewUser";
 import EditCliente from "../components/EditCliente";
 import shallow from "zustand/shallow";
 import Swal from 'sweetalert2'
+import ModalVer from "../components/ModalVer";
+import VerCliente from "../components/verCliente";
 
 import {
   MdKeyboardArrowRight,
@@ -40,6 +42,8 @@ const Clientes = () => {
   const [limit, setLimit] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
+
   const[refresh, setRefresh]=useState(false)
 
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
@@ -148,6 +152,24 @@ const Clientes = () => {
   const edit = (client: any) => {
     if (client) {
       setShowModal2(true);
+      console.log("hola", client);
+      setClientEdit({
+        id: client._id,
+        name: client.name,
+        telefono: client.telefono,
+        cuit: client.cuit,
+        email: client.email,
+        direccion: client.direccion,
+        condicioniva: client.condicioniva,
+        razonsocial: client.razonsocial,
+      });
+      console.log("insumo", clientEdit);
+    }
+  };
+
+  const ver = (client: any) => {
+    if (client) {
+      setShowModal3(true);
       console.log("hola", client);
       setClientEdit({
         id: client._id,
@@ -357,9 +379,21 @@ const Clientes = () => {
                           </p>
                         </td>
                         <td className="px-3 py-2">
-                          <p className="text-gray-900 whitespace-no-wrap capitalize">
-                            <BsSearch />
+                        <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => ver(client)}
+                          >
+                             <BsSearch />
                           </p>
+                          <ModalVer
+                            showModal3={showModal3}
+                            setShowModal3={setShowModal3}
+                          >
+                            <VerCliente
+                              setShowModal3={setShowModal3}
+                              cartel={clientEdit}
+                            />
+                          </ModalVer>
                         </td>
                         <td className="px-3 py-2">
                           <p

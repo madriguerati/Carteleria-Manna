@@ -46,20 +46,20 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
 		closeModal();
 	};
 
-  
+ 
 
   return (
     <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
     <div className='p-6 space-y-4 sm:p-8'>
+   <div className="relative flex justify-end text-2xl mb-10 bg-[#77B327] p-5 ">
       <button
-        className=' text-2xl w-10 h-10 rounded-full flex justify-center '
+        className='absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center rounded '
         onClick={handleCloseModal}
       >
       <MdArrowBack/>
       </button>
-     <div className="bg-[#77B327] p-5 text-center text-4xl rounded">
-      {cartel.descripcion}
-     </div>
+      <h1>{cartel.descripcion}</h1>
+      </div>
     <div className="grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3">
 <div>
   <p className=" w-full text-gray-400">Tipo de cartel</p>
@@ -85,13 +85,13 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
   )}</div>
 </div>
 <hr />
-<div className="bg-gray-200 rounded-xl p-2">
+<div className=" rounded-xl p-2">
 <h1 className="text-4xl text-center">Insumos</h1>
 <div className="flex grid sm:gap-1   sm:grid-cols-1
           md:gap-3 md:grid-cols-3 m-2">
 {
   cartel.insumosArray.map((e:any)=>(
-    <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-full md:w-160 lg:w-160 p-5 mr-4">
+    <div className="flex-1 w-full m-1 border-2 mx-auto bg-white rounded-xl  overflow-hidden w-160 sm:w-full md:w-160 lg:w-160 p-5 mr-4">
     <h1><b>Nombre: </b> {e.name}</h1>
     <h1><b>Catidad 1 faz: </b>{e.cant1faz}</h1>
     <h1><b>Catidad 2 faz: </b>{e.cant2faz}</h1>

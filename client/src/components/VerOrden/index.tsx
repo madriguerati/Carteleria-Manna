@@ -74,49 +74,49 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
     <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
    <div className='p-6 space-y-4 sm:p-8'>
       
-      <div className="bg-white p-5 text-start text-4xl rounded">
-      <div className="relative flex justify-center mb-10 bg-[#77B327] p-5 rounded">
+      <div className="bg-white p-5 text-start text-2xl rounded">
+      <div className="relative flex justify-end mb-10 bg-[#77B327] p-5 rounded">
       <button
         className='absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center '
         onClick={handleCloseModal}
       >
       <MdArrowBack/>
       </button>
-      <b>Orden: :</b>{orden.facturanum}
+      <div className="flex text-end"><b className="flex text-end">Orden: :</b>{orden.facturanum}</div>
       </div>
 
       <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
         <div>
-          <p className="text-gray-400">Cliente: </p> 
+          <b className="text-gray-600">Cliente: </b> 
           <h1>{orden.cliente}</h1>
         </div>
         <div className="ml-2">
-          <p className="text-gray-400">Contacto </p> 
+          <b className="text-gray-600">Contacto </b> 
           <h1>{orden.contacto}</h1>
         </div>
         <div className="ml-2">
-          <p className="text-gray-400">Fecha </p> 
+          <b className="text-gray-600">Fecha </b> 
           <h1>{moment(orden.fecha).format("L")}</h1>
         </div>
       </div>
       {/** tercera columna */}
  <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
         <div>
-          <p className="text-gray-400">Tipo de operación</p> 
+          <b className="text-gray-600">Tipo de operación</b> 
           <h1>{orden.operacion}</h1>
         </div>
       {
         orden.operacion==="colocacion"
         ?
         <div className="ml-2">
-        <p className="text-gray-400">Dirección</p> 
+        <b className="text-gray-600">Dirección</b> 
         <h1>{orden.lugardecolocacion}</h1>
       </div>
       :
       ""
       }
         <div className="ml-2">
-          <p className="text-gray-400">Fecha de entrega </p> 
+          <b className="text-gray-600">Fecha de entrega </b> 
           <h1>{moment(orden.fechaentrega).format("L")}</h1>
         </div>
       </div>
@@ -124,22 +124,22 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
       {/** tercera columna */}
       <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg mb-7">
         <div className="border-b-4 border-green-600">
-          <p className="text-gray-400 ">Seña</p> 
+          <b className="text-gray-600 ">Seña</b> 
           <h1>{orden.seña}</h1>
         </div>
       
-        <div className="ml-2 border-b-4 border-red-600 rounded">
         <div className="ml-2 ">
-        <p className="text-gray-400">Resta</p> 
+        <div className="ml-2 border-b-4 border-red-600">
+        <b className="text-gray-600 ">Resta</b> 
         <h1>{orden.montototal-orden.seña}</h1>
         </div>
       </div>
-        <div className="ml-2 border-b-4 border-blue-600 text-center">
-          <p className="text-gray-400">Total</p> 
+        <div className="ml-2 border-b-4 border-blue-600 text-center ">
+          <b className="text-gray-600">Total</b> 
           <h1>{orden.montototal}</h1>
         </div>
       </div>
- 
+ <hr/>
       <div className=" " >
           <b className="justify-center flex m-5">Carteles</b>
           <br/>
