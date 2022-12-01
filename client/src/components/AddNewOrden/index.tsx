@@ -73,7 +73,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
     base: 0,
     altura: 0,
     medidas: 0,
-    faz: "",
+    faz: "simple",
     total: 0,
     estructura: "",
     category: [],
@@ -109,15 +109,61 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       ...cartel,
       [name]: value,
     });
-
+if(cartel.base&&cartel.altura){
+  
+  setCartel({
+    ...cartel,
+    medidas:multiplicar(cartel.base,cartel.altura)
+  })
+  cartel.medidas=multiplicar(cartel.base, cartel.altura)
+}
    
-    
+    console.log("esto es el total sdsdsds ",totalganancia, values.porcentaje)
     console.log("esto es el total ", values.montototal)
   };
+  
 
   const multiplicar = (a: number, b: number): number => {
     return a * b;
   };
+
+ 
+  const handleSelectFaz= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    const { value } = e.currentTarget;
+    if(value==="doble"){
+      var faz : any = value
+      var totalDoble: any =multiplicar((cartelSelect.costo1faz+cartelSelect.costo2faz),2)
+      setCartel({
+        ...cartel,
+        faz: faz,
+        total: totalDoble
+      })
+      console.log("hola", totalDoble)
+    }
+    if(value==="simple"){
+      var faz : any = value
+      var totalSimple: any =cartelSelect.costo1faz+cartelSelect.costo2faz
+      setCartel({
+        ...cartel,
+        faz: faz,
+        total: totalSimple
+      })
+      console.log("hola")
+    }
+  }
+  const handleSelectCartel= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    const { value } = e.currentTarget;
+    cartelSelect = carteles.find((e: any) => e.descripcion === value);
+      if (cartelSelect) {
+        setCartel({
+          ...cartel,
+          name: value,
+          category: cartelSelect.category,
+          total: cartelSelect.costo1faz+cartelSelect.costo2faz
+        });
+        
+      }
+  }
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -170,28 +216,10 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       formadepago: value,
     });
     if (value) {
-      cartelSelect = carteles.find((e: any) => e.descripcion === value);
+      
       clienteSelect = clientes.find((e: any) => e.name === value);
       console.log("hola soy un valor que si vale", cartelSelect);
-      if (cartelSelect) {
-        setCartel({
-          ...cartel,
-          name: value,
-          category: cartelSelect.category
-        });
-        totalArray = carteles.find((cartel: any) => cartel.costo1faz);
-      }
-      if (value === "simple" || value === "doble") {
-        setCartel({
-          ...cartel,
-          faz: value,
-        });
-      }
-      if (value === "doble") {
-        totalArray.costo1faz = multiplicar(2, totalArray.costo1faz);
-      } else {
-        totalArray.costo1faz = totalArray.costo1faz / 2;
-      }
+     
       if (clienteSelect) {
         var clienteId = clienteSelect._id;
         setValues({
@@ -233,8 +261,9 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       setValues({
         ...values,
         montototal: montototalissimo,
+        porcentaje: totalganancia
       })
-    console.log("esto es el total sdsdsds ",totalganancia)
+    console.log("esto es el total sdsdsds ",totalganancia, values.porcentaje)
    }
   }
 
@@ -373,7 +402,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                   id="grid-state"
                   name="name"
                   value={cartel.name}
-                  onChange={handleSelect}
+                  onChange={handleSelectCartel}
                 >
                   <option value="" defaultValue={""} disabled>
                     Seleccionar cartel
@@ -421,14 +450,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                   type="number"
                   placeholder="medidas"
                   name="medidas"
-                  value={
-                    cartel.base && cartel.altura
-                      ? (cartel.medidas = multiplicar(
-                          cartel.base,
-                          cartel.altura
-                        ))
-                      : ""
-                  }
+                  value={cartel.medidas}
                   onChange={handleChange}
                 />
               </div>
@@ -443,12 +465,10 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                   placeholder="total"
                   name="total"
                   value={
-                    totalArray
-                      ? (cartel.total = multiplicar(
-                          multiplicar(cartel.medidas, totalArray.costo1faz),
-                          cartel.cant
-                        ))
-                      : ""
+                    cartel.medidas?
+                    cartel.total=multiplicar((cartelSelect.costo1faz+cartelSelect.costo2faz),cartel.medidas)
+                    :
+                    cartel.total
                   }
                   onChange={handleChange}
                 />
@@ -463,7 +483,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                 </label>
                 <select
                   value={cartel.faz}
-                  onChange={handleSelect}
+                  onChange={handleSelectFaz}
                   name="faz"
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state"

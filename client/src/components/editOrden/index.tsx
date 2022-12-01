@@ -62,7 +62,7 @@ const [values, setValues] = useState({
   facturanum: orden.facturanum,
   observaciones: orden.observaciones,
   montototal:orden.montototal,
-  porcentaje: orden.porcentaje
+  porcentaje: 0
 });
 const [errors, setErrors] = useState<any>({});
 var totales: any = values.carteles;
@@ -660,7 +660,7 @@ const [cartel, setCartel] = useState<Cartel>({
             name="montototal"
             value={
               values.seña?
-              values.montototal+totalganancia-values.seña
+              values.montototal-values.seña
               :
               values.montototal
             }
