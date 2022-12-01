@@ -26,6 +26,7 @@ var clienteSelect: any = {};
 var cartelSelect: any = {};
 var obreros: any = [];
 var fechaActual: any =moment().format('MM/DD/YYYY')
+var cartelfaz: any = 0
 
 interface Values {
   idUser: string;
@@ -73,7 +74,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
     base: 0,
     altura: 0,
     medidas: 0,
-    faz: "simple",
+    faz: "",
     total: 0,
     estructura: "",
     category: [],
@@ -98,6 +99,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal);
+
   var totalganancia : any =0
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -109,17 +111,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       ...cartel,
       [name]: value,
     });
-if(cartel.base&&cartel.altura){
-  
-  setCartel({
-    ...cartel,
-    medidas:multiplicar(cartel.base,cartel.altura)
-  })
-  cartel.medidas=multiplicar(cartel.base, cartel.altura)
-}
-   
-    console.log("esto es el total sdsdsds ",totalganancia, values.porcentaje)
-    console.log("esto es el total ", values.montototal)
+    console.log("esto es el total ", cartel, montofinal)
   };
   
 
@@ -130,31 +122,14 @@ if(cartel.base&&cartel.altura){
  
   const handleSelectFaz= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     const { value } = e.currentTarget;
-    if(value==="doble"){
-      var faz : any = value
-      var totalDoble: any =multiplicar((cartelSelect.costo1faz+cartelSelect.costo2faz),2)
-      setCartel({
-        ...cartel,
-        faz: faz,
-        total: totalDoble
-      })
-      console.log("hola", totalDoble)
-    }
-    if(value==="simple"){
-      var faz : any = value
-      var totalSimple: any =cartelSelect.costo1faz+cartelSelect.costo2faz
-      setCartel({
-        ...cartel,
-        faz: faz,
-        total: totalSimple
-      })
-      console.log("hola")
-    }
+    
   }
   const handleSelectCartel= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     const { value } = e.currentTarget;
     cartelSelect = carteles.find((e: any) => e.descripcion === value);
+   
       if (cartelSelect) {
+        montofinal: cartelSelect.costo1faz+cartelSelect.costo2faz
         setCartel({
           ...cartel,
           name: value,
@@ -450,7 +425,14 @@ if(cartel.base&&cartel.altura){
                   type="number"
                   placeholder="medidas"
                   name="medidas"
-                  value={cartel.medidas}
+                  value={
+                    cartel.altura
+                        ? (cartel.medidas = multiplicar(
+                            cartel.base,
+                            cartel.altura
+                          ))
+                        : ""
+                    }
                   onChange={handleChange}
                 />
               </div>
@@ -466,7 +448,7 @@ if(cartel.base&&cartel.altura){
                   name="total"
                   value={
                     cartel.medidas?
-                    cartel.total=multiplicar((cartelSelect.costo1faz+cartelSelect.costo2faz),cartel.medidas)
+                    cartel.total=cartel.total*cartel.medidas
                     :
                     cartel.total
                   }
