@@ -70,6 +70,7 @@ const AddNewOrden = ({ setShowModal }: Props) => {
   const { getUsers2, users, logout, user } = useUser((state) => state);
   const [hola, setHola] = useState(false);
 const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
+const [montoModificado, setMontoModificado]=useState(0)
   const [cartel, setCartel] = useState<Cartel>({
     cant: 1,
     name: "",
@@ -101,7 +102,21 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal);
-
+ const resetCartel = ()=> {
+  setMontoModificado(0)
+  setCartel({
+    cant: 1,
+    name: "",
+    base: 0,
+    altura: 0,
+    medidas: 0,
+    faz: "",
+    total: 0,
+    estructura: "",
+    category: [],
+    otros: "",
+  })
+ }
   var totalganancia : any =0
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -114,6 +129,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       [name]: value,
     });
     console.log("esto es el total ", cartel)
+   
   };
   
 
@@ -126,18 +142,24 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
     const { value } = e.currentTarget;
     if (value === "doble") {
       alert("LLLLLLLLLLLLLLLLLL")
-      var valorDoble: any  = multiplicar(2, cartel.total);
+      var valorDoble: any  = multiplicar(2, montoModificado);
+      setMontoModificado(valorDoble)
+      console.log("holaaaaaaaaaa", montoModificado)
       setCartel({
         ...cartel,
-        total: valorDoble
+        faz:"doble",
       })
       console.log("hola", valorDoble)
     }
     if (value === "simple") {
-      alert("LLLLLLLLLLLLLLLLLL")
-      var valorsimple: cartel.total
-    
+      var valorSimple: any  =  montoModificado;
+      setCartel({
+        ...cartel,
+        faz:"simple",
+      })
       console.log("hola", valorDoble)
+      
+      
     } 
     
   }
@@ -146,11 +168,12 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
     cartelSelect = carteles.find((e: any) => e.descripcion === value);
    
       if (cartelSelect) {
+        setMontoModificado(cartelSelect.costo1faz+cartelSelect.costo2faz)
         setCartel({
           ...cartel,
           name: value,
           category: cartelSelect.category,
-          total: cartelSelect.costo1faz+cartelSelect.costo2faz
+          total: montoModificado
         });
         console.log("hola", cartelSelect)
       }
@@ -442,13 +465,13 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                   placeholder="medidas"
                   name="medidas"
                   value={
-                    cartel.altura
-                        ? (cartel.medidas = multiplicar(
-                            cartel.base,
-                            cartel.altura
-                          ))
-                        : ""
-                    }
+                    cartel.base && cartel.altura
+                      ? (cartel.medidas = multiplicar(
+                          cartel.base,
+                          cartel.altura
+                        ))
+                      : ""
+                  }
                   onChange={handleChange}
                 />
               </div>
@@ -464,9 +487,9 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                   name="total"
                   value={
                     cartel.medidas?
-                    cartel.total=multiplicar((cartelSelect.costo1faz+cartelSelect.costo2faz),cartel.medidas)
-                    :
-                    ""
+                       cartel.total = multiplicar(multiplicar(montoModificado, cartel.medidas), cartel.cant)
+                        
+                      : cartel.total = montoModificado
                   }
                   onChange={handleChange}
                 />
@@ -524,6 +547,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
             </div>
           </div>
          <div className="justify-end flex pr-3 pb-3">
+          <h1 className="text-red-600 mt-4 px-4 py-3 leading-6" onClick={resetCartel}>Reset</h1>
          <button
             onClick={crearCartel}
             className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-blue-500 hover:bg-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-40 justify-center items-center font-medium focus:outline-none"

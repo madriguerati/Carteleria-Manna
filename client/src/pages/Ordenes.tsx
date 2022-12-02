@@ -45,8 +45,8 @@ const Proveedores = () => {
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(10);
-  const [limit, setLimit] = useState(1);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
@@ -87,12 +87,12 @@ const Proveedores = () => {
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
 
   useEffect(() => {
-    getOrdenesAll(accessToken, limit, page);
+    getOrdenesAll(accessToken,  page,limit);
     console.log("holaaaaaa", ordenes);
     getClients(headers);
 
     
-  }, []);
+  }, [limit, page]);
 
   //delete
   const DeleteOrden = (orden: any) => {
@@ -119,7 +119,10 @@ const Proveedores = () => {
   };
 
   const nextPage = (): void => {
+    console.log('nextPage', page)
     page < ordenes.totalPages && setPage(page + 1);
+    console.log('nextPage', page)
+
   };
 
   const prevPage = (): void => {
@@ -384,6 +387,12 @@ const Proveedores = () => {
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         ELIMINAR
                       </th>
+                      <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
+                        PAGOS
+                      </th>
+                      <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
+                        ESTADO
+                      </th>
                     </tr>
                   </thead>
                   {
@@ -509,6 +518,16 @@ const Proveedores = () => {
                               onClick={() => DeleteOrden(orden)}
                             >
                               {<MdDelete />}
+                            </p>
+                          </td>
+                          <td className="px-3 py-2">
+                            <p className="text-gray-900 whitespace-no-wrap">
+                              $
+                            </p>
+                          </td>
+                          <td className="px-3 py-2">
+                            <p className="text-gray-900 whitespace-no-wrap">
+                              Estado
                             </p>
                           </td>
                         </tr>

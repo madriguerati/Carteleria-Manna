@@ -53,7 +53,7 @@ router.get('/allusers', async(req: any, res: any, next)=>{
         const response = {
             error: false,
             total,
-            page: page + 1,
+            page: page,
             totalPages: Math.ceil(total / limit),
             limit,
             roles: rolesName,
