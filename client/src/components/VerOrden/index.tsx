@@ -64,6 +64,13 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
     setShowModal3(false);
     closeModal();
   };
+  var metodosPago: any =[]
+  var metodosPagosActual: any = []
+  const agregarMetodo=()=>{
+   metodosPago.unshift(1)
+   metodosPagosActual= metodosPago
+   console.log("hola", metodosPago)
+  }
 
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
@@ -88,7 +95,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
               href="#link1"
               role="tablist"
             >
-              Editar presupuesto
+              Editar Orden
             </a>
           </li>
           <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -320,23 +327,24 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
       <div className=" " >
           <b className="justify-center flex m-5">Carteles</b>
           <br/>
-         <div className="flex grid sm:gap-1 sm:grid-cols-1  md:gap-3 md:grid-cols-3">
-         {
-            orden.carteles.map((e:any)=>(
-              <div className=" text-lg  rounded-xl  border-2 border-gray-200 overflow-hidden  sm:w-full md:w-full lg:w-160 p-5 ">
-          <p className="text-start"><b>Nombre: </b>{e.name} </p>
-          <p className="text-start"><b>base x altura : </b>{e.base} x {e.altura} </p>
-          <b>categoría</b>
-          {e.category.map((item:any)=>(
-            <div>-{item}</div>
-          ))}
-          <p className="text-start"><b>estructura: </b>{e.estructura} </p>
-          <p className="text-start"><b>otros: </b>{e.otros} </p>
-          <p className="text-start"><b>faz: </b>{e.faz} </p>
-        </div>
+        <div>
+          <div className="flex w-full grid sm:gap-1 sm:grid-cols-1  md:gap-2 md:grid-cols-2 bg-gray-200 p-5">
+<div className="flex justify-start">
+Agregar Pagos
+</div>
+<div className="flex justify-end cursor-pointer">
++
+</div>
+          </div>
+          {
+            metodosPagosActual.length>0?
+            metodosPagosActual.map((e:any)=>(
+              <div>Hola</div>
             ))
+            :
+            "Holaaaaaaaaaaaaa"
           }
-         </div>
+        </div>
         </div>
         <b className="text-black flex justify-center m-5">Observaciones</b>
         <div>
