@@ -392,9 +392,7 @@ const Proveedores = () => {
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         ELIMINAR
                       </th>
-                      <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
-                        PAGOS
-                      </th>
+                      
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         ESTADO
                       </th>
@@ -525,11 +523,7 @@ const Proveedores = () => {
                               {<MdDelete />}
                             </p>
                           </td>
-                          <td className="px-3 py-2 justify-center flex">
-                            <p className="text-gray-900 text-xl cursor-pointer  whitespace-no-wrap">
-                              <GiReceiveMoney/>
-                            </p>
-                          </td>
+                          
                           <td className="px-3 py-2">
                             <p className="text-gray-900 whitespace-no-wrap">
                               {

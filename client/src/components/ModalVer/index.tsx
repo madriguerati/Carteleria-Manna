@@ -18,7 +18,7 @@ const ModalEdit = ({children, showModal3,setShowModal3 }: Props) => {
 							</div>
 						</div>
 					</div>
-					<div className='opacity-20 fixed inset-0 z-40 bg-black'></div>
+					<div className='opacity-10 fixed inset-0 z-40 bg-black'></div>
 				</>
 			) : null}
 		</>
