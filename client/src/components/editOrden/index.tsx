@@ -49,13 +49,13 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
   const [hola, setHola] = useState(false);
 const [porcentaje, setPorcentaje]=useState([0,10,20,30,40,50,60,70,80,90,100])
 const [values, setValues] = useState({
+  id: orden.id,
   fecha: orden.fecha,
   cliente: orden.cliente,
   contacto: orden.contacto, //nombre de contacto
   carteles: orden.carteles,
   operacion: orden.operacion,
   lugardecolocacion: orden.lugardecolocacion,
-  lugartraslado: orden.lugartraslado,
   seña: orden.seña,
   formadepago: orden.formadepago,
   fechaentrega: orden.fechaentrega,
@@ -163,26 +163,8 @@ const [cartel, setCartel] = useState<Cartel>({
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
         
-
-        Swal.fire({
-          title: '¿Desea guardar los cambios?',
-          showDenyButton: true,
-          showCancelButton: true,
-          confirmButtonColor: '#77B327',
-          confirmButtonText: 'Guardar',
-          denyButtonText: `No guardar`,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            putOrden(headers, values)
-            Swal.fire('¡Guardado exitosamente!', '', 'success')
-            
-            handleCloseModal()
-            success
-          } else if (result.isDenied) {
-            Swal.fire('Los cambios no han sido guardados', '', 'info')
-          
-          }
-        })
+    putOrden(values, headers)
+      
   }
   const handleSelectCliente= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;

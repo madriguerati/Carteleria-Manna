@@ -27,6 +27,8 @@ import {
 import { BsSearch } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { FiEdit3 } from "react-icons/fi";
+import { GiReceiveMoney } from "react-icons/gi";
+
 
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
@@ -65,7 +67,8 @@ const Proveedores = () => {
     facturanum: "",
     observaciones: "",
     montototal:"",
-    porcentaje:""
+    porcentaje:"",
+    id: ""
   });
   const [proveedorEdit, setProveedorEdit] = useState({
     fecha: "",
@@ -196,7 +199,8 @@ const Proveedores = () => {
         facturanum: orden.facturanum,
         observaciones: orden.observaciones,
         montototal: orden.montototal,
-        porcentaje: orden.porcentaje
+        porcentaje: orden.porcentaje,
+        id: orden._id,
       });
       console.log("insumo", ordenEdit);
     }
@@ -219,7 +223,8 @@ const Proveedores = () => {
         facturanum: orden.facturanum,
         observaciones: orden.observaciones,
         montototal: orden.montototal,
-        porcentaje: orden.porcentaje
+        porcentaje: orden.porcentaje,
+        id: orden._id
       });
       console.log("insumo", ordenEdit);
     }
@@ -438,7 +443,7 @@ const Proveedores = () => {
                           </td>
                           
                           <td className="">
-                            <p className="text-gray-900 whitespace-no-wrap capitalize">
+                            <p className="text-gray-900 whitespace-no-wrap capitalize justify-center flex">
                               {
                               orden.stateImpresiones ==="realizada"
                               ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
@@ -458,7 +463,7 @@ const Proveedores = () => {
                             </p>
                           </td>
                           <td className="px-3 py-2">
-                            <p className="text-gray-900 whitespace-no-wrap capitalize">
+                            <p className="text-gray-900 whitespace-no-wrap capitalize justify-center flex">
                             {
                               orden.stateCarteleria ==="realizada"
                               ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
@@ -477,9 +482,9 @@ const Proveedores = () => {
                               }
                             </p>
                           </td>
-                          <td className="px-3 py-2">
+                          <td className="px-3 py-2 ">
                         <p
-                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
                             onClick={() => ver(orden)}
                           >
                              <BsSearch />
@@ -494,9 +499,9 @@ const Proveedores = () => {
                             />
                           </ModalVer>
                         </td>
-                          <td className="px-3 py-2">
+                          <td className="px-3 py-2 ">
                           <p
-                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
                             onClick={() => edit(orden)}
                           >
                             <FiEdit3 />
@@ -511,23 +516,27 @@ const Proveedores = () => {
                             />
                           </ModalEdit>
                           </td>
-                          <td className="px-3 py-2">
+                          <td className="px-3 py-2 ">
                             <p
-                              className="text-gray-900 whitespace-no-wrap capitalize"
+                              className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
                               style={{ cursor: "pointer" }}
                               onClick={() => DeleteOrden(orden)}
                             >
                               {<MdDelete />}
                             </p>
                           </td>
-                          <td className="px-3 py-2">
-                            <p className="text-gray-900 whitespace-no-wrap">
-                              $
+                          <td className="px-3 py-2 justify-center flex">
+                            <p className="text-gray-900 text-xl cursor-pointer  whitespace-no-wrap">
+                              <GiReceiveMoney/>
                             </p>
                           </td>
                           <td className="px-3 py-2">
                             <p className="text-gray-900 whitespace-no-wrap">
-                              Estado
+                              {
+                                orden.montototal===orden.seña
+                                ?<h1 className="text-white w-20 bg-violet-600 rounded p-1 text-center">Pagada</h1>
+                                :<h1 className="text-white w-20 bg-yellow-600 rounded p-1 text-center">Sin Pagar</h1>
+                              }
                             </p>
                           </td>
                         </tr>
