@@ -22,6 +22,8 @@ var totalArray: any = [];
 var totales: any = [];
 let sumTotales: any = [];
 var montofinal: any = 0;
+var montofinal2: any = 0;
+
 var clienteSelect: any = {};
 var cartelSelect: any = {};
 var obreros: any = [];
@@ -111,7 +113,7 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
       ...cartel,
       [name]: value,
     });
-    console.log("esto es el total ", cartel, montofinal)
+    console.log("esto es el total ", cartel)
   };
   
 
@@ -122,6 +124,21 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
  
   const handleSelectFaz= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     const { value } = e.currentTarget;
+    if (value === "doble") {
+      alert("LLLLLLLLLLLLLLLLLL")
+      var valorDoble: any  = multiplicar(2, cartel.total);
+      setCartel({
+        ...cartel,
+        total: valorDoble
+      })
+      console.log("hola", valorDoble)
+    }
+    if (value === "simple") {
+      alert("LLLLLLLLLLLLLLLLLL")
+      var valorsimple: cartel.total
+    
+      console.log("hola", valorDoble)
+    } 
     
   }
   const handleSelectCartel= (e: React.ChangeEvent<HTMLSelectElement>)=>{
@@ -129,14 +146,13 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
     cartelSelect = carteles.find((e: any) => e.descripcion === value);
    
       if (cartelSelect) {
-        montofinal: cartelSelect.costo1faz+cartelSelect.costo2faz
         setCartel({
           ...cartel,
           name: value,
           category: cartelSelect.category,
           total: cartelSelect.costo1faz+cartelSelect.costo2faz
         });
-        
+        console.log("hola", cartelSelect)
       }
   }
 
@@ -448,9 +464,9 @@ const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
                   name="total"
                   value={
                     cartel.medidas?
-                    cartel.total=cartel.total*cartel.medidas
+                    cartel.total=multiplicar((cartelSelect.costo1faz+cartelSelect.costo2faz),cartel.medidas)
                     :
-                    cartel.total
+                    ""
                   }
                   onChange={handleChange}
                 />

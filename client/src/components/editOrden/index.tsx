@@ -102,9 +102,10 @@ const [cartel, setCartel] = useState<Cartel>({
       formadepago: value,
     });
     if (value) {
-      cartelSelect = carteles.find((e: any) => e.descripcion === value);
+      
       clienteSelect = clientes.find((e: any) => e.name === value);
       console.log("hola soy un valor que si vale", cartelSelect);
+      cartelSelect = carteles.find((e: any) => e.descripcion === value);
       if (cartelSelect) {
         setCartel({
           ...cartel,
