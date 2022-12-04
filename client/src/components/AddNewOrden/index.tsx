@@ -46,6 +46,8 @@ interface Values {
   plazodeentrega: string;
   observaciones: string;
   porcentaje: number;
+  resta: number;
+  restaHistory: object[]
 }
 interface Cartel {
   cant: number;
@@ -98,7 +100,9 @@ const [montoModificado, setMontoModificado]=useState(0)
     facturanum: "",
     plazodeentrega: "",
     observaciones: "",
-    porcentaje: 0
+    porcentaje: 0,
+    resta: 0,
+    restaHistory:[]
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal);
@@ -210,7 +214,9 @@ const [montoModificado, setMontoModificado]=useState(0)
       facturanum: "",
       plazodeentrega: "",
       observaciones: "",
-      porcentaje: 0
+      porcentaje: 0,
+      resta: 0,
+      restaHistory:[]
     });
      
     setTimeout(() => {
@@ -323,7 +329,9 @@ const [montoModificado, setMontoModificado]=useState(0)
       facturanum: "",
       plazodeentrega: "",
       observaciones: "",
-      porcentaje: 0
+      porcentaje: 0,
+      resta: 0,
+      restaHistory:[]
     });
     getCarteles(accessToken);
     getClients(headers);

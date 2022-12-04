@@ -68,7 +68,9 @@ const Proveedores = () => {
     observaciones: "",
     montototal:"",
     porcentaje:"",
-    id: ""
+    id: "",
+    resta:0,
+    restaHistory: []
   });
   const [proveedorEdit, setProveedorEdit] = useState({
     fecha: "",
@@ -201,6 +203,8 @@ const Proveedores = () => {
         montototal: orden.montototal,
         porcentaje: orden.porcentaje,
         id: orden._id,
+        resta: orden.resta,
+        restaHistory: orden.restaHistory
       });
       console.log("insumo", ordenEdit);
     }
@@ -224,7 +228,10 @@ const Proveedores = () => {
         observaciones: orden.observaciones,
         montototal: orden.montototal,
         porcentaje: orden.porcentaje,
-        id: orden._id
+        id: orden._id,
+        resta: orden.resta,
+        restaHistory: orden.restaHistory
+
       });
       console.log("insumo", ordenEdit);
     }
@@ -527,7 +534,7 @@ const Proveedores = () => {
                           <td className="px-3 py-2">
                             <p className="text-gray-900 whitespace-no-wrap">
                               {
-                                orden.montototal===orden.seña
+                                orden.montototal===orden.seña+orden.resta
                                 ?<h1 className="text-white w-20 bg-violet-600 rounded p-1 text-center">Pagada</h1>
                                 :<h1 className="text-white w-20 bg-yellow-600 rounded p-1 text-center">Sin Pagar</h1>
                               }
