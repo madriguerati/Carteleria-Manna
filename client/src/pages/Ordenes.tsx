@@ -10,7 +10,7 @@ import ModalEdit from "../components/ModalEdit";
 import EditOrden from "../components/editOrden";
 import ModalVer from "../components/ModalVer";
 import VerOrden from "../components/VerOrden";
-
+import Home from "./Home"
 import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
@@ -39,7 +39,7 @@ import Swal from 'sweetalert2'
 
 const Proveedores = () => {
   const { users, user, getUsers } = useUser((state) => state, shallow);
-  const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading } = useOrdenes(
+  const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading, success } = useOrdenes(
     (state) => state
   );
   const { clientes, getClients } = useClients((state) => state);
@@ -92,16 +92,19 @@ const Proveedores = () => {
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
 
   useEffect(() => {
-    getOrdenesAll(accessToken,  page,limit);
+    !success && getOrdenesAll(accessToken, page ,limit);
     console.log("holaaaaaa", ordenes);
     getClients(headers);
 
     
-  }, [limit, page]);
+  }, [success, page ,limit]);
 
   //delete
   const DeleteOrden = (orden: any) => {
-    
+    var arrayeliminado : any =ordenes.ordenes.filter((e:any)=>e._id!==orden._id)
+ordenes.ordenes=arrayeliminado
+console.log("hola est vienes del mas alla ",ordenes.ordenes)
+    console.log("esto es la orden que viene del mass alla", arrayeliminado, orden._id)
     Swal.fire({
 			title: '¿Estás seguro?',
 			text: "No podrás revertir los cambios",
@@ -238,6 +241,7 @@ const Proveedores = () => {
   };
   return (
     <Layout>
+     
       <div className="xl:container mx-auto px-4 sm:px-8">
         <div className="py-3">
           <div className="bg-[#77B327] h-16 flex items-center rounded">
@@ -448,44 +452,58 @@ const Proveedores = () => {
                           </td>
                           
                           <td className="">
-                            <p className="text-gray-900 whitespace-no-wrap capitalize justify-center flex">
-                              {
-                              orden.stateImpresiones ==="realizada"
-                              ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
-                              :""
-                              }
-                              {
-                              orden.stateImpresiones ==="pendiente"
-                              ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
-                              :""
-                              }
-                              {
-                                orden.stateImpresiones === "entregada"
-                                ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Entregada</p>
-                                :
-                                ""
-                              }
-                            </p>
+                          <p className="text-gray-900 whitespace-no-wrap capitalize justify-center flex">
+                          {orden.stateImpresiones
+                           ? 
+                           <div>
+                             {
+                           orden.stateImpresiones ==="realizada"
+                           ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
+                           :""
+                           }
+                           {
+                           orden.stateImpresiones ==="pendiente"
+                           ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                           :""
+                           }
+                           {
+                             orden.stateImpresiones === "entregada"
+                             ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Entregada</p>
+                             :
+                             ""
+                           }
+                           </div>
+                         :
+                         <p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                          }
+                          </p>
                           </td>
                           <td className="px-3 py-2">
-                            <p className="text-gray-900 whitespace-no-wrap capitalize justify-center flex">
-                            {
-                              orden.stateCarteleria ==="realizada"
-                              ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
-                              :""
-                              }
-                              {
-                              orden.stateCarteleria ==="pendiente"
-                              ?<p className="text-white w-20 bg-red-600 rounded  align-center text-center p-1">Pendiente</p>
-                              :""
-                              }
-                              {
-                                orden.stateCarteleria === "entregada"
-                                ? <p className="text-white w-20 bg-blue-600 rounded align-center text-center p-1">Entregada</p>
-                                :
-                                ""
-                              }
-                            </p>
+                          <p className="text-gray-900 whitespace-no-wrap capitalize justify-center flex">
+                          {orden.stateCarteleria
+                           ? 
+                           <div>
+                             {
+                           orden.stateCarteleria ==="realizada"
+                           ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
+                           :""
+                           }
+                           {
+                           orden.stateCarteleria ==="pendiente"
+                           ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                           :""
+                           }
+                           {
+                             orden.stateCarteleria === "entregada"
+                             ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Entregada</p>
+                             :
+                             ""
+                           }
+                           </div>
+                         :
+                         <p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                          }
+                          </p>
                           </td>
                           <td className="px-3 py-2 ">
                         <p
@@ -599,7 +617,7 @@ const Proveedores = () => {
           </button>
         </div>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <AddNewOrden setShowModal={setShowModal} />
+          <AddNewOrden setShowModal={setShowModal} ordenes={ordenes.ordenes} />
         </Modal>
       </div>
     </Layout>

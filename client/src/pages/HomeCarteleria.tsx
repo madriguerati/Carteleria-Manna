@@ -48,7 +48,7 @@ var color: any = "white";
                   href="#link1"
                   role="tablist"
                 >
-                  Pendientes
+                  Entrada
                 </a>
               </li>
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -67,7 +67,7 @@ var color: any = "white";
                   href="#link2"
                   role="tablist"
                 >
-                  Hechas
+                 En proceso
                 </a>
               </li>
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -86,7 +86,7 @@ var color: any = "white";
                   href="#link3"
                   role="tablist"
                 >
-                  Entregadas
+                  Terminadas
                 </a>
               </li>
             </ul>

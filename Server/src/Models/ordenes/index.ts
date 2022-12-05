@@ -34,7 +34,7 @@ const ordenesSchema = new Schema(
             required:true
 
         },
-        contacto://nombre de contacto
+        contacto:
         {
             type:String,
             required:true

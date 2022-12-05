@@ -269,14 +269,14 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                       {/** tercera columna */}
                       <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg mb-7">
                         <div className="border-b-4 border-green-600">
-                          <b className="text-gray-600 ">Seña</b>
-                          <h1>{orden.seña}</h1>
+                          <b className="text-gray-600 ">Pagado</b>
+                          <h1>{orden.seña+orden.resta}</h1>
                         </div>
 
                         <div className="ml-2 ">
                           <div className="ml-2 border-b-4 border-red-600">
                             <b className="text-gray-600 ">Resta</b>
-                            <h1>{orden.montototal - orden.seña}</h1>
+                            <h1>{orden.montototal -(orden.seña+orden.resta)}</h1>
                           </div>
                         </div>
                         <div className="ml-2 border-b-4 border-blue-600 text-center ">
@@ -523,10 +523,17 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                         <div>
                           <hr />
                           <h1 className="text-bold mt-5">Metodos de Pago</h1>
+                          <div className="flex pl-2  grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+                          
+                          <p className="text-lg pt-2">
+                            <b>método de pago: </b>
+                            {orden.formadepago}
+                          </p>
                           <p className="text-lg pt-2 pl-2">
                             <b>seña: </b>
                             {orden.seña}
                           </p>
+                          </div>
                           {orden.restaHistory.map((e: any) => (
                             <div className="rounded ">
                               <div className="flex pl-2  grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">

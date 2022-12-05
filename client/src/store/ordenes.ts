@@ -70,15 +70,12 @@ const useOrdenes = create<UserStore>()(
         let headers:any = {
         "x-access-token" : token
       };
-      set({ loading: true})
+      set({ success: true, error: false });
        try{ 
         const { data } = await axios.post('http://localhost:5000/api/ordenes/create', body, { headers: { "x-access-token": token} });
-       if(data){
-       }
       }catch (error) {
-        console.log(error)
+        set({ error: true, success: false });
        }
-       set({ loading: false})
 
       },
       getOrdenes: async (headers) => {
@@ -104,9 +101,9 @@ const useOrdenes = create<UserStore>()(
           
         },
       deleteOrdenes: async (params, headers)=>{
-        set({ loading: true}) 
+        set({ success: true, error: false });
         const { data } = await axios.delete(`http://localhost:5000/api/ordenes/${params}`,   headers);
-        set({ loading: false})  
+        set({ success: true, error: false });  
       },
       closeModal: () => {
         //set({ error: false})

@@ -10,12 +10,14 @@ import useOrdenes from "../../store/ordenes";
 import useUser from "../../store/user";
 import moment from 'moment'
 import { value } from "rumble-charts/types/helpers";
+import Swal from 'sweetalert2'
 
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
 
 type Props = {
   setShowModal: any;
+  ordenes: any
 };
 
 var totalArray: any = [];
@@ -48,6 +50,8 @@ interface Values {
   porcentaje: number;
   resta: number;
   restaHistory: object[]
+  stateCarteleria: string,
+  stateImpresiones:string,
 }
 interface Cartel {
   cant: number;
@@ -62,7 +66,7 @@ interface Cartel {
   category: string[]
 }
 
-const AddNewOrden = ({ setShowModal }: Props) => {
+const AddNewOrden = ({ setShowModal, ordenes }: Props) => {
   const { postOrden, success, error, closeModal } = useOrdenes(
     (state) => state
   );
@@ -102,6 +106,8 @@ const [montoModificado, setMontoModificado]=useState(0)
     observaciones: "",
     porcentaje: 0,
     resta: 0,
+    stateCarteleria:"pendiente",
+    stateImpresiones: "pendiente",
     restaHistory:[]
   });
   const [errors, setErrors] = useState<any>({});
@@ -185,20 +191,21 @@ const [montoModificado, setMontoModificado]=useState(0)
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // setErrors(
-    // 	validateInfo({
-    // 		...values,
-    // 	})
-    // );
+    var newArray: any = ordenes
+    newArray.push(values)
+    ordenes= newArray
+console.log("hola estos", ordenes)
+console.log("hola estos", newArray, values)
 
-    // const error = validateInfo(values);
-
-    // if (Object.keys(error).length === 0) {
-    // 	createNewUser(values);
-    // }
+    Swal.fire({
+      position: 'bottom-end',
+      icon: 'success',
+      title: 'Orden creadas exitosamente',
+      showConfirmButton: false,
+      timer: 1500
+    })
     postOrden(values, headers);
-    console.log("hola soy un valie", values);
- 
+    
     setValues({
       idUser: user._id,
       fecha: "",
@@ -220,7 +227,7 @@ const [montoModificado, setMontoModificado]=useState(0)
     });
      
     setTimeout(() => {
-      closeModal();
+      handleCloseModal()
     }, 2000);
   };
 

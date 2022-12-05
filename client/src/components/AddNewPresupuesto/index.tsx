@@ -140,9 +140,15 @@ console.log("hola",cartel)
     // }
     addPresupuesto(values);
 	console.log("hola soy un valie", values)
-
+  Swal.fire({
+    position: 'bottom-end',
+    icon: 'success',
+    title: 'Presupuesto creado exitosamente',
+    showConfirmButton: false,
+    timer: 1500
+  })
     setTimeout(() => {
-      closeModal();
+      handleCloseModal()
     }, 2000);
   };
 
