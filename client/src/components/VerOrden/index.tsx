@@ -187,7 +187,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
               href="#link1"
               role="tablist"
             >
-              Editar presupuesto
+              ORDEN
             </a>
           </li>
           <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -206,7 +206,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
               href="#link2"
               role="tablist"
             >
-              Convertir en orden
+              GESTIONAR PAGOS
             </a>
           </li>
         </ul>
@@ -216,23 +216,23 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {/** formulario edit */}
 
-                <div className=" ">
+                <div className="">
                   <div className="">
                     <div className="bg-white p-5 text-start text-2xl rounded">
-                      <div className="relative flex justify-end mb-10 p-5 rounded">
+                      <div className="relative flex justify-end mb-10 p-5 flex text-end ">
                         <button
                           className="absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center "
                           onClick={handleCloseModal}
                         >
                           <MdArrowBack />
                         </button>
-                        <div className="flex text-end">
+                        <div className="flex text-end ">
                           <b className="flex text-end">Orden: :</b>
                           {orden.facturanum}
                         </div>
                       </div>
 
-                      <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
+                      <div className="  mb-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
                         <div>
                           <b className="text-gray-600">Cliente: </b>
                           <h1>{orden.cliente}</h1>
