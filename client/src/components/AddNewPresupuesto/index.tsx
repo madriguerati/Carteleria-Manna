@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdError } from "react-icons/md";
+import { MdError , MdExitToApp} from "react-icons/md";
 import useCartel from "../../store/carteles";
 import useClients from "../../store/clientes";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -48,7 +48,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
   const { carteles, getCarteles } = useCartel((state) => state);
   const { clientes, getClients } = useClients((state) => state);
-
+  const [montoModificado, setMontoModificado]=useState(0)
   const [porcentaje, setPorcentaje]=useState([10,20,30,40,50,60,70,80,90,100])
 
   const handleSelectCliente= (e: React.ChangeEvent<HTMLSelectElement>)=>{
@@ -88,7 +88,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       ...values,
       [name]: value,
     });
-
+console.log("holaaaaaaaaaaaaa", values)
   };
 
   const multiplicar = (a: number, b: number): number => {
@@ -111,24 +111,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
     setShowModal(false);
     closeModal();
   };
-  const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{
-    let {value}= e.currentTarget;
-    var holaaa: any =montofinal
-   if(value){
-    var valuesporcen: any = value
-    var porcentaje: any  = 0
-    var montototalissimo: 0
-    totalganancia=0
-    porcentaje=(valuesporcen/100)
-      totalganancia = multiplicar(porcentaje, holaaa)
-      montototalissimo = totalganancia + holaaa
-      setValues({
-        ...values,
-        montototal: montototalissimo
-      })
-    console.log("esto es el total sdsdsds ", montototalissimo)
-   }
-  }
+
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let { value } = e.currentTarget;
@@ -136,10 +119,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
       ...values,
       formadepago: value,
     });
-    if (value){
-		clienteSelect = clientes.find((e:any)=> e.name===value)
-
-	}
+		
   };
 
 
@@ -163,6 +143,26 @@ const AddNewClient = ({ setShowModal }: Props) => {
     getClients(headers);
   }, []);
 
+  const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    let {value}= e.currentTarget;
+    var holaaa: any =montoModificado
+   if(value){
+    var valuesporcen: any = value
+    var porcentaje: any  = 0
+    var montototalissimo: 0
+    totalganancia=0
+    porcentaje=(valuesporcen/100)
+      totalganancia = multiplicar(porcentaje, holaaa)
+      montototalissimo = totalganancia + holaaa
+      setValues({
+        ...values,
+        montototal: montototalissimo,
+        porcentaje: totalganancia
+      })
+    console.log("esto es el total sdsdsds ",montofinal, values)
+   }
+  }
+
 
 
   const handleSelectClient= (e: React.ChangeEvent<HTMLSelectElement>)=>{
@@ -179,15 +179,19 @@ const AddNewClient = ({ setShowModal }: Props) => {
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
     <div className="p-6 space-y-4 sm:p-8">
-      <button
-        className="absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300"
+    <button
+        className='absolute right-12 top-16 mt-1 text-black text-4xl w-10 h-10  flex justify-center '
         onClick={handleCloseModal}
       >
-        x
+        <MdExitToApp/>
       </button>
       <div
-        className={`flex items-center justify-center p-5 border-b border-solid border-slate-200 rounded ${
-          success ? "bg-[#c2e593]" : error ? "bg-red-300" : "bg-[#77B327]"
+        className={`flex items-center justify-start p-5 ${
+          success
+            ? "bg-white"
+            : error
+            ? "bg-red-300"
+            : "border-b-[#77B327] border-b-4 rounded"
         }`}
       >
         <h3
@@ -200,20 +204,25 @@ const AddNewClient = ({ setShowModal }: Props) => {
           }`}
         >
           {success
-            ? "Presupuesto agregado exitosamente"
+            ? "Presupuesto exitosamente"
             : error
-            ? "Ocurrió un error"
-            : "Nuevo Presupuesto"}
+            ? "Ocurrio un error"
+            : "Crear Presupuesto"}
         </h3>
         {success && (
-          <BsFillCheckCircleFill size={55} className="text-[#77B327]" />
+          <BsFillCheckCircleFill
+            size={55}
+            className='text-[#77B327]'
+          />
         )}
 
-        {error && <MdError size={55} className="text-red-700 ml-1" />}
+        {error && (
+          <MdError size={55} className='text-red-700 ml-1' />
+        )}
       </div>
      
       {/**form cartel */}
-<AddCartel values ={values} setValues={setValues}/>
+<AddCartel values ={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
       {/**form cartel */}
 
 
@@ -246,7 +255,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 id="grid-state"
                 name="clientes"
                 value={values.clientes}
-                onChange={handleSelectCliente}
+                onChange={handleSelectClient}
               >
                 <option value="" defaultValue={""} disabled>
                   Seleccionar cartel
@@ -291,7 +300,11 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
           <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
           md:gap-3 md:grid-cols-3">
-          <div className="w-full">
+          {
+            values.operacion==="retiro"
+            ? ""
+            :
+            <div className="w-full">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Dirección de colocación
               </label>
@@ -305,6 +318,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 onChange={handleChange}
               />
             </div>
+          }
 
             <div className="w-full px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide w-full text-gray-700 text-xs font-bold mb-2">
@@ -376,9 +390,6 @@ const AddNewClient = ({ setShowModal }: Props) => {
                 placeholder="Total"
                 name="montototal"
                 value={
-                  values.porcentaje?
-                  values.montototal+totalganancia
-                  :
                   values.montototal
                 }
                 onChange={handleChange}

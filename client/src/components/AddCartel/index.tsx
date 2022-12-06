@@ -16,7 +16,9 @@ import useUser from "../../store/user";
 //import moment from 'moment'
 type Props = {
  values:any;
- setValues:any
+ setValues:any;
+ montoModificado:any;
+ setMontoModificado:any
 };
 
 interface Cartel {
@@ -46,8 +48,8 @@ var totalganancia: any=0
 const multiplicar = (a: number, b: number): number => {
   return a * b;
 };
-const AddCartel = ({values, setValues}:Props) => {
-  const [montoModificado, setMontoModificado]=useState(0)
+const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props) => {
+
     const { carteles, getCarteles } = useCartel((state) => state);
     const { clientes, getClients } = useClients((state) => state);
     const { getUsers2, users, logout, user } = useUser((state) => state);
@@ -69,7 +71,7 @@ const AddCartel = ({values, setValues}:Props) => {
       const handleSelectFaz= (e: React.ChangeEvent<HTMLSelectElement>)=>{
         const { value } = e.currentTarget;
         if (value === "doble") {
-          alert("LLLLLLLLLLLLLLLLLL")
+
           var valorDoble: any  = multiplicar(2, montoModificado);
           setMontoModificado(valorDoble)
           console.log("holaaaaaaaaaa", montoModificado)

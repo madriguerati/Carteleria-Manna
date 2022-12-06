@@ -134,11 +134,7 @@ const [montoModificado, setMontoModificado]=useState(0)
       ...values,
       [name]: value,
     });
-    setCartel({
-      ...cartel,
-      [name]: value,
-    });
-    console.log("esto es el total ", cartel)
+    console.log("esto es el total ", values)
    
   };
   
@@ -238,10 +234,10 @@ console.log("hola estos", newArray, values)
       operacion: value,
     });
   }
-  
+
   const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;
-    var holaaa: any =montofinal
+    var holaaa: any =values.montototal
    if(value){
     var valuesporcen: any = value
     var porcentaje: any  = 0
@@ -255,7 +251,7 @@ console.log("hola estos", newArray, values)
         montototal: montototalissimo,
         porcentaje: totalganancia
       })
-    console.log("esto es el total sdsdsds ",totalganancia, values.porcentaje)
+    console.log("esto es el total sdsdsds ",montototalissimo, montofinal)
    }
   }
 
@@ -333,7 +329,7 @@ console.log("hola estos", newArray, values)
           <MdError size={55} className='text-red-700 ml-1' />
         )}
       </div>
-       <AddCartel values={values} setValues={setValues}/>
+       <AddCartel values={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
         <form onSubmit={handleSubmit} className="flex flex-col mt-4">
       
           {/**primera columna  */}
