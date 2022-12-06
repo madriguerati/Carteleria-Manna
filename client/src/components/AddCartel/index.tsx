@@ -141,7 +141,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
           setValues({
             ...values,
             montototal: montofinal,
-            carteles: [...values.carteles.concat(totales)]
+            carteles: totales
           });
         }
         setCartel({
