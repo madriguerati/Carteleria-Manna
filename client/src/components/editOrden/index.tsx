@@ -212,7 +212,7 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
 <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3">
         {values.carteles.map((e: any) => (
           
-            <div className="block w-full text-white text-lg uppercase hover:text-black text-center p-3 bg-blue-600 border border-blue-200 rounded-lg shadow-md hover:bg-blue-100 dark:bg-blue-800 dark:border-blue-700 dark:hover:bg-blue-700" style={{"cursor":"pointer"}}>
+            <div className="block w-full text-gray-600 border-blue-600 border-2 text-lg uppercase bg-white p-3 rounded-lg" style={{"cursor":"pointer"}}>
             <p className="text-start">
                                 <b>Nombre: </b>
                                 {e.name}{" "}

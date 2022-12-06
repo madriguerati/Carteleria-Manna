@@ -22,6 +22,7 @@ import {
   MdOutlineAdd,
   MdExpandLess,
   MdExpandMore,
+  MdDisabledByDefault,
 } from "react-icons/md";
 
 import { BsSearch } from "react-icons/bs";
@@ -237,6 +238,7 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
 
       });
       console.log("insumo", ordenEdit);
+      
     }
   };
   return (
@@ -527,6 +529,7 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
                           <p
                             className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
                             onClick={() => edit(orden)}
+                            style={orden.resta? {"cursor": "notAllowed", "pointerEvents":"none"}:{"cursor":"pointer"}}
                           >
                             <FiEdit3 />
                           </p>
