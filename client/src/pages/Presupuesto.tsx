@@ -45,8 +45,8 @@ const Presupuesto = () => {
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(10);
-  const [limit, setLimit] = useState(1);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
@@ -72,7 +72,7 @@ const Presupuesto = () => {
   });
 
   useEffect(() => {
-    !success && getPresupuestosAll(accessToken, limit, page);
+    !success && getPresupuestosAll(accessToken, page, limit);
     console.log("holaaaaaadsdsdsdsaaa", presupuestos);
   }, [success]);
 
@@ -102,6 +102,7 @@ const Presupuesto = () => {
 
   const nextPage = (): void => {
     page < presupuestos.totalPages && setPage(page + 1);
+    alert("hola")
   };
 
   const prevPage = (): void => {

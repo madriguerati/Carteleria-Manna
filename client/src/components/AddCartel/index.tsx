@@ -161,9 +161,9 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
         hola == false ? setHola(true) : setHola(false);
       };
     return (
-        <>
+        <div >
         {/**form cartel */}
-        <div className="justify-end">
+        <div className="justify-end ">
           <h1
             onClick={agregarCartel}
             style={{ color: "blue", cursor: "pointer" }}
@@ -173,26 +173,13 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
           </h1>
         </div>
         <div
-          className="justify-center border-2 pl-2 pt-2" 
+          className="justify-center pt-2" 
           style={hola === false ? { display: "none" } : { cursor: "pointer" }}
         >
-          <div className="">
+          <div className="block w-full  p-6 bg-white border border-gray-200 rounded-lg shadow-md  dark:border-gray-700 ">
             <div className="flex ">
-              <div>
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  cant
-                </label>
-                <input
-                  className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="number"
-                  placeholder="cant"
-                  name="cant"
-                  value={cartel.cant}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="ml-2">
+             
+              <div className="">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   cartel
                 </label>
@@ -211,7 +198,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   ))}
                 </select>
               </div>
-              <div className="ml-2">
+              <div className="ml-1">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   base
                 </label>
@@ -225,12 +212,12 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              <div className="ml-1">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  altura
+                  Altura
                 </label>
                 <input
-                  className="appearance-none ml-2 block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
                   placeholder="altura"
@@ -239,7 +226,8 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   onChange={handleChange}
                 />
               </div>
-              <div className="ml-2">
+              
+              <div className="ml-1">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   medidas
                 </label>
@@ -247,7 +235,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
-                  placeholder="medidas"
+                  placeholder=""
                   name="medidas"
                   value={
                     cartel.base && cartel.altura
@@ -281,7 +269,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
               </div>
             </div>
 
-            <div className="flex">
+            <div className="flex mt-2">
               
               <div >
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -301,7 +289,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   <option value="doble">doble</option>
                 </select>
               </div>
-              <div className="ml-2">
+              <div className="ml-1">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   estructura
                 </label>
@@ -329,9 +317,22 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   onChange={handleChange}
                 />
               </div>
+              <div className="ml-1">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  cant
+                </label>
+                <input
+                  className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-city"
+                  type="number"
+                  placeholder="cant"
+                  name="cant"
+                  value={cartel.cant}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-          </div>
-         <div className="justify-end flex pr-3 pb-3">
+            <div className="justify-end flex pr-3 pb-3 m-5">
           <h1 className="text-red-600 mt-4 px-4 py-3 leading-6" onClick={resetCartel}>Reset</h1>
          <button
             onClick={crearCartel}
@@ -340,9 +341,11 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
            Agregar cartel
           </button>
          </div>
+          </div>
+        
         </div>
         {/**form cartel */}
-        </>
+        </div>
     )
 }
 

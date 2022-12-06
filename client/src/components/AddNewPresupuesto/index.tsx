@@ -179,47 +179,51 @@ console.log("holaaaaaaaaaaaaa", values)
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
     <div className="p-6 space-y-4 sm:p-8">
-    <button
-        className='absolute right-12 top-16 mt-1 text-black text-4xl w-10 h-10  flex justify-center '
+   
+      <div className="flex border-b-[#77B327] border-b-4 rounded ">
+     
+    <div
+         className={`flex items-center w-full justify-start p-5 ${
+           success
+             ? "bg-white"
+             : error
+             ? "bg-red-300"
+             : ""
+         }`}
+       >
+         <h3
+           className={`md:text-3xl sm:text-lg font-semibold text-center ${
+             success
+               ? "text-[#77B327]"
+               : error
+               ? "text-red-700"
+               : "text-zinc-800"
+           }`}
+         >
+           {success
+             ? "Presupuesto exitosamente"
+             : error
+             ? "Ocurrio un error"
+             : "Crear Presupuesto"}
+         </h3>
+         {success && (
+           <BsFillCheckCircleFill
+             size={55}
+             className='text-[#77B327]'
+           />
+         )}
+ 
+         {error && (
+           <MdError size={55} className='text-red-700 ml-1' />
+         )}
+       </div>
+       <button
+        className='flex text-end m-6 sm:m-2 text-black sm:mt-5 md:text-3xl pr-7 h-10  flex text-end justify-end  w-full '
         onClick={handleCloseModal}
       >
         <MdExitToApp/>
-      </button>
-      <div
-        className={`flex items-center justify-start p-5 ${
-          success
-            ? "bg-white"
-            : error
-            ? "bg-red-300"
-            : "border-b-[#77B327] border-b-4 rounded"
-        }`}
-      >
-        <h3
-          className={`text-3xl font-semibold text-center ${
-            success
-              ? "text-[#77B327]"
-              : error
-              ? "text-red-700"
-              : "text-zinc-800"
-          }`}
-        >
-          {success
-            ? "Presupuesto exitosamente"
-            : error
-            ? "Ocurrio un error"
-            : "Crear Presupuesto"}
-        </h3>
-        {success && (
-          <BsFillCheckCircleFill
-            size={55}
-            className='text-[#77B327]'
-          />
-        )}
-
-        {error && (
-          <MdError size={55} className='text-red-700 ml-1' />
-        )}
-      </div>
+      </button> 
+    </div>
      
       {/**form cartel */}
 <AddCartel values ={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
@@ -231,13 +235,14 @@ console.log("holaaaaaaaaaaaaa", values)
         
           {/**primera columna  */}
 
-          <div className="flex flex-wrap-mx-3 ">
-          <div>
+          <div className="flex  grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2 ">
+         <div className=" grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+         <div className="w-full">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Fecha
           </label>
           <input
-            className="appearance-none block w-20 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-first-name"
             type="string"
             placeholder="hola"
@@ -246,7 +251,7 @@ console.log("holaaaaaaaaaaaaa", values)
             onChange={handleChange}
           />
         </div>
-            <div className="w-40 md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className="w-full">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Cliente
               </label>
@@ -266,7 +271,9 @@ console.log("holaaaaaaaaaaaaa", values)
               </select>
             </div>
 
-            <div className="w-40 md:w-1/2 px-3 mb-6 md:mb-0">
+         </div>
+            <div className=" grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+            <div className="w-full  mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Operación
               </label>
@@ -293,13 +300,28 @@ console.log("holaaaaaaaaaaaaa", values)
                 
               </select>
             </div>
+            <div className=" w-full">
+    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+      contacto
+    </label>
+    <input
+      className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+      id="grid-first-name"
+      type="text"
+      placeholder="Contacto"
+      name="contacto"
+      value={values.contacto}
+      onChange={handleChange}
+    />
+  </div>
+            </div>
           </div>
           
 
           {/**segunda columna  */}
 
           <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
-          md:gap-3 md:grid-cols-3">
+          md:gap-2 md:grid-cols-2">
           {
             values.operacion==="retiro"
             ? ""
@@ -320,7 +342,7 @@ console.log("holaaaaaaaaaaaaa", values)
             </div>
           }
 
-            <div className="w-full px-3 mb-6 md:mb-0">
+            <div className="w-full mb-6">
               <label className="block uppercase tracking-wide w-full text-gray-700 text-xs font-bold mb-2">
                 Metodo de pago
               </label>
@@ -345,100 +367,85 @@ console.log("holaaaaaaaaaaaaa", values)
           </div>
 
 
-          {/**tercera columna  */}
-
-          <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
-          md:gap-3 md:grid-cols-3 ">
-          
-          
-            
-            <div className="w-full mb-6 ">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                porcentaje
-              </label>
-              <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-                placeholder="operacion"
-                name="porcentaje"
-                value={values.porcentaje}
-                onChange={handleSelectPorcentaje}
-              >
-                <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
-                </option>
-                {
-                  porcentaje.map((e:any)=>(
-                    <option value={e}>
-                  {e}
-                </option>
-                  ))
-                }
-               
-                
-              </select>
-            </div>
-            
-            <div className="ml-1">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Total
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="number"
-                placeholder="Total"
-                name="montototal"
-                value={
-                  values.montototal
-                }
-                onChange={handleChange}
-              />
-            </div>
-
-          
-          
-          </div>
-
-          
-          {/**segunda columna  */}
 
           <div className="flex flex-wrap-mx-3">
           
           
           </div>
           {/** ultima comuna */}
+        <div className=" mt-2 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+          <div className=" grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+          
+          
+          
+            
+          <div className="w-full mb-6 ">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              porcentaje
+            </label>
+            <select
+              className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="grid-state"
+              placeholder="operacion"
+              name="porcentaje"
+              value={values.porcentaje}
+              onChange={handleSelectPorcentaje}
+            >
+              <option value="" defaultValue={""} disabled>
+                Seleccionar cartel
+              </option>
+              {
+                porcentaje.map((e:any)=>(
+                  <option value={e}>
+                {e}
+              </option>
+                ))
+              }
+             
+              
+            </select>
+          </div>
+          
+          <div className="ml-1">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Total
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="grid-first-name"
+              type="number"
+              placeholder="Total"
+              name="montototal"
+              value={
+                values.montototal
+              }
+              onChange={handleChange}
+            />
+          </div>
+
+        
+        
+       
+          </div>
           <div className="flex flex-wrap-mx-3">
 
-          <div>
-        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-            Fecha
-          </label>
-          <input
-            className="appearance-none block w-20 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-            id="grid-first-name"
-            type="date"
-            placeholder="hola"
-            name="fechavalida"
-            value={values.fechavalida}
-            onChange={handleChange}
-          />
+<div className="w-full">
+<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+  Fecha
+</label>
+<input
+  className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+  id="grid-first-name"
+  type="date"
+  placeholder="hola"
+  name="fechavalida"
+  value={values.fechavalida}
+  onChange={handleChange}
+/>
+</div>
+
+</div>
         </div>
-            <div className="ml-2">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                contacto
-              </label>
-              <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                placeholder="Contacto"
-                name="contacto"
-                value={values.contacto}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
     
           <div className="flex flex-wrap -mx-3 mb-2">
           </div>

@@ -401,8 +401,7 @@ console.log("hola estos", newArray, values)
 
           {/**segunda columna  */}
 
-          <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
-          md:gap-3 md:grid-cols-3">
+          <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3">
           <div className="w-full">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Dirección de colocación
