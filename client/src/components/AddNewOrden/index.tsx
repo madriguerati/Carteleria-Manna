@@ -11,7 +11,7 @@ import useUser from "../../store/user";
 import moment from 'moment'
 import { value } from "rumble-charts/types/helpers";
 import Swal from 'sweetalert2'
-
+import AddCartel from '../AddCartel'
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
 
@@ -148,47 +148,8 @@ const [montoModificado, setMontoModificado]=useState(0)
   };
 
  
-  const handleSelectFaz= (e: React.ChangeEvent<HTMLSelectElement>)=>{
-    const { value } = e.currentTarget;
-    if (value === "doble") {
-      alert("LLLLLLLLLLLLLLLLLL")
-      var valorDoble: any  = multiplicar(2, montoModificado);
-      setMontoModificado(valorDoble)
-      console.log("holaaaaaaaaaa", montoModificado)
-      setCartel({
-        ...cartel,
-        faz:"doble",
-      })
-      console.log("hola", valorDoble)
-    }
-    if (value === "simple") {
-      var valorSimple: any  =  montoModificado;
-      setCartel({
-        ...cartel,
-        faz:"simple",
-      })
-      console.log("hola", valorDoble)
-      
-      
-    } 
-    
-  }
-  const handleSelectCartel= (e: React.ChangeEvent<HTMLSelectElement>)=>{
-    const { value } = e.currentTarget;
-    cartelSelect = carteles.find((e: any) => e.descripcion === value);
-   
-      if (cartelSelect) {
-        setMontoModificado(cartelSelect.costo1faz+cartelSelect.costo2faz)
-        setCartel({
-          ...cartel,
-          name: value,
-          category: cartelSelect.category,
-          total: montoModificado
-        });
-        console.log("hola", cartelSelect)
-      }
-  }
 
+  
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     var newArray: any = ordenes
@@ -277,6 +238,7 @@ console.log("hola estos", newArray, values)
       operacion: value,
     });
   }
+  
   const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;
     var holaaa: any =montofinal
@@ -297,31 +259,6 @@ console.log("hola estos", newArray, values)
    }
   }
 
-  const crearCartel = () => {
-    if (cartel.cant > 0) {
-      totales = [...totales, cartel];
-      console.log("totales es", totales);
-      sumTotales = totales.map((a: any) => a.total);
-      montofinal = sumTotales.reduce((a: any, b: any) => a + b, 0);
-      setValues({
-        ...values,
-        montototal: montofinal,
-        carteles: [...values.carteles.concat(totales)]
-      });
-    }
-    setCartel({
-      cant: 1,
-      name: "",
-      base: 0,
-      altura: 0,
-      medidas: 0,
-      faz: "",
-      total: 0,
-      estructura: "",
-      category: [],
-      otros: "",
-    });
-  };
 
   useEffect(() => {
     setValues({
@@ -350,18 +287,8 @@ console.log("hola estos", newArray, values)
     getUsers2(headers);
     console.log("holaaaaaaaaaaa somo s usuariosa", user);
    
-    
-    obreros = users?.filter((e: any) =>
-      e.roles.find((r: any) => r.name === "obrero")
-    );
-    console.log("hola me rio mucho de ti ", users);
    
   }, []);
-
-  const agregarCartel = () => {
-    hola == false ? setHola(true) : setHola(false);
-  };
-  
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
       <div className="p-6 space-y-4 sm:p-8">
@@ -406,187 +333,7 @@ console.log("hola estos", newArray, values)
           <MdError size={55} className='text-red-700 ml-1' />
         )}
       </div>
-        {/**form cartel */}
-        <div className="justify-end">
-          <h1
-            onClick={agregarCartel}
-            style={{ color: "blue", cursor: "pointer" }}
-            className="text-start"
-          >
-            agregar cartel (+)
-          </h1>
-        </div>
-        <div
-          className="justify-center border-2 pl-2 pt-2" 
-          style={hola === false ? { display: "none" } : { cursor: "pointer" }}
-        >
-          <div className="">
-            <div className="flex ">
-              <div>
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  cant
-                </label>
-                <input
-                  className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="number"
-                  placeholder="cant"
-                  name="cant"
-                  value={cartel.cant}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="ml-2">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  cartel
-                </label>
-                <select
-                  className="block appearance-none w-40 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-state"
-                  name="name"
-                  value={cartel.name}
-                  onChange={handleSelectCartel}
-                >
-                  <option value="" defaultValue={""} disabled>
-                    Seleccionar cartel
-                  </option>
-                  {carteles.map((e: any) => (
-                    <option value={e.descripcion}>{e.descripcion}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="ml-2">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  base
-                </label>
-                <input
-                  className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="number"
-                  placeholder="base"
-                  name="base"
-                  value={cartel.base}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  altura
-                </label>
-                <input
-                  className="appearance-none ml-2 block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="number"
-                  placeholder="altura"
-                  name="altura"
-                  value={cartel.altura}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="ml-2">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  medidas
-                </label>
-                <input
-                  className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="number"
-                  placeholder="medidas"
-                  name="medidas"
-                  value={
-                    cartel.base && cartel.altura
-                      ? (cartel.medidas = multiplicar(
-                          cartel.base,
-                          cartel.altura
-                        ))
-                      : ""
-                  }
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="ml-1">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  total
-                </label>
-                <input
-                  className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="number"
-                  placeholder="total"
-                  name="total"
-                  value={
-                    cartel.medidas?
-                       cartel.total = multiplicar(multiplicar(montoModificado, cartel.medidas), cartel.cant)
-                        
-                      : cartel.total = montoModificado
-                  }
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="flex">
-              
-              <div >
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  faz
-                </label>
-                <select
-                  value={cartel.faz}
-                  onChange={handleSelectFaz}
-                  name="faz"
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-state"
-                >
-                  <option value="" defaultValue={""} disabled>
-                    Seleccionar cartel
-                  </option>
-                  <option value="simple">simple</option>
-                  <option value="doble">doble</option>
-                </select>
-              </div>
-              <div className="ml-2">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  estructura
-                </label>
-                <input
-                  className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="text"
-                  placeholder="estructura"
-                  name="estructura"
-                  value={cartel.estructura}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="ml-1">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  otros
-                </label>
-                <input
-                  className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-city"
-                  type="text"
-                  placeholder="otros"
-                  name="otros"
-                  value={cartel.otros}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-         <div className="justify-end flex pr-3 pb-3">
-          <h1 className="text-red-600 mt-4 px-4 py-3 leading-6" onClick={resetCartel}>Reset</h1>
-         <button
-            onClick={crearCartel}
-            className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-blue-500 hover:bg-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-40 justify-center items-center font-medium focus:outline-none"
-          >
-           Agregar cartel
-          </button>
-         </div>
-        </div>
-        {/**form cartel */}
-
+       <AddCartel values={values} setValues={setValues}/>
         <form onSubmit={handleSubmit} className="flex flex-col mt-4">
       
           {/**primera columna  */}

@@ -47,6 +47,7 @@ const multiplicar = (a: number, b: number): number => {
   return a * b;
 };
 const AddCartel = ({values, setValues}:Props) => {
+  const [montoModificado, setMontoModificado]=useState(0)
     const { carteles, getCarteles } = useCartel((state) => state);
     const { clientes, getClients } = useClients((state) => state);
     const { getUsers2, users, logout, user } = useUser((state) => state);
@@ -65,67 +66,81 @@ const AddCartel = ({values, setValues}:Props) => {
         otros: "",
       });
       var totales: any = values.carteles;
-
-    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        
-        let { value } = e.currentTarget;
-        
-        if (value) {
+      const handleSelectFaz= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+        const { value } = e.currentTarget;
+        if (value === "doble") {
+          alert("LLLLLLLLLLLLLLLLLL")
+          var valorDoble: any  = multiplicar(2, montoModificado);
+          setMontoModificado(valorDoble)
+          console.log("holaaaaaaaaaa", montoModificado)
+          setCartel({
+            ...cartel,
+            faz:"doble",
+          })
+          console.log("hola", valorDoble)
+        }
+        if (value === "simple") {
+          var valorSimple: any  =  montoModificado;
+          setCartel({
+            ...cartel,
+            faz:"simple",
+          })
+          console.log("hola", valorDoble)
           
-          clienteSelect = clientes.find((e: any) => e.name === value);
-          console.log("hola soy un valor que si vale", cartelSelect);
-          cartelSelect = carteles.find((e: any) => e.descripcion === value);
+          
+        } 
+        
+      }
+      const handleSelectCartel= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+        const { value } = e.currentTarget;
+        cartelSelect = carteles.find((e: any) => e.descripcion === value);
+       
           if (cartelSelect) {
+            setMontoModificado(cartelSelect.costo1faz+cartelSelect.costo2faz)
             setCartel({
               ...cartel,
               name: value,
-              category: cartelSelect.category
+              category: cartelSelect.category,
+              total: montoModificado
             });
-            totalArray = carteles.find((cartel: any) => cartel.costo1faz);
+            console.log("hola", cartelSelect)
           }
-          if (value === "simple" || value === "doble") {
-            setCartel({
-              ...cartel,
-              faz: value,
-            });
-          }
-          if (value === "doble") {
-            totalArray.costo1faz = multiplicar(2, totalArray.costo1faz);
-          } else {
-            totalArray.costo1faz = totalArray.costo1faz / 2;
-          }
-          
-        }
-      };
-     
+      }
+    
+      const resetCartel = ()=> {
+        setMontoModificado(0)
+        setCartel({
+          cant: 1,
+          name: "",
+          base: 0,
+          altura: 0,
+          medidas: 0,
+          faz: "",
+          total: 0,
+          estructura: "",
+          category: [],
+          otros: "",
+        })
+       }
     const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
         const { name, value } = e.currentTarget;
-        
         setCartel({
           ...cartel,
           [name]: value,
         });
-    
-       
-        
         console.log("esto es el total ", values.montototal)
-      };
-    const agregarCartel = () => {
-        hola == false ? setHola(true) : setHola(false);
       };
       const crearCartel = () => {
         if (cartel.cant > 0) {
-         totales=values.carteles
-         totales=[...totales, cartel]
+          totales = [...totales, cartel];
+          console.log("totales es", totales);
           sumTotales = totales.map((a: any) => a.total);
           montofinal = sumTotales.reduce((a: any, b: any) => a + b, 0);
-          
           setValues({
             ...values,
             montototal: montofinal,
-            carteles: [totales]
+            carteles: [...values.carteles.concat(totales)]
           });
-          console.log("holaaa", montofinal, values.porcentaje, )
         }
         setCartel({
           cant: 1,
@@ -140,10 +155,13 @@ const AddCartel = ({values, setValues}:Props) => {
           otros: "",
         });
       };
+      const agregarCartel = () => {
+        hola == false ? setHola(true) : setHola(false);
+      };
     return (
         <>
-              {/**form cartel */}
-      <div className="justify-end">
+        {/**form cartel */}
+        <div className="justify-end">
           <h1
             onClick={agregarCartel}
             style={{ color: "blue", cursor: "pointer" }}
@@ -181,7 +199,7 @@ const AddCartel = ({values, setValues}:Props) => {
                   id="grid-state"
                   name="name"
                   value={cartel.name}
-                  onChange={handleSelect}
+                  onChange={handleSelectCartel}
                 >
                   <option value="" defaultValue={""} disabled>
                     Seleccionar cartel
@@ -251,12 +269,10 @@ const AddCartel = ({values, setValues}:Props) => {
                   placeholder="total"
                   name="total"
                   value={
-                    totalArray
-                      ? (cartel.total = multiplicar(
-                          multiplicar(cartel.medidas, totalArray.costo1faz),
-                          cartel.cant
-                        ))
-                      : ""
+                    cartel.medidas?
+                       cartel.total = multiplicar(multiplicar(montoModificado, cartel.medidas), cartel.cant)
+                        
+                      : cartel.total = montoModificado
                   }
                   onChange={handleChange}
                 />
@@ -271,7 +287,7 @@ const AddCartel = ({values, setValues}:Props) => {
                 </label>
                 <select
                   value={cartel.faz}
-                  onChange={handleSelect}
+                  onChange={handleSelectFaz}
                   name="faz"
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-3 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state"
@@ -314,6 +330,7 @@ const AddCartel = ({values, setValues}:Props) => {
             </div>
           </div>
          <div className="justify-end flex pr-3 pb-3">
+          <h1 className="text-red-600 mt-4 px-4 py-3 leading-6" onClick={resetCartel}>Reset</h1>
          <button
             onClick={crearCartel}
             className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-blue-500 hover:bg-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-40 justify-center items-center font-medium focus:outline-none"
