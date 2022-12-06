@@ -26,6 +26,7 @@ function App() {
 	useEffect(() => {
 		accessToken && updateToken(refreshToken);
 		getUsers2(accessToken)
+		
 		   
 
 	}, [])

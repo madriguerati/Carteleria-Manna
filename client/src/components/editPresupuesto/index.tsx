@@ -41,7 +41,8 @@ const ClienteEdit = ({ setShowModal2, presupuesto }: Props) => {
     facturanum: presupuesto.facturanum,
     observaciones: presupuesto.observaciones,
     montototal: presupuesto.montototal,
-    porcentaje: presupuesto.porcentaje
+    porcentaje: presupuesto.porcentaje,
+resta:0
   });
   var montofinal: any = values.montototal;
   const multiplicar = (a: number, b: number): number => {

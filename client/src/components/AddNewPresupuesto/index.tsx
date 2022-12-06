@@ -49,6 +49,7 @@ interface Cartel {
 	total: number;
 	estructura: string;
 	otros: string;
+  category:string[]
 }
 
 const AddNewClient = ({ setShowModal }: Props) => {
@@ -70,6 +71,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
     total: 0,
     estructura: "",
     otros: "",
+    category:[]
   });
   const handleSelectCliente= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;
@@ -140,13 +142,7 @@ console.log("hola",cartel)
     // }
     addPresupuesto(values);
 	console.log("hola soy un valie", values)
-  Swal.fire({
-    position: 'bottom-end',
-    icon: 'success',
-    title: 'Presupuesto creado exitosamente',
-    showConfirmButton: false,
-    timer: 1500
-  })
+  
     setTimeout(() => {
       handleCloseModal()
     }, 2000);
@@ -190,10 +186,12 @@ console.log("hola",cartel)
 				setValues ({
 					...values,
 					carteles: [cartelId],
+          
 				})
 				setCartel({
 					...cartel,
-					name: value
+					name: value,
+          category: cartelSelect.category,
 				})
 				totalArray=carteles.find((cartel:any)=>cartel.costo1faz)
 				
@@ -224,7 +222,8 @@ console.log("hola",cartel)
 	montofinal = sumTotales.reduce((a:any, b:any) => a + b, 0)
 	setValues({
 		...values,
-		montototal:montofinal
+		montototal:montofinal,
+    carteles: totales
 	})
 
 	}
@@ -238,6 +237,7 @@ console.log("hola",cartel)
 		total: 0,
 		estructura: "",
 		otros: "",
+    category:[]
 	})
   }
 

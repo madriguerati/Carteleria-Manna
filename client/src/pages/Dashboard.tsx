@@ -187,15 +187,7 @@ const Dashboard = () => {
         moment(n.fecha).format("L") <= moment(values.date2).format("L")
     );
     setOrdenesGlobales(busca);
-    console.log(
-      "hola",
-      sumOrdenesPendientes,
-      sumOrdenesRealizadas,
-      sumOrdenesEntregados,
-      sumOrdenesPendientesCarteleria,
-      sumOrdenesRealizadasCarteleria,
-      sumOrdenesEntregadosCarteleria
-    );
+   
   };
   //carteles rating
   var num: any = arrayprueba.map((e: any) =>

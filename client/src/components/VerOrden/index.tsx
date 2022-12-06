@@ -40,6 +40,8 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
   var color: any = "white";
 
   const [category, setCartegory] = useState(["IMPRESIONES", "CARTELERIA"]);
+  const [ocultar, setOcultar]= useState(false)
+
   const { success, putInsumo, closeModal, error } = useInsumo((state) => state);
   const [token] = useLocalStorage();
 
@@ -124,6 +126,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
     orden.resta = orden.montototal+orden.seña;
     values.restaHistory=metodoPago
     putOrden(values, headers);
+
     Swal.fire({
       position: "center",
       icon: "success",
@@ -131,6 +134,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
       showConfirmButton: false,
       timer: 1500,
     });
+    setOcultar(true)
   };
   const aceptar = () => {
     if (metodoObject.metodo) {
@@ -423,7 +427,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                       <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg mb-7">
                         <div className="border-b-4 border-green-600">
                           <b className="text-gray-600 ">pagado</b>
-                          <h1>{orden.seña + orden.resta}</h1>
+                          <h1>{orden.seña+ orden.resta}</h1>
                         </div>
 
                         <div className="ml-2 ">
@@ -440,7 +444,8 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                         </div>
                       </div>
                       {orden.restaHistory.length == 0 ? (
-                        <div className="w-full bg-gray-100 p-5 rounded-lg">
+                        <div className="w-full bg-gray-100 p-5 rounded-lg"
+                         style={ocultar===true ? {"display":"none"} :{"cursor":"none"}} >
                           <div className="flex w-full">
                             <div className="flex justify-start m-5 w-full">
                               Agregar metodo de pago
@@ -519,7 +524,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                       ) : (
                         ""
                       )}
-                      {orden.restaHistory.length > 0 ? (
+                      {values.restaHistory.length > 0 ? (
                         <div>
                           <hr />
                           <h1 className="text-bold mt-5">Metodos de Pago</h1>
@@ -534,7 +539,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                             {orden.seña}
                           </p>
                           </div>
-                          {orden.restaHistory.map((e: any) => (
+                          {values.restaHistory.map((e: any) => (
                             <div className="rounded ">
                               <div className="flex pl-2  grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
                                 <div className="w-full">

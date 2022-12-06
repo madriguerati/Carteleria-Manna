@@ -34,12 +34,11 @@ const presupuestoSchema = new Schema(
           required:true
         },
       
-      carteles:[
+        carteles:
         {
-          type: Schema.Types.ObjectId,
-          ref: "carteles",
+            type:[Object],
+            required: true
         },
-      ],
       operacion:
       {
         type: String,

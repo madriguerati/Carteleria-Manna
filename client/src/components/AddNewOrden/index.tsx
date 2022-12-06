@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdError } from "react-icons/md";
+import { MdError, MdExitToApp } from "react-icons/md";
 import useCartel from "../../store/carteles";
 import useClients from "../../store/clientes";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -223,7 +223,10 @@ console.log("hola estos", newArray, values)
       observaciones: "",
       porcentaje: 0,
       resta: 0,
-      restaHistory:[]
+      restaHistory:[],
+      stateImpresiones:"pendiente",
+      stateCarteleria:"pendiente"
+
     });
      
     setTimeout(() => {
@@ -338,7 +341,9 @@ console.log("hola estos", newArray, values)
       observaciones: "",
       porcentaje: 0,
       resta: 0,
-      restaHistory:[]
+      restaHistory:[],
+      stateImpresiones:"pendiente",
+      stateCarteleria:"pendiente"
     });
     getCarteles(accessToken);
     getClients(headers);
@@ -360,38 +365,47 @@ console.log("hola estos", newArray, values)
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
       <div className="p-6 space-y-4 sm:p-8">
-        <button
-          className="absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300"
-          onClick={handleCloseModal}
-        >
-          x
-        </button>
-        <div
-          className={`flex items-center justify-center p-5 border-b border-solid border-slate-200 rounded ${
-            success ? "bg-[#c2e593]" : error ? "bg-red-300" : "bg-[#77B327]"
+      <button
+        className='absolute right-12 top-16 mt-1 text-black text-4xl w-10 h-10  flex justify-center '
+        onClick={handleCloseModal}
+      >
+        <MdExitToApp/>
+      </button>
+      <div
+        className={`flex items-center justify-start p-5 ${
+          success
+            ? "bg-white"
+            : error
+            ? "bg-red-300"
+            : "border-b-[#77B327] border-b-4 rounded"
+        }`}
+      >
+        <h3
+          className={`text-3xl font-semibold text-center ${
+            success
+              ? "text-[#77B327]"
+              : error
+              ? "text-red-700"
+              : "text-zinc-800"
           }`}
         >
-          <h3
-            className={`text-3xl font-semibold text-center ${
-              success
-                ? "text-[#77B327]"
-                : error
-                ? "text-red-700"
-                : "text-zinc-800"
-            }`}
-          >
-            {success
-              ? "Orden agregada exitosamente"
-              : error
-              ? "Ocurrió un error"
-              : "Nueva Orden"}
-          </h3>
-          {success && (
-            <BsFillCheckCircleFill size={55} className="text-[#77B327]" />
-          )}
+          {success
+            ? "Orden creada exitosamente"
+            : error
+            ? "Ocurrio un error"
+            : "Crear Orden"}
+        </h3>
+        {success && (
+          <BsFillCheckCircleFill
+            size={55}
+            className='text-[#77B327]'
+          />
+        )}
 
-          {error && <MdError size={55} className="text-red-700 ml-1" />}
-        </div>
+        {error && (
+          <MdError size={55} className='text-red-700 ml-1' />
+        )}
+      </div>
         {/**form cartel */}
         <div className="justify-end">
           <h1
@@ -818,7 +832,7 @@ console.log("hola estos", newArray, values)
                 Observaciones
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 h-20 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="w-full h-20 p-2 border rounded focus:outline-none focus:ring-gray-300 focus:ring-1"
                 id="grid-password"
                 type="text"
                 placeholder="observaciones"
@@ -826,7 +840,7 @@ console.log("hola estos", newArray, values)
                 onChange={handleChange}
                 value={values.observaciones}
               />
-              <p className="text-gray-600 text-xs italic">
+              <p className="text-gray-600 text-sm m-1 italic">
                 Algo para tener en cuenta
               </p>
             </div>

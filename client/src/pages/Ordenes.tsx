@@ -249,6 +249,7 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
               Ordenes
             </h2>
           </div>
+          
           <div className="my-3 flex sm:flex-row flex-col">
             <div className="flex flex-row mb-1 sm:mb-0">
               <div className="relative">
@@ -458,23 +459,23 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
                            <div>
                              {
                            orden.stateImpresiones ==="realizada"
-                           ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
+                           ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">En curso</p>
                            :""
                            }
                            {
                            orden.stateImpresiones ==="pendiente"
-                           ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                           ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Entradas</p>
                            :""
                            }
                            {
                              orden.stateImpresiones === "entregada"
-                             ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Entregada</p>
+                             ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Terminada</p>
                              :
                              ""
                            }
                            </div>
                          :
-                         <p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                         <p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Entrada</p>
                           }
                           </p>
                           </td>
@@ -485,23 +486,23 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
                            <div>
                              {
                            orden.stateCarteleria ==="realizada"
-                           ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">Realizada</p>
+                           ?<p className="text-white w-20 bg-green-600 rounded p-1 text-center">En curso</p>
                            :""
                            }
                            {
                            orden.stateCarteleria ==="pendiente"
-                           ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                           ?<p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Entrada</p>
                            :""
                            }
                            {
                              orden.stateCarteleria === "entregada"
-                             ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Entregada</p>
+                             ? <p className="text-white w-20 bg-blue-600 rounded  align-center text-center p-1">Terminada</p>
                              :
                              ""
                            }
                            </div>
                          :
-                         <p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Pendiente</p>
+                         <p className="text-white w-20 bg-red-600 rounded align-center text-center p-1">Entrada</p>
                           }
                           </p>
                           </td>
