@@ -391,7 +391,7 @@ const Clientes = () => {
                           >
                             <VerCliente
                               setShowModal3={setShowModal3}
-                              cartel={clientEdit}
+                              cliente={clientEdit}
                             />
                           </ModalVer>
                         </td>
