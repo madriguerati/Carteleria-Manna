@@ -77,7 +77,7 @@ const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
     <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
       
       <div className="">
-       <h1 className="text-3xl">Editar Orden</h1>
+       <h1 className="text-3xl">Editar Insumo</h1>
       </div>
 
       <button

@@ -5,7 +5,7 @@ import useClients from "../../store/clientes";
 import useUser from "../../store/user";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdError } from "react-icons/md";
+import { MdError, MdExitToApp  } from "react-icons/md";
 import Swal from "sweetalert2";
 
 type Props = {
@@ -77,48 +77,30 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
       <div className="p-6 space-y-4 sm:p-8">
+      <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+      
+        <div className="">
+         <h1 className="text-3xl">Editar Cliente</h1>
+        </div>
+
         <button
-          className="absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300"
+          className=" text-black text-4xl w-full h-10  flex justify-end"
           onClick={handleCloseModal}
         >
-          x
+          <MdExitToApp />
         </button>
-        <div
-          className={`flex items-center justify-center p-5 border-b border-solid border-slate-200 rounded ${
-            success ? "bg-[#c2e593]" : error ? "bg-red-300" : "bg-[#77B327]"
-          }`}
-        >
-          <h3
-            className={`text-3xl font-semibold text-center ${
-              success
-                ? "text-[#77B327]"
-                : error
-                ? "text-red-700"
-                : "text-zinc-800"
-            }`}
-          >
-            {success
-              ? "Insumo editado exitosamente"
-              : error
-              ? "Ocurrio un error"
-              : "Editar Insumo"}
-          </h3>
-          {success && (
-            <BsFillCheckCircleFill size={55} className="text-[#77B327]" />
-          )}
-
-          {error && <MdError size={55} className="text-red-700 ml-1" />}
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col mt-4">
-          <div className="flex">
-            <div>
+        <form onSubmit={handleSubmit} className=" mt-4">
+          <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
+      md:gap-3 md:grid-cols-3">
+  <div>
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 name
               </label>
               <input
                 type="text"
                 name="name"
-                className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                className="px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Nombre"
                 value={values.name}
                 onChange={handleChange}
@@ -127,6 +109,7 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
                 <p className="text-red-600 text-sm">{errors.username}</p>
               )}
             </div>
+
             <div className="ml-2">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 telefono
@@ -134,7 +117,7 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
               <input
                 type="number"
                 name="telefono"
-                className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                className="px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Telefono"
                 value={values.telefono}
                 onChange={handleChange}
@@ -143,19 +126,14 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
                 <p className="text-red-600 text-sm">{errors.username}</p>
               )}
             </div>
-          </div>
-          
-
-          <div>
-            <div className="flex">
-              <div>
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 mt-2">
+            <div>
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ">
                   Cuit
                 </label>
                 <input
                   type="text"
                   name="cuit"
-                  className="px-4 py-3 mt-1 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                  className="px-4 py-3 mt-1  w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                   placeholder="Cuit"
                   value={values.cuit}
                   onChange={handleChange}
@@ -164,14 +142,21 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
                   <p className="text-red-600 text-sm">{errors.lastname}</p>
                 )}
               </div>
-              <div className="ml-2">
+          </div>
+          {/**fin primera columna */}
+
+          {/**start 2da columna */}
+
+          <div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1
+      md:gap-2 md:grid-cols-2">
+ <div className="">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 mt-2">
                   EMAIL
                 </label>
                 <input
                   type="text"
                   name="email"
-                  className="px-4 py-3 mt-1 w-60 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                  className="px-4 py-3 mt-1 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                   placeholder="EMAIL"
                   value={values.email}
                   onChange={handleChange}
@@ -180,16 +165,15 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
                   <p className="text-red-600 text-sm">{errors.lastname}</p>
                 )}
               </div>
-            </div>
-          </div>
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-2 mb-1">
+<div>
+<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-2 mb-1">
             DIRECCION
           </label>
 
           <input
             type="text"
             name="direccion"
-            className="px-4 py-3 mt-2 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+            className="px-4 py-3 mt-1 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
             placeholder="DIRECCION"
             value={values.direccion}
             onChange={handleChange}
@@ -198,7 +182,15 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
             <p className="text-red-600 text-sm">{errors.password}</p>
           )}
 
-          <div className="flex">
+</div>
+              
+          </div>
+          
+
+     
+          
+          <div className="flex mb-1 grid sm:gap-1  sm:grid-cols-1
+      md:gap-2 md:grid-cols-2">
             <div>
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-2 mb-1">
                 Condicion I.V.A
@@ -206,7 +198,7 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
               <input
                 type="text"
                 name="condicioniva"
-                className="px-4 py-3 mt-2 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                className="px-4 py-3 mt-1 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Condicion I.V.A"
                 value={values.condicioniva}
                 onChange={handleChange}
@@ -222,7 +214,7 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
               <input
                 type="text"
                 name="razonsocial"
-                className="px-4 py-3 mt-2 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                className="px-4 py-3 mt-1 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="RAZON SOCIAL"
                 value={values.razonsocial}
                 onChange={handleChange}
