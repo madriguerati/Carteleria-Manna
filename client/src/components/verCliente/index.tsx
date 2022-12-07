@@ -8,11 +8,13 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError, MdDone, MdArrowBack,  MdEmail  } from "react-icons/md";
 import Swal from 'sweetalert2'
 import { BsWhatsapp } from "react-icons/bs";
+import moment from 'moment'
 type Props = {
 	setShowModal3: any;
     cliente:any
+    ordenesPorMes:any
 };
-const InsumoEdit = ({ setShowModal3, cliente }: Props) => {
+const InsumoEdit = ({ setShowModal3, cliente, ordenesPorMes }: Props) => {
   
 const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
     const { success, putInsumo, closeModal, error} = useInsumo((state) => state);
@@ -44,8 +46,8 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
   
 
   return (
-    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 flex  ">
-      <div className=" space-y-4 sm:p-8">
+    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 flex w-full  ">
+      <div className="w-full space-y-4 sm:p-8">
       <div className=" flex  text-2xl mb-10 border-b-4 border-[#77B327] p-5 mb-1 grid sm:gap-1  sm:grid-cols-1
       md:gap-2 md:grid-cols-2 ">
           <button
@@ -54,12 +56,12 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
           >
             <MdArrowBack />
           </button>
-          <h1 className="text-end flex w-full">{cliente.name}</h1>
+          <h1 className="text-end justify-end flex w-full">{cliente.name}</h1>
         </div>
         {/** inicio */}
 <div>
   {/** tercera columna */}
- <div className="w-full  mb-5 grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-4 md:grid-cols-4 text-lg">
+ <div className="w-full ml-7  mb-5 grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-4 md:grid-cols-4 text-lg">
             <div>
               <b className="text-gray-600">Nombre</b>
               <h1>{cliente.name}</h1>
@@ -81,9 +83,70 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
             <hr/>
 
                  {/** tercera columna */}
-<div>
-  <h1>Carteles</h1>
-  </div>
+                 <h1 className="text-2xl text-bold uppercase flex text-center justify-center m-5">Historial de Ordenes</h1>
+                 <div className="overflow-x-auto relative">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xl text-gray-900 uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" className="py-3 px-6">
+                    Fecha
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Orden
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Operación
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Total
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Carteles
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Estado
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+       
+        {
+    ordenesPorMes.map((e:any)=>(
+      <tr className="bg-white dark:bg-gray-800 text-lg">
+      <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      {moment(e.fecha).format("L")}
+      </th>
+      <td className="py-4 px-6">
+      {e.facturanum}
+      </td>
+      <td className="py-4 px-6">
+      {e.operacion}
+      </td>
+      <td className="py-4 px-6">
+      {e.montototal}
+      </td>
+      <td className="py-4 px-6">
+      {e.carteles.length}
+      </td>
+      <td className="py-4 px-6">
+      {
+          e.resta+e.seña===e.montototal?
+          <h1 className="border-b-4 border-violet-600 flex text-center">Pagada</h1>
+          :
+          <h1 className="border-b-4 border-yellow-600 flex text-center">Sin pagar</h1>
+        }
+      </td>
+  </tr>
+    
+    ))
+  }
+        </tbody>
+    </table>
+</div>
+
+
+
+
                  {/** tercera columna */}
 </div>
 

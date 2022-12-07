@@ -1,4 +1,6 @@
 import useUser from "../store/user";
+import useOrdenes from "../store/ordenes";
+
 import Layout from "../components/Layout/index";
 import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -34,6 +36,9 @@ const Clientes = () => {
   const { clientes, getClients, getClientesAll, loading, success, deleteClients } = useClients(
     (state) => state
   );
+   const { ordenes, getOrdenes} = useOrdenes(
+    (state) => state
+  );
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
@@ -49,6 +54,7 @@ const Clientes = () => {
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
+  const [ordenesPorMes, setOrdenesPorMes] = useState([])
   const [clientEdit, setClientEdit] = useState({
     id: "",
     name: "",
@@ -64,7 +70,7 @@ const Clientes = () => {
 
   useEffect(() => {
     getClientesAll(accessToken, page, limit);
-    
+    getOrdenes(headers)
    
   }, []);
 
@@ -168,7 +174,10 @@ const Clientes = () => {
   };
 
   const ver = (client: any) => {
+
     if (client) {
+      var ordenesArray:any = ordenes.filter((e:any)=>e.cliente===client.name)
+      setOrdenesPorMes(ordenesArray)
       setShowModal3(true);
       console.log("hola", client);
       setClientEdit({
@@ -388,9 +397,11 @@ const Clientes = () => {
                           <ModalVer
                             showModal3={showModal3}
                             setShowModal3={setShowModal3}
+                           
                           >
                             <VerCliente
                               setShowModal3={setShowModal3}
+                              ordenesPorMes={ordenesPorMes}
                               cliente={clientEdit}
                             />
                           </ModalVer>
