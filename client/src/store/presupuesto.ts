@@ -37,6 +37,7 @@ type PresupuestoStore = {
   addPresupuesto: (body:{}) => Promise<void>
   getPresupuestos: (headers:{})=>Promise<void>
   deletePresupuestos: (params:any, headers:any)=> Promise<void>
+  putPresupuesto: (body:any, token:any) => Promise<void>
   closeModal: () => void;
 }
 
@@ -50,9 +51,17 @@ const usePresupuesto = create<PresupuestoStore>()(
       success: false,
       error: false,
       loading: false,
-  
+      
       //actions
-     
+      putPresupuesto: async (body, token) => {
+        
+        let headers:any = {
+        "x-access-token" : token
+      };
+        const { data } = await axios.put('http://localhost:5000/api/presupuestos', body, { headers: { "x-access-token": token} });
+       
+
+      },
       addPresupuesto: async (body) => {
         try {
           const { data } = await axios.post('http://localhost:5000/api/presupuestos/create', body );

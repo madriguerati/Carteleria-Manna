@@ -14,7 +14,8 @@ export interface IPresupuesto extends mongoose.Document{
   plazodeentrega:number,
   fechavalida: Date,//presupuesto valido hasta 
   observaciones:string,
-   obrero: string
+   //obrero: string
+orden:boolean;
 };
 
 const presupuestoSchema = new Schema(
@@ -23,10 +24,10 @@ const presupuestoSchema = new Schema(
         type: Date,
         required: true
       },
-      obrero:
+      orden:
       {
-        type: String,
-        request:true
+        type:Boolean,
+        default: false
       },
       clientes: 
         {

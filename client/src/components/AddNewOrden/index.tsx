@@ -237,7 +237,7 @@ console.log("hola estos", newArray, values)
 
   const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;
-    var holaaa: any =values.montototal
+    var holaaa: any =montoModificado
    if(value){
     var valuesporcen: any = value
     var porcentaje: any  = 0

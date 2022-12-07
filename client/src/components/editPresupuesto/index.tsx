@@ -44,11 +44,15 @@ const ClienteEdit = ({ setShowModal2, presupuesto }: Props) => {
     porcentaje: presupuesto.porcentaje,
 resta:0
   });
+  const [ordenchange, setOrdenchange] = useState({
+   id: presupuesto.id,
+   orden:true
+  });
   var montofinal: any = values.montototal;
   const multiplicar = (a: number, b: number): number => {
     return a * b;
   };
-  const { presupuestos,success, error, loading } = usePresupuestos(
+  const { presupuestos,putPresupuesto, success, error, loading, closeModal} = usePresupuestos(
     (state) => state
   );
   const { ordenes, postOrden} = useOrdenes(
@@ -68,7 +72,7 @@ resta:0
 
   const handleCloseModal = () => {
 		setShowModal2(false);
-		//closeModal();
+		closeModal();
 	};
   const [openTab, setOpenTab] = useState(1);
   var color: any = "white";
@@ -96,8 +100,25 @@ resta:0
         })
   }
 const changeOrden=()=>{
-postOrden(values, headers)
+
 console.log("hola", values)
+Swal.fire({
+  title: '¿Desea guardar los cambios?',
+  showDenyButton: true,
+  showCancelButton: true,
+  confirmButtonColor: '#77B327',
+  confirmButtonText: 'Guardar',
+  denyButtonText: `No guardar`,
+}).then((result) => {
+  if (result.isConfirmed) {
+    postOrden(values, headers)
+putPresupuesto(ordenchange, headers)
+handleCloseModal()
+    Swal.fire('¡Guardado exitosamente!', '', 'success')
+  } else if (result.isDenied) {
+    Swal.fire('Los cambios no han sido guardados', '', 'info')
+  }
+})
 }
 
   return (
@@ -724,6 +745,13 @@ console.log("hola", values)
       </form>
     <div className="flex justify-end">
 <hr/>
+<button
+              className="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={handleCloseModal}
+            >
+              Cancelar
+            </button>
     <button
               className="bg-blue-600 text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
              onClick={changeOrden}

@@ -68,7 +68,8 @@ const Presupuesto = () => {
     facturanum: "",
     observaciones: "",
     montototal:"",
-    porcentaje:0
+    porcentaje:0,
+    id:""
   });
 
   useEffect(() => {
@@ -176,7 +177,8 @@ const Presupuesto = () => {
         facturanum: presupuesto.facturanum,
         observaciones: presupuesto.observaciones,
         montototal: presupuesto.montototal,
-        porcentaje: presupuesto.porcentaje
+        porcentaje: presupuesto.porcentaje,
+        id: presupuesto._id
       });
       console.log("insumo", presupuestoEdit);
     }
@@ -304,6 +306,9 @@ const Presupuesto = () => {
                     <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                       eliminar
                     </th>
+                    <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
+                     estado
+                    </th>
                   </tr>
                 </thead>
                 {!loading && (
@@ -375,6 +380,9 @@ const Presupuesto = () => {
                             {<MdDelete />}
                           </p>
                         </td>
+                        <td className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
+                      {presupuesto.orden===false? <h1 className="bg-black text-white text-center w-20 rounded-lg p-1">texto</h1> : <h1 className="bg-yellow-600 text-center w-20 rounded-lg p-1 text-white">Aprobado</h1>}
+                    </td>
                       </tr>
                     ))}
                   </tbody>

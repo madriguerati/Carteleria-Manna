@@ -45,7 +45,7 @@ const multiplicar = (a: number, b: number): number => {
 const ClienteEdit = ({ setShowModal2, orden }: Props) => {
   const { carteles, getCarteles } = useCartel((state) => state);
   const { clientes, getClients } = useClients((state) => state);
-  const { getUsers2, users, logout, user } = useUser((state) => state);
+  const { getUsers2, users, logout, user, closeModal } = useUser((state) => state);
   const [hola, setHola] = useState(false);
   const [montoModificado, setMontoModificado] = useState(0);
 
@@ -123,13 +123,28 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
 
   const handleCloseModal = () => {
     setShowModal2(false);
-    //closeModal();
+    closeModal();
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
-    putOrden(values, headers);
+    Swal.fire({
+      title: '¿Desea guardar los cambios?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonColor: '#77B327',
+      confirmButtonText: 'Guardar',
+      denyButtonText: `No guardar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('¡Guardado exitosamente!', '', 'success')
+        putOrden(values, headers);
+        handleCloseModal()
+      } else if (result.isDenied) {
+        Swal.fire('Los cambios no han sido guardados', '', 'info')
+      }
+    })
+    
   };
   const handleSelectCliente = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let { value } = e.currentTarget;
@@ -147,7 +162,7 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
   };
   const handleSelectPorcentaje = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let { value } = e.currentTarget;
-    var holaaa: any = montofinal;
+    var holaaa: any = values.montototal;
     if (value) {
       var valuesporcen: any = value;
       var porcentaje: any = 0;
@@ -166,42 +181,19 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
 
   return (
     <div className="rounded-lg  md:mt-0 xl:p-0 ">
-      <div className="p-6 space-y-4 sm:p-8">
+      <div className="p-6 space-y-4 sm:p-8 ">
+        <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+      
+        <div className="">
+         <h1 className="text-3xl">Editar Orden</h1>
+        </div>
+
         <button
-          className="absolute right-12 top-16 mt-1 text-black text-4xl w-10 h-10  flex justify-center "
+          className=" text-black text-4xl w-full h-10  flex justify-end"
           onClick={handleCloseModal}
         >
           <MdExitToApp />
         </button>
-        <div
-          className={`flex items-center justify-start p-5 ${
-            success
-              ? "bg-white"
-              : error
-              ? "bg-red-300"
-              : "border-b-[#77B327] border-b-4 rounded"
-          }`}
-        >
-          <h3
-            className={`text-3xl font-semibold text-center ${
-              success
-                ? "text-[#77B327]"
-                : error
-                ? "text-red-700"
-                : "text-zinc-800"
-            }`}
-          >
-            {success
-              ? "Orden editada exitosamente"
-              : error
-              ? "Ocurrio un error"
-              : "Editar Orden"}
-          </h3>
-          {success && (
-            <BsFillCheckCircleFill size={55} className="text-[#77B327]" />
-          )}
-
-          {error && <MdError size={55} className="text-red-700 ml-1" />}
         </div>
         <AddCartel
           values={values}
