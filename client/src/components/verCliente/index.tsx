@@ -83,7 +83,7 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
             <hr/>
 
                  {/** tercera columna */}
-                 <h1 className="text-2xl text-bold uppercase flex text-center justify-center m-5">Historial de Ordenes</h1>
+                 <h1 className="text-2xl text-bold uppercase flex text-center justify-center text-white bg-gray-600 border-4 border-gray-600 mt-5">Historial de Ordenes</h1>
                  <div className="overflow-x-auto relative">
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xl text-gray-900 uppercase dark:text-gray-400">
@@ -112,7 +112,7 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
        
         {
     ordenesPorMes.map((e:any)=>(
-      <tr className="bg-white dark:bg-gray-800 text-lg">
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-lg hover:bg-gray-50 dark:hover:bg-gray-600">
       <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
       {moment(e.fecha).format("L")}
       </th>
@@ -131,9 +131,9 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
       <td className="py-4 px-6">
       {
           e.resta+e.seña===e.montototal?
-          <h1 className="border-b-4 border-violet-600 flex text-center">Pagada</h1>
+          <h1 className="flex  bg-violet-600 rounded-lg text-white p-2 text-lg justify-center text-center">Pagada</h1>
           :
-          <h1 className="border-b-4 border-yellow-600 flex text-center">Sin pagar</h1>
+          <h1 className="flex  bg-yellow-600 rounded-lg text-white p-2 text-lg justify-center text-center">Sin pagar</h1>
         }
       </td>
   </tr>
@@ -151,7 +151,6 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
 </div>
 
         {/** inicio */}
-        <hr/>
         <h1>Contacto</h1>
         <div className="flex justify-end grid p-5 sm:gap-1 sm:grid-cols-1  md:gap-3 md:grid-cols-3">
             <div className="m-5 text-xl ">
