@@ -5,6 +5,9 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import AddNewProveedor from "../components/AddNewProveedor";
 import ModalEdit from "../components/ModalEdit";
+import VerProveedor from "../components/VerProveedor";
+import ModalVer from "../components/ModalVer";
+
 import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
@@ -40,6 +43,8 @@ const Proveedores = () => {
   const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
+
   const [proveedorEdit, setProveedorEdit] = useState({
     id: "",
     name: "",
@@ -157,7 +162,21 @@ const Proveedores = () => {
       console.log("insumo", proveedorEdit);
     }
   };
+  const ver = (proveedor: any) => {
 
+    if (proveedor) {
+      setShowModal3(true);
+      setProveedorEdit({
+        id: proveedor._id,
+        name: proveedor.name,
+        telefono: proveedor.telefono,
+        cuit: proveedor.cuit,
+        email: proveedor.email,
+        direccion: proveedor.direccion,
+        web: proveedor.web,
+      });
+    }
+  };
   return (
     <Layout>
       <div className="xl:container mx-auto px-4 sm:px-8">
@@ -346,9 +365,20 @@ const Proveedores = () => {
                           </p>
                         </td>
                         <td className="px-3 py-2">
-                          <p className="text-gray-900 whitespace-no-wrap capitalize">
-                            <BsSearch />
+                        <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => ver(proveedor)}
+                          >
+                             <BsSearch />
                           </p>
+                          <ModalVer
+                            setShowModal3={setShowModal3}
+                            showModal3={showModal3}
+                            proveedor={proveedorEdit}
+                          >
+                            <VerProveedor
+                            />
+                          </ModalVer>
                         </td>
                         <td className="px-3 py-2">
                           <p

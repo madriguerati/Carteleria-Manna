@@ -5,7 +5,7 @@ import useProveedor from '../../store/proveedores';
 import useUser from '../../store/user';
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdError } from "react-icons/md";
+import { MdError , MdExitToApp} from "react-icons/md";
 import Swal from 'sweetalert2';
 
 
@@ -75,46 +75,18 @@ const ProveedorEdit = ({ setShowModal2, proveedor }: Props) => {
   return (
     <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
     <div className='p-6 space-y-4 sm:p-8'>
+    <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+      
+      <div className="">
+       <h1 className="text-3xl">Editar Proveedor</h1>
+      </div>
+
       <button
-        className='absolute right-4 top-6 bg-white text-gray-500 text-2xl w-10 h-10 rounded-full flex justify-center border border-gray-300'
+        className=" text-black text-4xl w-full h-10  flex justify-end"
         onClick={handleCloseModal}
       >
-        x
+        <MdExitToApp />
       </button>
-      <div
-        className={`flex items-center justify-center p-5 border-b border-solid border-slate-200 rounded ${
-          success
-            ? "bg-[#c2e593]"
-            : error
-            ? "bg-red-300"
-            : "bg-[#77B327]"
-        }`}
-      >
-        <h3
-          className={`text-3xl font-semibold text-center ${
-            success
-              ? "text-[#77B327]"
-              : error
-              ? "text-red-700"
-              : "text-zinc-800"
-          }`}
-        >
-          {success
-            ? "Proveedor editado exitosamente"
-            : error
-            ? "Ocurrio un error"
-            : "Editar Proveedor"}
-        </h3>
-        {success && (
-          <BsFillCheckCircleFill
-            size={55}
-            className='text-[#77B327]'
-          />
-        )}
-
-        {error && (
-          <MdError size={55} className='text-red-700 ml-1' />
-        )}
       </div>
       <form onSubmit={handleSubmit} className='flex flex-col mt-4'>
         <input
