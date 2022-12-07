@@ -63,7 +63,7 @@ const InsumoEdit = ({ setShowModal3, insumo, proveedorInsumo }: Props) => {
         </div>
         <div className="">
  {/** tercera columna */}
- <div className="w-full  mb-5 grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-4 md:grid-cols-4 text-lg">
+ <div className="w-full  m-7 grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-4 md:grid-cols-4 text-lg">
             <div>
               <b className="text-gray-600">Descripción</b>
               <h1>{insumo.descripcion}</h1>
@@ -87,7 +87,7 @@ const InsumoEdit = ({ setShowModal3, insumo, proveedorInsumo }: Props) => {
                  {/** tercera columna */}
           <hr />
           {/** tercera columna */}
-          <h1 className=" mt-5 text-2xl "><b>Proveedor: </b>{proveedorInsumo.name}</h1>
+          <h1 className=" mt-5 text-2xl flex justify-center "><b>Proveedor: </b>{proveedorInsumo.name}</h1>
           <div className="flex mt-5  text-center">
             
             {/** observaciones columna */}
@@ -126,28 +126,63 @@ const InsumoEdit = ({ setShowModal3, insumo, proveedorInsumo }: Props) => {
           </div>
  {/** tercera columna */}
  <hr/>
-<h1 className="text-2xl ">Otros proveedores</h1>
-<div className="flex grid sm:gap-1   sm:grid-cols-1
-          md:gap-3 md:grid-cols-3 m-2">
-{
-  insumo.another.map((e:any)=> e.proveedor!== insumo.proveedor && (
-    <div className="flex-1 w-full m-1 border-2 mx-auto bg-white rounded-xl  overflow-hidden w-160 sm:w-full md:w-160 lg:w-160 p-5 mr-4">
-    <h1><b>Nombre: </b> {e.name}</h1>
-    <h1><b>Descripcion: </b> {e.descripcion}</h1>
 
-    <h1><b>Unidad: </b>{e.unidad}</h1>
-    <h1><b>Category: </b>{e.category}</h1>
-
-    <h1><b>Costo: </b>{e.costo}</h1>
-    <h1><b>Proveedor: </b>{e.proveedor}</h1>
-
-    </div>
-  ))
-}
+{/** tercera columna */}
+<h1 className="text-2xl text-bold uppercase flex text-center justify-center text-white bg-gray-600 border-4 border-gray-600 mt-5">Historial de Proveedores</h1>
+                 <div className="overflow-x-auto relative">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xl text-gray-900 uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" className="py-3 px-6">
+                  Nombre    
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Descripción
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Unidad
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Category
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Costo
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Proveedor
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+       
+        {
+   insumo.another.map((e:any)=> e.proveedor!== insumo.proveedor && (
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-lg hover:bg-gray-50 dark:hover:bg-gray-600">
+      <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      {e.name}
+      </th>
+      <td className="py-4 px-6">
+      {e.descripcion}
+      </td>
+      <td className="py-4 px-6">
+      {e.unidad}
+      </td>
+      <td className="py-4 px-6">
+      {e.category}
+      </td>
+      <td className="py-4 px-6">
+      {e.costo}
+      </td>
+      <td className="py-2 px-3  text-black text-bold flex justify-center uppercase">
+      {e.proveedor}
+      </td>
+  </tr>
+    
+    ))
+  }
+        </tbody>
+    </table>
 </div>
-
-            {/** contacto columna */}
-          {/** tercera columna */}
         </div>
       </div>
   );
