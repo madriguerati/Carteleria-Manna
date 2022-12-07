@@ -52,7 +52,7 @@ const useProveedores = create<ProveedoresStore>()(
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					"https://symptomatic-hole-production.up.railway.app/api/proveedores",
+					"http://localhost:5000/api/proveedores",
 					headers
 				);
 				set((state) => ({ proveedores: (state.proveedores = data) }));	
@@ -73,10 +73,11 @@ const useProveedores = create<ProveedoresStore>()(
 			set({ loading: false});
 			  
 			},
+			//https://symptomatic-hole-production.up.railway.app
 		addProveedores: async (body) => {
 			try {
 				await axios.post(
-					"https://symptomatic-hole-production.up.railway.app/api/proveedores/create",
+					"http://localhost:5000/api/proveedores/create",
 					body
 				);
 				set({ success: true, error: false });

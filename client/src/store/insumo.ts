@@ -21,6 +21,7 @@ interface Insumo {
 type UserStore = {
   insumo: any
   insumos:any
+  insumos2:any
   tokken: any
   success: boolean
   error: boolean
@@ -96,7 +97,7 @@ const useInusmo = create<UserStore>()(
         try{
           set({ loading: true}) 
           const { data } = await axios.get('http://localhost:5000/api/insumos', headers )
-          set((state) => ({ insumos: (state.insumos = data) }));
+          set((state) => ({ insumos2: (state.insumos2 = data) }));
         }catch(error){
           console.log(error)
         }

@@ -3,11 +3,16 @@ import Layout from "../components/Layout/index";
 import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
+import ModalVer from "../components/ModalVer";
+
+import VerInsumo from '../components/VerInsumo'
 import AddNewInsumo from "../components/addNewInsumo";
 import EditInsumo from "../components/EditInsumo";
 import Swal from 'sweetalert2'
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
+import useProveedor from "../store/proveedores";
+
 
 import {
   MdKeyboardArrowRight,
@@ -28,20 +33,21 @@ import useHeaders from "../hooks/useHeaders";
 import useClients from "../store/clientes";
 import AddNewClient from "../components/AddNewClient";
 import ModalEdit from "../components/ModalEdit";
-
 const Clientes = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
-  const { getInsumosAll, insumos, deleteIsumos, loading, success } = useInsumo(
+  const { getInsumosAll, getInsumos, insumos, insumos2, deleteIsumos, loading, success } = useInsumo(
     (state) => state
   );
-  const [accessToken] = useLocalStorage();
-  const headers = useHeaders(accessToken);
+  const { proveedores, getProveedores } = useProveedor((state) => state);
+
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(10);
   const [limit, setLimit] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
+const [proveedorInsumo, setProveedorInsumo]=useState({})
   const [insumoEdit, setInsumoEdit] = useState({
     id: "",
     name: "",
@@ -50,15 +56,18 @@ const Clientes = () => {
     costo: "",
     category: "",
     proveedor: "",
+    another:""
   });
 
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
-
+  const [accessToken] = useLocalStorage();
+  const headers = useHeaders(accessToken);
   useEffect(() => {
     getInsumosAll(accessToken, limit, page);
-    console.log("hahahhaahahahaha", insumos)
+    getProveedores(headers)
+    getInsumos(headers)
   }, []);
 
   //delete
@@ -152,8 +161,31 @@ const Clientes = () => {
         costo: insumo.costo,
         category: insumo.category,
         proveedor: insumo.proveedor,
+        another:""
+      });
+      
+    }
+  };
+  const ver = (insumo: any) => {
+    if (insumo) {
+      setShowModal3(true);
+      var anotherInsumos: any = insumos2.filter((e:any)=>e.name===insumo.name)
+      setInsumoEdit({
+        id: insumo._id,
+        name: insumo.name,
+        descripcion: insumo.descripcion,
+        unidad: insumo.unidad,
+        costo: insumo.costo,
+        category: insumo.category,
+        proveedor: insumo.proveedor,
+        another: anotherInsumos,
       });
     }
+    console.log("hola",insumoEdit)
+  var object:any = proveedores.find(
+      (e: any) => e.name === insumo.proveedor
+    );
+    setProveedorInsumo(object)
   };
   return (
     <Layout>
@@ -343,9 +375,22 @@ const Clientes = () => {
                           </p>
                         </td>
                         <td className="px-3 py-2">
-                          <p className="text-gray-900 whitespace-no-wrap capitalize">
-                            <BsSearch />
+                        <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => ver(insumo)}
+                          >
+                             <BsSearch />
                           </p>
+                          <ModalVer
+                            showModal3={showModal3}
+                            setShowModal3={setShowModal3}
+                          >
+                            <VerInsumo
+                              setShowModal3={setShowModal3}
+                              insumo={insumoEdit}
+                              proveedorInsumo={proveedorInsumo}
+                            />
+                          </ModalVer>
                         </td>
                         <td className="px-3 py-2">
                           <p
