@@ -9,7 +9,8 @@ import Swal from 'sweetalert2'
 import ModalEdit from "../components/ModalEdit";
 import EditPresupuesto from "../components/editPresupuesto";
 import ModalVer from "../components/ModalVer";
-import VerOrden from "../components/VerOrden";
+
+import VerPresupuesto from "../components/VerPresupuesto";
 import {
   MdKeyboardArrowRight,
   MdKeyboardArrowLeft,
@@ -182,7 +183,31 @@ const Presupuesto = () => {
       });
       console.log("insumo", presupuestoEdit);
     }
+
   };
+  const ver = (presupuesto: any) => {
+    if (presupuesto) {
+      setShowModal3(true);
+      setPresupuestoEdit({
+        fecha: presupuesto.fecha,
+        clientes: presupuesto.clientes,
+        contacto: presupuesto.contacto, //nombre de contacto
+        carteles: presupuesto.carteles,
+        operacion: presupuesto.operacion,
+        lugardecolocacion: presupuesto.lugardecolocacion,
+        lugartraslado: presupuesto.lugartraslado,
+        seña: presupuesto.seña,
+        formadepago: JSON.stringify(presupuesto.formadepago),
+        fechaentrega: presupuesto.fechaentrega,
+        facturanum: presupuesto.facturanum,
+        observaciones: presupuesto.observaciones,
+        montototal: presupuesto.montototal,
+        porcentaje: presupuesto.porcentaje,
+        id: presupuesto._id
+      });
+    }
+  };
+
   return (
     <Layout>
       <div className="xl:container mx-auto px-4 sm:px-8">
@@ -350,9 +375,21 @@ const Presupuesto = () => {
                           </p>
                         </td>
                         <td className="px-3 py-2">
-                          <p className="text-gray-900 whitespace-no-wrap capitalize">
-                            <BsSearch />
+                        <p
+                            className="text-gray-900 whitespace-no-wrap capitalize"
+                            onClick={() => ver(presupuesto)}
+                          >
+                             <BsSearch />
                           </p>
+                          <ModalVer
+                            showModal3={showModal3}
+                            setShowModal3={setShowModal3}
+                          >
+                            <VerPresupuesto
+                              setShowModal3={setShowModal3}
+                              presupuesto={presupuestoEdit}
+                            />
+                          </ModalVer>
                         </td>
                         <td className="px-3 py-2">
                           <p
