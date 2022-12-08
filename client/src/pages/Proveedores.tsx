@@ -35,6 +35,8 @@ const Proveedores = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
   const { getProveedoresAll, proveedores, deleteProveedores, loading } =
     useProveedores((state) => state);
+    const { getInsumos, insumos2 } =
+    useInsumo((state) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
@@ -58,10 +60,11 @@ const Proveedores = () => {
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
-
+const [insumosProveedor, setInsumosProveedor]=useState([])
   useEffect(() => {
     getProveedoresAll(accessToken, limit, page);
-    console.log("holaaaaaa", proveedores);
+    getInsumos(headers)
+    console.log("holaaaaaa", insumos2);
   }, []);
 
   //delete
@@ -165,7 +168,10 @@ const Proveedores = () => {
   const ver = (proveedor: any) => {
 
     if (proveedor) {
+      var array: any = insumos2.filter((e:any)=>e.proveedor===proveedor.name)
       setShowModal3(true);
+      setInsumosProveedor(array)
+      console.log("hahahahaha", insumos2)
       setProveedorEdit({
         id: proveedor._id,
         name: proveedor.name,
@@ -374,9 +380,11 @@ const Proveedores = () => {
                           <ModalVer
                             setShowModal3={setShowModal3}
                             showModal3={showModal3}
-                            proveedor={proveedorEdit}
                           >
                             <VerProveedor
+                              setShowModal3={setShowModal3}
+                              proveedor={proveedorEdit}
+                              insumosProveedor={insumosProveedor}
                             />
                           </ModalVer>
                         </td>

@@ -54,12 +54,9 @@ const Clientes = () => {
     insumosArray: [],
     category: [],
   });
-  const [cartelesGlobales, setCartelesGlobales]=useState(carteles.carteles)
 
   useEffect(() => {
     getCartelesAll(accessToken, page, limit);
-    console.log("holaaaaaaaaaaaaaaaaaaaaaa", carteles);
-    setCartelesGlobales(carteles.carteles)
   }, [rol, sort, page, limit]);
 
   //delete
@@ -135,8 +132,8 @@ const Clientes = () => {
         Swal.fire("Eliminado!", "X ha sido eliminado", "success");
         console.log("hola delte");
         deleteCartel(cartel._id, headers);
-        var array: any = cartelesGlobales.filter((e:any)=>e._id!==cartel._id)
-setCartelesGlobales(array)
+        var array: any = carteles.carteles.filter((e:any)=>e._id!==cartel._id)
+        carteles.carteles= array
       }
     });
   };
@@ -312,7 +309,7 @@ setCartelesGlobales(array)
                 </thead>
                 {
                   <tbody>
-                    {cartelesGlobales?.map((cartel: any, index: number) => (
+                    {carteles.carteles?.map((cartel: any, index: number) => (
                       <tr
                         key={cartel._id}
                         className={`border-b border-gray-200 text-base ${
@@ -440,7 +437,7 @@ setCartelesGlobales(array)
           </button>
         </div>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <AddNewCartel setShowModal={setShowModal} carteles={cartelesGlobales}/>
+          <AddNewCartel setShowModal={setShowModal} carteles={carteles.carteles}/>
         </Modal>
       </div>
     </Layout>

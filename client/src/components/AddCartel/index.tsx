@@ -162,6 +162,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
       };
     return (
         <div >
+          
         {/**form cartel */}
         <div className="justify-end ">
           <h1

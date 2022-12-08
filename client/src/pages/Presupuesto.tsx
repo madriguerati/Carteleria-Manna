@@ -104,7 +104,6 @@ const Presupuesto = () => {
 
   const nextPage = (): void => {
     page < presupuestos.totalPages && setPage(page + 1);
-    alert("hola")
   };
 
   const prevPage = (): void => {
