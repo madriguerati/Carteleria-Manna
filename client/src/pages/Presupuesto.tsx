@@ -9,6 +9,8 @@ import Swal from 'sweetalert2'
 import ModalEdit from "../components/ModalEdit";
 import EditPresupuesto from "../components/editPresupuesto";
 import ModalVer from "../components/ModalVer";
+import useClients from "../store/clientes";
+
 
 import VerPresupuesto from "../components/VerPresupuesto";
 import {
@@ -34,6 +36,7 @@ import Clientes from './Carteles';
 
 const Presupuesto = () => {
   const { users, getUsers } = useUser((state) => state, shallow);
+  const { clientes, getClients } = useClients((state) => state);
   const {
     presupuestos,
     getPresupuestos,
@@ -51,7 +54,7 @@ const Presupuesto = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
-
+const [cliente, setCliente]= useState({})
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
@@ -72,10 +75,13 @@ const Presupuesto = () => {
     porcentaje:0,
     id:""
   });
-
+  
   useEffect(() => {
     !success && getPresupuestosAll(accessToken, page, limit);
     console.log("holaaaaaadsdsdsdsaaa", presupuestos);
+    getClients(headers);
+    
+    console.log("hola soy clientes", clientes);
   }, [success]);
 
   //delete
@@ -186,6 +192,8 @@ const Presupuesto = () => {
   };
   const ver = (presupuesto: any) => {
     if (presupuesto) {
+    var  clienteNew: any= clientes.find((e: any) => e.name === presupuesto.clientes);
+    setCliente(clienteNew)
       setShowModal3(true);
       setPresupuestoEdit({
         fecha: presupuesto.fecha,
@@ -387,6 +395,7 @@ const Presupuesto = () => {
                             <VerPresupuesto
                               setShowModal3={setShowModal3}
                               presupuesto={presupuestoEdit}
+                              cliente={cliente}
                             />
                           </ModalVer>
                         </td>

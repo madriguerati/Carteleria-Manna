@@ -7,32 +7,31 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError, MdDone, MdArrowBack, MdEmail } from "react-icons/md";
 import {BsWhatsapp} from "react-icons/bs";
+import useClients from "../../store/clientes";
 
 import Swal from "sweetalert2";
 import moment from "moment";
-import useClients from "../../store/clientes";
 import useHeaders from "../../hooks/useHeaders";
 type Props = {
   setShowModal3: any;
   presupuesto: any;
+  cliente:any
 };
-const InsumoEdit = ({ setShowModal3, presupuesto }: Props) => {
+const InsumoEdit = ({ setShowModal3, presupuesto, cliente }: Props) => {
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [category, setCartegory] = useState(["IMPRESIONES", "CARTELERIA"]);
   const { success, putInsumo, closeModal, error } = useInsumo((state) => state);
   const [token] = useLocalStorage();
-  
+
+
 
   const navigate = useNavigate();
 
   const [values, setValues] = useState({});
   const { clientes, getClients } = useClients((state) => state);
-  var cliente: any = clientes.find((e: any) => e.name === presupuesto.clientes);
   useEffect(() => {
-    getClients(headers);
-
-    console.log("hola soy clientes", clientes, cliente);
+  
   }, []);
   const [errors, setErrors] = useState<any>({});
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -157,8 +156,68 @@ const InsumoEdit = ({ setShowModal3, presupuesto }: Props) => {
                       </div>
                                             {/** observaciones columna */}
                                                                   {/** contacto columna */}
-                                                                 
-                                                                 
+                                                                  <b className="text-black flex justify-center m-5">
+                       contacto
+                      </b>   
+                                                                  <div className="flex ">
+                      <div className="flex justify-end grid p-5 sm:gap-1 sm:grid-cols-1  md:gap-3 md:grid-cols-3">
+                        <div className="m-5 text-xl ">
+                          <p>Email</p>
+                          <h1>{cliente.email}</h1>
+                        </div>
+                        <div className="m-5 text-xl">
+                          <p className="flex justify-end">Telefono</p>
+                          <h1 className="flex justify-end">
+                            {cliente.telefono}
+                          </h1>
+                        </div>
+                        <div className="flex justify-end mt-3">
+                          <div className="m-7 text-2xl">
+                            <a
+                              href={`https://api.whatsapp.com/send?phone=${cliente.telefono}&text=Hola, ${cliente.name}.Le escribimos desde Carteleria`}
+                            >
+                              <BsWhatsapp />
+                            </a>
+                          </div>
+                          <div className="m-7 text-2xl">
+                            <a
+                              href={`mailto:${cliente.email}?Subject=Interesado%20en%20su%20trabajo`}
+                            >
+                              <MdEmail />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>        <div className="flex ">
+                      <div className="flex justify-end grid p-5 sm:gap-1 sm:grid-cols-1  md:gap-3 md:grid-cols-3">
+                        <div className="m-5 text-xl ">
+                          <p>Email</p>
+                          <h1>{cliente.email}</h1>
+                        </div>
+                        <div className="m-5 text-xl">
+                          <p className="flex justify-end">Telefono</p>
+                          <h1 className="flex justify-end">
+                            {cliente.telefono}
+                          </h1>
+                        </div>
+                        <div className="flex justify-end mt-3">
+                          <div className="m-7 text-2xl">
+                            <a
+                              href={`https://api.whatsapp.com/send?phone=${cliente.telefono}&text=Hola, ${cliente.name}.Le escribimos desde Carteleria`}
+                            >
+                              <BsWhatsapp />
+                            </a>
+                          </div>
+                          <div className="m-7 text-2xl">
+                            <a
+                              href={`mailto:${cliente.email}?Subject=Interesado%20en%20su%20trabajo`}
+                            >
+                              <MdEmail />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                                      
                       {/** contacto columna */}
 
 

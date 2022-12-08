@@ -1,4 +1,6 @@
 import useUser from "../store/user";
+import useInsumo from "../store/insumo";
+
 import Layout from "../components/Layout/index";
 import { useEffect, useState, Fragment } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -33,6 +35,9 @@ const Clientes = () => {
   const { carteles, getCartelesAll, deleteCartel, loading } = useCarteles(
     (state) => state
   );
+  const { insumos2, getInsumos } = useInsumo(
+    (state) => state
+  );
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
@@ -57,6 +62,7 @@ const Clientes = () => {
 
   useEffect(() => {
     getCartelesAll(accessToken, page, limit);
+    getInsumos(headers)
   }, [rol, sort, page, limit]);
 
   //delete
@@ -437,7 +443,7 @@ const Clientes = () => {
           </button>
         </div>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <AddNewCartel setShowModal={setShowModal} carteles={carteles.carteles}/>
+          <AddNewCartel setShowModal={setShowModal} carteles={carteles.carteles} insumos2={insumos2}/>
         </Modal>
       </div>
     </Layout>
