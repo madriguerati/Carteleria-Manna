@@ -19,6 +19,7 @@ interface Cartel {
 
 type CartelStore = {
   carteles:any
+  carteles2:any
   cartel: any
   tokken: any
   success: boolean
@@ -43,6 +44,7 @@ const useCartel = create<CartelStore>()(
     devtools((set) => ({
       //states
       carteles:[],
+      carteles2:[],
       cartel: {},
       tokken: '',
       success: false,
@@ -78,7 +80,7 @@ const useCartel = create<CartelStore>()(
           set({ loading: true}) 
           const { data } = await axios.get(`http://localhost:5000/api/carteles`,
           { headers: { "x-access-token": token } })
-          set((state) => ({ carteles: (state.carteles = data) }));
+          set((state) => ({ carteles2: (state.carteles2 = data) }));
         } catch(error){
           console.log(error)
         }

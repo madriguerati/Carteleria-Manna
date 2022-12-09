@@ -82,7 +82,7 @@ const [cliente, setCliente]= useState({})
     getClients(headers);
     
     console.log("hola soy clientes", clientes);
-  }, [success]);
+  }, [success, page, limit]);
 
   //delete
   const DeletePresupuesto = (presupuesto: any) => {

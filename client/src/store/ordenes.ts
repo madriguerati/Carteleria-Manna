@@ -50,6 +50,7 @@ const useOrdenes = create<UserStore>()(
       //states
       orden: {},
       ordenes:[],
+      ordenes2:[],
       tokken: '',
       success: false,
       error: false,
@@ -82,7 +83,7 @@ const useOrdenes = create<UserStore>()(
         try{
           set({ loading: true}) 
           const { data } = await axios.get('http://localhost:5000/api/ordenes', headers )
-          set((state) => ({ ordenes: (state.ordenes = data) }));
+          set((state) => ({ ordenes2: (state.ordenes2 = data) }));
         }catch(error){
           console.log(error)
         }

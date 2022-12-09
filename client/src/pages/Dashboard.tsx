@@ -36,13 +36,12 @@ import {
 import moment from "moment";
 
 const Dashboard = () => {
-  const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading } =
+  const { ordenes2, getOrdenesAll, getOrdenes, deleteOrdenes, loading } =
     useOrdenes((state) => state);
-  const { carteles, cartel, getCarteles } = useCartel((state) => state);
+  const { carteles2, cartel, getCarteles } = useCartel((state) => state);
   const { getUsers2, users, logout, user } = useUser((state) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
-  const [ordenesGlobales, setOrdenesGlobales] = useState(ordenes);
   var fechaActual: any = moment().format("MM/DD/YYYY");
   const [fecha, setFecha] = useState(fechaActual);
   const [values, setValues] = useState({
@@ -55,48 +54,26 @@ const Dashboard = () => {
     getCarteles(accessToken);
   }, []);
 
-  var arrayprueba: any = carteles.map((e: any) => ({
+  var arrayprueba: any = carteles2.map((e: any) => ({
     cartel: e.descripcion,
     item: [],
   }));
   var cont: any = 0;
 
-  for (let i = 0; i < carteles.length; i++) {
-    for (let k = 0; k < ordenesGlobales.length; k++) {
-      //console.log(" en mi orden", ordenesGlobales[k].carteles.length, "factura", ordenesGlobales[k].facturanum)
-      var arregloOrdenes: any = [];
-      arregloOrdenes = ordenesGlobales[k].carteles.map((e: any) => e.name);
-
-      if (arregloOrdenes.includes(carteles[i].descripcion)) {
-        var filtrado: any = ordenesGlobales[k].carteles.filter(
-          (e: any) => e.name === carteles[i].descripcion
-        );
-
-        var nuevoarrr: any = arrayprueba.find(
-          (item: any) => item.cartel === carteles[i].descripcion
-        );
-        if (nuevoarrr) {
-          arrayprueba[i].item.unshift(filtrado.length);
-        }
-      } else {
-        //console.log("hola");
-        //console.log(" en mi orden", ordenesGlobales[k].carteles.length, "factura", ordenesGlobales[k].facturanum)
-      }
-    }
-  }
+ 
   //Start operadores
-  var totalOrdenes: any = ordenesGlobales.map((e: any) => 1);
+  var totalOrdenes: any = ordenes2.map((e: any) => 1);
   var sumTotalOrdenes: any = totalOrdenes.reduce((a: any, b: any) => a + b, 0);
 
   //pendientes
-  var ordenesPendientes: any = ordenesGlobales.map(
+  var ordenesPendientes: any = ordenes2.map(
     (e: any) =>
       e.stateImpresiones === "pendiente" && e.stateCarteleria === "pendiente"
   );
-  var ordenesPendientesCarteleria: any = ordenesGlobales.map(
+  var ordenesPendientesCarteleria: any = ordenes2.map(
     (e: any) => e.stateCarteleria === "pendiente"
   );
-  var ordenesPendientesImpresiones: any = ordenesGlobales.map(
+  var ordenesPendientesImpresiones: any = ordenes2.map(
     (e: any) => e.stateImpresiones === "pendiente"
   );
   var sumOrdenesPendientes: any = ordenesPendientes.reduce(
@@ -110,14 +87,14 @@ const Dashboard = () => {
   var sumOrdenesPendientesImpresiones: any =
     ordenesPendientesImpresiones.reduce((a: any, b: any) => a + b, 0);
   //realizadas
-  var ordenesRealizadas: any = ordenesGlobales.map(
+  var ordenesRealizadas: any = ordenes2.map(
     (e: any) =>
       e.stateImpresiones === "realizada" && e.stateCarteleria === "realizada"
   );
-  var ordenesRealizadasCarteleria: any = ordenesGlobales.map(
+  var ordenesRealizadasCarteleria: any = ordenes2.map(
     (e: any) => e.stateCarteleria === "realizada"
   );
-  var ordenesRealizadasImpresiones: any = ordenesGlobales.map(
+  var ordenesRealizadasImpresiones: any = ordenes2.map(
     (e: any) => e.stateImpresiones === "realizada"
   );
   var sumOrdenesRealizadas: any = ordenesRealizadas.reduce(
@@ -131,15 +108,15 @@ const Dashboard = () => {
   var sumOrdenesRealizadasImpresiones: any =
     ordenesRealizadasImpresiones.reduce((a: any, b: any) => a + b, 0);
   //entregados
-  var ordenesEntregados: any = ordenesGlobales.map(
+  var ordenesEntregados: any = ordenes2.map(
     (e: any) =>
       e.stateImpresiones === "entregada" && e.stateCarteleria === "entregada"
   );
-  var ordenesEntregadosCarteleria: any = ordenesGlobales.map(
+  var ordenesEntregadosCarteleria: any = ordenes2.map(
     (e: any) => e.stateCarteleria === "entregada"
   );
 
-  var ordenesEntregadosImpresiones: any = ordenesGlobales.map(
+  var ordenesEntregadosImpresiones: any = ordenes2.map(
     (e: any) => e.stateImpresiones === "entregada"
   );
 
@@ -156,9 +133,9 @@ const Dashboard = () => {
   //End operadores
 
   //totales
-  var totalesSeña: any = ordenesGlobales.map((e: any) => e.seña);
+  var totalesSeña: any = ordenes2.map((e: any) => e.seña);
   var sumSeñas: any = totalesSeña.reduce((a: any, b: any) => a + b, 0);
-  var totales: any = ordenesGlobales.map((e: any) => e.montototal);
+  var totales: any = ordenes2.map((e: any) => e.montototal);
   var sumTotales: any = totales.reduce((a: any, b: any) => a + b, 0);
   //totales
 
@@ -181,19 +158,19 @@ const Dashboard = () => {
       date1: fechaActual,
       date2: fechaActual + 1,
     });
-    let busca: any = ordenes.filter(
+    let busca: any = ordenes2.filter(
       (n: any) =>
         moment(n.fecha).format("L") >= moment(values.date1).format("L") &&
         moment(n.fecha).format("L") <= moment(values.date2).format("L")
     );
-    setOrdenesGlobales(busca);
+    ordenes2=busca;
    
   };
-  //carteles rating
+  //carteles2 rating
   var num: any = arrayprueba.map((e: any) =>
     e.item.reduce((a: any, b: any) => a + b, 0)
   );
-  //fin carteles
+  //fin carteles2
   var hola: any = num.sort(function (a: any, b: any) {
     return b - a;
   });
@@ -606,7 +583,7 @@ const Dashboard = () => {
         </thead>
         <tbody>
             {
-              ordenesGlobales.map((e:any)=>(
+              ordenes2.map((e:any)=>(
                 <tr className="bg-white border-b text-lg dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {e.facturanum}
