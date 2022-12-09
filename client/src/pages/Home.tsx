@@ -20,7 +20,7 @@ import shallow from "zustand/shallow";
 
 const Home = () => {
   const { users, user, getUsers, putUserState } = useUser((state) => state, shallow);
-  const { getOrdenes, ordenes, putOrden } = useOrdenes((state) => state);
+  const { getOrdenes, ordenes2, putOrden } = useOrdenes((state) => state);
   const { getCarteles, carteles } = useCarteles((state) => state);
 
 
@@ -28,10 +28,10 @@ const Home = () => {
   var ord: any[];
   var ordImpresiones: any[];
 
-  ord = ordenes.map((e: any) =>
+  ord = ordenes2.map((e: any) =>
     e.carteles.map((item: any) => item.category.includes("CARTELERIA") && e)
   );
-  ordImpresiones = ordenes.map((e: any) =>
+  ordImpresiones = ordenes2.map((e: any) =>
   e.carteles.map((item: any) => item.category.includes("IMPRESIONES") && e)
 );
 var ordenados : any = {}

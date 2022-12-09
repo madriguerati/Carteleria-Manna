@@ -30,6 +30,7 @@ type UserStore = {
   ordenes:any
   tokken: any
   success: boolean
+  ordenes2:any
   error: boolean
   loading: boolean,
   postOrden: (body:any, token:any) => Promise<void>
