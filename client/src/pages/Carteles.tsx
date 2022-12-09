@@ -369,6 +369,7 @@ const Clientes = () => {
                             <EditCartel
                               setShowModal2={setShowModal2}
                               cartel={cartelEdit}
+                              insumos2={insumos2}
                             />
                           </ModalEdit>
                         </td>

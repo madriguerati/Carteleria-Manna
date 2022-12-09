@@ -165,18 +165,21 @@ console.log("hola soy un array", values)
     // 	createNewUser(values);
     // }
    
-    addCartel(values);
-    carteles.push(values)
-    setValues({
-      descripcion: "",
-      costo1faz: 0,
-      costo2faz: 0,
-      insumosArray: [],
-      category:[]
-    })
+  
 
    if(values.descripcion
     ){
+      addCartel(values);
+      carteles.push(values)
+      setValues({
+        descripcion: "",
+        costo1faz: 0,
+        costo2faz: 0,
+        insumosArray: [],
+        category:[]
+      })
+      totalcosto1faz = 0;
+      totalcosto2faz = 0;
     Swal.fire({
       position: 'center',
       icon: 'success',
@@ -187,10 +190,21 @@ console.log("hola soy un array", values)
       },
       timer: 1500,
     })
+    handleCloseModal()
+   }else{
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Todos los campos son obligatorios',
+      showConfirmButton: false,
+      showClass: {
+        popup: 'animate__animated animate__headShake'
+      },
+      timer: 1500,
+    })
    }
-   totalcosto1faz = 0;
-   totalcosto2faz = 0;
-      handleCloseModal()
+
+
 
     
   };

@@ -19,8 +19,9 @@ const headers = useHeaders(accessToken);
 type Props = {
   setShowModal2: any;
   cartel: any;
+  insumos2: any ;
 };
-const ClienteEdit = ({ setShowModal2, cartel }: Props) => {
+const ClienteEdit = ({ setShowModal2, cartel, insumos2 }: Props) => {
 
   const [values, setValues] = useState({
     descripcion: cartel.descripcion,
@@ -289,136 +290,220 @@ useEffect(() => {
         <MdExitToApp />
       </button>
       </div>
-        <div className="justify-end">
-          <h1
-            onClick={agregarCartel}
-            style={{ color: "blue", cursor: "pointer" }}
-            className="text-start"
-          >
-            agregar cartel (+)
-          </h1>
-        </div>
+     
 
-        <div
-          className="justify-center"
-          style={hola === false ? { display: "none" } : { cursor: "pointer" }}
-        >
-          <div>
-            <h1 className="text-3xl font-semibold text-start">
-              AGREGAR INSUMOS
-            </h1>
-            <select
-              value={insumo.name}
-              onChange={handleSelect}
-              name="name"
-              className="px-4  py-3 mr-1 w-40 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-            >
-              <option value="" defaultValue={""}>
-                Seleccionar insumo
-              </option>
-              {insumos?.map((e: any) => (
-                <option key={e.id} value={e.name}>
-                  {e.name}
-                </option>
-              ))}
-            </select>
+      {/**Form agregar insumo */}
+<div className="justify-center p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full">
+       
+       <h1 className="text-3xl mb-4 font-semibold text-start">AGREGAR INSUMOS</h1>
+     <div className=" flex grid sm:gap-2  sm:grid-cols-2 md:gap-4 md:grid-cols-4">
+     <div>
+     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Cartel
+         </label>
+   <select
+         value={insumo.name}
+         onChange={handleSelect}
+         name="name"
 
-            <input
-              type="number"
-              name="costo"
-              className="px-4 py-3 mt-4 mr-1 w-20 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-              placeholder="costo"
-              value={insumo.costo ? insumo.costo : "costo"}
-              onChange={handleChangeInsumo}
-            />
+         className="px-4  py-4  w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+       >
+         <option value='' defaultValue={''}>
+           Seleccionar insumo
+         </option>
+         {insumos2.map((e: any) => (
+           <option key={e.id} value={e.name}>{e.name}</option>
+         ))}
+       </select>
+   </div>
+   <div>
+   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Costo
+         </label>
+   <input
+         type="number"
+         name="costo"
+         className="px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+         placeholder="costo"
+         value={
+           insumo.costo?
+             insumo.costo
+             :
+             "costo"
+         }
+         onChange={handleChangeInsumo}
+       />
 
-            <input
-              type="text"
-              name="unidad"
-              className="px-4 py-3 mt-4 w-20 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-              placeholder="unidad"
-              value={unidadArray ? (insumo.unidad = unidadArray) : "unidad"}
-              onChange={handleChangeInsumo}
-            />
-          </div>
-          <select
-            value={insumo.faz ? insumo.faz : "simple"}
-            onChange={handleSelect}
-            name="insumo"
-            className="px-4  py-3 mr-1 w-40 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-          >
-            <option value="simple">simple</option>
-            <option value="doble">doble</option>
-          </select>
+   </div>
 
-          <input
-            type="number"
-            name="cant1faz"
-            className="px-4 py-3 mt-4 w-20 mr-1 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-            placeholder="C. 1 faz"
-            value={insumo.cant1faz}
-            onChange={handleChangeInsumo}
-          />
+       <div>
+       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           unidad
+         </label>
+       <input
+         type="text"
+         name="unidad"
+         className="px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+         placeholder="unidad"
+         value={
+           unidadArray ?
+             insumo.unidad = unidadArray
+             :
+             "unidad"
+         }
+         onChange={handleChangeInsumo}
+       />
+       </div>
+       <div>
+     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          faz
+         </label>
+     <select
+         value={
+           insumo.faz?
+           insumo.faz
+           :
+           "simple"
+         }
+         onChange={handleSelect}
+         name="insumo"
+         className="px-4  py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+       >
+       <option value="simple">simple</option>
+       <option value="doble">doble</option>
+     </select>
+     </div>
+     </div>
+     <div className=" flex mt-5 grid sm:gap-2  sm:grid-cols-2 md:gap-4 md:grid-cols-4">
+    
 
-          {/**condiciolan de costos doble o simples */}
-          {insumo.faz === "doble" ? (
-            <input
-              type="number"
-              name="cant2faz"
-              className="px-4 py-3 mt-4 w-20 rounded-md mr-1 border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-              placeholder="C. 2 faz"
-              value={insumo.cant2faz}
-              onChange={handleChangeInsumo}
-            />
-          ) : (
-            ""
-          )}
-          {/**condiciolan de costos doble o simples */}
+     <div>
+     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Cant 1 faz
+         </label>
+     <input
+       type="number"
+       name="cant1faz"
+       className="px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+       placeholder="C. 1 faz"
+       value={insumo.cant1faz}
+       onChange={handleChangeInsumo}
 
-          <input
-            type="number"
-            name="costox1faz"
-            className="px-4 py-3 mt-4 w-20 rounded-md  mr-1 border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-            placeholder="cantidad de 1 faz"
-            value={
-              insumo.cant1faz
-                ? (insumo.costox1faz = multiplicar(
-                    insumo.cant1faz,
-                    insumo.costo
-                  ))
-                : "costo"
-            }
-            onChange={handleChangeInsumo}
-          />
-          {/**condiciolan de costos doble o simples */}
-          {insumo.faz === "doble" ? (
-            <input
-              type="number"
-              name="costox2faz"
-              className="px-4 py-3 mt-4 w-20 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-              placeholder="costo 2 faz"
-              value={
-                insumo.cant2faz
-                  ? (insumo.costox2faz = multiplicar(
-                      insumo.cant2faz,
-                      insumo.costo
-                    ))
-                  : "costo"
-              }
-              onChange={handleChangeInsumo}
-            />
-          ) : (
-            ""
-          )}
-          {/**condiciolan de costos doble o simples */}
+     />
+     </div>
 
-          <button
-            onClick={addInsumoCartel}
-            className="mt-4 px-4 py-3 leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
-          >
-            crear insumo
-          </button>
-        </div>
+      
+{/**condiciolan de costos doble o simples */}
+<div>
+{
+insumo.faz==="doble"?
+
+<>
+<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Cant 2 faz
+         </label>
+<input
+type="number"
+name="cant2faz"
+className="px-4 py-3 w-full rounded-md mr-1 border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+placeholder="C. 2 faz"
+value={insumo.cant2faz}
+onChange={handleChangeInsumo}
+/>
+</>
+:
+<>
+<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Cartel
+         </label>
+<input
+type="number"
+name="cant2faz"
+className="px-4 py-3 w-full blur-sm rounded-md mr-1 border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+placeholder="C. 2 faz"
+value={insumo.cant2faz}
+onChange={handleChangeInsumo}
+disabled
+/>
+</>
+
+}
+</div>
+{/**condiciolan de costos doble o simples */}
+<div>
+<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Costo 1 faz
+         </label>
+<input
+       type="number"
+       name="costox1faz"
+       className="px-4 py-3 w-full rounded-md  mr-1 border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+       placeholder="cantidad de 1 faz"
+       value={
+         insumo.cant1faz ?
+           insumo.costox1faz = multiplicar(insumo.cant1faz, insumo.costo)
+           :
+           "costo"
+       }
+       onChange={handleChangeInsumo}
+     />
+</div>
+{/**condiciolan de costos doble o simples */}
+<div>
+{
+insumo.faz==="doble"?
+<>
+<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Costo 2 Faz
+         </label>
+<input
+type="number"
+name="costox2faz"
+className="px-4 py-3 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+placeholder="costo 2 faz"
+value={
+insumo.cant2faz ?
+ insumo.costox2faz = multiplicar(insumo.cant2faz, insumo.costo)
+ :
+ "costo"
+}
+onChange={handleChangeInsumo}
+/>
+</>
+:
+<>
+<label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+           Costo 2 faz
+         </label><input
+type="number"
+name="costox2faz"
+className="px-4 py-3 blur-sm w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+placeholder="costo 2 faz"
+value={
+insumo.cant2faz ?
+insumo.costox2faz = multiplicar(insumo.cant2faz, insumo.costo)
+:
+"costo"
+}
+onChange={handleChangeInsumo}
+disabled
+/>
+</>
+
+}
+</div>  
+     </div> 
+     
+{/**condiciolan de costos doble o simples */}
+
+     <button
+       onClick={addInsumoCartel}
+       className="mt-4 px-4 py-3 w-40 flex justify-end leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-red-700 hover:bg-red-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
+     >
+       crear insumo
+     </button>
+   </div>
+{/**end form agregar insumo */}
         <form onSubmit={handleSubmit} className="flex flex-col mt-4">
           <div className="flex">
             <div>
@@ -437,9 +522,7 @@ useEffect(() => {
                 <p className="text-red-600 text-sm">{errors.username}</p>
               )}
             </div>
-          </div>
-          <div className="flex">
-            <div className="mt-2">
+            <div className="ml-1">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 costo 1 faz
               </label>
@@ -459,7 +542,7 @@ useEffect(() => {
                 <p className="text-red-600 text-sm">{errors.username}</p>
               )}
             </div>
-            <div className="m-2">
+            <div className="ml-1">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 costo 2 faz
               </label>
@@ -479,6 +562,10 @@ useEffect(() => {
                 <p className="text-red-600 text-sm">{errors.username}</p>
               )}
             </div>
+          </div>
+          <div className="flex">
+            
+           
           </div>
           <div className="flex">
             {category.map((e: any) => (
