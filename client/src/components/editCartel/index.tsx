@@ -313,7 +313,130 @@ console.log("sdsdsdsdsdsdsd", insumo)
       </div>
      
 
-      {/**Form agregar insumo */}
+      
+        <form onSubmit={handleSubmit} className="flex flex-col mt-4 p-5">
+          <div className="flex">
+            <div>
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                name
+              </label>
+              <input
+                type="text"
+                name="descripcion"
+                className="px-4 py-3 w-80 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                placeholder="Nombre"
+                value={values.descripcion}
+                onChange={handleChange}
+              />
+              {errors.username && (
+                <p className="text-red-600 text-sm">{errors.username}</p>
+              )}
+            </div>
+            <div className="ml-1">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                costo 1 faz
+              </label>
+              <input
+                type="text"
+                name="costo1faz"
+                className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                placeholder="Nombre"
+                value={totalcosto1faz?
+                values.costo1faz=totalcosto1faz
+                :
+                0
+                }
+                onChange={handleChange}
+              />
+              {errors.username && (
+                <p className="text-red-600 text-sm">{errors.username}</p>
+              )}
+            </div>
+            <div className="ml-1">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                costo 2 faz
+              </label>
+              <input
+                type="text"
+                name="costo2faz"
+                className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                placeholder="Nombre"
+                value={totalcosto2faz?
+                  values.costo2faz=totalcosto2faz
+                  :
+                  0
+                  }
+                onChange={handleChange}
+              />
+              {errors.username && (
+                <p className="text-red-600 text-sm">{errors.username}</p>
+              )}
+            </div>
+          </div>
+          <div className="flex">
+            
+           
+          </div>
+          <div className="flex">
+            {category.map((e: any) => (
+              <div
+                className="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600"
+                key={e.id}
+              >
+                <div className="flex items-center pl-3">
+                  <input
+                    id={e}
+                    type="checkbox"
+                    value={e}
+                    onChange={(e: any) => categoryForm(e)}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <label
+                    key={e.id}
+                    className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    {e}
+                  </label>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap justify-start  rounded-b">
+            {
+              values.insumosArray?
+              values.insumosArray.map((e: any) => (
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => deleteInsumos(e)}
+                  className="bg-white text-black  active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow-xl hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150"
+                >
+                  <p><b>Nombre: </b>{e.name}</p>
+                  <p><b>costo: </b>{e.name}</p>
+  
+                </div>
+              ))
+              :
+              "No hay insumos"
+            }
+          </div>
+
+          <div className="flex items-center mt-6 justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+          <button
+            className="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={handleCloseModal}
+          >
+            Cancelar
+          </button>
+          <button
+            className="bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="submit"
+          >
+            Aceptar
+          </button>
+        </div>
+        </form>
+        {/**Form agregar insumo */}
 <div className="justify-center p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full">
        
        <h1 className="text-3xl mb-4 font-semibold text-start">AGREGAR INSUMOS</h1>
@@ -525,121 +648,6 @@ disabled
      </button>
    </div>
 {/**end form agregar insumo */}
-        <form onSubmit={handleSubmit} className="flex flex-col mt-4">
-          <div className="flex">
-            <div>
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                name
-              </label>
-              <input
-                type="text"
-                name="descripcion"
-                className="px-4 py-3 w-80 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-                placeholder="Nombre"
-                value={values.descripcion}
-                onChange={handleChange}
-              />
-              {errors.username && (
-                <p className="text-red-600 text-sm">{errors.username}</p>
-              )}
-            </div>
-            <div className="ml-1">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                costo 1 faz
-              </label>
-              <input
-                type="text"
-                name="costo1faz"
-                className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-                placeholder="Nombre"
-                value={totalcosto1faz?
-                values.costo1faz=totalcosto1faz
-                :
-                0
-                }
-                onChange={handleChange}
-              />
-              {errors.username && (
-                <p className="text-red-600 text-sm">{errors.username}</p>
-              )}
-            </div>
-            <div className="ml-1">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                costo 2 faz
-              </label>
-              <input
-                type="text"
-                name="costo2faz"
-                className="px-4 py-3 w-40 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
-                placeholder="Nombre"
-                value={totalcosto2faz?
-                  values.costo2faz=totalcosto2faz
-                  :
-                  0
-                  }
-                onChange={handleChange}
-              />
-              {errors.username && (
-                <p className="text-red-600 text-sm">{errors.username}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex">
-            
-           
-          </div>
-          <div className="flex">
-            {category.map((e: any) => (
-              <div
-                className="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600"
-                key={e.id}
-              >
-                <div className="flex items-center pl-3">
-                  <input
-                    id={e}
-                    type="checkbox"
-                    value={e}
-                    onChange={(e: any) => categoryForm(e)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  />
-                  <label
-                    key={e.id}
-                    className="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    {e}
-                  </label>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex flex-wrap justify-start m-5 rounded-b">
-            {values.insumosArray.map((e: any) => (
-              <div
-                style={{ cursor: "pointer" }}
-                onClick={() => deleteInsumos(e)}
-                className="bg-[#0000FF] text-white active:bg-[#77B327] mt-2 uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1  ease-linear transition-all duration-150"
-              >
-                {e.name}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex items-center mt-6 justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-          <button
-            className="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            type="button"
-            onClick={handleCloseModal}
-          >
-            Cancelar
-          </button>
-          <button
-            className="bg-[#77B327] text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            type="submit"
-          >
-            Aceptar
-          </button>
-        </div>
-        </form>
     </div>
   );
 };
