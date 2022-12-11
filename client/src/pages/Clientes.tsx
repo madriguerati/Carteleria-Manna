@@ -36,7 +36,7 @@ const Clientes = () => {
   const { clientes, getClients, getClientesAll, loading, success, deleteClients } = useClients(
     (state) => state
   );
-   const { ordenes, getOrdenes} = useOrdenes(
+   const { ordenes, ordenes2, getOrdenes} = useOrdenes(
     (state) => state
   );
   const [accessToken] = useLocalStorage();
@@ -176,7 +176,7 @@ const Clientes = () => {
   const ver = (client: any) => {
 
     if (client) {
-      var ordenesArray:any = ordenes.filter((e:any)=>e.cliente===client.name)
+      var ordenesArray:any = ordenes2.filter((e:any)=>e.cliente===client.name)
       setOrdenesPorMes(ordenesArray)
       setShowModal3(true);
       console.log("hola", client);

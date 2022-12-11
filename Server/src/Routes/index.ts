@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {verifyToken, isObrero, isAdmin, isVendedor, isGerente} from '../middlewares/Auth/index'
+import {verifyToken, isGerente, isGerenteVendedor, isGerenteObrero} from '../middlewares/Auth/index'
 
 const router = Router();
 
@@ -58,11 +58,11 @@ import DeleteClientes from './clientes/deleteClientes'
 import GetClientesAll from './clientes/getClientesAllPages'
 
 
-router.use('/clientes', PostClientes)
-router.use('/clientes',  GetClientes)
-router.use('/clientes', PutClientes)
-router.use('/clientes', DeleteClientes)
-router.use('/clientes', GetClientesAll)
+router.use('/clientes',verifyToken,  PostClientes)
+router.use('/clientes',verifyToken,   GetClientes)
+router.use('/clientes', verifyToken, PutClientes)
+router.use('/clientes',verifyToken,  DeleteClientes)
+router.use('/clientes',verifyToken,isGerenteVendedor,   GetClientesAll)
 
 
 //proveedores
@@ -73,11 +73,11 @@ import DeleteProveedores from './proveedores/deleteProveedores'
 import GetProveedoresAll from './proveedores/getProveedoresAllPages'
 
 
-router.use('/proveedores', PostProveedores)
-router.use('/proveedores', GetProveedores)
-router.use('/proveedores', PutProveedores)
-router.use('/proveedores', DeleteProveedores)
-router.use('/proveedores', GetProveedoresAll)
+router.use('/proveedores',verifyToken,  PostProveedores)
+router.use('/proveedores',verifyToken,  GetProveedores)
+router.use('/proveedores',verifyToken,  PutProveedores)
+router.use('/proveedores',verifyToken,  DeleteProveedores)
+router.use('/proveedores',verifyToken,  GetProveedoresAll)
 
 
 //Carteles
@@ -88,11 +88,11 @@ import DeleteCarteles from './carteles/deleteCarteles'
 import GetCartelesAll from './carteles/getCartelesAllPages'
 
 
-router.use('/carteles',  PostCarteles)
-router.use('/carteles', GetCarteles)
-router.use('/carteles', PutCarteles)
-router.use('/carteles', DeleteCarteles)
-router.use('/carteles', GetCartelesAll)
+router.use('/carteles',verifyToken,   PostCarteles)
+router.use('/carteles',verifyToken,  GetCarteles)
+router.use('/carteles',verifyToken,  PutCarteles)
+router.use('/carteles',verifyToken,  DeleteCarteles)
+router.use('/carteles',verifyToken,  GetCartelesAll)
 
 
 //ordenes
@@ -103,11 +103,11 @@ import DeleteOrdenes from './ordenes/deleteOrdenes'
 import GetOrdenesAll from './ordenes/getOrdenesAllPages'
 
 
-router.use('/ordenes', PostOrdenes)
-router.use('/ordenes', GetOrdenes)
-router.use('/ordenes', PutOrdenes)
-router.use('/ordenes', DeleteOrdenes)
-router.use('/ordenes', GetOrdenesAll)
+router.use('/ordene', verifyToken,  isGerenteVendedor, PostOrdenes)
+router.use('/ordene',verifyToken,  isGerenteVendedor, GetOrdenes)
+router.use('/ordene', verifyToken, isGerenteObrero, PutOrdenes)
+router.use('/ordene',verifyToken,  isGerente, DeleteOrdenes)
+router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenesAll)
 
 
 //presupuesto
@@ -118,11 +118,11 @@ import DeletePresupuesto from './presupuestos/deletePresupuestos'
 import GetPresupuestosAll from './presupuestos/getPresupuestosAllPages'
 
 
-router.use('/presupuestos', PostPresupuesto);
-router.use('/presupuestos', PutPresupuesto)
-router.use('/presupuestos', GetPresupuesto)
-router.use('/presupuestos', DeletePresupuesto)
-router.use('/presupuestos', GetPresupuestosAll)
+router.use('/presupuesto',verifyToken,  isGerenteVendedor, PostPresupuesto);
+router.use('/presupuesto',verifyToken,  isGerente, PutPresupuesto)
+router.use('/presupuesto',verifyToken,  isGerenteVendedor, GetPresupuesto)
+router.use('/presupuesto',verifyToken,  isGerente, DeletePresupuesto)
+router.use('/presupuestoss',verifyToken,  isGerenteVendedor,GetPresupuestosAll)
 
 
 

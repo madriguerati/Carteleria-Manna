@@ -9,9 +9,8 @@ import Proveedores from "../pages/Proveedores";
 import Ordenes from "../pages/Ordenes";
 import Presupuesto from "../pages/Presupuesto";
 import Dashboard from "../pages/Dashboard";
-
-
 const AppRouter = () => {
+	
 	return (
 		<>
 			<Sidebar />
@@ -24,8 +23,8 @@ const AppRouter = () => {
 				<Route path='/proveedores' element={<Proveedores />} />
 				<Route path='/ordenes' element={<Ordenes />} />
 				<Route path='/presupuesto' element={<Presupuesto />} />
+				
 				<Route path='/dashboard' element={<Dashboard/>} />
-
 			</Routes>
 		</>
 	);

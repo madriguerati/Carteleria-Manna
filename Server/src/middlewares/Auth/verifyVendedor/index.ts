@@ -14,6 +14,8 @@ export const isVendedor = async (req:any, res:any, next:any) => {
         }
       }
       return res.status(403).json({ message: "Require vendedor Role!" });
+    
+
     } catch (error) {
       return res.status(500).send({ message: error });
     }

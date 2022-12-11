@@ -58,13 +58,13 @@ const usePresupuesto = create<PresupuestoStore>()(
         let headers:any = {
         "x-access-token" : token
       };
-        const { data } = await axios.put('http://localhost:5000/api/presupuestos', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('http://localhost:5000/api/presupuesto', body, { headers: { "x-access-token": token} });
        
 
       },
       addPresupuesto: async (body) => {
         try {
-          const { data } = await axios.post('http://localhost:5000/api/presupuestos/create', body );
+          const { data } = await axios.post('http://localhost:5000/api/presupuesto/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });
@@ -75,10 +75,9 @@ const usePresupuesto = create<PresupuestoStore>()(
         set({ loading: true });
 
         try{
-          const { data } = await axios.get('https://symptomatic-hole-production.up.railway.app/api/presupuestos', headers )
+          const { data } = await axios.get('http://localhost:5000/api/presupuesto', headers )
           set((state) => ({ presupuestos: (state.presupuestos = data) }));
         }catch(error){
-          console.log(error)
         }
         set({ loading: false });
 
@@ -86,7 +85,7 @@ const usePresupuesto = create<PresupuestoStore>()(
       getPresupuestosAll: async (token, page, limit) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`http://localhost:5000/api/presupuestos/allpresupuestos?page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`http://localhost:5000/api/presupuestoss/allpresupuestos?page=${page}&limit=${limit}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ presupuestos: (state.presupuestos = data) }));
         } catch(error){
@@ -97,7 +96,7 @@ const usePresupuesto = create<PresupuestoStore>()(
         },
       deletePresupuestos: async (params:any, headers:any)=>{
       
-        const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/presupuestos/${params}`,  headers);
+        const { data } = await axios.delete(`http://localhost:5000/api/presupuesto/${params}`,  headers);
   
       },
       closeModal: () => {

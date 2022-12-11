@@ -13,7 +13,9 @@ export const isGerente = async (req:any, res:any, next:any) => {
           return;
         }
       }
+      
       return res.status(403).json({ message: "Require gerente Role!" });
+     
     } catch (error) {
       return res.status(500).send({ message: error });
     }

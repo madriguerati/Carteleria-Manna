@@ -302,9 +302,7 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
           </div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8  overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-              {user.roles?.find(
-                (e: any) => e.name === "admin" || e.name === "gerente"
-              ) && (
+              
                 <table className="min-w-full leading-normal relative">
                   <thead>
                     <tr className="bg-gray-100 text-left text-gray-600 font-semibold uppercase">
@@ -567,7 +565,6 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
                     </tbody>
                   }
                 </table>
-              )}
               
               <div className="px-3 py-3 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
                 <div className="flex gap-2 align-center items-center xs:mt-0">
