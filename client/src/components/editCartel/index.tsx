@@ -122,7 +122,7 @@ useEffect(() => {
     console.log(insumo, values)
     var arrayCarteles: any = values.insumosArray.map((e:any)=>e.name)
     Arraycosto1faz = values.insumosArray.map((e:any)=>e.costo)
-
+console.log("sdsdsdsdsdsdsd", insumo)
     if(arrayCarteles.includes(insumo.name)){
     
       
@@ -136,13 +136,16 @@ useEffect(() => {
         timer: 2000
       })
     }else{
+      setValues({
+        ...values,
+        insumosArray: [...values.insumosArray, insumo]
+      })
       
       if (insumo.cant1faz) {
+        
         var suma1 = insumo.costox1faz
         Arraycosto1faz = [...Arraycosto1faz, suma1]
         setTotalcosto1faz(Arraycosto1faz.reduce((a: any, b: any) => a + b, 0))
-        console.log("holaaaa",Arraycosto1faz)
-        console.log("holahhghghghgaaa",Arraycosto1faz, suma1, totalcosto1faz, cartel.insumosArray )
   
       } else {
         console.log("hola")
