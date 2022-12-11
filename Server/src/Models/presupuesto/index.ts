@@ -4,7 +4,7 @@ export interface IPresupuesto extends mongoose.Document{
   fecha: Date,
   clientes: string,// que muestre nombre de contacto y telefono en el front
   //clientes: string,
-  //contacto: string,
+  contacto: string,
   carteles: Schema.Types.ObjectId,
   operacion:string,
   lugardecolocacion: string,//lugar de entrega colocación/entrega
@@ -41,6 +41,11 @@ const presupuestoSchema = new Schema(
             required: true
         },
       operacion:
+      {
+        type: String,
+        required: true
+      },
+      contacto:
       {
         type: String,
         required: true

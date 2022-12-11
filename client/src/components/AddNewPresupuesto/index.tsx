@@ -33,7 +33,7 @@ interface Values {
   operacion: string;
   lugardecolocacion: string; //lugar de entrega colocación/entrega
   montototal: number;
-  formadepago: string;
+  
   plazodeentrega: number;
   fechavalida: string; //presupuesto valido hasta
   observaciones: string;
@@ -72,7 +72,6 @@ const AddNewClient = ({ setShowModal }: Props) => {
     operacion: "",
     lugardecolocacion: "", //lugar de entrega colocación/entrega
     montototal: 0,
-    formadepago: "",
     plazodeentrega: 0,
     fechavalida: "", //presupuesto valido hasta
     observaciones: "",
@@ -113,14 +112,7 @@ console.log("holaaaaaaaaaaaaa", values)
   };
 
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    let { value } = e.currentTarget;
-    setValues({
-      ...values,
-      formadepago: value,
-    });
-		
-  };
+  
 
 
   useEffect(() => {
@@ -131,7 +123,6 @@ console.log("holaaaaaaaaaaaaa", values)
         operacion: "",
         lugardecolocacion: "", //lugar de entrega colocación/entrega
         montototal: 0,
-        formadepago: "",
         plazodeentrega: 0,
         fechavalida: "", //presupuesto valido hasta
         observaciones: "",
@@ -146,6 +137,7 @@ console.log("holaaaaaaaaaaaaa", values)
   const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;
     var holaaa: any =montoModificado
+    
    if(value){
     var valuesporcen: any = value
     var porcentaje: any  = 0
@@ -228,8 +220,40 @@ console.log("holaaaaaaaaaaaaa", values)
       {/**form cartel */}
 <AddCartel values ={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
       {/**form cartel */}
-
-
+<hr/>
+<div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3">
+        {values.carteles.map((e: any) => (
+          
+            <div className="block w-full text-gray-600 border-blue-600 border-2 text-lg uppercase bg-white p-3 rounded-lg" style={{"cursor":"pointer"}}>
+            <p className="text-start">
+                                <b>Nombre: </b>
+                                {e.name}{" "}
+                              </p>
+                              <p className="text-start">
+                                <b>base x altura : </b>
+                                {e.base} x {e.altura}{" "}
+                              </p>
+                              <b>categoría</b>
+                              {e.category.map((item: any) => (
+                                <div>{item}</div>
+                              ))}
+                              <p className="text-start">
+                                <b>estructura: </b>
+                                {e.estructura}{" "}
+                              </p>
+                              <p className="text-start">
+                                <b>otros: </b>
+                                {e.otros}{" "}
+                              </p>
+                              <p className="text-start">
+                                <b>faz: </b>
+                                {e.faz}{" "}
+                              </p>
+          </div>
+          
+        ))}
+        </div>
+<hr />
       <form onSubmit={handleSubmit} className="flex flex-col mt-4">
     
         
@@ -342,27 +366,7 @@ console.log("holaaaaaaaaaaaaa", values)
             </div>
           }
 
-            <div className="w-full mb-6">
-              <label className="block uppercase tracking-wide w-full text-gray-700 text-xs font-bold mb-2">
-                Metodo de pago
-              </label>
-              <select
-                value={values.formadepago}
-                onChange={handleSelect}
-                name="formadepago"
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-              >
-                <option value="" defaultValue={""} disabled>
-                  seleccione método de pago
-                </option>
-                <option value="master">master</option>
-                <option value="visa">visa</option>
-                <option value="maestro">visa</option>
-                <option value="efectivo">efectivo</option>
-              </select>
-            </div>
-
+           
            
           </div>
 
@@ -431,7 +435,7 @@ console.log("holaaaaaaaaaaaaa", values)
 
 <div className="w-full">
 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-  Fecha
+  Fecha válida
 </label>
 <input
   className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"

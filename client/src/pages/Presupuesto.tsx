@@ -73,6 +73,7 @@ const [cliente, setCliente]= useState({})
     observaciones: "",
     montototal:"",
     porcentaje:0,
+    fechavalida: "",
     id:""
   });
   
@@ -184,7 +185,8 @@ const [cliente, setCliente]= useState({})
         observaciones: presupuesto.observaciones,
         montototal: presupuesto.montototal,
         porcentaje: presupuesto.porcentaje,
-        id: presupuesto._id
+        id: presupuesto._id,
+        fechavalida: presupuesto.fechavalida
       });
       console.log("insumo", presupuestoEdit);
     }
@@ -210,7 +212,8 @@ const [cliente, setCliente]= useState({})
         observaciones: presupuesto.observaciones,
         montototal: presupuesto.montototal,
         porcentaje: presupuesto.porcentaje,
-        id: presupuesto._id
+        id: presupuesto._id,
+        fechavalida: presupuesto.fechavalida
       });
     }
   };
@@ -426,7 +429,7 @@ const [cliente, setCliente]= useState({})
                           </p>
                         </td>
                         <td className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
-                      {presupuesto.orden===false? <h1 className="bg-black text-white text-center w-20 rounded-lg p-1">texto</h1> : <h1 className="bg-yellow-600 text-center w-20 rounded-lg p-1 text-white">Aprobado</h1>}
+                      {presupuesto.orden===false? <h1 className="bg-black text-white text-center w-20 rounded-lg p-1">No</h1> : <h1 className="bg-yellow-600 text-center w-20 rounded-lg p-1 text-white">Aprobado</h1>}
                     </td>
                       </tr>
                     ))}
