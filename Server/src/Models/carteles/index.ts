@@ -32,7 +32,12 @@ const cartelesSchema = new Schema(
         {
             type:Number,
             required: true
-        }
+        },
+        total:
+        {
+            type:Number,
+            required: true
+        },
     },
     {
         timestamps: true,

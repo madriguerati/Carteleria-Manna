@@ -33,7 +33,7 @@ interface Values {
   costo1faz: number;
   costo2faz: number;
   insumosArray: object[];
-  category:string[]
+  category:string[];
 }
 
 interface Insumo {
@@ -58,7 +58,6 @@ const AddNewCartel = ({ setShowModal, carteles, insumos2 }: Props) => {
     insumosArray: [],
     category:[]
   });
-
 
   const [insumo, setInsumo] = useState<Insumo>({
     name: "",
@@ -612,7 +611,7 @@ disabled
               )
             }
           </div>
-
+          
           <div className="flex flex-wrap justify-end m-5 border-t border-solid border-slate-200 rounded-b">
             {
               values.insumosArray.map((e: any) => (

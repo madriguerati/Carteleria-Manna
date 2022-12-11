@@ -188,12 +188,14 @@ handleCloseModal()
 })
 }
 const deleteCarteles =(e:any)=>{
- var  array: any = values.carteles.filter((item:any)=>item.name!==e.name)
- var menos: any = array.costo1faz+array.costo2faz
+ var  array: any = values.carteles.filter((item:any)=>e.name!==item.name)
+ var nuevo1: any = array.map((e:any)=>e.total)
+var total: any =  nuevo1.reduce((a: any, b: any) => a + b, 0)
+console.log("hey hey hye ai you gatrit", array, total)
   setValues({
     ...values,
     carteles: array,
-    montototal: values.montototal-menos
+    montototal: total
   })
 
 }
@@ -673,32 +675,6 @@ onChange={handleChange}
           
           
             
-            <div className="w-full mb-6 ">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                porcentaje
-              </label>
-              <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-state"
-                placeholder="operacion"
-                name="porcentaje"
-                value={values.porcentaje}
-                //onChange={handleSelectPorcentaje}
-              >
-                <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
-                </option>
-                {
-                  porcentaje.map((e:any)=>(
-                    <option value={e}>
-                  {e}
-                </option>
-                  ))
-                }
-               
-                
-              </select>
-            </div>
               <div>
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 seña
