@@ -120,21 +120,7 @@ console.log("hola soy un array", values)
         ...values,
         insumosArray: [...values.insumosArray, insumo]
       })
-      if (insumo.cant1faz) {
-        var suma1 = insumo.costox1faz
-        Arraycosto1faz = [...Arraycosto1faz, suma1]
-        totalcosto1faz = Arraycosto1faz.reduce((a: any, b: any) => a + b, 0)
-  
-      } else {
-        console.log("hola")
-      }
-      if (insumo.cant2faz) {
-        var suma2 = insumo.costox2faz
-        Arraycosto2faz = [...Arraycosto2faz, suma2]
-        totalcosto2faz = Arraycosto2faz.reduce((a: any, b: any) => a + b, 0)
-      } else {
-        console.log("hola")
-      }
+      
       setInsumo({
         name: "",
         costo: 0,
@@ -146,7 +132,21 @@ console.log("hola soy un array", values)
         costox2faz: 0
       })
     }
-   
+    if (insumo.cant1faz) {
+      var suma1 = insumo.costox1faz
+      Arraycosto1faz = [...Arraycosto1faz, suma1]
+      totalcosto1faz = Arraycosto1faz.reduce((a: any, b: any) => a + b, 0)
+
+    } else {
+      console.log("hola")
+    }
+    if (insumo.cant2faz) {
+      var suma2 = insumo.costox2faz
+      Arraycosto2faz = [...Arraycosto2faz, suma2]
+      totalcosto2faz = Arraycosto2faz.reduce((a: any, b: any) => a + b, 0)
+    } else {
+      console.log("hola")
+    }
   }
 
 

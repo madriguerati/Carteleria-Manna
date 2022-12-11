@@ -71,7 +71,7 @@ const AddNewOrden = ({ setShowModal, ordenes }: Props) => {
     (state) => state
   );
 
-  const { carteles, getCarteles } = useCartel((state) => state);
+  const { carteles2, getCarteles } = useCartel((state) => state);
   const { clientes, getClients } = useClients((state) => state);
   const { getUsers2, users, logout, user } = useUser((state) => state);
   const [hola, setHola] = useState(false);

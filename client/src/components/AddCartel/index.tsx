@@ -50,7 +50,7 @@ const multiplicar = (a: number, b: number): number => {
 };
 const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props) => {
 
-    const { carteles, getCarteles } = useCartel((state) => state);
+    const { carteles2, getCarteles } = useCartel((state) => state);
     const { clientes, getClients } = useClients((state) => state);
     const { getUsers2, users, logout, user } = useUser((state) => state);
     const [hola, setHola] = useState(false);
@@ -95,7 +95,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
       }
       const handleSelectCartel= (e: React.ChangeEvent<HTMLSelectElement>)=>{
         const { value } = e.currentTarget;
-        cartelSelect = carteles.find((e: any) => e.descripcion === value);
+        cartelSelect = carteles2.find((e: any) => e.descripcion === value);
        
           if (cartelSelect) {
             setMontoModificado(cartelSelect.costo1faz+cartelSelect.costo2faz)
@@ -194,7 +194,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   <option value="" defaultValue={""} disabled>
                     Seleccionar cartel
                   </option>
-                  {carteles.map((e: any) => (
+                  {carteles2.map((e: any) => (
                     <option value={e.descripcion}>{e.descripcion}</option>
                   ))}
                 </select>

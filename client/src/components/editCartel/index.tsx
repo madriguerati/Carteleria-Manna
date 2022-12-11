@@ -26,7 +26,7 @@ const ClienteEdit = ({ setShowModal2, cartel, insumos2 }: Props) => {
   const [values, setValues] = useState({
     descripcion: cartel.descripcion,
     id: cartel.id,
-    costo1faz: 0,
+    costo1faz: cartel.costo1faz,
     costo2faz: 0,
     category: [""],
     insumosArray: cartel.insumosArray,
@@ -56,7 +56,7 @@ useEffect(() => {
   const { success, putCarteles, closeModal, error, loading } = useCarteles(
     (state) => state
   );
-  const { insumos, getInsumos } = useInusmo((state) => state);
+  const { getInsumos } = useInusmo((state) => state);
   const [token] = useLocalStorage();
   const [category, setCategory] = useState(["IMPRESIONES", "CARTELERIA"]);
   const [totalcosto1faz, setTotalcosto1faz] = useState(cartel.costo1faz)
@@ -119,25 +119,42 @@ useEffect(() => {
   };
 
   const addInsumoCartel = () => {
-    var comprobacionInsumos: any = values.insumosArray.map((e:any)=>e.name)
-    if(comprobacionInsumos.includes(insumo.name)){
-    }else{
-        var suma1 = insumo.costox1faz;
-      Arraycosto1faz = [...Arraycosto1faz, suma1];
-      Arraycosto1fazSup=[...Arraycosto1fazSup, suma1]
-      var newtotalcosto1faz = Arraycosto1fazSup.reduce((a: any, b: any) => a + b, 0);
-        var suma2 = insumo.costox2faz;
-        Arraycosto2faz = [...Arraycosto2faz, suma2];
-        var newtotalcosto2faz = Arraycosto2fazSup.reduce((a: any, b: any) => a + b, 0);
-        setTotalcosto2faz(newtotalcosto2faz)
-      setTotalcosto1faz(newtotalcosto1faz)
+    console.log(insumo, values)
+    var arrayCarteles: any = values.insumosArray.map((e:any)=>e.name)
+    Arraycosto1faz = values.insumosArray.map((e:any)=>e.costo)
 
-
+    if(arrayCarteles.includes(insumo.name)){
     
-      setValues({
-        ...values,
-        insumosArray: [...values.insumosArray, insumo],
+      
+      Swal.fire({
+        position: 'bottom-end',
+        title: 'Ya está adherido este insumo',
+        showConfirmButton: false,
+        showClass: {
+          popup: 'animate__animated animate__bounceInUp'
+        },
+        timer: 2000
       })
+    }else{
+      
+      if (insumo.cant1faz) {
+        var suma1 = insumo.costox1faz
+        Arraycosto1faz = [...Arraycosto1faz, suma1]
+        setTotalcosto1faz(Arraycosto1faz.reduce((a: any, b: any) => a + b, 0))
+        console.log("holaaaa",Arraycosto1faz)
+        console.log("holahhghghghgaaa",Arraycosto1faz, suma1, totalcosto1faz, cartel.insumosArray )
+  
+      } else {
+        console.log("hola")
+      }
+      if (insumo.cant2faz) {
+        var suma2 = insumo.costox2faz
+        Arraycosto2faz = [...Arraycosto2faz, suma2]
+        setTotalcosto2faz(Arraycosto2faz.reduce((a: any, b: any) => a + b, 0))
+      } else {
+        console.log("hola")
+      }
+      
     }
     
     setInsumo({
@@ -148,8 +165,8 @@ useEffect(() => {
       cant2faz: 0,
       unidad: "",
       costox1faz: 0,
-      costox2faz: 0,
-    });
+      costox2faz: 0
+    })
   };
  
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -170,7 +187,7 @@ useEffect(() => {
       console.log("soy un", value);
     }
 
-    insumoparte = insumos.filter((e: any) => e.name === value);
+    insumoparte = insumos2.filter((e: any) => e.name === value);
     if (insumoparte) {
       costoArray = insumoparte[0].costo;
       unidadArray = insumoparte[0].unidad;
@@ -233,6 +250,7 @@ useEffect(() => {
       ...insumo,
       [name]: value,
     });
+     console.log(insumo)
   };
   const multiplicar = (a: number, b: number): number => {
     return a * b;
