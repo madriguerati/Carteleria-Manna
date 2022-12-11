@@ -35,7 +35,7 @@ import moment from "moment";
 import Clientes from './Carteles';
 
 const Presupuesto = () => {
-  const { users, getUsers } = useUser((state) => state, shallow);
+  const { users, getUser, user } = useUser((state) => state, shallow);
   const { clientes, getClients } = useClients((state) => state);
   const {
     presupuestos,
@@ -81,13 +81,20 @@ const [cliente, setCliente]= useState({})
     !success && getPresupuestosAll(accessToken, page, limit);
     console.log("holaaaaaadsdsdsdsaaa", presupuestos);
     getClients(headers);
-    
-    console.log("hola soy clientes", clientes);
+    getUser(accessToken);
+    console.log("hola soy clientes", user);
   }, [success, page, limit]);
 
   //delete
   const DeletePresupuesto = (presupuesto: any) => {
-   
+  var userTrue : any = user.roles?.find((e: any) => e.name === "vendedor" )
+  if(userTrue){
+    Swal.fire(
+      `Hola, ${user.name}. No tiene autorización para eliminar presupuestos`,
+      'Comuníquese con un encargado',
+      'error'
+      )
+  }else{
     Swal.fire({
 			title: '¿Estás seguro?',
 			text: "No podrás revertir los cambios",
@@ -107,6 +114,9 @@ const [cliente, setCliente]= useState({})
         getPresupuestosAll(accessToken, limit, page)
 			}
 		  })
+  }
+
+    
   };
 
   const nextPage = (): void => {
@@ -167,28 +177,36 @@ const [cliente, setCliente]= useState({})
   };
 
   const edit = (presupuesto: any) => {
-    if (presupuesto) {
-      setShowModal2(true);
-      console.log("holaaa esto es lo que mando", presupuesto)
-      setPresupuestoEdit({
-        fecha: presupuesto.fecha,
-        clientes: presupuesto.clientes,
-        contacto: presupuesto.contacto, //nombre de contacto
-        carteles: presupuesto.carteles,
-        operacion: presupuesto.operacion,
-        lugardecolocacion: presupuesto.lugardecolocacion,
-        lugartraslado: presupuesto.lugartraslado,
-        seña: presupuesto.seña,
-        formadepago: JSON.stringify(presupuesto.formadepago),
-        fechaentrega: presupuesto.fechaentrega,
-        facturanum: presupuesto.facturanum,
-        observaciones: presupuesto.observaciones,
-        montototal: presupuesto.montototal,
-        porcentaje: presupuesto.porcentaje,
-        id: presupuesto._id,
-        fechavalida: presupuesto.fechavalida
-      });
-      console.log("insumo", presupuestoEdit);
+    var userTrue : any = user.roles?.find((e: any) => e.name === "vendedor" )
+  if(userTrue){
+    Swal.fire(
+      `Hola, ${user.name}. No tiene autorización para editar presupuestos`,
+      'Comuníquese con un encargado',
+      'error'
+      )
+  }else{
+    setShowModal2(true);
+    console.log("holaaa esto es lo que mando", presupuesto)
+    setPresupuestoEdit({
+      fecha: presupuesto.fecha,
+      clientes: presupuesto.clientes,
+      contacto: presupuesto.contacto, //nombre de contacto
+      carteles: presupuesto.carteles,
+      operacion: presupuesto.operacion,
+      lugardecolocacion: presupuesto.lugardecolocacion,
+      lugartraslado: presupuesto.lugartraslado,
+      seña: presupuesto.seña,
+      formadepago: JSON.stringify(presupuesto.formadepago),
+      fechaentrega: presupuesto.fechaentrega,
+      facturanum: presupuesto.facturanum,
+      observaciones: presupuesto.observaciones,
+      montototal: presupuesto.montototal,
+      porcentaje: presupuesto.porcentaje,
+      id: presupuesto._id,
+      fechavalida: presupuesto.fechavalida
+    });
+    console.log("insumo", presupuestoEdit);
+     
     }
 
   };

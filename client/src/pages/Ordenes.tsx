@@ -102,6 +102,14 @@ const Proveedores = () => {
 
   //delete
   const DeleteOrden = (orden: any) => {
+    var userTrue : any = user.roles?.find((e: any) => e.name === "vendedor" )
+    if(userTrue){
+      Swal.fire(
+        `Hola, ${user.name}. No tiene autorización para eliminar Ordenes`,
+        'Comuníquese con un encargado',
+        'error'
+        )
+    }else{
     var arrayeliminado : any =ordenes.ordenes.filter((e:any)=>e._id!==orden._id)
 ordenes.ordenes=arrayeliminado
 console.log("hola est vienes del mas alla ",ordenes.ordenes)
@@ -124,7 +132,7 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
         deleteOrdenes(orden._id, headers);
 			}
 		  })
-    
+    }
   };
 
   const nextPage = (): void => {
@@ -214,7 +222,14 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
     }
   };
   const edit = (orden: any) => {
-    if (ordenes) {
+    var userTrue : any = user.roles?.find((e: any) => e.name === "vendedor" )
+    if(userTrue){
+      Swal.fire(
+        `Hola, ${user.name}. No tiene autorización para editar ordenes`,
+        'Comuníquese con un encargado',
+        'error'
+        )
+    }else{
       setShowModal2(true);
       console.log("hola", ordenes);
       setOrdenEdit({
