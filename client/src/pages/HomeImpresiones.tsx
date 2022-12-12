@@ -10,7 +10,6 @@ function HomeCarteleria({ordImpresiones }: Props) {
     const [openTab, setOpenTab] = useState(1);
 var color: any = "white";
 
-
   return (
     <div className="flex flex-wrap m-5">
           <div className="block relative">
@@ -96,45 +95,36 @@ var color: any = "white";
                   <div
                     className={openTab === 1 ? "block" : "hidden"}
                     id="link1"
-                  >
-                    {ordImpresiones.map((orden: any) =>
-                      orden.map((e: any) =>
-                        e.stateImpresiones === "pendiente" ? (
-                         <Card e={e} />
-                        ) : (
-                          ""
-                        )
-                      )
-                    )}
+                  >{
+                    ordImpresiones.map((e:any)=>e.stateImpresiones==="pendiente"?(
+                      <Card e={e} ordenes={ordImpresiones} />
+                    ):
+                    (""))
+                  }
+                  
                   </div>
 
                   <div
                     className={openTab === 2 ? "block" : "hidden"}
                     id="link2"
                   >
-                    {ordImpresiones.map((orden: any) =>
-                      orden.map((e: any) =>
-                        e.stateImpresiones === "realizada" ? (
-                          <Card e={e} />
-                        ) : (
-                          ""
-                        )
-                      )
-                    )}
+                    {
+                    ordImpresiones.map((e:any)=>e.stateImpresiones==="realizada"?(
+                      <Card e={e} ordenes={ordImpresiones} />
+                    ):
+                    (""))
+                  }
                   </div>
                   <div
                     className={openTab === 3 ? "block" : "hidden"}
                     id="link3"
                   >
-                     {ordImpresiones.map((orden: any) =>
-                      orden.map((e: any) =>
-                        e.stateImpresiones === "entregada" ? (
-                          <Card e={e} />
-                        ) : (
-                          ""
-                        )
-                      )
-                    )}
+                    {
+                    ordImpresiones.map((e:any)=>e.stateImpresiones==="entregada"?(
+                      <Card e={e} ordenes={ordImpresiones} />
+                    ):
+                    (""))
+                  }
                   </div>
                 </div>
               </div>

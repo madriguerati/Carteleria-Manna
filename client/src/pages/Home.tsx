@@ -31,8 +31,10 @@ const Home = () => {
   ord = ordenes2.map((e: any) =>
     e.carteles.map((item: any) => item.category.includes("CARTELERIA") && e)
   );
+  var impresiones: any = []
   ordImpresiones = ordenes2.map((e: any) =>
-  e.carteles.map((item: any) => item.category.includes("IMPRESIONES") && e)
+  e.carteles.map((item: any) => item.category.includes("IMPRESIONES") && impresiones.unshift(e))
+  
 );
 var ordenados : any = {}
 var finalOrd:any =[]
@@ -148,7 +150,7 @@ for (let i = 0; i<ordImpresiones.length; i++){
         <HomeCarteleria ord={ord} />
       )}
       {user.roles?.find((e: any) => e.name === "impresiones") && (
-        <HomeImpresiones ordImpresiones={ordImpresiones} />
+        <HomeImpresiones ordImpresiones={impresiones} />
       )}
 
     </Layout>

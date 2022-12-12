@@ -10,17 +10,18 @@ const headers = useHeaders(accessToken);
 
 type Props = {
     e: any;
+    ordenes:any
   };
 
 var num: any =0
-function Card({ e }: Props) {
+function Card({ e , ordenes}: Props) {
 
     const { putOrden, success, error, closeModal } = useOrdenes(
         (state) => state
       );
 
       const aceptar = () => {
-        e.stateImpresiones = "realizada";
+        
         var values: any = {
           ...values,
           stateImpresiones:"realizada",
@@ -29,6 +30,7 @@ function Card({ e }: Props) {
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", values, e);
     
         putOrden(values, headers);
+        e.stateImpresiones = "realizada";
       };
       const deshacer = () => {
        
