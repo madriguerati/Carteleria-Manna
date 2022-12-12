@@ -68,7 +68,7 @@ const useOrdenes = create<UserStore>()(
         let headers:any = {
         "x-access-token" : token
       };
-        const { data } = await axios.put('http://localhost:5000/api/ordene', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('http://localhost:5000/api/orden', body, { headers: { "x-access-token": token} });
        
 
       },
@@ -93,7 +93,7 @@ const useOrdenes = create<UserStore>()(
       };
       set({ success: true, error: false });
        try{ 
-        const { data } = await axios.post('http://localhost:5000/api/ordeness/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('http://localhost:5000/api/ordenes/create', body, { headers: { "x-access-token": token} });
       }catch (error) {
         set({ error: true, success: false });
        }
@@ -102,7 +102,7 @@ const useOrdenes = create<UserStore>()(
       getOrdenes: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('http://localhost:5000/api/ordene', headers )
+          const { data } = await axios.get('http://localhost:5000/api/ordeness', headers )
           set((state) => ({ ordenes2: (state.ordenes2 = data) }));
         }catch(error){
           console.log(error)

@@ -53,8 +53,8 @@ const Dashboard = () => {
     date1: "",
     date2: ""
   });
-  const [ date1, setDate1] = useState("")
-  const [ date2, setDate2] = useState("")
+  const [ date1, setDate1] = useState(fecha)
+  const [ date2, setDate2] = useState(fecha)
 
   useEffect(() => {
 

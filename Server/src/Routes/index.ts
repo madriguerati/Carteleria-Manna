@@ -89,7 +89,7 @@ import GetCartelesAll from './carteles/getCartelesAllPages'
 
 
 router.use('/carteles',verifyToken,   PostCarteles)
-router.use('/carteles',verifyToken,  GetCarteles)
+router.use('/carteles', GetCarteles)
 router.use('/carteles',verifyToken,  PutCarteles)
 router.use('/carteles',verifyToken,  DeleteCarteles)
 router.use('/carteles',verifyToken,  GetCartelesAll)
@@ -105,9 +105,9 @@ import GetOrdenesDate from './ordenes/getOrdenesDate'
 
 
 
-router.use('/ordeness', verifyToken,  isGerenteVendedor, PostOrdenes)
-router.use('/ordenes',verifyToken,  isGerenteVendedor, GetOrdenes)
-router.use('/ordene', verifyToken, isGerenteObrero, PutOrdenes)
+router.use('/ordenes',  PostOrdenes)
+router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenes)
+router.use('/orden',  PutOrdenes)
 router.use('/ordene',verifyToken,  isGerente, DeleteOrdenes)
 router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenesAll)
 router.use('/ordenes',verifyToken,  isGerenteVendedor, GetOrdenesDate)
