@@ -31,9 +31,17 @@ type UserStore = {
   tokken: any
   success: boolean
   ordenes2:any
+  ordenes3:any
+
   error: boolean
   loading: boolean,
   postOrden: (body:any, token:any) => Promise<void>
+  getOrdenesDate: (
+    date1:string,
+    date2:string, 
+    token:string
+    ) => Promise<void>
+
   getOrdenesAll: (
 		token: string,
 		page: number,
@@ -52,6 +60,8 @@ const useOrdenes = create<UserStore>()(
       orden: {},
       ordenes:[],
       ordenes2:[],
+      ordenes3:[],
+
       tokken: '',
       success: false,
       error: false,
@@ -80,10 +90,24 @@ const useOrdenes = create<UserStore>()(
        }
 
       },
+      getOrdenesDate: async (date1, date2, token) => {
+        let headers:any = {
+          "x-access-token" : token
+        };
+        try{
+          set({ loading: true}) 
+          const { data } = await axios.get(`http://localhost:5000/api/ordenes/ordenesbydate?date1=${date1}&date2=${date2}`,{ headers: { "x-access-token": token} }
+          )
+          set((state) => ({ ordenes2: (state.ordenes2 = data) }));
+        }catch(error){
+          console.log(error)
+        }
+        set({ loading: false})  
+      },
       getOrdenes: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('http://localhost:5000/api/ordene', headers )
+          const { data } = await axios.get('http://localhost:5000/api/ordenes', headers )
           set((state) => ({ ordenes2: (state.ordenes2 = data) }));
         }catch(error){
           console.log(error)

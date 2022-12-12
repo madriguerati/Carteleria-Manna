@@ -1,4 +1,7 @@
 import Layout from "../components/Layout/index";
+import Charts from "../components/DashboardComponents/chart";
+import VendedoresTable from "../components/DashboardComponents/VendedoresTable";
+import OrdenesTableDashboard from "../components/DashboardComponents/OrdenesTableDashboard";
 import useOrdenes from "../store/ordenes";
 import useLocalStorage from "../hooks/useLocalStorage";
 const [accessToken] = useLocalStorage();
@@ -36,7 +39,7 @@ import {
 import moment from "moment";
 
 const Dashboard = () => {
-  const { ordenes2, getOrdenesAll, getOrdenes, deleteOrdenes, loading } =
+  const { ordenes2, getOrdenesAll, getOrdenes,getOrdenesDate, deleteOrdenes, loading } =
     useOrdenes((state) => state);
   const { carteles2, cartel, getCarteles } = useCartel((state) => state);
   const { getUsers2, users, logout, user } = useUser((state) => state);
@@ -45,13 +48,13 @@ const Dashboard = () => {
   var fechaActual: any = moment().format("MM/DD/YYYY");
   const [fecha, setFecha] = useState(fechaActual);
   const [values, setValues] = useState({
-    date1: fecha,
-    date2: fecha + 1,
+    date1: "",
+    date2: ""
   });
   useEffect(() => {
-    getOrdenes(accessToken);
-    getUsers2(headers);
+    getOrdenes(headers);
     getCarteles(accessToken);
+    console.log("holaaaaaaaaaaaaaaaaaaaaa", ordenes2);
   }, []);
 
   var arrayprueba: any = carteles2.map((e: any) => ({
@@ -60,7 +63,6 @@ const Dashboard = () => {
   }));
   var cont: any = 0;
 
- 
   //Start operadores
   var totalOrdenes: any = ordenes2.map((e: any) => 1);
   var sumTotalOrdenes: any = totalOrdenes.reduce((a: any, b: any) => a + b, 0);
@@ -153,18 +155,14 @@ const Dashboard = () => {
     console.log("una fecha ", values);
   };
   const searchByDate = () => {
-    setValues({
-      ...values,
-      date1: fechaActual,
-      date2: fechaActual + 1,
-    });
-    let busca: any = ordenes2.filter(
-      (n: any) =>
-        moment(n.fecha).format("L") >= moment(values.date1).format("L") &&
-        moment(n.fecha).format("L") <= moment(values.date2).format("L")
-    );
-    ordenes2=busca;
-   
+  if(values.date1 && values.date2){
+    var date1: any = values.date1
+    var date2: any = values.date2
+    getOrdenesDate(date1, date2, accessToken)
+  }else{
+   alert("GFFFFFFFFFFFFFFFFFFFFFFFFFF")
+  }
+    
   };
   //carteles2 rating
   var num: any = arrayprueba.map((e: any) =>
@@ -184,27 +182,35 @@ const Dashboard = () => {
         </div>
         <div className=" mr-2 mb-2 ml-2 rounded mt-2 p-2  flex justify-end">
           <div className="w-1/4 flex justify-end align-center pt-2 ml-2">
-            
-
             <div date-rangepicker className="flex items-center">
-  <div className="relative">
-    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-        <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-    </div>
-    <input name="date1"
-              value={values.date1}
-              onChange={handleChange} type="text" className="text-2xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-40 sm:w-20 text-center pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start"/>
-  </div>
-  <span className="mx-4 text-gray-500">to</span>
-  <div className="relative">
-    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-        <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-    </div>
-    <input name="date1"
-              value={values.date2}
-              onChange={handleChange} type="text" className=" text-2xl bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  block  md:w-40 sm:w-20 pl-10 p-2.5 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end"/>
-</div>
-</div>
+              <div className="relative">
+                
+                <input 
+                type="date" 
+                id="first_name"
+                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                 name="date1"
+                  value={values.date1}
+                  onChange={handleChange} 
+                 required
+                 />
+
+               
+              </div>
+              <span className="mx-4 text-gray-500">to</span>
+              <div className="relative">
+                
+                <input 
+                type="date" 
+                id="first_name"
+                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                 name="date2"
+                  value={values.date2}
+                  onChange={handleChange} 
+                 required
+                 />
+              </div>
+            </div>
             <button
               className="ml-2 bg-transparent hover:bg-blue-500 text-blue-700 text-2xl font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
               onClick={searchByDate}
@@ -245,14 +251,12 @@ const Dashboard = () => {
                   <div
                     style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
                     className="flex items-center text-xs px-3 bg-blue-200 text-blue-800 rounded-full"
-                  >
-                    100%
-                  </div>
+                  ></div>
                 </div>
               </div>
               <div>
                 <div className="font-bold text-5xl">
-                  {sumTotales + sumSeñas}
+                  $ {sumTotales + sumSeñas}
                 </div>
                 <div className="font-bold text-sm">Totales</div>
               </div>
@@ -282,14 +286,12 @@ const Dashboard = () => {
                   <div
                     style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
                     className="flex items-center text-xs px-3 bg-purple-200 text-purple-800 rounded-full"
-                  >
-                    25%
-                  </div>
+                  ></div>
                 </div>
               </div>
               <div>
                 <div className="font-bold text-5xl text-start">
-                  {sumTotales}
+                  $ {sumTotales}
                 </div>
                 <div className="font-bold text-sm">por cobrar</div>
               </div>
@@ -320,13 +322,11 @@ const Dashboard = () => {
                   <div
                     style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
                     className="flex items-center text-xs px-3 bg-red-200 text-red-800 rounded-full"
-                  >
-                    50%
-                  </div>
+                  ></div>
                 </div>
               </div>
               <div>
-                <div className="font-bold text-5xl text-start">{sumSeñas}</div>
+                <div className="font-bold text-5xl text-start">${sumSeñas}</div>
                 <div className="font-bold text-sm">Señas cobradas</div>
               </div>
             </div>
@@ -354,14 +354,12 @@ const Dashboard = () => {
                   <div
                     style={{ paddingTop: "0.1em", paddingBottom: "0.1rem" }}
                     className="flex items-center text-xs px-3 bg-green-200 text-green-800 rounded-full"
-                  >
-                    25%
-                  </div>
+                  ></div>
                 </div>
               </div>
               <div>
                 <div className="font-bold text-5xl text-center">
-                  {sumTotalOrdenes}
+                  ${sumTotalOrdenes}
                 </div>
                 <div className="font-bold text-sm">ventas</div>
               </div>
@@ -375,284 +373,149 @@ const Dashboard = () => {
         >
           <div className="bg-white rounded shadow-lg mt-2">
             <div className=" m-1/4 overflow-x-auto relative shadow-md ">
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th scope="col" className="py-3 px-6">
-                      Vendedor
-                    </th>
-                    <th scope="col" className="py-3 px-6">
-                      Ventas
-                    </th>
-                    <th scope="col" className="py-3 px-6">
-                      Estado
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {vendedores.map((e: any) => (
-                    <tr className="bg-white text-lg border-b dark:bg-gray-800 dark:border-gray-700">
-                      <th
-                        scope="row"
-                        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {e.name} {e.lastname}
-                      </th>
-                      <td className="py-4 px-6">{e.ordenes.length}</td>
-                      <td className="py-4 px-6">
-                        {e.state === false ? (
-                          <h1 className="bg-gray-600 rounded text-center text-white">
-                            off
-                          </h1>
-                        ) : (
-                          <h1 className="bg-green-600 rounded text-center text-white">
-                            on
-                          </h1>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <VendedoresTable vendedores={vendedores} />
             </div>
           </div>
 
           <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-full md:w-160 lg:w-160">
             <div className=" w-full ">
+              <h1 className="text-center text-2xl font-bold uppercase m-5">
+                ordenes totales
+              </h1>
               <div className="  flex w-full justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
                     {sumTotalOrdenes}
                   </b>
-                  <Chart
-                    height={250}
-                    series={[
-                      {
-                        data: [
-                          sumOrdenesPendientesCarteleria +
-                            sumOrdenesPendientesImpresiones,
-                          sumOrdenesRealizadasCarteleria +
-                            sumOrdenesRealizadasImpresiones,
-                          sumOrdenesEntregadosCarteleria +
-                            sumOrdenesEntregadosImpresiones,
-                        ],
-                      },
-                    ]}
-                    width={300}
-                  >
-                    <Transform method={["transpose", "stackNormalized"]}>
-                      <Pies
-                        colors={["red", "green", "blue"]}
-                        combined
-                        cornerRadius={5}
-                        innerPadding={10}
-                        innerRadius="40%"
-                        padAngle={0.025}
-                        pieAttributes={{
-                          onMouseLeave: function noRefCheck() {},
-                          onMouseMove: function noRefCheck() {},
-                        }}
-                        pieStyle={{
-                          opacity: 2,
-                        }}
-                      />
-                    </Transform>
-                  </Chart>
+                  <Charts
+                    sumOrdenesPendientesCarteleria={
+                      sumOrdenesPendientesCarteleria
+                    }
+                    sumOrdenesPendientesImpresiones={
+                      sumOrdenesPendientesImpresiones
+                    }
+                    sumOrdenesRealizadasCarteleria={
+                      sumOrdenesRealizadasCarteleria
+                    }
+                    sumOrdenesRealizadasImpresiones={
+                      sumOrdenesRealizadasImpresiones
+                    }
+                    sumOrdenesEntregadosCarteleria={
+                      sumOrdenesEntregadosCarteleria
+                    }
+                    sumOrdenesEntregadosImpresiones={
+                      sumOrdenesEntregadosImpresiones
+                    }
+                  />
                 </div>
               </div>
-              <h1 className="text-center text-xl m-5">ordenes totales</h1>
+              <div className="flex grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3 m-2">
+                <div className="flex">
+                  <div className="bg-red-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">entradas</h1>
+                </div>
+                <div className="flex">
+                  <div className="bg-green-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">en curso</h1>
+                </div>
+                <div className="flex">
+                  <div className="bg-blue-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">terminadas</h1>
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160">
             <div className=" w-full ">
+              <h1 className="text-center text-2xl font-bold uppercase m-5">
+                Impresiones
+              </h1>
               <div className="  flex w-full justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
                     {sumTotalOrdenes}
                   </b>
-                  <Chart
-                    height={250}
-                    series={[
-                      {
-                        data: [
-                          sumOrdenesPendientesImpresiones,
-                          sumOrdenesRealizadasImpresiones,
-                          sumOrdenesEntregadosImpresiones,
-                        ],
-                      },
-                    ]}
-                    width={300}
-                  >
-                    <Transform method={["transpose", "stackNormalized"]}>
-                      <Pies
-                        colors={["red", "green", "blue"]}
-                        combined
-                        cornerRadius={5}
-                        innerPadding={10}
-                        innerRadius="40%"
-                        padAngle={0.025}
-                        pieAttributes={{
-                          onMouseLeave: function noRefCheck() {},
-                          onMouseMove: function noRefCheck() {},
-                        }}
-                        pieStyle={{
-                          opacity: 2,
-                        }}
-                      />
-                    </Transform>
-                  </Chart>
+                  <Charts
+                    sumOrdenesPendientesCarteleria={0}
+                    sumOrdenesPendientesImpresiones={
+                      sumOrdenesPendientesImpresiones
+                    }
+                    sumOrdenesRealizadasCarteleria={0}
+                    sumOrdenesRealizadasImpresiones={
+                      sumOrdenesRealizadasImpresiones
+                    }
+                    sumOrdenesEntregadosCarteleria={0}
+                    sumOrdenesEntregadosImpresiones={
+                      sumOrdenesEntregadosImpresiones
+                    }
+                  />
                 </div>
               </div>
-              <h1 className="text-center text-xl m-5">Impresiones</h1>
+              <div className="flex grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3 m-2">
+                <div className="flex">
+                  <div className="bg-red-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">entradas</h1>
+                </div>
+                <div className="flex">
+                  <div className="bg-green-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">en curso</h1>
+                </div>
+                <div className="flex">
+                  <div className="bg-blue-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">terminadas</h1>
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="flex-1 w-full m-1 mx-auto bg-white rounded-xl shadow-md overflow-hidden w-160 sm:w-160 md:w-160 lg:w-160">
             <div className=" w-full ">
+              <h1 className="text-center text-2xl font-bold uppercase m-5">
+                Taller
+              </h1>
               <div className="  flex w-full justify-center content-center ">
                 <div className="relative p-5">
                   <b className="text-gray-400 text-4xl absolute top-1/3 right-1/3 mr-10 mt-7">
                     {sumTotalOrdenes}
                   </b>
-                  <Chart
-                    height={250}
-                    series={[
-                      {
-                        data: [
-                          sumOrdenesPendientesCarteleria,
-                          sumOrdenesRealizadasCarteleria,
-                          sumOrdenesEntregadosCarteleria,
-                        ],
-                      },
-                    ]}
-                    width={300}
-                  >
-                    <Transform method={["transpose", "stackNormalized"]}>
-                      <Pies
-                        colors={["red", "green", "blue"]}
-                        combined
-                        cornerRadius={5}
-                        innerPadding={10}
-                        innerRadius="40%"
-                        padAngle={0.025}
-                        pieAttributes={{
-                          onMouseLeave: function noRefCheck() {},
-                          onMouseMove: function noRefCheck() {},
-                        }}
-                        pieStyle={{
-                          opacity: 2,
-                        }}
-                      />
-                    </Transform>
-                  </Chart>
+                  <Charts
+                    sumOrdenesPendientesCarteleria={
+                      sumOrdenesPendientesCarteleria
+                    }
+                    sumOrdenesPendientesImpresiones={0}
+                    sumOrdenesRealizadasCarteleria={
+                      sumOrdenesRealizadasCarteleria
+                    }
+                    sumOrdenesRealizadasImpresiones={0}
+                    sumOrdenesEntregadosCarteleria={
+                      sumOrdenesEntregadosCarteleria
+                    }
+                    sumOrdenesEntregadosImpresiones={0}
+                  />
                 </div>
               </div>
-              <h1 className="text-center text-xl m-5">Taller</h1>
+              <div className="flex grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3 m-2">
+                <div className="flex">
+                  <div className="bg-red-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">entradas</h1>
+                </div>
+                <div className="flex">
+                  <div className="bg-green-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">en curso</h1>
+                </div>
+                <div className="flex">
+                  <div className="bg-blue-600 p-2 text-white font-bold text-sm rounded-full w-5 h-5 text-center m-2 uppercase"></div>
+                  <h1 className="m-1 uppercase">terminadas</h1>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex m-2 grid sm:gap-1  sm:grid-cols-1
-          md:gap-2 md:grid-cols-2">
-
-
-                        
-
-       
-<div className="overflow-x-auto relative shadow-md sm:rounded-lg w-full mt-2 bg-white">
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-lg text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" className="py-3 px-6">
-                    N° factura
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Cliente
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Contacto
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Carteles
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Estado
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {
-              ordenes2.map((e:any)=>(
-                <tr className="bg-white border-b text-lg dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {e.facturanum}
-                </th>
-                <td className="py-4 px-6">
-                    {e.cliente}
-                </td>
-                <td className="py-4 px-6">
-                    {e.contacto}
-                </td>
-                <td className="py-4 px-6">
-                    {e.carteles.length}
-                </td>
-                <td className="py-4 px-6">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">{ e.stateCarteleria}</a>
-                </td>
-            </tr>
-              ))
-            }
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-          <div className=" w-full bg-white rounded mt-2 shadow-lg ">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="py-3 px-6">
-                    Producto
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    sidebar
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    porcentaje
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {arrayprueba.map((e: any) => (
-                  <tr className="bg-white border-b text-lg dark:bg-gray-800 dark:border-gray-700">
-                    <th
-                      scope="row"
-                      className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      {e.cartel}
-                    </th>
-                    <td className="py-4 px-6">
-                      <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                        <div
-                          className={`bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full  `}
-                          style={{ width: 40 }}
-                        >
-                          {" "}
-                          {e.item.reduce((a: any, b: any) => a + b, 0)}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-6">
-                      {e.item.reduce((a: any, b: any) => a + b, 0)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="flex m-2 ">
+          <div className="overflow-x-auto relative shadow-md sm:rounded-lg w-full mt-2 bg-white">
+            <OrdenesTableDashboard ordenes={ordenes2} />
           </div>
         </div>
       </div>

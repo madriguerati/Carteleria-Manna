@@ -10,8 +10,11 @@ export const isGerenteVendedor = async (req:any, res:any, next:any) => {
       for (let i = 0; i < roles.length; i++) {
       
         switch ( roles[i].name ) {
+
           case "gerente":
-            next();
+            console.log("hola soy un jdidio gererente")
+ 
+          next();
             return;
           case "impresiones":
             console.log("hola soy un jdidio impresines")
