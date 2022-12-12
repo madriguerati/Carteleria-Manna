@@ -16,18 +16,12 @@ export const isGerenteVendedor = async (req:any, res:any, next:any) => {
  
           next();
             return;
-          case "impresiones":
-            console.log("hola soy un jdidio impresines")
-            next();
-            return;
+          
             case "vendedor":
               console.log("hola soy un jdidio vendedor", roles[i].name)
               next();
               return;
-              case "carteleria":
-                console.log("hola soy un jdidio impresines")
-                next();
-                return;
+             
           default: 
               break;
        }

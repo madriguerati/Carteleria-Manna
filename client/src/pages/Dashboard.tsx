@@ -9,6 +9,7 @@ import { useEffect, useState, Fragment } from "react";
 import useUser from "../store/user";
 import useCartel from "../store/carteles";
 import { Progress } from "@material-tailwind/react";
+import Swal from 'sweetalert2'
 
 import useHeaders from "../hooks/useHeaders";
 import { AiOutlineUser } from "react-icons/ai";
@@ -45,17 +46,22 @@ const Dashboard = () => {
   const { getUsers2, users, logout, user } = useUser((state) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
-  var fechaActual: any = moment().format("MM/DD/YYYY");
+  var fechaActual: any = moment().format("L");
   const [fecha, setFecha] = useState(fechaActual);
+
   const [values, setValues] = useState({
     date1: "",
     date2: ""
   });
+  const [ date1, setDate1] = useState("")
+  const [ date2, setDate2] = useState("")
+
   useEffect(() => {
-    getOrdenes(headers);
+
+    getOrdenesDate(date1, date2, accessToken);
     getCarteles(accessToken);
     console.log("holaaaaaaaaaaaaaaaaaaaaa", ordenes2);
-  }, []);
+  }, [date1, date2]);
 
   var arrayprueba: any = carteles2.map((e: any) => ({
     cartel: e.descripcion,
@@ -156,11 +162,21 @@ const Dashboard = () => {
   };
   const searchByDate = () => {
   if(values.date1 && values.date2){
-    var date1: any = values.date1
-    var date2: any = values.date2
+    setDate1(values.date1)
+    setDate2(values.date2)
     getOrdenesDate(date1, date2, accessToken)
   }else{
-   alert("GFFFFFFFFFFFFFFFFFFFFFFFFFF")
+    Swal.fire({
+      title: 'Hola',
+      html:
+    'No has seleccionado ningún rago de fecha',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    })
   }
     
   };

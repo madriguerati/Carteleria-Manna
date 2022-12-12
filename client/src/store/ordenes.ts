@@ -31,17 +31,14 @@ type UserStore = {
   tokken: any
   success: boolean
   ordenes2:any
-  ordenes3:any
-
   error: boolean
   loading: boolean,
-  postOrden: (body:any, token:any) => Promise<void>
-  getOrdenesDate: (
+  postOrden: (body:any, token:any) => Promise<void>;
+  getOrdenesDate:(
+    token:string,
     date1:string,
-    date2:string, 
-    token:string
-    ) => Promise<void>
-
+    date2:string
+  ) => Promise<void>;
   getOrdenesAll: (
 		token: string,
 		page: number,
@@ -60,8 +57,6 @@ const useOrdenes = create<UserStore>()(
       orden: {},
       ordenes:[],
       ordenes2:[],
-      ordenes3:[],
-
       tokken: '',
       success: false,
       error: false,
@@ -75,19 +70,6 @@ const useOrdenes = create<UserStore>()(
       };
         const { data } = await axios.put('http://localhost:5000/api/ordene', body, { headers: { "x-access-token": token} });
        
-
-      },
-      postOrden: async (body, token) => {
-        
-        let headers:any = {
-        "x-access-token" : token
-      };
-      set({ success: true, error: false });
-       try{ 
-        const { data } = await axios.post('http://localhost:5000/api/ordene/create', body, { headers: { "x-access-token": token} });
-      }catch (error) {
-        set({ error: true, success: false });
-       }
 
       },
       getOrdenesDate: async (date1, date2, token) => {
@@ -104,10 +86,23 @@ const useOrdenes = create<UserStore>()(
         }
         set({ loading: false})  
       },
+      postOrden: async (body, token) => {
+        
+        let headers:any = {
+        "x-access-token" : token
+      };
+      set({ success: true, error: false });
+       try{ 
+        const { data } = await axios.post('http://localhost:5000/api/ordeness/create', body, { headers: { "x-access-token": token} });
+      }catch (error) {
+        set({ error: true, success: false });
+       }
+
+      },
       getOrdenes: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('http://localhost:5000/api/ordenes', headers )
+          const { data } = await axios.get('http://localhost:5000/api/ordene', headers )
           set((state) => ({ ordenes2: (state.ordenes2 = data) }));
         }catch(error){
           console.log(error)

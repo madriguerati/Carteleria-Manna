@@ -105,7 +105,7 @@ import GetOrdenesDate from './ordenes/getOrdenesDate'
 
 
 
-router.use('/ordene', verifyToken,  isGerenteVendedor, PostOrdenes)
+router.use('/ordeness', verifyToken,  isGerenteVendedor, PostOrdenes)
 router.use('/ordenes',verifyToken,  isGerenteVendedor, GetOrdenes)
 router.use('/ordene', verifyToken, isGerenteObrero, PutOrdenes)
 router.use('/ordene',verifyToken,  isGerente, DeleteOrdenes)
