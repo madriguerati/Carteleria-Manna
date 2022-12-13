@@ -9,7 +9,7 @@ function HomeCarteleria({ordImpresiones }: Props) {
 
     const [openTab, setOpenTab] = useState(1);
 var color: any = "white";
-
+var ordenes : any = ordImpresiones
   return (
     <div className="flex flex-wrap m-5">
           <div className="block relative">
@@ -109,7 +109,7 @@ var color: any = "white";
                     id="link2"
                   >
                     {
-                    ordImpresiones.map((e:any)=>e.stateImpresiones==="realizada"?(
+                    ordenes.map((e:any)=>e.stateImpresiones==="realizada"?(
                       <Card e={e} ordenes={ordImpresiones} />
                     ):
                     (""))

@@ -21,8 +21,7 @@ function Card({ e , ordenes}: Props) {
       );
 
       const aceptar = () => {
-        
-        var values: any = {
+               var values: any = {
           ...values,
           stateImpresiones:"realizada",
           id:e._id
