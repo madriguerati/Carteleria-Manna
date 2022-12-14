@@ -47,11 +47,11 @@ import moment from "moment";
 
 const Dashboard = () => {
   const { ordenes2, getOrdenesAll, getOrdenes,getOrdenesDate, deleteOrdenes, loading } =
-    useOrdenes((state) => state);
-  const { carteles2, cartel, getCarteles } = useCartel((state) => state);
-  const { presupuestos, getPresupuestos } = usePresupuesto((state) => state);
+    useOrdenes((state:any) => state);
+  const { carteles2, cartel, getCarteles } = useCartel((state:any) => state);
+  const { presupuestos, getPresupuestos } = usePresupuesto((state:any) => state);
 
-  const { getUsers2, users3, logout, user } = useUser((state) => state);
+  const { getUsers2, users3, logout, user } = useUser((state:any) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   var fechaActual: any = moment().format("L");

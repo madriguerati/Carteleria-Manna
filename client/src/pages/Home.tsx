@@ -19,9 +19,9 @@ import { Link } from "react-router-dom";
 import shallow from "zustand/shallow";
 
 const Home = () => {
-  const { users, user, getUsers, putUserState } = useUser((state) => state, shallow);
-  const { getOrdenes, ordenes2, putOrden } = useOrdenes((state) => state);
-  const { getCarteles, carteles } = useCarteles((state) => state);
+  const { users, user, getUsers, putUserState } = useUser((state:any) => state, shallow);
+  const { getOrdenes, ordenes2, putOrden } = useOrdenes((state:any) => state);
+  const { getCarteles, carteles } = useCarteles((state:any) => state);
 
 
   var obrero: any = user.name;

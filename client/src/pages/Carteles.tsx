@@ -33,10 +33,10 @@ import useCarteles from "../store/carteles";
 
 const Clientes = () => {
   const { carteles, getCartelesAll, deleteCartel, loading } = useCarteles(
-    (state) => state
+    (state:any) => state
   );
   const { insumos2, getInsumos } = useInsumo(
-    (state) => state
+    (state:any) => state
   );
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
@@ -133,7 +133,7 @@ const Clientes = () => {
       confirmButtonColor: "#77B327",
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, Eliminarlo!",
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         Swal.fire("Eliminado!", "X ha sido eliminado", "success");
         console.log("hola delte");

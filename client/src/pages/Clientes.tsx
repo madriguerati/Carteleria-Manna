@@ -7,7 +7,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import CreateNewUser from "../components/CreateNewUser";
 import EditCliente from "../components/EditCliente";
-import shallow from "zustand/shallow";
+//import shallow from "../../zustand/shallow";
 import Swal from 'sweetalert2'
 import ModalVer from "../components/ModalVer";
 import VerCliente from "../components/verCliente";
@@ -32,12 +32,12 @@ import AddNewClient from "../components/AddNewClient";
 import ModalEdit from "../components/ModalEdit";
 
 const Clientes = () => {
-  const { users, getUsers } = useUser((state) => state, shallow);
+  const { users, getUsers } = useUser((state:any) => state);
   const { clientes, getClients, getClientesAll, loading, success, deleteClients } = useClients(
-    (state) => state
+    (state:any) => state
   );
    const { ordenes, ordenes2, getOrdenes} = useOrdenes(
-    (state) => state
+    (state:any) => state
   );
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
@@ -85,7 +85,7 @@ const Clientes = () => {
 			confirmButtonColor: '#77B327',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Si, Eliminarlo!'
-		  }).then((result) => {
+		  }).then((result:any) => {
 			if (result.isConfirmed) {
 			  Swal.fire(
 				'Eliminado!',
@@ -99,7 +99,7 @@ const Clientes = () => {
   console.log(clientes);
 
   const nextPage = (): void => {
-    //page < clientes?.totalPages && setPage(page + 1);
+    page < clientes?.totalPages && setPage(page + 1);
   };
 
   const prevPage = (): void => {

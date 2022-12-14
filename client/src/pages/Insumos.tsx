@@ -8,7 +8,6 @@ import ModalVer from "../components/ModalVer";
 import VerInsumo from '../components/VerInsumo'
 import AddNewInsumo from "../components/addNewInsumo";
 import EditInsumo from "../components/EditInsumo";
-import Swal from 'sweetalert2'
 import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
 import useProveedor from "../store/proveedores";
@@ -27,18 +26,18 @@ import {
 import { BsSearch } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { FiEdit3 } from "react-icons/fi";
-
+import * as Swal from 'sweetalert2';
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useClients from "../store/clientes";
 import AddNewClient from "../components/AddNewClient";
 import ModalEdit from "../components/ModalEdit";
 const Clientes = () => {
-  const { users, getUsers } = useUser((state) => state, shallow);
+  const { users, getUsers } = useUser((state:any) => state, shallow);
   const { getInsumosAll, getInsumos, insumos, insumos2, deleteIsumos, loading, success } = useInsumo(
-    (state) => state
+    (state:any) => state
   );
-  const { proveedores, getProveedores } = useProveedor((state) => state);
+  const { proveedores, getProveedores } = useProveedor((state:any) => state);
 
   const [rol, setRol] = useState("");
   const [sort, setSort] = useState("");
@@ -80,7 +79,7 @@ const [proveedorInsumo, setProveedorInsumo]=useState({})
 			confirmButtonColor: '#77B327',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Si, Eliminarlo!'
-		  }).then((result) => {
+		  }).then((result:any) => {
 			if (result.isConfirmed) {
 			  Swal.fire(
 				'Eliminado!',

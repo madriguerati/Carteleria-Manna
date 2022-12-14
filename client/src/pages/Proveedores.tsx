@@ -7,9 +7,10 @@ import AddNewProveedor from "../components/AddNewProveedor";
 import ModalEdit from "../components/ModalEdit";
 import VerProveedor from "../components/VerProveedor";
 import ModalVer from "../components/ModalVer";
+import * as Swal from 'sweetalert2';
 
 import ProveedorEdit from "../components/ProveedorEdit";
-import shallow from "zustand/shallow";
+//import shallow from "zustand/shallow";
 import useInsumo from "../store/insumo";
 
 import {
@@ -25,18 +26,17 @@ import {
 import { BsSearch } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { FiEdit3 } from "react-icons/fi";
-import Swal from 'sweetalert2'
 
 import Loader from "../components/Loader";
 import useHeaders from "../hooks/useHeaders";
 import useProveedores from "../store/proveedores";
 
 const Proveedores = () => {
-  const { users, getUsers } = useUser((state) => state, shallow);
+  const { users, getUsers } = useUser((state:any) => state);
   const { getProveedoresAll, proveedores, deleteProveedores, loading } =
-    useProveedores((state) => state);
+    useProveedores((state:any) => state);
     const { getInsumos, insumos2 } =
-    useInsumo((state) => state);
+    useInsumo((state:any) => state);
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const [rol, setRol] = useState("");
@@ -78,7 +78,7 @@ const [insumosProveedor, setInsumosProveedor]=useState([])
 			confirmButtonColor: '#77B327',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Si, Eliminarlo!'
-		  }).then((result) => {
+		  }).then((result:any) => {
 			if (result.isConfirmed) {
 			  Swal.fire(
 				'Eliminado!',
