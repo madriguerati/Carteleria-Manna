@@ -46,7 +46,7 @@ type UserStore = {
 	) => Promise<void>;
   putOrden: (body:any, token:any) => Promise<void>
   getOrdenes: (token:any) => Promise<void>
-  deleteOrdenes: (params:any, headers:any)=> Promise<void>
+  deleteOrdenes: (params:any, headers:any, idUser:string)=> Promise<void>
   closeModal: () => void
 }
 
@@ -121,9 +121,9 @@ const useOrdenes = create<UserStore>()(
         set({ loading: false});
           
         },
-      deleteOrdenes: async (params, headers)=>{
+      deleteOrdenes: async (params, headers, idUser)=>{
         set({ success: true, error: false });
-        const { data } = await axios.delete(`http://localhost:5000/api/ordene/${params}`,   headers);
+        const { data } = await axios.delete(`http://localhost:5000/api/ordene/${params}?idUser=${idUser}`,   headers);
         set({ success: true, error: false });  
       },
       closeModal: () => {

@@ -39,7 +39,7 @@ import moment from "moment";
 import Swal from 'sweetalert2'
 
 const Proveedores = () => {
-  const { users, user, getUsers } = useUser((state) => state, shallow);
+  const { users, user, getUsers , getUser} = useUser((state) => state, shallow);
   const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading, success } = useOrdenes(
     (state) => state
   );
@@ -71,35 +71,23 @@ const Proveedores = () => {
     porcentaje:"",
     id: "",
     resta:0,
-    restaHistory: []
+    restaHistory: [],
+    vendedor: ""
   });
-  const [proveedorEdit, setProveedorEdit] = useState({
-    fecha: "",
-    cliente: "",
-    contacto: "", //nombre de contacto
-    carteles: "",
-    operacion: "",
-    lugardecolocacion: "",
-    lugartraslado: "",
-    seña: "",
-    formadepago: "",
-    fechaentrega: "",
-    facturanum: "",
-    observaciones: "",
-  });
+
 
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
-
   useEffect(() => {
     !success && getOrdenesAll(accessToken, page ,limit);
     console.log("holaaaaaa", ordenes);
     getClients(headers);
+    getUser(accessToken)
 
     
   }, [success, page ,limit]);
-
+const [idUser, setIdUser]=useState(user._id)
   //delete
   const DeleteOrden = (orden: any) => {
     var userTrue : any = user.roles?.find((e: any) => e.name === "vendedor" )
@@ -129,7 +117,7 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
 				'X ha sido eliminado',
 				'success'
 			  )
-        deleteOrdenes(orden._id, headers);
+        deleteOrdenes(orden._id, headers, idUser);
 			}
 		  })
     }
@@ -216,7 +204,8 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
         porcentaje: orden.porcentaje,
         id: orden._id,
         resta: orden.resta,
-        restaHistory: orden.restaHistory
+        restaHistory: orden.restaHistory,
+        vendedor: orden.vendedor
       });
       console.log("insumo", ordenEdit);
     }
@@ -249,8 +238,8 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
         porcentaje: orden.porcentaje,
         id: orden._id,
         resta: orden.resta,
-        restaHistory: orden.restaHistory
-
+        restaHistory: orden.restaHistory,
+vendedor: orden.vendedor
       });
       console.log("insumo", ordenEdit);
       

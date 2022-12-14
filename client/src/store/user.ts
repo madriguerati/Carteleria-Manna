@@ -21,6 +21,7 @@ interface UserLogin {
 type UserStore = {
 	user: any;
 	users: any;
+	users3: any
 	isLogged: boolean;
 	success: boolean;
 	error: boolean;
@@ -48,6 +49,8 @@ const useUser = create<UserStore>()(
 		//inicial state
 		user: {},
 		users: [],
+		users3: [],
+
 		isLogged: false,
 		success: false,
 		error: false,
@@ -96,7 +99,7 @@ const useUser = create<UserStore>()(
 			if (!data) {
 				set({ loading: true });
 			}
-			set((state) => ({ ...state, users: (state.users = data) }));
+			set((state) => ({ ...state, users3: (state.users3 = data) }));
 		},
 		createNewUser: async (body) => {
 			try {

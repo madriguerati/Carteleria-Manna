@@ -17,6 +17,7 @@ export interface IOrdenes extends mongoose.Document{
    stateCarteleria: string,
    stateImpresiones: string,
    resta: number,
+   vendedor: string
    
 };
 
@@ -29,6 +30,12 @@ const ordenesSchema = new Schema(
         },
 
         cliente:
+        {
+            type:String,
+            required:true
+
+        },
+        vendedor:
         {
             type:String,
             required:true

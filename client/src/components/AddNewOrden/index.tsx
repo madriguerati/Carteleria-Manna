@@ -29,7 +29,7 @@ var montofinal2: any = 0;
 var clienteSelect: any = {};
 var cartelSelect: any = {};
 var obreros: any = [];
-var fechaActual: any =moment().format('MM/DD/YYYY')
+var fechaActual: any ="11/4/2022"
 var cartelfaz: any = 0
 
 interface Values {
@@ -52,6 +52,7 @@ interface Values {
   restaHistory: object[]
   stateCarteleria: string,
   stateImpresiones:string,
+  vendedor:string
 }
 interface Cartel {
   cant: number;
@@ -108,7 +109,8 @@ const [montoModificado, setMontoModificado]=useState(0)
     resta: 0,
     stateCarteleria:"pendiente",
     stateImpresiones: "pendiente",
-    restaHistory:[]
+    restaHistory:[],
+    vendedor:user._id
   });
   const [errors, setErrors] = useState<any>({});
   const [monto, setMonto] = useState(montofinal);
@@ -182,8 +184,8 @@ console.log("hola estos", newArray, values)
       resta: 0,
       restaHistory:[],
       stateImpresiones:"pendiente",
-      stateCarteleria:"pendiente"
-
+      stateCarteleria:"pendiente",
+      vendedor:user._id
     });
      
     setTimeout(() => {
@@ -276,7 +278,8 @@ console.log("hola estos", newArray, values)
       resta: 0,
       restaHistory:[],
       stateImpresiones:"pendiente",
-      stateCarteleria:"pendiente"
+      stateCarteleria:"pendiente",
+      vendedor:user._id
     });
     getCarteles(accessToken);
     getClients(headers);

@@ -36,6 +36,11 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
     deleteOrdenes,
     loading,
   } = useOrdenes((state) => state);
+  const {
+   getUser,
+   user
+  } = useUser((state) => state)
+
   const [openTab, setOpenTab] = useState(1);
   var color: any = "white";
 
@@ -65,6 +70,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
     id: orden.id,
     resta: orden.resta,
     restaHistory: orden.restaHistory,
+    vendedor: orden.vendedor
   });
   const [totalOrden, setTotalOrden] = useState(orden.montototal);
   const [metodoPago, setMetodoPago] = useState([]);
@@ -161,6 +167,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
 
   useEffect(() => {
     console.log("orden", values);
+    getUser(accessToken)
     if (!orden.values) {
       setValues({
         ...values,
@@ -230,9 +237,18 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                         >
                           <MdArrowBack />
                         </button>
-                        <div className="flex text-end ">
-                          <b className="flex text-end">Orden: :</b>
-                          {orden.facturanum}
+                        <div className="block">
+                        <div className="flex text-end border-b-4">
+                          <b className="flex text-end">Orden:</b>
+                          {orden.facturanum} 
+                        </div>
+                        <div className="flex text-end text-lg">
+                          <b className="flex text-end">Vendedor: </b>
+                          {orden.vendedor===user._id
+                          ?user.name
+                          :"no tiene un vendedor asignado"
+                        }
+                        </div>
                         </div>
                       </div>
 
@@ -384,9 +400,10 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                           <MdArrowBack />
                         </button>
                         <div className="flex text-end">
-                          <b className="flex text-end">Orden: :</b>
+                          <b className="flex text-end">Orden:</b>
                           {orden.facturanum}
                         </div>
+                        
                       </div>
 
                       <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
