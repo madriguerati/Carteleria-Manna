@@ -7,7 +7,7 @@ import AddNewProveedor from "../components/AddNewProveedor";
 import ModalEdit from "../components/ModalEdit";
 import VerProveedor from "../components/VerProveedor";
 import ModalVer from "../components/ModalVer";
-import * as Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 import ProveedorEdit from "../components/ProveedorEdit";
 //import shallow from "zustand/shallow";
