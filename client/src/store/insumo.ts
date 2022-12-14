@@ -44,6 +44,7 @@ const useInusmo = create<UserStore>()(
       //states
       insumo: {},
       insumos:[],
+      insumos2:[],
       tokken: '',
       success: false,
       error: false,
