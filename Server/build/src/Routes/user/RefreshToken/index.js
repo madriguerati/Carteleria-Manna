@@ -13,19 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const carteles_1 = __importDefault(require("../../../Models/carteles"));
+const user_1 = __importDefault(require("../../../Models/user"));
+const createdToken_1 = __importDefault(require("../../../Controllers/Token/createdToken"));
+const jsonwebtoken_1 = require("jsonwebtoken");
 const router = (0, express_1.Router)();
-router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { descripcion, costo1faz, costo2faz, category, insumosArray, id } = req.body;
+router.post("/refresh", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield carteles_1.default.findByIdAndUpdate(id, {
-            descripcion, costo1faz, costo2faz, category, insumosArray
-        });
-        // Send response in here
-        res.send('Item Updated!');
+        const refresToken = req.headers["x-access-token"];
+        const payload = (0, jsonwebtoken_1.verify)(refresToken, 'refresh_secret');
+        if (!payload) {
+            return res.status(401).send({ message: 'unauthenticated a' });
+        }
+        const user = yield user_1.default.findById(payload.id);
+        const { accessToken, refreshToken } = (0, createdToken_1.default)(user);
+        return res.status(200).json({ accessToken, refreshToken });
     }
     catch (error) {
-        next(error);
+        return res.status(401).send({ message: 'unauthenticated' });
     }
 }));
 exports.default = router;

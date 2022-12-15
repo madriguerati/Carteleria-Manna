@@ -16,10 +16,10 @@ const express_1 = require("express");
 const insumo_1 = __importDefault(require("../../../Models/insumo"));
 const router = (0, express_1.Router)();
 router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, descripcion, unidad, costo, categoria, id } = req.body;
+    const { name, descripcion, unidad, costo, categoria, proveedor, id } = req.body;
     try {
         yield insumo_1.default.findByIdAndUpdate(id, {
-            name, descripcion, unidad, costo, categoria
+            name, descripcion, unidad, costo, categoria, proveedor
         });
         // Send response in here
         res.send('Item Updated!');

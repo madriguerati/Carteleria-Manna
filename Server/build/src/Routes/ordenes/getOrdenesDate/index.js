@@ -13,16 +13,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const carteles_1 = __importDefault(require("../../../Models/carteles"));
+const ordenes_1 = __importDefault(require("../../../Models/ordenes"));
+const moment_1 = __importDefault(require("moment"));
 const router = (0, express_1.Router)();
-router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { descripcion, costo1faz, costo2faz, category, insumosArray, id } = req.body;
+router.get('/ordenesbydate', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const date1 = req.query.date1;
+    const date2 = req.query.date2;
+    console.log("holaaaaaaaaaaaaaaaaaaaaaaaaa", (0, moment_1.default)(date1).format("L"), (0, moment_1.default)(date2).format("L"));
     try {
-        yield carteles_1.default.findByIdAndUpdate(id, {
-            descripcion, costo1faz, costo2faz, category, insumosArray
-        });
-        // Send response in here
-        res.send('Item Updated!');
+        const ordenesOrigin = yield ordenes_1.default.find()
+            .populate('carteles');
+        let busca = ordenesOrigin.filter((n) => (0, moment_1.default)(n.fecha).format("L") >= (0, moment_1.default)(date1).format("L") &&
+            (0, moment_1.default)(n.fecha).format("L") <= (0, moment_1.default)(date2).format("L"));
+        var ordenes = busca;
+        res.status(200).json(ordenes);
     }
     catch (error) {
         next(error);

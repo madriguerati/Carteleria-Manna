@@ -15,14 +15,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const carteles_1 = __importDefault(require("../../../Models/carteles"));
 const router = (0, express_1.Router)();
-router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { descripcion, costo1faz, costo2faz, category, insumosArray, id } = req.body;
+router.get('/allcarteles', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield carteles_1.default.findByIdAndUpdate(id, {
-            descripcion, costo1faz, costo2faz, category, insumosArray
+        const page = parseInt(req.query.page) - 1 || 0;
+        const limit = parseInt(req.query.limit) || 12;
+        const carteles = yield carteles_1.default.find()
+            .skip(page * limit)
+            .limit(limit);
+        const total = yield carteles_1.default.countDocuments({
+        // username: {$regex: search, $options: 'i'},
         });
-        // Send response in here
-        res.send('Item Updated!');
+        const response = {
+            error: false,
+            total,
+            page: page + 1,
+            totalPages: Math.ceil(total / limit),
+            limit,
+            carteles,
+        };
+        console.log("hola soy un total", total);
+        res.status(200).json(response);
     }
     catch (error) {
         next(error);

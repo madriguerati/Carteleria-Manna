@@ -19,9 +19,16 @@ const insumoSchema = new mongoose_1.Schema({
         type: Number,
         request: true
     },
-    categoria: {
+    category: {
         type: [String],
         required: true
-    }
+    },
+    proveedor: {
+        type: String,
+        request: true
+    },
+}, {
+    timestamps: true,
+    versionKey: false,
 });
 exports.default = (0, mongoose_1.model)("insumo", insumoSchema);

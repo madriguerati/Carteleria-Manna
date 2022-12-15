@@ -15,14 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.put('/datoss', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, lastname, dni, fechaNacimiento, direccion, id } = req.body;
+router.post('/dato', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, lastname, dni, fechaNacimiento, direccion, id, state, ordenes } = req.body;
+    console.log("holaaaaaa", id);
     try {
         yield user_1.default.findByIdAndUpdate(id, {
-            name, lastname, dni, fechaNacimiento, direccion
+            name, lastname, dni, fechaNacimiento, state, direccion, ordenes
         });
         // Send response in here
         res.send('Item Updated!');
+        console.log("holaaaaaa", ordenes);
     }
     catch (error) {
         next(error);

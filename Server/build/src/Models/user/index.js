@@ -51,6 +51,10 @@ const userSchema = new mongoose_1.Schema({
         type: Number,
         request: true
     },
+    state: {
+        type: Boolean,
+        default: false
+    },
     direccion: {
         type: String,
         request: true
@@ -60,6 +64,12 @@ const userSchema = new mongoose_1.Schema({
             type: mongoose_1.Schema.Types.ObjectId,
             ref: "Role",
         },
+    ],
+    ordenes: [
+        {
+            type: Object,
+            request: true
+        }
     ]
 }, {
     timestamps: true,

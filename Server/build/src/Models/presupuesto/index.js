@@ -7,17 +7,23 @@ const presupuestoSchema = new mongoose_1.Schema({
         type: Date,
         required: true
     },
+    orden: {
+        type: Boolean,
+        default: false
+    },
     clientes: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'clientes',
+        type: String,
         required: true
     },
     carteles: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'carteles',
+        type: [Object],
         required: true
     },
     operacion: {
+        type: String,
+        required: true
+    },
+    contacto: {
         type: String,
         required: true
     },
@@ -45,5 +51,8 @@ const presupuestoSchema = new mongoose_1.Schema({
         type: String,
         required: true
     }
+}, {
+    timestamps: true,
+    versionKey: false,
 });
 exports.default = (0, mongoose_1.model)("presupuesto", presupuestoSchema);

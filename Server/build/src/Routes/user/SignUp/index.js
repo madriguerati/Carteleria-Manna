@@ -19,16 +19,21 @@ const roles_1 = __importDefault(require("../../../Models/roles"));
 const router = (0, express_1.Router)();
 router.post('/signUp', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, email, password, roles } = req.body;
+        const { username, name, lastname, email, password, roles } = req.body;
+        console.log("hola soy un role", roles);
         // Creating a new User Object
         let newUser = new user_1.default({
             username,
+            name,
+            lastname,
             email,
-            password
+            password,
+            roles
         });
         if (roles) {
             const foundRoles = yield roles_1.default.find({ name: { $in: roles } });
             newUser.roles = foundRoles.map((role) => role._id);
+            console.log("holaaaaaa", roles_1.default);
         }
         else {
             const role = yield roles_1.default.findOne({ name: "user" });

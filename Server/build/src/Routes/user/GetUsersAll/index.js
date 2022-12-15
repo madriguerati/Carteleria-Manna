@@ -13,16 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const carteles_1 = __importDefault(require("../../../Models/carteles"));
+const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { descripcion, costo1faz, costo2faz, category, insumosArray, id } = req.body;
+router.get('/all', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield carteles_1.default.findByIdAndUpdate(id, {
-            descripcion, costo1faz, costo2faz, category, insumosArray
-        });
-        // Send response in here
-        res.send('Item Updated!');
+        const user = yield user_1.default.find()
+            .populate('roles');
+        res.status(200).json(user);
     }
     catch (error) {
         next(error);
