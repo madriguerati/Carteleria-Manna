@@ -50,7 +50,7 @@ const useClients = create<ClientStore>()(
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					"http://localhost:5000/api/clientes",
+					"carteleriamanna.up.railway.app/api/clientes",
 					headers
 				);
 				set((state) => ({ clientes: (state.clientes = data) }));	
@@ -62,7 +62,7 @@ const useClients = create<ClientStore>()(
 		getClientesAll: async (token, page, limit) => {
 			try{
 			  set({ loading: true}) 
-			  const { data } = await axios.get(`http://localhost:5000/api/clientes/allclientes?page=${page}&limit=${limit}`,
+			  const { data } = await axios.get(`carteleriamanna.up.railway.app/api/clientes/allclientes?page=${page}&limit=${limit}`,
 			  { headers: { "x-access-token": token } })
 			  set((state) => ({ clientes: (state.clientes = data) }));
 			} catch(error){
@@ -74,7 +74,7 @@ const useClients = create<ClientStore>()(
 		addClient: async (body) => {
 			try {
 				await axios.post(
-					"http://localhost:5000/api/clientes/create",
+					"carteleriamanna.up.railway.app/api/clientes/create",
 					body
 				);
 				set({ success: true, error: false });
@@ -84,7 +84,7 @@ const useClients = create<ClientStore>()(
 		},
 		deleteClients: async (params, headers)=>{
 			set({ loading: true}) 
-			const { data } = await axios.delete(`http://localhost:5000/api/clientes/${params}`,   headers);
+			const { data } = await axios.delete(`carteleriamanna.up.railway.app/api/clientes/${params}`,   headers);
 			set({ loading: false})  
 		  },
 		closeModal: () => {

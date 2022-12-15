@@ -77,7 +77,7 @@ const useProveedores = create<ProveedoresStore>()(
 		addProveedores: async (body) => {
 			try {
 				await axios.post(
-					"http://localhost:5000/api/proveedores/create",
+					"carteleriamanna.up.railway.app/api/proveedores/create",
 					body
 				);
 				set({ success: true, error: false });
@@ -87,7 +87,7 @@ const useProveedores = create<ProveedoresStore>()(
 		},
 		deleteProveedores: async (params, headers)=>{
       
-			const { data } = await axios.delete(`https://symptomatic-hole-production.up.railway.app/api/proveedores/${params}`,   headers);
+			const { data } = await axios.delete(`carteleriamanna.up.railway.app/api/proveedores/${params}`,   headers);
 	  
 		  },
 		closeModal: () => {

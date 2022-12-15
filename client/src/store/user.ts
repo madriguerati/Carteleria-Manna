@@ -64,7 +64,7 @@ const useUser = create<UserStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put('http://localhost:5000/api/users/state', body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put('carteleriamanna.up.railway.app/api/users/state', body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 
@@ -74,7 +74,7 @@ const useUser = create<UserStore>()(
 		getUser: async (token) => {
 			try {
 				const { data } = await axios.get(
-					"http://localhost:5000/api/user/profile",
+					"carteleriamanna.up.railway.app/api/user/profile",
 					{ headers: { "x-access-token": token } }
 				);
 				set((state) => ({ ...state, user: (state.user = data) }));
@@ -84,7 +84,7 @@ const useUser = create<UserStore>()(
 		},
 		getUsers: async (token, rol, sort, page, limit) => {
 			const { data } = await axios.get(
-				`http://localhost:5000/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}`,
+				`carteleriamanna.up.railway.app/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}`,
 				{ headers: { "x-access-token": token } }
 			);
 			if (!data) {
@@ -94,7 +94,7 @@ const useUser = create<UserStore>()(
 		},
 		getUsers2: async (headers) => {
 			const { data } = await axios.get(
-				`http://localhost:5000/api/users/all`, headers
+				`carteleriamanna.up.railway.app/api/users/all`, headers
 			);
 			if (!data) {
 				set({ loading: true });
@@ -104,7 +104,7 @@ const useUser = create<UserStore>()(
 		createNewUser: async (body) => {
 			try {
 				await axios.post(
-					"http://localhost:5000/api/user/signUp",
+					"carteleriamanna.up.railway.app/api/user/signUp",
 					body
 				);
 				set({ success: true, error: false });
@@ -115,7 +115,7 @@ const useUser = create<UserStore>()(
 		signin: async (body) => {
 			try {
 				const { data } = await axios.post(
-					"http://localhost:5000/api/user/signIn",
+					"carteleriamanna.up.railway.app/api/user/signIn",
 					body
 				);
 				localStorage.setItem("auth", JSON.stringify(data));
@@ -126,7 +126,7 @@ const useUser = create<UserStore>()(
 		},
 		deleteUsers: async (params, headers)=>{
       
-			const { data } = await axios.delete(`http://localhost:5000/api/user/${params}`,   headers);
+			const { data } = await axios.delete(`carteleriamanna.up.railway.app/api/user/${params}`,   headers);
 	  
 		  },
 		logout: () => {
@@ -137,7 +137,7 @@ const useUser = create<UserStore>()(
 		},
 		updateToken: async (refreshToken) => {
 			const { data } = await axios.post(
-				"http://localhost:5000/api/user/refresh",
+				"carteleriamanna.up.railway.app/api/user/refresh",
 				{},
 				{ headers: { "x-access-token": refreshToken } }
 			);
