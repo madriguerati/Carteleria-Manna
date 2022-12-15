@@ -21,8 +21,9 @@ const createRoles = () => __awaiter(void 0, void 0, void 0, function* () {
             return;
         const values = yield Promise.all([
             new roles_1.default({ name: 'user' }).save(),
-            new roles_1.default({ name: 'admin' }).save(),
-            new roles_1.default({ name: 'obrero' }).save(),
+            new roles_1.default({ name: 'vendedor' }).save(),
+            new roles_1.default({ name: 'impresiones' }).save(),
+            new roles_1.default({ name: 'carteleria' }).save(),
             new roles_1.default({ name: 'gerente' }).save()
         ]);
         console.log(values);

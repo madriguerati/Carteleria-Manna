@@ -16,13 +16,14 @@ const express_1 = require("express");
 const proveedores_1 = __importDefault(require("../../../Models/proveedores"));
 const router = (0, express_1.Router)();
 router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, direecion, telefono, cuit, email, web, id } = req.body;
+    const { name, direccion, telefono, cuit, email, web, id } = req.body;
     try {
         yield proveedores_1.default.findByIdAndUpdate(id, {
-            name, direecion, telefono, cuit, email, web
+            name, direccion, telefono, cuit, email, web
         });
         // Send response in here
         res.send('Item Updated!');
+        console.log("esto es un cambio", name, direccion, telefono, cuit, email, web);
     }
     catch (error) {
         next(error);

@@ -16,9 +16,9 @@ const express_1 = require("express");
 const proveedores_1 = __importDefault(require("../../../Models/proveedores"));
 const router = (0, express_1.Router)();
 router.post('/create', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, direecion, telefono, cuit, email, web } = req.body;
+    const { name, direccion, telefono, cuit, email, web } = req.body;
     try {
-        const proveedores = new proveedores_1.default({ name, direecion, telefono, cuit, email, web });
+        const proveedores = new proveedores_1.default({ name, direccion, telefono, cuit, email, web });
         yield proveedores.save();
         res.status(201).json('proveedor adherido correctamente');
     }

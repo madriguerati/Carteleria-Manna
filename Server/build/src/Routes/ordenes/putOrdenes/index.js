@@ -16,13 +16,15 @@ const express_1 = require("express");
 const ordenes_1 = __importDefault(require("../../../Models/ordenes"));
 const router = (0, express_1.Router)();
 router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fecha, cliente, contacto, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones, id } = req.body;
+    const { fecha, cliente, fechadeentrega, stateCarteleria, stateImpresiones, montototal, contacto, resta, restaHistory, carteles, operacion, lugardecolocacion, seña, formadepago, fechaentrega, facturanum, observaciones, id } = req.body;
+    console.log("hoy esto es un cambi despueso", resta, restaHistory, fecha, cliente, fechadeentrega, montototal, contacto, operacion, lugardecolocacion, seña, formadepago, fechaentrega, facturanum, observaciones, id);
     try {
         yield ordenes_1.default.findByIdAndUpdate(id, {
-            fecha, cliente, contacto, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones
+            fecha, cliente, fechadeentrega, resta, stateCarteleria, stateImpresiones, restaHistory, montototal, contacto, carteles, operacion, lugardecolocacion, seña, formadepago, fechaentrega, facturanum, observaciones
         });
         // Send response in here
         res.send('Item Updated!');
+        console.log("hoy esto es un cambi despueso", fecha, stateCarteleria, stateImpresiones, restaHistory, cliente, fechadeentrega, montototal, contacto, operacion, lugardecolocacion, seña, formadepago, fechaentrega, facturanum, observaciones, id);
     }
     catch (error) {
         next(error);

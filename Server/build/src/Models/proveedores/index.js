@@ -17,7 +17,7 @@ const proveedoresSchema = new mongoose_1.Schema({
     },
     direccion: {
         type: String,
-        request: true
+        required: true
     },
     email: {
         type: String,
@@ -27,5 +27,8 @@ const proveedoresSchema = new mongoose_1.Schema({
         type: String,
         required: true
     }
+}, {
+    timestamps: true,
+    versionKey: false,
 });
 exports.default = (0, mongoose_1.model)("proveedores", proveedoresSchema);

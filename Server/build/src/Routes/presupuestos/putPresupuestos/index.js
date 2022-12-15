@@ -16,10 +16,11 @@ const express_1 = require("express");
 const presupuesto_1 = __importDefault(require("../../../Models/presupuesto"));
 const router = (0, express_1.Router)();
 router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fecha, clientes, contacto, carteles, operacion, lugardecolocacion, lugartraslado, montototal, formadepago, plazodeentrega, fechavalida, observaciones, id } = req.body;
+    const { fecha, clientes, contacto, carteles, operacion, orden, lugardecolocacion, lugartraslado, montototal, formadepago, plazodeentrega, fechavalida, observaciones, id } = req.body;
+    console.log("holaaaa", orden, id, fechavalida);
     try {
         yield presupuesto_1.default.findByIdAndUpdate(id, {
-            fecha, clientes, contacto, carteles, operacion, lugardecolocacion, lugartraslado, montototal, formadepago, plazodeentrega, fechavalida, observaciones
+            fecha, clientes, contacto, carteles, operacion, orden, lugardecolocacion, lugartraslado, montototal, formadepago, plazodeentrega, fechavalida, observaciones
         });
         // Send response in here
         res.send('Item Updated!');

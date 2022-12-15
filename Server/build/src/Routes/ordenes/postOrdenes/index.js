@@ -14,12 +14,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const ordenes_1 = __importDefault(require("../../../Models/ordenes"));
+const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
 router.post('/create', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fecha, cliente, contacto, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones } = req.body;
+    const { idUser, fecha, cliente, fechaentrega, resta, restaHistory, montototal, vendedor, contacto, stateImpresiones, carteles, stateCarteleria, operacion, lugardecolocacion, seña, formadepago, facturanum, observaciones } = req.body;
+    console.log("hkikakakaka", stateImpresiones, stateCarteleria);
     try {
-        const ordenes = new ordenes_1.default({ fecha, cliente, contacto, carteles, operacion, lugardecolocacion, lugartraslado, seña, formadepago, fechaentrega, facturanum, observaciones });
-        yield ordenes.save();
+        const ordenesNew = new ordenes_1.default({ fecha, cliente, resta, restaHistory, contacto, vendedor, stateImpresiones, stateCarteleria, carteles, operacion, lugardecolocacion, seña, formadepago, fechaentrega, facturanum, observaciones, montototal });
+        yield ordenesNew.save();
+        const user = yield user_1.default.findById(idUser);
+        if (user) {
+            user.ordenes.push(ordenesNew);
+            yield user.save(ordenesNew);
+            console.log("hola soy un user", ordenesNew._id, user);
+        }
         res.status(201).json('insumo adherido correctamente');
     }
     catch (error) {

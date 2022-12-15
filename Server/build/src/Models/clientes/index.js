@@ -9,11 +9,11 @@ const clientesSchema = new mongoose_1.Schema({
         required: true
     },
     telefono: {
-        type: Number,
+        type: String,
         required: true
     },
     cuit: {
-        type: Number,
+        type: String,
         required: true
     },
     direccion: {
@@ -32,5 +32,8 @@ const clientesSchema = new mongoose_1.Schema({
         type: String,
         required: true
     }
+}, {
+    timestamps: true,
+    versionKey: false,
 });
 exports.default = (0, mongoose_1.model)("clientes", clientesSchema);

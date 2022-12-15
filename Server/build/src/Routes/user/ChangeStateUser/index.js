@@ -13,19 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const carteles_1 = __importDefault(require("../../../Models/carteles"));
+const user_1 = __importDefault(require("../../../Models/user"));
 const router = (0, express_1.Router)();
-router.put('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { descripcion, costo1faz, costo2faz, category, insumosArray, id } = req.body;
-    try {
-        yield carteles_1.default.findByIdAndUpdate(id, {
-            descripcion, costo1faz, costo2faz, category, insumosArray
-        });
-        // Send response in here
-        res.send('Item Updated!');
-    }
-    catch (error) {
-        next(error);
-    }
+router.put('/state', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, state } = req.body;
+    console.log("hola", id, state);
+    yield user_1.default.findByIdAndUpdate(id, {
+        state
+    });
+    // Send response in here
+    res.send('Item Updated!');
+    console.log("hola", id, state);
 }));
 exports.default = router;
