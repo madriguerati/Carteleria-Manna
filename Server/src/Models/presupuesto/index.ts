@@ -16,6 +16,7 @@ export interface IPresupuesto extends mongoose.Document{
   observaciones:string,
    //obrero: string
 orden:boolean;
+vendedor:string;
 };
 
 const presupuestoSchema = new Schema(
@@ -23,6 +24,12 @@ const presupuestoSchema = new Schema(
       fecha: {
         type: Date,
         required: true
+      },
+      vendedor:
+      {
+          type:String,
+          required:true
+
       },
       orden:
       {
@@ -53,7 +60,7 @@ const presupuestoSchema = new Schema(
       lugardecolocacion:
       {
           type:String,
-          required:true
+          request:true
       },
       
       formadepago:

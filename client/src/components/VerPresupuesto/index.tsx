@@ -86,7 +86,14 @@ const InsumoEdit = ({ setShowModal3, presupuesto, cliente }: Props) => {
                 </h1>
               </div>
             ) : (
-              ""
+              <div className="m-5 w-1/3">
+              <b className="text-gray-600">Dirección</b>
+              <h1>
+                {presupuesto.lugardecolocacion==""
+                  ? presupuesto.logardecolocacion
+                  : "Sin especificar"}
+              </h1>
+            </div>
             )}
             <div className="m-5 w-1/3">
               <b className="text-gray-600">Fecha de entrega </b>

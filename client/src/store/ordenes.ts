@@ -93,7 +93,7 @@ const useOrdenes = create<UserStore>()(
       };
       set({ success: true, error: false });
        try{ 
-        const { data } = await axios.post('https://carteleriamanna.up.railway.app/api/ordenes/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('http://localhost:5000/api/ordenes/create', body, { headers: { "x-access-token": token} });
       }catch (error) {
         set({ error: true, success: false });
        }

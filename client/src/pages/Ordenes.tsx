@@ -432,13 +432,13 @@ vendedor: orden.vendedor
                       <th className="px-3 py-3 border-b-2 text-center border-gray-200 tracking-wider">
                         Talleres
                       </th>
-                      
-                      <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
-                        VER
-                      </th>
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         pagos
                       </th>
+                      <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
+                        VER
+                      </th>
+                      
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         EDITAR
                       </th>
@@ -552,7 +552,7 @@ vendedor: orden.vendedor
                             className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
                             onClick={() => ver(orden)}
                           >
-                             <BsSearch />
+                             <MdAttachMoney />
                           </p>
                           <ModalVer
                             showModal3={showModal3}
@@ -570,7 +570,8 @@ vendedor: orden.vendedor
                             className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
                             onClick={() =>pagos(orden)}
                           >
-                             <MdAttachMoney />
+                             
+                             <BsSearch />
                           </p>
                           <ModalVerOrdenPago
                             showModal4={showModal4}

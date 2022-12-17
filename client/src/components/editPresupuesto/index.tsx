@@ -47,6 +47,7 @@ var fechaActual: any =moment().format('MM/DD/YYYY')
     porcentaje: presupuesto.porcentaje,
     fechavalida:presupuesto.fechavalida,
     id:presupuesto.id,
+    vendedor: presupuesto.vendedor,
 resta:0
   });
   const [ordenchange, setOrdenchange] = useState({

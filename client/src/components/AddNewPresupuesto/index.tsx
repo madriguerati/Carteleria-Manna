@@ -10,6 +10,7 @@ import AddCartel from '../AddCartel'
 import moment from 'moment'
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
+import useUser from "../../store/user";
 
 type Props = {
   setShowModal: any;
@@ -33,7 +34,7 @@ interface Values {
   operacion: string;
   lugardecolocacion: string; //lugar de entrega colocación/entrega
   montototal: number;
-  
+  vendedor: string;
   plazodeentrega: number;
   fechavalida: string; //presupuesto valido hasta
   observaciones: string;
@@ -45,6 +46,7 @@ interface Values {
 const AddNewClient = ({ setShowModal }: Props) => {
   const { addPresupuesto, success, error, closeModal } =
     usePresupuesto((state) => state);
+    const { users, user, getUsers , getUser} = useUser((state) => state);
 
   const { carteles, getCarteles } = useCartel((state) => state);
   const { clientes, getClients } = useClients((state) => state);
@@ -76,7 +78,8 @@ const AddNewClient = ({ setShowModal }: Props) => {
     fechavalida: "", //presupuesto valido hasta
     observaciones: "",
     contacto: "",
-    porcentaje:"" 
+    porcentaje:"",
+    vendedor:user._id
   });
   const [errors, setErrors] = useState<any>({});
  
@@ -127,11 +130,13 @@ console.log("holaaaaaaaaaaaaa", values)
         fechavalida: "", //presupuesto valido hasta
         observaciones: "",
         contacto:"",
-        porcentaje:""
+        porcentaje:"",
+        vendedor:user._id
 
       });
     getCarteles(accessToken);
     getClients(headers);
+    getUser(accessToken)
   }, []);
 
   const handleSelectPorcentaje= (e: React.ChangeEvent<HTMLSelectElement>)=>{

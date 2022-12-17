@@ -74,7 +74,8 @@ const [cliente, setCliente]= useState({})
     montototal:"",
     porcentaje:0,
     fechavalida: "",
-    id:""
+    id:"",
+    vendedor:""
   });
   
   useEffect(() => {
@@ -203,7 +204,8 @@ const [cliente, setCliente]= useState({})
       montototal: presupuesto.montototal,
       porcentaje: presupuesto.porcentaje,
       id: presupuesto._id,
-      fechavalida: presupuesto.fechavalida
+      fechavalida: presupuesto.fechavalida,
+      vendedor:presupuesto.vendedor
     });
     console.log("insumo", presupuestoEdit);
      
@@ -231,7 +233,8 @@ const [cliente, setCliente]= useState({})
         montototal: presupuesto.montototal,
         porcentaje: presupuesto.porcentaje,
         id: presupuesto._id,
-        fechavalida: presupuesto.fechavalida
+        fechavalida: presupuesto.fechavalida,
+        vendedor:presupuesto.vendedor
       });
     }
   };

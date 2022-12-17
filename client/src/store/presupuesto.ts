@@ -58,13 +58,13 @@ const usePresupuesto = create<PresupuestoStore>()(
         let headers:any = {
         "x-access-token" : token
       };
-        const { data } = await axios.put('https://carteleriamanna.up.railway.app/api/presupuesto', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('http://localhost:5000/api/presupuesto', body, { headers: { "x-access-token": token} });
        
 
       },
       addPresupuesto: async (body) => {
         try {
-          const { data } = await axios.post('https://carteleriamanna.up.railway.app/api/presupuesto/create', body );
+          const { data } = await axios.post('http://localhost:5000/api/presupuesto/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });

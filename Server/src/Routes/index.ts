@@ -122,8 +122,8 @@ import DeletePresupuesto from './presupuestos/deletePresupuestos'
 import GetPresupuestosAll from './presupuestos/getPresupuestosAllPages'
 
 
-router.use('/presupuesto',verifyToken,  isGerenteVendedor, PostPresupuesto);
-router.use('/presupuesto',verifyToken,  isGerente, PutPresupuesto)
+router.use('/presupuesto',PostPresupuesto);
+router.use('/presupuesto', PutPresupuesto)
 router.use('/presupuesto',verifyToken,  isGerenteVendedor, GetPresupuesto)
 router.use('/presupuesto',verifyToken,  isGerente, DeletePresupuesto)
 router.use('/presupuestoss',verifyToken,  isGerenteVendedor,GetPresupuestosAll)
