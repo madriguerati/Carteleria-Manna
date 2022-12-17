@@ -58,7 +58,7 @@ const useInusmo = create<UserStore>()(
       };
      
        try{
-        const { data } = await axios.put('carteleriamanna.up.railway.app/api/insumo', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('https://carteleriamanna.up.railway.app/api/insumo', body, { headers: { "x-access-token": token} });
         set({ success: true, error: false });
        }catch(error){
         set({ error: true, success: false });
@@ -69,7 +69,7 @@ const useInusmo = create<UserStore>()(
       getInsumosAll: async (token, page, limit) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`carteleriamanna.up.railway.app/api/insumo/allinsumos?page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/insumo/allinsumos?page=${page}&limit=${limit}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ insumos: (state.insumos = data) }));
         } catch(error){
@@ -85,7 +85,7 @@ const useInusmo = create<UserStore>()(
       };
       set({ loading: true})
        try{ 
-        const { data } = await axios.post('carteleriamanna.up.railway.app/api/insumo/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('https://carteleriamanna.up.railway.app/api/insumo/create', body, { headers: { "x-access-token": token} });
        if(data){
        }
       }catch (error) {
@@ -97,7 +97,7 @@ const useInusmo = create<UserStore>()(
       getInsumos: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('carteleriamanna.up.railway.app/api/insumos', headers )
+          const { data } = await axios.get('https://carteleriamanna.up.railway.app/api/insumos', headers )
           set((state) => ({ insumos2: (state.insumos2 = data) }));
         }catch(error){
           console.log(error)
@@ -106,7 +106,7 @@ const useInusmo = create<UserStore>()(
       },
       deleteIsumos: async (params, headers)=>{
         set({ loading: true}) 
-        const { data } = await axios.delete(`carteleriamanna.up.railway.app/api/insumo/${params}`,   headers);
+        const { data } = await axios.delete(`https://carteleriamanna.up.railway.app/api/insumo/${params}`,   headers);
         set({ loading: false})  
       },
       closeModal: () => {

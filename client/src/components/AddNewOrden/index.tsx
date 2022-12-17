@@ -289,48 +289,22 @@ console.log("hola estos", newArray, values)
    
   }, []);
   return (
-    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
-      <div className="p-6 space-y-4 sm:p-8">
+    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
+    <div className=" sm:p-8 sm:m-5">
+      
+        
+      <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+      
+      <div className="">
+       <h1 className="text-3xl">Crear Orden</h1>
+      </div>
+  
       <button
-        className='absolute right-12 top-16 mt-1 text-black text-4xl w-10 h-10  flex justify-center '
-        onClick={handleCloseModal}
+      className=" text-black text-4xl w-full h-10  flex justify-end"
+      onClick={handleCloseModal}
       >
-        <MdExitToApp/>
+      <MdExitToApp />
       </button>
-      <div
-        className={`flex items-center justify-start p-5 ${
-          success
-            ? "bg-white"
-            : error
-            ? "bg-red-300"
-            : "border-b-[#77B327] border-b-4 rounded"
-        }`}
-      >
-        <h3
-          className={`text-3xl font-semibold text-center ${
-            success
-              ? "text-[#77B327]"
-              : error
-              ? "text-red-700"
-              : "text-zinc-800"
-          }`}
-        >
-          {success
-            ? "Orden creada exitosamente"
-            : error
-            ? "Ocurrio un error"
-            : "Crear Orden"}
-        </h3>
-        {success && (
-          <BsFillCheckCircleFill
-            size={55}
-            className='text-[#77B327]'
-          />
-        )}
-
-        {error && (
-          <MdError size={55} className='text-red-700 ml-1' />
-        )}
       </div>
        <AddCartel values={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
         <form onSubmit={handleSubmit} className="flex flex-col mt-4">

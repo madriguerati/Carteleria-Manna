@@ -178,14 +178,14 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
           style={hola === false ? { display: "none" } : { cursor: "pointer" }}
         >
           <div className="block w-full  p-6 bg-white border border-gray-200 rounded-lg shadow-md  dark:border-gray-700 ">
-            <div className="flex ">
+            <div className="flex mb-1 grid sm:gap-2  sm:grid-cols-2 md:gap-5 md:grid-cols-5">
              
               <div className="">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   cartel
                 </label>
                 <select
-                  className="block appearance-none w-40 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state"
                   name="name"
                   value={cartel.name}
@@ -204,7 +204,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   base
                 </label>
                 <input
-                  className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
                   placeholder="base"
@@ -218,7 +218,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   Altura
                 </label>
                 <input
-                  className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
                   placeholder="altura"
@@ -233,7 +233,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   medidas
                 </label>
                 <input
-                  className="appearance-none  block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
                   placeholder=""
@@ -254,7 +254,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   total
                 </label>
                 <input
-                  className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
                   placeholder="total"
@@ -270,7 +270,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
               </div>
             </div>
 
-            <div className="flex mt-2">
+            <div className="flex mb-1 grid sm:gap-2  sm:grid-cols-2 md:gap-4 md:grid-cols-4">
               
               <div >
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -295,7 +295,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   estructura
                 </label>
                 <input
-                  className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="text"
                   placeholder="estructura"
@@ -309,7 +309,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   otros
                 </label>
                 <input
-                  className="appearance-none  block w-40 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="text"
                   placeholder="otros"
@@ -323,7 +323,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   cant
                 </label>
                 <input
-                  className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
                   type="number"
                   placeholder="cant"

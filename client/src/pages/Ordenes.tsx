@@ -9,7 +9,11 @@ import AddNewOrden from "../components/AddNewOrden";
 import ModalEdit from "../components/ModalEdit";
 import EditOrden from "../components/editOrden";
 import ModalVer from "../components/ModalVer";
+import ModalVerOrdenPago from "../components/ModalVerOrdenPago";
+
 import VerOrden from "../components/VerOrden";
+import VerOrdenes from "../components/VerOrdenes";
+
 import Home from "./Home"
 import ProveedorEdit from "../components/ProveedorEdit";
 import shallow from "zustand/shallow";
@@ -23,6 +27,7 @@ import {
   MdExpandLess,
   MdExpandMore,
   MdDisabledByDefault,
+  MdAttachMoney
 } from "react-icons/md";
 
 import { BsSearch } from "react-icons/bs";
@@ -53,6 +58,8 @@ const Proveedores = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
+  const [showModal4, setShowModal4] = useState(false);
+  
 
   const [ordenEdit, setOrdenEdit] = useState({
     fecha: "",
@@ -186,6 +193,33 @@ console.log("hola est vienes del mas alla ",ordenes.ordenes)
   const ver = (orden: any) => {
     if (ordenes) {
       setShowModal3(true);
+      console.log("hola", ordenes);
+      setOrdenEdit({
+        fecha: orden.fecha,
+        cliente: orden.cliente,
+        contacto: orden.contacto, //nombre de contacto
+        carteles: orden.carteles,
+        operacion: orden.operacion,
+        lugardecolocacion: orden.lugardecolocacion,
+        lugartraslado: orden.lugartraslado,
+        seña: orden.seña,
+        formadepago: orden.formadepago,
+        fechaentrega: orden.fechaentrega,
+        facturanum: orden.facturanum,
+        observaciones: orden.observaciones,
+        montototal: orden.montototal,
+        porcentaje: orden.porcentaje,
+        id: orden._id,
+        resta: orden.resta,
+        restaHistory: orden.restaHistory,
+        vendedor: orden.vendedor
+      });
+      console.log("insumo", ordenEdit);
+    }
+  };
+  const pagos = (orden: any) => {
+    if (ordenes) {
+      setShowModal4(true);
       console.log("hola", ordenes);
       setOrdenEdit({
         fecha: orden.fecha,
@@ -403,6 +437,9 @@ vendedor: orden.vendedor
                         VER
                       </th>
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
+                        pagos
+                      </th>
+                      <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
                         EDITAR
                       </th>
                       <th className="px-3 py-3 border-b-2 border-gray-200 tracking-wider">
@@ -524,8 +561,26 @@ vendedor: orden.vendedor
                             <VerOrden
                               setShowModal3={setShowModal3}
                               orden={ordenEdit}
+                              num={2}
                             />
                           </ModalVer>
+                        </td>
+                        <td className="px-3 py-2 ">
+                        <p
+                            className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
+                            onClick={() =>pagos(orden)}
+                          >
+                             <MdAttachMoney />
+                          </p>
+                          <ModalVerOrdenPago
+                            showModal4={showModal4}
+                            setShowModal4={setShowModal4}
+                          >
+                            <VerOrdenes
+                              setShowModal4={setShowModal4}
+                              orden={ordenEdit}
+                            />
+                          </ModalVerOrdenPago>
                         </td>
                           <td className="px-3 py-2 ">
                           <p

@@ -41,7 +41,7 @@ const useProveedores = create<ProveedoresStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put('http://localhost:5000/api/proveedores', body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put('https://carteleriamanna.up.railway.app/api/proveedores', body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 
@@ -52,7 +52,7 @@ const useProveedores = create<ProveedoresStore>()(
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					"http://localhost:5000/api/proveedores",
+					"https://carteleriamanna.up.railway.app/api/proveedores",
 					headers
 				);
 				set((state) => ({ proveedores: (state.proveedores = data) }));	
@@ -64,7 +64,7 @@ const useProveedores = create<ProveedoresStore>()(
 		getProveedoresAll: async (token, page, limit) => {
 			try{
 			  set({ loading: true}) 
-			  const { data } = await axios.get(`http://localhost:5000/api/proveedores/allproveedores?page=${page}&limit=${limit}`,
+			  const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/proveedores/allproveedores?page=${page}&limit=${limit}`,
 			  { headers: { "x-access-token": token } })
 			  set((state) => ({ proveedores: (state.proveedores = data) }));
 			} catch(error){
@@ -77,7 +77,7 @@ const useProveedores = create<ProveedoresStore>()(
 		addProveedores: async (body) => {
 			try {
 				await axios.post(
-					"carteleriamanna.up.railway.app/api/proveedores/create",
+					"https://carteleriamanna.up.railway.app/api/proveedores/create",
 					body
 				);
 				set({ success: true, error: false });
@@ -87,7 +87,7 @@ const useProveedores = create<ProveedoresStore>()(
 		},
 		deleteProveedores: async (params, headers)=>{
       
-			const { data } = await axios.delete(`carteleriamanna.up.railway.app/api/proveedores/${params}`,   headers);
+			const { data } = await axios.delete(`https://carteleriamanna.up.railway.app/api/proveedores/${params}`,   headers);
 	  
 		  },
 		closeModal: () => {

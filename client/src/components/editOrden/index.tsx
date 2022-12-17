@@ -201,7 +201,7 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
           montoModificado={montoModificado}
           setMontoModificado={setMontoModificado}
         />
-<div className="flex  mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3">
+<div className="flex  mb-1 grid sm:gap-2  sm:grid-cols-2 md:gap-3 md:grid-cols-3">
         {values.carteles.map((e: any) => (
           
             <div className="block w-full text-gray-600 border-blue-600 border-2 text-lg uppercase bg-white p-3 rounded-lg" style={{"cursor":"pointer"}}>
@@ -314,7 +314,7 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
               />
             </div>
 
-            <div className="w-full px-3 mb-6 md:mb-0">
+            <div className="w-full md:mb-0 sm:mb-1">
               <label className="block uppercase tracking-wide w-full text-gray-700 text-xs font-bold mb-2">
                 Metodo de pago
               </label>
@@ -336,7 +336,7 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
             </div>
 
             <div className="w-full">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold md:mb-2 sm:mb-0">
                 Fecha entrega
               </label>
               <input
@@ -416,12 +416,12 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
           <div className="flex flex-wrap-mx-3"></div>
           {/** ultima comuna */}
           <div className="flex flex-wrap-mx-3">
-            <div className="">
+            <div className="w-full">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 factura numero
               </label>
               <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
                 placeholder="facturanum"
@@ -430,12 +430,12 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="ml-2">
+            <div className="ml-2 w-full">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 contacto
               </label>
               <input
-                className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
                 placeholder="Contacto"
