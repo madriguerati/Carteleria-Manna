@@ -53,12 +53,12 @@ const InsumoEdit = ({ setShowModal3, insumo, proveedorInsumo }: Props) => {
       <div className="p-6 space-y-4 sm:p-8 w-full">
         <div className="relative flex justify-end text-2xl mb-10 border-b-4 border-[#77B327] p-5 ">
           <button
-            className="absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex  rounded "
+            className="absolute top-1/3 left-5 text-xl w-1/3 h-10 rounded-full flex  rounded "
             onClick={handleCloseModal}
           >
             <MdArrowBack />
           </button>
-          <h1>{insumo.name}</h1>
+          <h1 className="w-1/2">{insumo.name}</h1>
         </div>
         <div className="">
           {/** tercera columna */}
@@ -87,7 +87,7 @@ const InsumoEdit = ({ setShowModal3, insumo, proveedorInsumo }: Props) => {
           {/** tercera columna */}
           <hr />
           {/** tercera columna */}
-          <h1 className=" mt-5 text-2xl flex justify-center ">
+          <h1 className=" mt-5 text-2xl flex justify-start ">
             <b>Proveedor: </b>
             {proveedorInsumo.name}
           </h1>

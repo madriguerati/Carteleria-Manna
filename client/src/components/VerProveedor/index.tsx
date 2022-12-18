@@ -59,91 +59,64 @@ const InsumoEdit = ({ setShowModal3, proveedor, insumosProveedor }: Props) => {
         </div>
           {/** tercera columna */}
        <div>
-       <div className="  mb-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
-            <div>
-              <b className="text-gray-600">Cliente: </b>
+       <div className="  mb-5 flex-wrap flex  text-lg">
+            <div className="w-1/3">
+              <b className="text-gray-600">Proveedor: </b>
               <h1>{proveedor.name}</h1>
             </div>
-            <div className="ml-2">
-              <b className="text-gray-600">Contacto </b>
+            <div className="w-1/3">
+              <b className="text-gray-600">Cuit </b>
               <h1>{proveedor.cuit}</h1>
             </div>
-            <div className="ml-2">
-              <b className="text-gray-600">Fecha </b>
+            <div className="w-1/3">
+              <b className="text-gray-600">Beb</b>
               <h1>{proveedor.web}</h1>
             </div>
+            
           </div>
 
 
 
           {/** tercera columna */}
 
-          <h1 className="text-2xl text-bold uppercase flex text-center justify-center text-white bg-gray-600 border-4 border-gray-600 mt-5">Historial de Proveedores</h1>
-                 <div className="overflow-x-auto relative">
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xl text-gray-900 uppercase dark:text-gray-400">
-            <tr>
-                <th scope="col" className="py-3 px-6">
-                  Nombre    
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Descripción
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Unidad
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Category
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Costo
-                </th>
-                <th scope="col" className="py-3 px-6">
-                    Proveedor
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-       
-        {
+          <h1 className="text-2xl text-bold uppercase flex text-center justify-center text-white bg-gray-600 border-4 border-gray-600 mt-5">Historial de Insumos</h1>
+                 <div className="flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
+                 {
    insumosProveedor.map((e:any)=> (
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-lg hover:bg-gray-50 dark:hover:bg-gray-600">
-      <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      {e.name}
-      </th>
-      <td className="py-4 px-6">
-      {e.descripcion}
-      </td>
-      <td className="py-4 px-6">
-      {e.unidad}
-      </td>
-      <td className="py-4 px-6">
-      {e.category}
-      </td>
-      <td className="py-4 px-6">
-      {e.costo}
-      </td>
-      <td className="py-2 px-3  text-black text-bold flex justify-center uppercase">
-      {e.proveedor}
-      </td>
-  </tr>
+      <div className="max-w-sm w-full p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 m-2">
+      <p className="">
+      <b>Nombre: </b>{e.name}
+      </p>
+      <p className="">
+      <b>Descripción: </b>{e.descripcion}
+      </p>
+      <p className="">
+      <b>Unidad: </b>{e.unidad}
+      </p>
+      <p className="">
+      <b>Categoría: </b>{e.category}
+      </p>
+      <p className="">
+      <b>Costo: </b>$ {e.costo}
+      </p>
+      
+  </div>
     
     ))
   }
-        </tbody>
-    </table>
 </div>
           {/** tercera columna */}
          <hr />
           <h1 className="flex justify-center text-lg ">
                       Contacto
                     </h1>
-                    <div className="flex ">
-                      <div className="flex justify-end grid p-5 sm:gap-1 sm:grid-cols-1  md:gap-3 md:grid-cols-3">
-                        <div className="m-5 text-xl ">
+                    <div className=" ">
+                    <div className="m-5 text-xl ">
                           <p>Email</p>
                           <h1>{proveedor.email}</h1>
                         </div>
+                      <div className="flex ">
+                        
                         <div className="m-5 text-xl">
                           <p className="flex justify-end">Telefono</p>
                           <h1 className="flex justify-end">

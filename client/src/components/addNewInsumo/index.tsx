@@ -1,8 +1,11 @@
 import useForm from '../../hooks/useForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useInsumo from '../../store/insumo';
 import useUser from '../../store/user';
+import useProveedor from '../../store/proveedores';
+import useHeaders from "../../hooks/useHeaders";
+
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError, MdExitToApp  } from "react-icons/md";
@@ -13,8 +16,11 @@ type Props = {
 };
 const InsumoPost = ({ setShowModal }: Props) => {
   
-
+  const [accessToken] = useLocalStorage();
+  const headers = useHeaders(accessToken);
     const { insumo, success, postInsumo, closeModal, error} = useInsumo((state) => state);
+    const { proveedores, getProveedores} = useProveedor((state) => state);
+
       const [token] = useLocalStorage();
 
 
@@ -29,7 +35,9 @@ const InsumoPost = ({ setShowModal }: Props) => {
       category:'',
       proveedor:''
     });
-   
+   useEffect(() => {
+    getProveedores(headers)
+   },[])
 
     const [errors, setErrors] = useState<any>({});
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -57,7 +65,13 @@ const InsumoPost = ({ setShowModal }: Props) => {
           proveedor:''
         })
   }
-
+  const handleSelect= (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    let {value}= e.currentTarget;
+    setValues({
+      ...values,
+      proveedor: value,
+    });
+  }
   return (
     <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
     <div className='p-6 space-y-4 sm:p-8'>
@@ -138,14 +152,24 @@ const InsumoPost = ({ setShowModal }: Props) => {
         {errors.password && (
           <p className='text-red-600 text-sm'>{errors.password}</p>
         )}
-        <input
-          type='text'
-          name='proveedor'
-          className='px-4 py-3 mt-4 w-full rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm'
-          placeholder='Proveedor'
-          value={values.proveedor}
-          onChange={handleChange}
-        />
+       
+        <div className="w-full mt-3 ">
+              
+              <select
+                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="grid-state"
+                name="clientes"
+                value={values.proveedor}
+                onChange={handleSelect}
+              >
+                <option value="" defaultValue={""} disabled>
+                  Seleccionar proveedor
+                </option>
+                {proveedores.map((e: any) => (
+                  <option value={e.name}>{e.name}</option>
+                ))}
+              </select>
+            </div>
         {errors.password2 && (
           <p className='text-red-600 text-sm'>{errors.password2}</p>
         )}
