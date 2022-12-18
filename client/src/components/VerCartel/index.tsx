@@ -51,7 +51,7 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
   return (
     <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
     <div className='p-6 space-y-4 sm:p-8'>
-   <div className="relative flex justify-end text-2xl mb-10 bg-[#77B327] p-5 ">
+   <div className="relative flex justify-end text-2xl mb-10 border-b-4 border-[#77B327] p-5 ">
       <button
         className='absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center rounded '
         onClick={handleCloseModal}
@@ -60,30 +60,34 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
       </button>
       <h1>{cartel.descripcion}</h1>
       </div>
-    <div className="grid sm:gap-1  sm:grid-cols-1 md:gap-3 md:grid-cols-3">
-<div>
-  <p className=" w-full text-gray-400">Tipo de cartel</p>
+<div className="flex">
+<div className="w-1/3">
+  <p className="  text-gray-400">cartel</p>
   <h1 className="text-2xl">{cartel.descripcion}</h1>
 </div>
-<div className="ml-5 w-full ">
+<div >
+  <p className=" w-1/3 text-gray-400">categoría</p>
+  <div className="flex">{cartel.category.map((e:any)=>category.includes(e) && (
+    <div className="flex content-center justify-center align-center ">
+     <h1 className="bg-blue-300 rounded-full h-5 w-5 text-center content-center aling-center m-2"> </h1>
+      <h1 className="text-lg">{e}</h1>
+      </div>)
+  )}</div>
+</div>
+</div>
+    <div className="flex w-full">
+
+<div className="w-1/3">
   <p className=" w-full text-gray-400">costo 1 faz</p>
   <h1 className="text-2xl">{cartel.costo1faz}</h1>
 </div>
-<div className="ml-5 ">
+<div className="w-1/3">
   <p className="w-full text-gray-400">costo 2 faz</p>
   <h1 className="text-2xl">{cartel.costo2faz}</h1>
 </div>
 
     </div>
-    <div >
-  <p className=" w-full text-gray-400">categoría</p>
-  <div className="flex">{cartel.category.map((e:any)=>category.includes(e) && (
-    <div className="flex content-center justify-center align-center">
-     <h1 className="text-blue-300 text-2xl"> <MdDone /></h1>
-      <h1 className="text-2xl">{e}</h1>
-      </div>)
-  )}</div>
-</div>
+    
 <hr />
 <div className=" rounded-xl p-2">
 <h1 className="text-4xl text-center">Insumos</h1>

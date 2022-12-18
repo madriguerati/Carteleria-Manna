@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdError, MdExitToApp } from "react-icons/md";
+import { MdError, MdExitToApp,MdArrowBack } from "react-icons/md";
 import useCartel from "../../store/carteles";
 import useInusmo from '../../store/insumo';
 import useHeaders from "../../hooks/useHeaders";
@@ -321,18 +321,14 @@ const deleteInsumos =(e:any)=>{
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
       <div className=" sm:p-8">
-      <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
-      
-      <div className="">
-       <h1 className="text-3xl">Editar Cartel</h1>
-      </div>
-
+      <div className="relative m-5 flex justify-end text-2xl mb-10 border-b-4 border-[#77B327] p-5 ">
       <button
-        className=" text-black text-4xl w-full h-10  flex justify-end"
+        className='absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center rounded '
         onClick={handleCloseModal}
       >
-        <MdExitToApp />
+      <MdArrowBack/>
       </button>
+      <h1>Crear Cartel</h1>
       </div>
 {/**Form agregar insumo */}
 <div className="justify-center p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 w-full">
@@ -546,7 +542,7 @@ disabled
           </button>
         </div>
 {/**end form agregar insumo */}
-        <form onSubmit={handleSubmit} className="flex flex-col mt-4">
+        <form onSubmit={handleSubmit} className="flex flex-col m-4">
           <input
             type="text"
             name="descripcion"

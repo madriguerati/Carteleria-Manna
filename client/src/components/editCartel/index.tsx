@@ -7,7 +7,7 @@ import useCarteles from "../../store/carteles";
 import useUser from "../../store/user";
 
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdError , MdExitToApp} from "react-icons/md";
+import { MdError , MdExitToApp, MdArrowBack} from "react-icons/md";
 import useInusmo from "../../store/insumo";
 import { useEffect, useState } from "react";
 import useHeaders from "../../hooks/useHeaders";
@@ -299,18 +299,14 @@ console.log("sdsdsdsdsdsdsd", insumo)
   return (
     
       <div className="p-6 space-y-4 sm:p-8">
-        <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
-      
-      <div className="">
-       <h1 className="text-3xl">Editar Cartel</h1>
-      </div>
-
+        <div className="relative flex justify-end text-2xl mb-10 border-b-4 border-[#77B327] p-5 ">
       <button
-        className=" text-black text-4xl w-full h-10  flex justify-end"
+        className='absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center rounded '
         onClick={handleCloseModal}
       >
-        <MdExitToApp />
+      <MdArrowBack/>
       </button>
+      <h1>{cartel.descripcion}</h1>
       </div>
      
 
@@ -527,15 +523,14 @@ disabled
    </div>
 {/**end form agregar insumo */}
         <form onSubmit={handleSubmit} className="flex flex-col mt-4 p-5">
-          <div className="flex">
-            <div>
+        <div>
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 name
               </label>
               <input
                 type="text"
                 name="descripcion"
-                className="px-4 py-3 w-80 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
+                className="px-4 py-3 w-full mb-2 rounded-md border bg-gray-100 appearance-none border-gray-300 focus:outline-none focus:bg-white focus:ring-0 text-sm"
                 placeholder="Nombre"
                 value={values.descripcion}
                 onChange={handleChange}
@@ -544,6 +539,8 @@ disabled
                 <p className="text-red-600 text-sm">{errors.username}</p>
               )}
             </div>
+          <div className="flex">
+           
             <div className="ml-1">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 costo 1 faz
@@ -589,10 +586,10 @@ disabled
             
            
           </div>
-          <div className="flex">
+          <div className="flex justify-center">
             {category.map((e: any) => (
               <div
-                className="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600"
+                className="w-full flex rounded-t-lg border-b border-gray-200 dark:border-gray-600"
                 key={e.id}
               >
                 <div className="flex items-center pl-3">
@@ -613,7 +610,7 @@ disabled
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap justify-start mt-5  rounded-b">
+          <div className="flex flex-wrap justify-start mt-5 flex grid sm:gap-2 sm:grid-cols-2  md:gap-3 md:grid-cols-3 text-lg rounded-b">
             {
               values.insumosArray?
               values.insumosArray.map((e: any) => (

@@ -112,7 +112,6 @@ const [cliente, setCliente]= useState({})
 				'success'
 			  )
         deletePresupuestos(presupuesto._id, headers);
-        getPresupuestosAll(accessToken, limit, page)
 			}
 		  })
   }
