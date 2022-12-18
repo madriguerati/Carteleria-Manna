@@ -73,9 +73,9 @@ import DeleteProveedores from './proveedores/deleteProveedores'
 import GetProveedoresAll from './proveedores/getProveedoresAllPages'
 
 
-router.use('/proveedores',verifyToken,  PostProveedores)
+router.use('/proveedores', PostProveedores)
 router.use('/proveedores',verifyToken,  GetProveedores)
-router.use('/proveedores',verifyToken,  PutProveedores)
+router.use('/proveedores',PutProveedores)
 router.use('/proveedores',verifyToken,  DeleteProveedores)
 router.use('/proveedores',verifyToken,  GetProveedoresAll)
 

@@ -28,8 +28,7 @@ const VerOrdenes =({setShowModal4, orden}:Props)=>{
     return(
         <div className="">
         <div className="">
-          <div className="bg-white p-5 text-start text-2xl rounded">
-            <div className="relative flex justify-end mb-10 p-5 flex text-end ">
+        <div className="relative flex justify-end mb-10 p-5 flex text-end p-10 ">
               <button
                 className="absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center "
                 onClick={handleCloseModal}
@@ -37,7 +36,7 @@ const VerOrdenes =({setShowModal4, orden}:Props)=>{
                 <MdArrowBack />
               </button>
               <div className="block">
-              <div className="flex text-end border-b-4">
+              <div className="flex text-end border-b-4 border-red-200">
                 <b className="flex text-end">Orden:</b>
                 {orden.facturanum} 
               </div>
@@ -50,34 +49,39 @@ const VerOrdenes =({setShowModal4, orden}:Props)=>{
               </div>
               </div>
             </div>
+          <div className="bg-white pl-10 pr-10 text-start text-2xl rounded">
+            
 
-            <div className="  mb-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
-              <div>
+            <div className=" flex w-full  text-lg">
+              <div className="w-1/3">
                 <b className="text-gray-600">Cliente: </b>
                 <h1>{orden.cliente}</h1>
               </div>
-              <div className="ml-2">
+              <div className=" w-1/3 ">
                 <b className="text-gray-600">Contacto </b>
                 <h1>{orden.contacto}</h1>
               </div>
-              <div className="ml-2">
+              <div className=" w-1/3 ">
                 <b className="text-gray-600">Fecha </b>
                 <h1>{moment(orden.fecha).format("L")}</h1>
               </div>
             </div>
             {/** tercera columna */}
-            <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg">
-              <div>
+            <div className="mt-5 flex text-lg">
+              <div className="w-1/3">
                 <b className="text-gray-600">Tipo de operación</b>
                 <h1>{orden.operacion}</h1>
               </div>
-              {orden.operacion === "colocacion" ? (
-                <div className="ml-2">
+              {orden.operacion === "colocacion" || orden.operacion === "traslado" ? (
+                <div className="w-1/3">
                   <b className="text-gray-600">Dirección</b>
                   <h1>{orden.lugardecolocacion}</h1>
                 </div>
               ) : (
-                ""
+                <div className="w-1/3">
+                  <b className="text-gray-600">Dirección</b>
+                  <h1>Sin especificar</h1>
+                </div>
               )}
               <div className="ml-2">
                 <b className="text-gray-600">Fecha de entrega </b>
@@ -86,19 +90,19 @@ const VerOrdenes =({setShowModal4, orden}:Props)=>{
             </div>
 
             {/** tercera columna */}
-            <div className="mt-5 flex grid sm:gap-1 justify-center sm:grid-cols-1  md:gap-3 md:grid-cols-3 text-lg mb-7">
-              <div className="border-b-4 border-green-600">
+            <div className="mt-5 flex text-lg mb-7">
+              <div className="border-b-4 border-green-600 w-1/3">
                 <b className="text-gray-600 ">Pagado</b>
                 <h1>{orden.seña+orden.resta}</h1>
               </div>
 
-              <div className="ml-2 ">
-                <div className="ml-2 border-b-4 border-red-600">
+              <div className="w-1/3 ">
+                <div className="ml-1 border-b-4 border-red-600">
                   <b className="text-gray-600 ">Resta</b>
                   <h1>{orden.montototal -(orden.seña+orden.resta)}</h1>
                 </div>
               </div>
-              <div className="ml-2 border-b-4 border-blue-600 text-center ">
+              <div className="w-1/3 ml-1 border-b-4 border-blue-600 text-center ">
                 <b className="text-gray-600">Total</b>
                 <h1>{orden.montototal}</h1>
               </div>
@@ -150,14 +154,16 @@ const VerOrdenes =({setShowModal4, orden}:Props)=>{
           <h1 className="flex justify-center text-lg border-b-2 p-5 ">
             Contacto
           </h1>
-          <div className="flex ">
-            <div className="flex justify-end grid p-5 sm:gap-1 sm:grid-cols-1  md:gap-3 md:grid-cols-3">
-              <div className="m-5 text-xl ">
+          <div className="ml-10 mt-5 text-xl ">
                 <p>Email</p>
                 <h1>{cliente.email}</h1>
               </div>
+          <div className="flex m-5">
+          
+            <div className="flex justify-end ">
+              
               <div className="m-5 text-xl">
-                <p className="flex justify-end">Telefono</p>
+                <p className="flex justify-start">Telefono</p>
                 <h1 className="flex justify-end">
                   {cliente.telefono}
                 </h1>

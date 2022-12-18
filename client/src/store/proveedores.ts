@@ -77,7 +77,7 @@ const useProveedores = create<ProveedoresStore>()(
 		addProveedores: async (body) => {
 			try {
 				await axios.post(
-					"https://carteleriamanna.up.railway.app/api/proveedores/create",
+					"http://localhost:5000/api/proveedores/create",
 					body
 				);
 				set({ success: true, error: false });

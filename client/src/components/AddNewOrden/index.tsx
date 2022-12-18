@@ -289,25 +289,28 @@ console.log("hola estos", newArray, values)
    
   }, []);
   return (
-    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
-    <div className=" sm:p-8 sm:m-5">
+    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 p-5 ">
+        <div className="flex  m-10 border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
       
-        
-      <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
-      
-      <div className="">
-       <h1 className="text-3xl">Crear Orden</h1>
+      <div className=" flex pt-5">
+       <h1 className="text-3xl pt-5">Crear Orden</h1>
       </div>
-  
+
       <button
-      className=" text-black text-4xl w-full h-10  flex justify-end"
-      onClick={handleCloseModal}
+        className=" text-black text-4xl w-full flex justify-end"
+        onClick={handleCloseModal}
       >
-      <MdExitToApp />
+        <MdExitToApp />
       </button>
       </div>
-       <AddCartel values={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
-        <form onSubmit={handleSubmit} className="flex flex-col mt-4">
+    <div className=" ">
+      
+        <div className="md:p-5 sm:p-10">
+        <AddCartel values={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
+
+        </div>
+     
+              <form onSubmit={handleSubmit} className="flex flex-col mt-4 p-10">
       
           {/**primera columna  */}
 
@@ -394,7 +397,7 @@ console.log("hola estos", newArray, values)
               />
             </div>
 
-            <div className="w-full px-3 mb-6 md:mb-0">
+            <div className="w-full  mb-6 md:mb-0">
               <label className="block uppercase tracking-wide w-full text-gray-700 text-xs font-bold mb-2">
                 Metodo de pago
               </label>
