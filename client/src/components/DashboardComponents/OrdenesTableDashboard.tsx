@@ -3,6 +3,9 @@ import VerOrden from "../VerOrden";
 import moment from 'moment'
 import { useEffect, useState, Fragment } from "react";
 import { BsSearch } from "react-icons/bs";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import useHeaders from "../../hooks/useHeaders";
+import useClients from "../../store/clientes";
 
 type Props ={
     ordenes:any
@@ -10,7 +13,10 @@ type Props ={
 
 const OrdenesTableDashboard =({ordenes}:Props)=>{
     const [showModal3, setShowModal3] = useState(false);
-    
+    const [accessToken] = useLocalStorage();
+    const headers = useHeaders(accessToken);
+    const { clientes, getClients } = useClients((state) => state);
+    const [cliente, setCliente ] =useState({})
   const [ordenEdit, setOrdenEdit] = useState({
     fecha: "",
     cliente: "",
@@ -29,7 +35,8 @@ const OrdenesTableDashboard =({ordenes}:Props)=>{
     id: "",
     resta:0,
     restaHistory: [],
-    vendedor:""
+    vendedor:"",
+    clientes:{}
   });
   const ver = (orden: any) => {
     if (ordenes) {
@@ -53,11 +60,21 @@ const OrdenesTableDashboard =({ordenes}:Props)=>{
         id: orden._id,
         resta: orden.resta,
         restaHistory: orden.restaHistory,
-        vendedor: orden.vendedor
+        vendedor: orden.vendedor,
+        clientes: cliente
       });
       console.log("insumo", ordenEdit);
     }
+    var clientela: any = clientes.find((e: any) => e.name === orden.cliente);
+    setCliente(clientela)
+
   };
+
+  useEffect(() => {
+    getClients(headers);
+
+    console.log("hola soy clientes", clientes, cliente);
+  }, []);
    return(
     <>
      <table className="min-w-full leading-normal relative">

@@ -85,7 +85,7 @@ function Card({ e , ordenes}: Props) {
                                   {e.cliente}
                                 </h1>
                               </div>
-                              <div className="flex">
+                              <div className="md:flex sm:block">
                                 <h1 className="w-5/6 m-4">
                                   {moment(e.fecha).format("L")}
                                 </h1>
@@ -115,6 +115,7 @@ function Card({ e , ordenes}: Props) {
                                   : ""
                                   }
                                 </div>
+
                                 <div className="flex justify-end m-4">
                                   <h1 className="align-center mr-2" style={{ cursor: "pointer" }}>
                                     <BsSearch />
@@ -122,22 +123,14 @@ function Card({ e , ordenes}: Props) {
                                   <h1 className="align-center mr-2" style={{ cursor: "pointer" }}>
                                     <BsPrinter />
                                   </h1>
-                                </div>{" "}
+                                </div>
+
                               </div>
                             </div>
-                            <div className="flex m-1 rounded  ">
+                            <div className="md:flex sm:block m-1 rounded  ">
                               <div className="m-2   w-2/3">
                                 <div className="flex w-full">
-                                <div className="m-2 w-20">
-                                    <h1><b>N°</b></h1>
-                                    {e.carteles.map((item: any) => (
-                                      <div>
-                                        <h1>
-                                            *
-                                        </h1>
-                                      </div>
-                                    ))}
-                                  </div>
+                               
                                   <div className="m-2 w-40">
                                     <h1><b>TIPO DE CARTEL</b></h1>
                                     {e.carteles.map((item: any) => (
@@ -166,16 +159,23 @@ function Card({ e , ordenes}: Props) {
                                       <h1>{item.otros}</h1>
                                     ))}
                                   </div>
+                                 
                                 </div>
                               </div>
-                              <div className="justify-end m-2 w-2/4 p-3 bg-gray-100 rounded ">
+
+                             <div className="flex w-full justify-end">
+                             <div className="justify-end m-2 w-full p-3 bg-gray-100 rounded ">
                                 
                                 <b>OBSERVACIONES:</b>
                                 <br />
                                 {e.observaciones}
                                
                               </div>
-                              <div><p>Entrega</p>{moment(e.fechaentrega).format('L')}</div>
+                             
+                             </div>
+                             <div className="m-2">
+                                <b>Entrega: </b>{moment(e.fechaentrega).format('L')}
+                                </div>
                             </div>
                           </div>
                           <div className="flex justify-start ml-5 mb-2 mt-1">

@@ -17,9 +17,8 @@ import useOrdenes from "../../store/ordenes";
 type Props = {
   setShowModal3: any;
   orden: any;
-  num:any
 };
-const InsumoEdit = ({ setShowModal3, orden, num }: Props) => {
+const InsumoEdit = ({ setShowModal3, orden }: Props) => {
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
   const { clientes, getClients } = useClients((state) => state);
@@ -42,7 +41,6 @@ const InsumoEdit = ({ setShowModal3, orden, num }: Props) => {
    user
   } = useUser((state) => state)
 
-  const [openTab, setOpenTab] = useState(num);
   var color: any = "white";
 
   const [category, setCartegory] = useState(["IMPRESIONES", "CARTELERIA"]);
@@ -167,7 +165,6 @@ const InsumoEdit = ({ setShowModal3, orden, num }: Props) => {
   };
 
   useEffect(() => {
-    console.log("orden", num);
     getUser(accessToken)
     if (!orden.values) {
       setValues({
@@ -381,9 +378,45 @@ const InsumoEdit = ({ setShowModal3, orden, num }: Props) => {
         )}
       </div>
       <h1 className="text-lg text-center font-bold">Contacto</h1>
-    
-      
-          <div className="ml-10 mt-5 text-xl ">
+      {
+  orden.clientes?
+<>
+<div className="ml-10 mt-5 text-xl ">
+  <p>Email</p>
+  <h1>{orden.clientes.email}</h1>
+</div>
+<div className="flex m-5">
+
+<div className="flex justify-end ">
+
+<div className="m-5 text-xl">
+  <p className="flex justify-start">Telefono</p>
+  <h1 className="flex justify-end">
+    {orden.clientes.telefono}
+  </h1>
+</div>
+<div className="flex justify-end mt-3">
+  <div className="m-7 text-2xl">
+    <a
+      href={`https://api.whatsapp.com/send?phone=${orden.clientes.telefono}&text=Hola, ${orden.clientes.name}.Le escribimos desde Carteleria`}
+    >
+      <BsWhatsapp />
+    </a>
+  </div>
+  <div className="m-7 text-2xl">
+    <a
+      href={`mailto:${orden.clientes.email}?Subject=Interesado%20en%20su%20trabajo`}
+    >
+      <MdEmail />
+    </a>
+  </div>
+</div>
+</div>
+</div>
+</>
+:
+<>
+<div className="ml-10 mt-5 text-xl ">
                 <p>Email</p>
                 <h1>{cliente.email}</h1>
               </div>
@@ -415,6 +448,8 @@ const InsumoEdit = ({ setShowModal3, orden, num }: Props) => {
               </div>
             </div>
           </div>
+</>
+}
     </div>
   </div>
 
