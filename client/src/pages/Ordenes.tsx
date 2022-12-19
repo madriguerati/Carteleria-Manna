@@ -45,7 +45,7 @@ import Swal from 'sweetalert2'
 
 const Proveedores = () => {
   const { users, user, getUsers , getUser} = useUser((state) => state, shallow);
-  const { ordenes, getOrdenesAll, getOrdenes, deleteOrdenes, loading, success } = useOrdenes(
+  const { ordenes, getOrdenesAll, getOrdenes, getOrdenesAllByName, deleteOrdenes, loading, success } = useOrdenes(
     (state) => state
   );
   const { clientes, getClients } = useClients((state) => state);
@@ -59,7 +59,7 @@ const Proveedores = () => {
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
   const [showModal4, setShowModal4] = useState(false);
-  
+  const [name, setName] = useState('');
 
   const [ordenEdit, setOrdenEdit] = useState({
     fecha: "",
@@ -86,14 +86,21 @@ const Proveedores = () => {
   const [sortUsername, setSortUsername] = useState<null | boolean>(true);
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
+
   useEffect(() => {
-    !success && getOrdenesAll(accessToken, page ,limit);
-    console.log("holaaaaaa", ordenes);
+    console.log("holaaaaaa", name);
     getClients(headers);
     getUser(accessToken)
-
     
-  }, [success, page ,limit]);
+    
+  }, [success, page ,limit, name]);
+
+  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+    const {value } = e.currentTarget;
+    setName(value);
+
+    console.log("esto es el total ", name);
+  };
 const [idUser, setIdUser]=useState(user._id)
   //delete
   const DeleteOrden = (orden: any) => {
@@ -334,6 +341,7 @@ vendedor: orden.vendedor
               </span>
               <input
                 placeholder="Buscar"
+                onChange={handleChange}
                 className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
               />
             </div>
@@ -561,7 +569,6 @@ vendedor: orden.vendedor
                             <VerOrden
                               setShowModal3={setShowModal3}
                               orden={ordenEdit}
-                              num={2}
                             />
                           </ModalVer>
                         </td>

@@ -102,6 +102,7 @@ import PutOrdenes from './ordenes/putOrdenes'
 import DeleteOrdenes from './ordenes/deleteOrdenes'
 import GetOrdenesAll from './ordenes/getOrdenesAllPages'
 import GetOrdenesDate from './ordenes/getOrdenesDate'
+import GetOrdenesAllByName from './ordenes/getOrdenesAllByName'
 
 
 
@@ -110,6 +111,8 @@ router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenes)
 router.use('/orden',  PutOrdenes)
 router.use('/ordene',verifyToken,  isGerente, DeleteOrdenes)
 router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenesAll)
+router.use('/ordeness', GetOrdenesAllByName)
+
 router.use('/ordenes',verifyToken,  isGerenteVendedor, GetOrdenesDate)
 
 

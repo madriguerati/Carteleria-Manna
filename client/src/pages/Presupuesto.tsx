@@ -426,6 +426,7 @@ const [cliente, setCliente]= useState({})
                           <p
                             className="text-gray-900 whitespace-no-wrap capitalize"
                             onClick={() => edit(presupuesto)}
+                        style={presupuesto.orden===true? {"cursor": "notAllowed", "pointerEvents":"none"}:{"cursor":"pointer"}}
                           >
                             <FiEdit3 />
                           </p>
@@ -439,8 +440,8 @@ const [cliente, setCliente]= useState({})
                             />
                           </ModalEdit>
                           </td>
-                        <td className="px-3 py-2">
-                          <p
+                        <td className="px-3 py-2" 
+>                          <p
                             className="text-gray-900 whitespace-no-wrap capitalize"
                             style={{ cursor: "pointer" }}
                             onClick={() => DeletePresupuesto(presupuesto)}

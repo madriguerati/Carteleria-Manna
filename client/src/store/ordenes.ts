@@ -39,6 +39,12 @@ type UserStore = {
     date1:string,
     date2:string
   ) => Promise<void>;
+  getOrdenesAllByName: (
+		token: string,
+		page: number,
+		limit: number,
+    name: string
+	) => Promise<void>;
   getOrdenesAll: (
 		token: string,
 		page: number,
@@ -121,6 +127,18 @@ const useOrdenes = create<UserStore>()(
         set({ loading: false});
           
         },
+        getOrdenesAllByName: async (token, page, limit, name) => {
+          try{
+            set({ loading: true}) 
+            const { data } = await axios.get(`http://localhost:5000/api/ordeness/all?page=${page}&limit=${limit}&name=${name}`,
+            { headers: { "x-access-token": token } })
+            set((state) => ({ ordenes: (state.ordenes = data) }));
+          } catch(error){
+            console.log(error)
+          }
+          set({ loading: false});
+            
+          },
       deleteOrdenes: async (params, headers, idUser)=>{
         set({ success: true, error: false });
         const { data } = await axios.delete(`https://carteleriamanna.up.railway.app/api/ordene/${params}?idUser=${idUser}`,   headers);
