@@ -34,7 +34,8 @@ type UserStore = {
 		rol: string,
 		sort: string,
 		page: number,
-		limit: number
+		limit: number,
+		name: string
 	) => Promise<void>;
 	createNewUser: (body: any) => Promise<void>;
 	signin: (body: UserLogin) => Promise<void>;
@@ -82,9 +83,9 @@ const useUser = create<UserStore>()(
 				localStorage.removeItem("auth");
 			}
 		},
-		getUsers: async (token, rol, sort, page, limit) => {
+		getUsers: async (token, rol, sort, page, limit, name) => {
 			const { data } = await axios.get(
-				`https://carteleriamanna.up.railway.app/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}`,
+				`http://localhost:5000/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}&name=${name}`,
 				{ headers: { "x-access-token": token } }
 			);
 			if (!data) {

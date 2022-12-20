@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { MdError , MdExitToApp} from "react-icons/md";
+import { MdError , MdExitToApp, MdArrowBack} from "react-icons/md";
 import useCartel from "../../store/carteles";
 import useClients from "../../store/clientes";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -176,51 +176,15 @@ console.log("holaaaaaaaaaaaaa", values)
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
     <div className="p-6 space-y-4 sm:p-8">
-   
-      <div className="flex border-b-[#77B327] border-b-4 rounded ">
-     
-    <div
-         className={`flex items-center w-full justify-start p-5 ${
-           success
-             ? "bg-white"
-             : error
-             ? "bg-red-300"
-             : ""
-         }`}
-       >
-         <h3
-           className={`md:text-3xl sm:text-lg font-semibold text-center ${
-             success
-               ? "text-[#77B327]"
-               : error
-               ? "text-red-700"
-               : "text-zinc-800"
-           }`}
-         >
-           {success
-             ? "Presupuesto exitosamente"
-             : error
-             ? "Ocurrio un error"
-             : "Crear Presupuesto"}
-         </h3>
-         {success && (
-           <BsFillCheckCircleFill
-             size={55}
-             className='text-[#77B327]'
-           />
-         )}
- 
-         {error && (
-           <MdError size={55} className='text-red-700 ml-1' />
-         )}
-       </div>
-       <button
-        className='flex text-end m-6 sm:m-2 text-black sm:mt-5 md:text-3xl pr-7 h-10  flex text-end justify-end  w-full '
+      <div className="relative m-5 flex justify-end text-2xl mb-10 border-b-4 border-[#77B327] p-5 ">
+      <button
+        className='absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center rounded '
         onClick={handleCloseModal}
       >
-        <MdExitToApp/>
-      </button> 
-    </div>
+      <MdArrowBack/>
+      </button>
+      <h1>Crear Presupuesto</h1>
+      </div>
      
       {/**form cartel */}
 <AddCartel values ={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>

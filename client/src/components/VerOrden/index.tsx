@@ -277,7 +277,7 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
               {/** monto metoto start */}
               {cajaMetodoMonto.map((e: any) => (
                 <div className=" p-4  bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex w-full ">
-                  <div className="w-40">
+                  <div className="sm:w-1/5 md:w-1/2">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       Método de pago
                     </label>
@@ -298,13 +298,13 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                       <option value="Efectivo">Efectivo</option>
                     </select>
                   </div>
-                  <div className="w-1/5">
+                  <div className=" md:w-1/2 ml-2 sm:w-1/5">
                     <div className="">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         monto
                       </label>
                       <input
-                        className="border-gray-200  w-20 "
+                        className="border-gray-200 w-full  "
                         id="grid-first-name "
                         type="number"
                         placeholder="monto"

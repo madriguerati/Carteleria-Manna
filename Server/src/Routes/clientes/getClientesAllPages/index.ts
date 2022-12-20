@@ -10,14 +10,14 @@ router.get('/allclientes', async(req: any, res: any, next)=>{
     try{
         const page : number = parseInt(req.query.page) - 1 || 0;
         const limit = parseInt(req.query.limit) || 12;
-
-        const clientes = await Clientes.find() 
+        const name = req.query.name
+        const clientes = await Clientes.find({ name: { $regex: '.*' + name + '.*', $options: 'i' }}) 
             
             .skip(page*limit)
             .limit(limit)
 
         const total = await Clientes.countDocuments({
-           // username: {$regex: search, $options: 'i'},
+            name: {$regex: name, $options: 'i'},
         });
 
         const response = {

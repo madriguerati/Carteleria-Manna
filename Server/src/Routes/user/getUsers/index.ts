@@ -10,7 +10,7 @@ router.get('/allusers', async(req: any, res: any, next)=>{
     try{
         const page : number = parseInt(req.query.page) - 1 || 0;
         const limit = parseInt(req.query.limit) || 12;
-        const search = req.query.search || '';
+        const name = req.query.name || '';
         let sort = req.query.sort || 'username';
         let roles = req.query.roles || 'all';
 
@@ -37,7 +37,7 @@ router.get('/allusers', async(req: any, res: any, next)=>{
         roleId.length && (roles = roleId)
         console.log("hola", roleArray)
 
-        const users = await User.find({ username: { $regex: '.*' + search + '.*', $options: 'i' }}) 
+        const users = await User.find({ username: { $regex: '.*' + name+ '.*', $options: 'i' }}) 
             .where('roles')
             .in([...roles])
             .sort(sortBy)
@@ -47,7 +47,7 @@ router.get('/allusers', async(req: any, res: any, next)=>{
 
         const total = await User.countDocuments({
             roles: {$in: [...roles]},
-            username: {$regex: search, $options: 'i'},
+            username: {$regex: name, $options: 'i'},
         });
 
         const response = {

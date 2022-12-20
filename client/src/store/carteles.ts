@@ -33,7 +33,8 @@ type CartelStore = {
   getCartelesAll: (
 		token: string,
 		page: number,
-		limit: number
+		limit: number,
+    name: string
 	) => Promise<void>;
   deleteCartel: (params:any, headers:any)=> Promise<void>
   closeModal: () => void;
@@ -87,10 +88,10 @@ const useCartel = create<CartelStore>()(
         set({ loading: false});
           
       },
-      getCartelesAll: async (token, page, limit) => {
+      getCartelesAll: async (token, page, limit, name) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/carteles/allcarteles?page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`http://localhost:5000/api/carteles/allcarteles?page=${page}&limit=${limit}&name=${name}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ carteles: (state.carteles = data) }));
         } catch(error){

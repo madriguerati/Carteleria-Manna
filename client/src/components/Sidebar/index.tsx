@@ -99,15 +99,7 @@ const Sidebar = () => {
                       Inicio
                     </h3>
                   </Link>
-                  <Link
-                    to="/account/perfil"
-                    className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
-                  >
-                    <CgProfile className="text-2xl text-gray-500 group-hover:text-white " />
-                    <h3 className="text-lg text-gray-400 group-hover:text-white font-semibold ">
-                      Perfil
-                    </h3>
-                  </Link>
+                  
                 <Link
                   to="/carteles"
                   className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-[#77B327] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"

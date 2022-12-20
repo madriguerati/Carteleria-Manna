@@ -178,6 +178,18 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
       console.log("esto es el total sdsdsds ", montototalissimo);
     }
   };
+  const deleteCarteles =(e:any)=>{
+    var  array: any = values.carteles.filter((item:any)=>e.name!==item.name)
+    var nuevo1: any = array.map((e:any)=>e.total)
+   var total: any =  nuevo1.reduce((a: any, b: any) => a + b, 0)
+   console.log("hey hey hye ai you gatrit", array, total)
+     setValues({
+       ...values,
+       carteles: array,
+       montototal: total
+     })
+   
+   };
 
   return (
     <div className="rounded-lg  md:mt-0 xl:p-0 ">
@@ -204,7 +216,9 @@ const ClienteEdit = ({ setShowModal2, orden }: Props) => {
 <div className="flex  mb-1 grid sm:gap-2  sm:grid-cols-2 md:gap-3 md:grid-cols-3">
         {values.carteles.map((e: any) => (
           
-            <div className="block w-full text-gray-600 border-blue-600 border-2 text-lg uppercase bg-white p-3 rounded-lg" style={{"cursor":"pointer"}}>
+            <div 
+            onClick={()=>deleteCarteles(e)}
+            className="block w-full text-gray-600 border-blue-600 border-2 text-lg uppercase bg-white p-3 rounded-lg" style={{"cursor":"pointer"}}>
             <p className="text-start">
                                 <b>Nombre: </b>
                                 {e.name}{" "}

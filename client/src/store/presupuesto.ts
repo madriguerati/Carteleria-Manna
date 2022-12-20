@@ -32,7 +32,8 @@ type PresupuestoStore = {
   getPresupuestosAll: (
 		token: string,
 		page: number,
-		limit: number
+		limit: number,
+    name: string
 	) => Promise<void>;
   addPresupuesto: (body:{}) => Promise<void>
   getPresupuestos: (headers:{})=>Promise<void>
@@ -82,10 +83,10 @@ const usePresupuesto = create<PresupuestoStore>()(
         set({ loading: false });
 
       },
-      getPresupuestosAll: async (token, page, limit) => {
+      getPresupuestosAll: async (token, page, limit,name) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/presupuestoss/allpresupuestos?page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`http://localhost:5000/api/presupuestoss/allpresupuestos?page=${page}&limit=${limit}&name=${name}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ presupuestos: (state.presupuestos = data) }));
         } catch(error){

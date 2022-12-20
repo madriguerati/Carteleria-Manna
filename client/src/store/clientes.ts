@@ -15,7 +15,7 @@ type ClientStore = {
 	getClientesAll: (
 		token: string,
 		page: number,
-		limit: number
+		limit: number,name:string
 	) => Promise<void>;
 	addClient: (body: {}) => Promise<void>;
 	putClients: (body:any, token:any) => Promise<void>
@@ -59,10 +59,10 @@ const useClients = create<ClientStore>()(
 			}
 			set({ loading: false})  
 		},
-		getClientesAll: async (token, page, limit) => {
+		getClientesAll: async (token, page, limit,name) => {
 			try{
 			  set({ loading: true}) 
-			  const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/clientes/allclientes?page=${page}&limit=${limit}`,
+			  const { data } = await axios.get(`http://localhost:5000/api/clientes/allclientes?page=${page}&limit=${limit}&name=${name}`,
 			  { headers: { "x-access-token": token } })
 			  set((state) => ({ clientes: (state.clientes = data) }));
 			} catch(error){

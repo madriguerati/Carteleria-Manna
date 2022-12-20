@@ -33,7 +33,8 @@ type UserStore = {
   getInsumosAll: (
 		token: string,
 		page: number,
-		limit: number
+		limit: number,
+    name: string
 	) => Promise<void>;
   closeModal: () => void
 }
@@ -66,10 +67,10 @@ const useInusmo = create<UserStore>()(
 
 
       },
-      getInsumosAll: async (token, page, limit) => {
+      getInsumosAll: async (token, page, limit, name) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/insumo/allinsumos?page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`http://localhost:5000/api/insumo/allinsumos?page=${page}&limit=${limit}&name=${name}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ insumos: (state.insumos = data) }));
         } catch(error){

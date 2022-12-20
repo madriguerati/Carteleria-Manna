@@ -62,13 +62,21 @@ const [proveedorInsumo, setProveedorInsumo]=useState({})
   const [sortName, setSortName] = useState<null | boolean>(null);
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
   const [accessToken] = useLocalStorage();
+  const [name, setName] = useState('');
+
   const headers = useHeaders(accessToken);
   useEffect(() => {
-    getInsumosAll(accessToken, limit, page);
+    getInsumosAll(accessToken, limit, page, name);
     getProveedores(headers)
     getInsumos(headers)
-  }, []);
+  }, [limit, page, name]);
 
+  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+    const {value } = e.currentTarget;
+    setName(value);
+ 
+
+  };
   //delete
   const DeleteInsumo = (insumo: any) => {
     Swal.fire({
@@ -240,6 +248,7 @@ const [proveedorInsumo, setProveedorInsumo]=useState({})
               <input
                 placeholder="Buscar"
                 className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+              onChange={handleChange}
               />
             </div>
           </div>

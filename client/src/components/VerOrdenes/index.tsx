@@ -36,7 +36,7 @@ const VerOrdenes =({setShowModal4, orden}:Props)=>{
                 <MdArrowBack />
               </button>
               <div className="block">
-              <div className="flex text-end border-b-4 border-red-200">
+              <div className="flex text-end border-b-4 ">
                 <b className="flex text-end">Orden:</b>
                 {orden.facturanum} 
               </div>
