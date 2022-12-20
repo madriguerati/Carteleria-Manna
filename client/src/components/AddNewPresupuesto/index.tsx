@@ -259,7 +259,7 @@ console.log("holaaaaaaaaaaaaa", values)
                 onChange={handleSelectClient}
               >
                 <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
+                  Seleccionar cliente
                 </option>
                 {clientes.map((e: any) => (
                   <option value={e.name}>{e.name}</option>
@@ -282,7 +282,7 @@ console.log("holaaaaaaaaaaaaa", values)
                 onChange={handleSelectOperación}
               >
                 <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
+                  Seleccionar operación
                 </option>
                 <option value="colocacion">
                   Colocación
@@ -357,10 +357,11 @@ console.log("holaaaaaaaaaaaaa", values)
             
           <div className="w-full mb-6 ">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              porcentaje
+              descuento
             </label>
             <select
               className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+
               id="grid-state"
               placeholder="operacion"
               name="porcentaje"
@@ -368,8 +369,8 @@ console.log("holaaaaaaaaaaaaa", values)
               onChange={handleSelectPorcentaje}
             >
               <option value="" defaultValue={""} disabled>
-                Seleccionar cartel
-              </option>
+                  Seleccionar descuento
+                </option>
               {
                 porcentaje.map((e:any)=>(
                   <option value={e}>
@@ -386,6 +387,11 @@ console.log("holaaaaaaaaaaaaa", values)
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Total
             </label>
+            <div className="relative">
+             <label className="absolute left-2 top-2.5 ">
+                $
+                
+                </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-first-name"
@@ -397,6 +403,7 @@ console.log("holaaaaaaaaaaaaa", values)
               }
               onChange={handleChange}
             />
+          </div>
           </div>
 
         

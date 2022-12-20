@@ -130,6 +130,11 @@ const InsumoPost = ({ setShowModal }: Props) => {
             )}
           </div>
         </div>
+        <div className="relative">
+             <label className="absolute left-2 top-1/3 mt-1.5 ">
+                $
+                
+                </label>
         <input
           type='text'
           name='costo'
@@ -141,6 +146,7 @@ const InsumoPost = ({ setShowModal }: Props) => {
         {errors.email && (
           <p className='text-red-600 text-sm'>{errors.email}</p>
         )}
+        </ div>
         <input
           type='text'
           name='category'
@@ -158,7 +164,7 @@ const InsumoPost = ({ setShowModal }: Props) => {
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
-                name="clientes"
+                name="proveedor"
                 value={values.proveedor}
                 onChange={handleSelect}
               >

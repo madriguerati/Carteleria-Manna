@@ -244,7 +244,7 @@ console.log("hey hey hye ai you gatrit", array, total)
                   href="#link2"
                   role="tablist"
                 >
-                  Convertir en orden
+                  Iniciar orden
                 </a>
               </li>
              
@@ -438,7 +438,7 @@ onChange={handleChange}
       
     <div className="w-full mb-6 ">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        porcentaje
+        descuento
       </label>
       <select
         className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -467,6 +467,11 @@ onChange={handleChange}
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
         Total
       </label>
+      <div className="relative">
+             <label className="absolute left-2 top-2.5 ">
+                $
+                
+                </label>
       <input
         className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
         id="grid-first-name"
@@ -478,6 +483,7 @@ onChange={handleChange}
         }
         onChange={handleChange}
       />
+    </div>
     </div>
 
   
@@ -680,6 +686,11 @@ onChange={handleChange}
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 seña
               </label>
+              <div className="relative">
+             <label className="absolute left-2 top-2.5 ">
+                $
+                
+                </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
@@ -690,6 +701,8 @@ onChange={handleChange}
                 onChange={handleChange}
               />
             </div>
+            </div>
+
             <div className="w-full">
               <label className="block uppercase tracking-wide w-full text-gray-700 text-xs font-bold mb-2">
                 Metodo de pago
@@ -714,6 +727,11 @@ onChange={handleChange}
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Total
               </label>
+              <div className="relative">
+             <label className="absolute left-2 top-2.5 ">
+                $
+                
+                </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
@@ -729,6 +747,8 @@ onChange={handleChange}
                 onChange={handleChange}
               />
             </div>
+            </div>
+
 
           
           
@@ -746,7 +766,7 @@ onChange={handleChange}
 
           <div className="">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                factura numero
+                factura N°
               </label>
               <input
                 className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -808,10 +828,10 @@ onChange={handleChange}
               Cancelar
             </button>
     <button
-              className="bg-blue-600 text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className=" tracking-wide bg-blue-600 text-white active:bg-[#77B327] font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
              onClick={changeOrden}
             >
-              orden
+              Iniciar Orden
             </button>
     </div>
     </div>

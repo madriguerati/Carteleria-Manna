@@ -341,7 +341,7 @@ console.log("hola estos", newArray, values)
                 onChange={handleSelectCliente}
               >
                 <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
+                  Seleccionar cliente
                 </option>
                 {clientes.map((e: any) => (
                   <option value={e.name}>{e.name}</option>
@@ -361,7 +361,7 @@ console.log("hola estos", newArray, values)
                 onChange={handleSelectOperación}
               >
                 <option value="" defaultValue={""} disabled>
-                  Seleccionar cartel
+                  Seleccionar operacion
                 </option>
                 <option value="colocacion">
                   Colocación
@@ -444,7 +444,7 @@ console.log("hola estos", newArray, values)
             
             <div className="w-full mb-6 ">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                porcentaje
+                Descuento
               </label>
               <select
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -472,6 +472,11 @@ console.log("hola estos", newArray, values)
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 seña
               </label>
+              <div className="relative">
+             <label className="absolute left-2 top-2.5 ">
+                $
+                
+                </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
@@ -482,10 +487,17 @@ console.log("hola estos", newArray, values)
                 onChange={handleChange}
               />
             </div>
+
+            </div>
             <div className="ml-1">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Total
               </label>
+             <div className="relative">
+             <label className="absolute left-2 top-2.5 ">
+                $
+                
+                </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
@@ -500,6 +512,7 @@ console.log("hola estos", newArray, values)
                 }
                 onChange={handleChange}
               />
+             </div>
             </div>
 
           
@@ -518,7 +531,7 @@ console.log("hola estos", newArray, values)
 
           <div className="">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                factura numero
+                factura N°
               </label>
               <input
                 className="appearance-none block w-30 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"

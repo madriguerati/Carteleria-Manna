@@ -683,7 +683,7 @@ vendedor: orden.vendedor
             onClick={() => setShowModal(true)}
           >
             <span className="text-white flex items-center gap-2">
-              Agregar nueva orden <MdOutlineAdd className="text-xl" />
+              Iniciar nueva orden <MdOutlineAdd className="text-xl" />
             </span>
           </button>
         </div>

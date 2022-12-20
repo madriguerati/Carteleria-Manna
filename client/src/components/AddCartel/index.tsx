@@ -230,7 +230,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
               
               <div className="ml-1">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                  medidas
+                  Total M <sup>2</sup>
                 </label>
                 <input
                   className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -253,6 +253,11 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   total
                 </label>
+               <div className="relative">
+                <label className="absolute left-2 top-2.5 ">
+                $
+                
+                </label>
                 <input
                   className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-city"
@@ -267,6 +272,7 @@ const AddCartel = ({values, setValues, montoModificado,setMontoModificado}:Props
                   }
                   onChange={handleChange}
                 />
+               </div>
               </div>
             </div>
 

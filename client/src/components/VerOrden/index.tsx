@@ -241,20 +241,20 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
         <div className="mt-5 flex text-lg">
           <div className="border-b-4 border-green-600 w-1/3">
             <b className="text-gray-600 ">pagado</b>
-            <h1>{orden.seña+ orden.resta}</h1>
+            <h1>$ {orden.seña+ orden.resta}</h1>
           </div>
 
           <div className="w-1/3">
             <div className="ml-2 border-b-4 border-red-600">
               <b className="text-gray-600 ">Resta</b>
               <h1>
-                {orden.montototal - (orden.seña + orden.resta)}
+              $  {orden.montototal - (orden.seña + orden.resta)}
               </h1>
             </div>
           </div>
           <div className="ml-2 border-b-4 border-blue-600 text-center w-1/3 ">
             <b className="text-gray-600">Total</b>
-            <h1>{orden.montototal}</h1>
+            <h1>$ {orden.montototal}</h1>
           </div>
         </div>
         {orden.restaHistory.length == 0 ? (
@@ -303,11 +303,12 @@ const InsumoEdit = ({ setShowModal3, orden }: Props) => {
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         monto
                       </label>
+                      
                       <input
                         className="border-gray-200 w-full  "
                         id="grid-first-name "
                         type="number"
-                        placeholder="monto"
+                        placeholder="$ monto"
                         name="monto"
                         onChange={handleChange}
                       />

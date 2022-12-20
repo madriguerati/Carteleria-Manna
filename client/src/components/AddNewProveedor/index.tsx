@@ -95,7 +95,7 @@ const AddNewProveedor = ({ setShowModal }: Props) => {
 			<div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 ">
       
 	  <div className="w-1/2">
-	   <h1 className="text-3xl">Crear Proveedor</h1>
+	   <h1 className="text-3xl">Agregar Proveedor</h1>
 	  </div>
 
 	  <button

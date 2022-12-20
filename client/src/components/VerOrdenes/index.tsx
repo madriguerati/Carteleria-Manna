@@ -93,18 +93,18 @@ const VerOrdenes =({setShowModal4, orden}:Props)=>{
             <div className="mt-5 flex text-lg mb-7">
               <div className="border-b-4 border-green-600 w-1/3">
                 <b className="text-gray-600 ">Pagado</b>
-                <h1>{orden.seña+orden.resta}</h1>
+                <h1>$ {orden.seña+orden.resta}</h1>
               </div>
 
               <div className="w-1/3 ">
                 <div className="ml-1 border-b-4 border-red-600">
                   <b className="text-gray-600 ">Resta</b>
-                  <h1>{orden.montototal -(orden.seña+orden.resta)}</h1>
+                  <h1>$ {orden.montototal -(orden.seña+orden.resta)}</h1>
                 </div>
               </div>
               <div className="w-1/3 ml-1 border-b-4 border-blue-600 text-center ">
                 <b className="text-gray-600">Total</b>
-                <h1>{orden.montototal}</h1>
+                <h1>$ {orden.montototal}</h1>
               </div>
             </div>
             <hr />

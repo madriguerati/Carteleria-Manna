@@ -517,7 +517,7 @@ const [cliente, setCliente]= useState({})
             onClick={() => setShowModal(true)}
           >
             <span className="text-white flex items-center gap-2">
-              Agregar nuevo cliente <MdOutlineAdd className="text-xl" />
+              Crear Presupuesto <MdOutlineAdd className="text-xl" />
             </span>
           </button>
         </div>

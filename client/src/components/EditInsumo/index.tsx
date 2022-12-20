@@ -129,6 +129,11 @@ const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
             )}
           </div>
         </div>
+        <div className="relative">
+             <label className="absolute left-2 top-1/3 mt-1.5 ">
+                $
+                
+                </label>
         <input
           type='text'
           name='costo'
@@ -140,6 +145,7 @@ const InsumoEdit = ({ setShowModal2, insumo }: Props) => {
         {errors.email && (
           <p className='text-red-600 text-sm'>{errors.email}</p>
         )}
+        </div>
         <input
           type='text'
           name='category'
