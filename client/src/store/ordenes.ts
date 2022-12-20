@@ -108,7 +108,7 @@ const useOrdenes = create<UserStore>()(
       getOrdenes: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('https://carteleriamanna.up.railway.app/api/ordeness', headers )
+          const { data } = await axios.get('http://localhost:5000/api/ordeness', headers )
           set((state) => ({ ordenes2: (state.ordenes2 = data) }));
         }catch(error){
           console.log(error)

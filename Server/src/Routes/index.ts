@@ -107,7 +107,7 @@ import GetOrdenesAllByName from './ordenes/getOrdenesAllByName'
 
 
 router.use('/ordenes',  PostOrdenes)
-router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenes)
+router.use('/ordeness', GetOrdenes)
 router.use('/orden',  PutOrdenes)
 router.use('/ordene',verifyToken,  isGerente, DeleteOrdenes)
 router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenesAll)

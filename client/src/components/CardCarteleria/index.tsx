@@ -6,6 +6,7 @@ import useHeaders from "../../hooks/useHeaders";
 import useLocalStorage from "../../hooks/useLocalStorage";
 const [accessToken] = useLocalStorage();
 const headers = useHeaders(accessToken);
+import  Swal from 'sweetalert2';
 
 
 type Props = {
@@ -19,7 +20,16 @@ function Card({ e }: Props) {
         (state) => state
       );
       const aceptar = () => {
-        e.stateCarteleria = "realizada";
+        Swal.fire({
+          title: '¿Desea guardar los cambios?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonColor: '#77B327',
+          confirmButtonText: 'Guardar',
+          denyButtonText: `No guardar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            e.stateCarteleria = "realizada";
         var values: any = {
           ...values,
           stateCarteleria:"realizada",
@@ -28,44 +38,79 @@ function Card({ e }: Props) {
         console.log("holaaaaaaaaaaaaa soy un camboio aaa", values, e);
     
         putOrden(values, headers);
+            Swal.fire('¡Guardado exitosamente!', '', 'success')
+          } else if (result.isDenied) {
+            Swal.fire('Los cambios no han sido guardados', '', 'info')
+          }
+        })
+        
       };
       const deshacer = () => {
-       
-        if(e.stateCarteleria=== "entregada"){
+        Swal.fire({
+          title: '¿Desea guardar los cambios?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonColor: '#77B327',
+          confirmButtonText: 'Guardar',
+          denyButtonText: `No guardar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if(e.stateCarteleria=== "entregada"){
           
-          e.stateCarteleria ="realizada"
-          var values: any = {
-            ...values,
-            stateCarteleria: "realizada",
-            id: e._id,
-          };
-          console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
-      
-          putOrden(values, headers);
-        } else if(e.stateCarteleria==="realizada") {
-          e.stateCarteleria = "pendiente";
-          console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
-          var values: any = {
-            ...values,
-            stateCarteleria: "pendiente",
-            id: e._id,
-          };
-          console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
-      
-          putOrden(values, headers);
-        }
+              e.stateCarteleria ="realizada"
+              var values: any = {
+                ...values,
+                stateCarteleria: "realizada",
+                id: e._id,
+              };
+              console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
+          
+              putOrden(values, headers);
+            } else if(e.stateCarteleria==="realizada") {
+              e.stateCarteleria = "pendiente";
+              console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
+              var values: any = {
+                ...values,
+                stateCarteleria: "pendiente",
+                id: e._id,
+              };
+              console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
+          
+              putOrden(values, headers);
+            }
+            Swal.fire('¡Guardado exitosamente!', '', 'success')
+          } else if (result.isDenied) {
+            Swal.fire('Los cambios no han sido guardados', '', 'info')
+          }
+        })
+        
       };
 
       const entregado = () => {
-        e.stateCarteleria = "entregada";
-        console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
-        var values: any = {
-          ...values,
-          stateCarteleria: "entregada",
-          id: e._id,
-        };
-        console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
-        putOrden(values, headers);
+        Swal.fire({
+          title: '¿Desea guardar los cambios?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonColor: '#77B327',
+          confirmButtonText: 'Guardar',
+          denyButtonText: `No guardar`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            e.stateCarteleria = "entregada";
+            console.log("holaaaaaaaaaaaaa soy un camboio aaa", e._id);
+            var values: any = {
+              ...values,
+              stateCarteleria: "entregada",
+              id: e._id,
+            };
+            console.log("holaaaaaaaaaaaaa soy un camboio aaa", values);
+            putOrden(values, headers);
+            Swal.fire('¡Guardado exitosamente!', '', 'success')
+          } else if (result.isDenied) {
+            Swal.fire('Los cambios no han sido guardados', '', 'info')
+          }
+        })
+       
       };
 
   return (
@@ -82,7 +127,7 @@ function Card({ e }: Props) {
                                   {e.cliente}
                                 </h1>
                               </div>
-                              <div className="flex">
+                              <div className="md:flex sm:block">
                                 <h1 className="w-5/6 m-4">
                                   {moment(e.fecha).format("L")}
                                 </h1>
@@ -122,28 +167,19 @@ function Card({ e }: Props) {
                                 </div>{" "}
                               </div>
                             </div>
-                            <div className="flex m-1 rounded  ">
-                              <div className="m-2   w-2/3">
-                                <div className="flex w-full">
-                                <div className="m-2 w-20">
-                                    <h1><b>N°</b></h1>
-                                    {e.carteles.map((item: any) => (
-                                      <div>
-                                        <h1>
-                                            *
-                                        </h1>
-                                      </div>
-                                    ))}
-                                  </div>
-                                  <div className="m-2 w-40">
-                                    <h1><b>TIPO DE CARTEL</b></h1>
-                                    {e.carteles.map((item: any) => (
+                            <div className="md:flex sm:block m-1 rounded  ">
+                              <div className="m-2  md:w-[800px] border">
+                                <div className="flex grid sm:gap-1 sm:grid-cols-1 md:gap-4 md:grid-cols-4">
+                               
+                                  <div className=" m-5">
+                                    <b>TIPO DE CARTEL</b>
+                                    <h1>{e.carteles.map((item: any) => (
                                       <div>
                                         <h1>{item.name}</h1>
                                       </div>
-                                    ))}
+                                    ))}</h1>
                                   </div>
-                                  <div className="m-2">
+                                  <div className="m-5">
                                     <h1><b>MEDIDAS</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>
@@ -151,13 +187,14 @@ function Card({ e }: Props) {
                                       </h1>
                                     ))}
                                   </div>
-                                  <div className="m-2">
+
+                                 <div className="m-5">
                                     <h1><b>ESTRUCTURA</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>{item.estructura}</h1>
                                     ))}
                                   </div>
-                                  <div className="m-2">
+                                  <div className="m-5 w-[200px]">
                                     <h1><b>OTROS</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>{item.otros}</h1>
@@ -165,7 +202,8 @@ function Card({ e }: Props) {
                                   </div>
                                 </div>
                               </div>
-                              <div className="justify-end m-2 w-2/4 p-3 bg-gray-100 rounded ">
+
+                              <div className="justify-end m-2 md:w-[600px] sm:w-full p-3 bg-gray-100 rounded ">
                                 
                                 <b>OBSERVACIONES:</b>
                                 <br />

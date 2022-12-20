@@ -128,10 +128,10 @@ function Card({ e , ordenes}: Props) {
                               </div>
                             </div>
                             <div className="md:flex sm:block m-1 rounded  ">
-                              <div className="m-2   w-2/3">
-                                <div className="flex w-full">
+                              <div className="md:w-[800px]">
+                                <div className="md:flex sm:block border w-full grid sm:gap-1  sm:grid-cols-1 md:gap-4 md:grid-cols-4">
                                
-                                  <div className="m-2 w-40">
+                                  <div className="m-5">
                                     <h1><b>TIPO DE CARTEL</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <div>
@@ -139,7 +139,7 @@ function Card({ e , ordenes}: Props) {
                                       </div>
                                     ))}
                                   </div>
-                                  <div className="m-2">
+                                  <div className="m-5">
                                     <h1><b>MEDIDAS</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>
@@ -147,13 +147,13 @@ function Card({ e , ordenes}: Props) {
                                       </h1>
                                     ))}
                                   </div>
-                                  <div className="m-2">
+                                  <div className="m-5">
                                     <h1><b>ESTRUCTURA</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>{item.estructura}</h1>
                                     ))}
                                   </div>
-                                  <div className="m-2">
+                                  <div className="m-5">
                                     <h1><b>OTROS</b></h1>
                                     {e.carteles.map((item: any) => (
                                       <h1>{item.otros}</h1>
@@ -163,8 +163,8 @@ function Card({ e , ordenes}: Props) {
                                 </div>
                               </div>
 
-                             <div className="flex w-full justify-end">
-                             <div className="justify-end m-2 w-full p-3 bg-gray-100 rounded ">
+                             <div className="flex md:w-[600px] justify-end">
+                             <div className="justify-end  ml-2 w-full p-3 bg-gray-100 rounded ">
                                 
                                 <b>OBSERVACIONES:</b>
                                 <br />
