@@ -77,9 +77,9 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
   return (
     <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 ">
       <div className="p-6 space-y-4 sm:p-8">
-      <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+      <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1">
       
-        <div className="">
+        <div className="w-1/2">
          <h1 className="text-3xl">Editar Cliente</h1>
         </div>
 
@@ -110,7 +110,7 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
               )}
             </div>
 
-            <div className="ml-2">
+            <div className="">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 telefono
               </label>
@@ -207,7 +207,7 @@ const ClienteEdit = ({ setShowModal2, client, setRefresh, refresh}: Props) => {
                 <p className="text-red-600 text-sm">{errors.lastname}</p>
               )}
             </div>
-            <div className="ml-2">
+            <div className="">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-2 mb-1">
                 Razón Social
               </label>

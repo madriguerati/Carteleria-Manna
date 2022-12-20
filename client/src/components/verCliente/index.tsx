@@ -48,15 +48,14 @@ const [category, setCartegory]=useState(["IMPRESIONES", "CARTELERIA"])
   return (
     <div className="rounded-lg shadow dark:border p-5 md:mt-0 xl:p-0 flex md:w-full sm:w-[400px]  ">
       <div className="w-full space-y-4 sm:p-8">
-      <div className=" flex  text-2xl mb-10 border-b-4 border-[#77B327] p-5 mb-1 grid sm:gap-1  sm:grid-cols-1
-      md:gap-2 md:grid-cols-2 ">
+      <div className=" flex  text-2xl mb-10 border-b-4 border-[#77B327] p-5 mb-1 ">
           <button
-            className="w-full sm:pt-8"
+            className="w-full mt-2 align-center flex"
             onClick={handleCloseModal}
           >
             <MdArrowBack />
           </button>
-          <h1 className="text-end justify-end flex w-full">{cliente.name}</h1>
+          <h1 className=" text-end justify-end flex w-full">{cliente.name}</h1>
         </div>
         {/** inicio */}
 <div>

@@ -174,18 +174,21 @@ console.log("holaaaaaaaaaaaaa", values)
     }
   }
   return (
-    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 overflow-auto my-20 ">
-    <div className="p-6 space-y-4 sm:p-8">
-      <div className="relative m-5 flex justify-end text-2xl mb-10 border-b-4 border-[#77B327] p-5 ">
+    <div className="rounded-lg shadow dark:border md:mt-0  ">
+    <div className="p-6 ">
+    <div className="border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 flex">
+      
+      <div className=" w-1/2">
+       <h1 className="text-3xl p-5">Crear Orden</h1>
+      </div>
+
       <button
-        className='absolute top-1/3 left-5 text-xl w-10 h-10 rounded-full flex justify-center rounded '
+        className=" text-black text-4xl w-1/2 pt-4 mr-4 flex justify-end"
         onClick={handleCloseModal}
       >
-      <MdArrowBack/>
+        <MdExitToApp />
       </button>
-      <h1>Crear Presupuesto</h1>
       </div>
-     
       {/**form cartel */}
 <AddCartel values ={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
       {/**form cartel */}

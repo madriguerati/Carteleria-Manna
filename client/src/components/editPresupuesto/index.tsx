@@ -171,7 +171,7 @@ const changeOrden=()=>{
 
 console.log("hola", values)
 Swal.fire({
-  title: '¿Desea guardar los cambios?',
+  title: '¿Desea convertir en orden?',
   showDenyButton: true,
   showCancelButton: true,
   confirmButtonColor: '#77B327',
@@ -182,7 +182,7 @@ Swal.fire({
     postOrden(values, headers)
 putPresupuesto(ordenchange, headers)
 handleCloseModal()
-    Swal.fire('¡Guardado exitosamente!', '', 'success')
+    Swal.fire('¡Cambios guardados exitosamente!', '', 'success')
   } else if (result.isDenied) {
     Swal.fire('Los cambios no han sido guardados', '', 'info')
   }
@@ -566,13 +566,13 @@ onChange={handleChange}
       <form onSubmit={handleSubmit} className='flex flex-col mt-4'>
   {/**primera columna  */}
 
-  <div className="flex flex-wrap-mx-3 ">
-          <div>
+  <div className="flex  ">
+          <div className="w-1/3">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Fecha
           </label>
           <input
-            className="appearance-none block w-20 bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="appearance-none block w-full  bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-first-name"
             type="string"
             placeholder="hola"
@@ -581,12 +581,12 @@ onChange={handleChange}
             onChange={handleChange}
           />
         </div>
-            <div className="w-40 md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className="w-1/3">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Cliente
               </label>
               <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block appearance-none w-full ml-1 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
                 name="clientes"
                 value={values.cliente}
@@ -601,12 +601,12 @@ onChange={handleChange}
               </select>
             </div>
 
-            <div className="w-40 md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className="w-1/3">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Operación
               </label>
               <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block appearance-none w-full ml-2 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
                 placeholder="operacion"
                 name="operacion"

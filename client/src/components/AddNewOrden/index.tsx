@@ -289,15 +289,15 @@ console.log("hola estos", newArray, values)
    
   }, []);
   return (
-    <div className="rounded-lg shadow dark:border md:mt-0 xl:p-0 p-5 ">
-        <div className="flex  m-10 border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+    <div className="rounded-lg shadow dark:border p-5 ">
+        <div className="border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 flex">
       
-      <div className=" flex pt-5">
-       <h1 className="text-3xl pt-5">Crear Orden</h1>
+      <div className=" w-1/2">
+       <h1 className="text-3xl p-5">Crear Orden</h1>
       </div>
 
       <button
-        className=" text-black text-4xl w-full flex justify-end"
+        className=" text-black text-4xl w-1/2 pt-4 mr-4 flex justify-end"
         onClick={handleCloseModal}
       >
         <MdExitToApp />
@@ -305,7 +305,7 @@ console.log("hola estos", newArray, values)
       </div>
     <div className=" ">
       
-        <div className="md:p-5 sm:p-10">
+        <div className=" m-10">
         <AddCartel values={values} setValues={setValues} montoModificado={montoModificado} setMontoModificado={setMontoModificado}/>
 
         </div>
@@ -315,7 +315,7 @@ console.log("hola estos", newArray, values)
           {/**primera columna  */}
 
           <div className="flex flex-wrap-mx-3 ">
-          <div>
+          <div className="w-1/3">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Fecha
           </label>
@@ -329,7 +329,7 @@ console.log("hola estos", newArray, values)
             onChange={handleChange}
           />
         </div>
-            <div className="w-40 md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className="md:w-1/3 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Cliente
               </label>
@@ -348,8 +348,7 @@ console.log("hola estos", newArray, values)
                 ))}
               </select>
             </div>
-
-            <div className="w-40 md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className=" md:w-1/3 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Operación
               </label>
@@ -376,6 +375,7 @@ console.log("hola estos", newArray, values)
                 
               </select>
             </div>
+           
           </div>
           
 

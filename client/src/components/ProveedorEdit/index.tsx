@@ -75,9 +75,9 @@ const ProveedorEdit = ({ setShowModal2, proveedor }: Props) => {
   return (
     <div className='rounded-lg shadow dark:border md:mt-0 xl:p-0 '>
     <div className='p-6 space-y-4 sm:p-8'>
-    <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1 grid sm:gap-1  sm:grid-cols-1 md:gap-2 md:grid-cols-2">
+    <div className="flex border-b-4 border-[#77B327] rounded border-b-4 p-5 mb-1">
       
-      <div className="">
+      <div className="w-1/2">
        <h1 className="text-3xl">Editar Proveedor</h1>
       </div>
 
