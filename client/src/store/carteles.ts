@@ -55,7 +55,7 @@ const useCartel = create<CartelStore>()(
       //actions
       addCartel: async (body) => {
         try {
-          const { data } = await axios.post('https://carteleriamannaversionprueba.up.railway.app/api/carteles/create', body );
+          const { data } = await axios.post('http://localhost:5000/api/carteles/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });
@@ -91,7 +91,7 @@ const useCartel = create<CartelStore>()(
       getCartelesAll: async (token, page, limit, name) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/carteles/allcarteles?page=${page}&limit=${limit}&name=${name}`,
+          const { data } = await axios.get(`http://localhost:5000/api/carteles/allcarteles?page=${page}&limit=${limit}&name=${name}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ carteles: (state.carteles = data) }));
         } catch(error){

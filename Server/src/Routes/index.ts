@@ -27,7 +27,7 @@ router.use('/user', verifyToken, GetUserById)
 router.use('/user', verifyToken, isGerente, GetUser)
 router.use('/users',  PutUserDatos)
 router.use('/user', verifyToken, isGerente, PutRoleUser)
-router.use('/user', verifyToken, isGerente, DeleteUserById)
+router.use('/user',  DeleteUserById)
 router.use('/users', GetUsersAll)
 router.use('/users', putChangeState)
 
@@ -43,11 +43,11 @@ import PutInsumo from './insumo/putInsumo'
 import GetInsumosAll from './insumo/getInsumosAllPages'
 
 
-router.use('/insumo', verifyToken,  isGerente, PostInsumo)
-router.use('/insumos', verifyToken,  isGerente, GetInsumo)
-router.use('/insumo', verifyToken,  isGerente, DeleteInsumo)
-router.use('/insumo', verifyToken,  isGerente, PutInsumo)
-router.use('/insumo', verifyToken, isGerente, GetInsumosAll)
+router.use('/insumo',PostInsumo)
+router.use('/insumos',  GetInsumo)
+router.use('/insumo',  DeleteInsumo)
+router.use('/insumo', PutInsumo)
+router.use('/insumo',GetInsumosAll)
 
 
 //clientes
@@ -58,11 +58,11 @@ import DeleteClientes from './clientes/deleteClientes'
 import GetClientesAll from './clientes/getClientesAllPages'
 
 
-router.use('/clientes',verifyToken,  PostClientes)
-router.use('/clientes',verifyToken,   GetClientes)
-router.use('/clientes', verifyToken, PutClientes)
-router.use('/clientes',verifyToken,  DeleteClientes)
-router.use('/clientes',verifyToken,isGerenteVendedor,   GetClientesAll)
+router.use('/clientes',PostClientes)
+router.use('/clientes',  GetClientes)
+router.use('/clientes', PutClientes)
+router.use('/clientes',  DeleteClientes)
+router.use('/clientes', GetClientesAll)
 
 
 //proveedores
@@ -74,10 +74,10 @@ import GetProveedoresAll from './proveedores/getProveedoresAllPages'
 
 
 router.use('/proveedores', PostProveedores)
-router.use('/proveedores',verifyToken,  GetProveedores)
+router.use('/proveedores',  GetProveedores)
 router.use('/proveedores',PutProveedores)
-router.use('/proveedores',verifyToken,  DeleteProveedores)
-router.use('/proveedores',verifyToken,  GetProveedoresAll)
+router.use('/proveedores', DeleteProveedores)
+router.use('/proveedores', GetProveedoresAll)
 
 
 //Carteles
@@ -88,11 +88,11 @@ import DeleteCarteles from './carteles/deleteCarteles'
 import GetCartelesAll from './carteles/getCartelesAllPages'
 
 
-router.use('/carteles',verifyToken,   PostCarteles)
+router.use('/carteles',  PostCarteles)
 router.use('/carteles', GetCarteles)
-router.use('/carteles',verifyToken,  PutCarteles)
-router.use('/carteles',verifyToken,  DeleteCarteles)
-router.use('/carteles',verifyToken,  GetCartelesAll)
+router.use('/carteles',PutCarteles)
+router.use('/carteles',DeleteCarteles)
+router.use('/carteles', GetCartelesAll)
 
 
 //ordenes
@@ -109,11 +109,11 @@ import GetOrdenesAllByName from './ordenes/getOrdenesAllByName'
 router.use('/ordenes',  PostOrdenes)
 router.use('/ordeness', GetOrdenes)
 router.use('/orden',  PutOrdenes)
-router.use('/ordene',verifyToken,  isGerente, DeleteOrdenes)
-router.use('/ordeness',verifyToken,  isGerenteVendedor, GetOrdenesAll)
-router.use('/ordeness', GetOrdenesAllByName)
+router.use('/ordene', DeleteOrdenes)
+router.use('/ordenes', GetOrdenesAll)
+router.use('/ordenes', GetOrdenesAllByName)
 
-router.use('/ordenes',verifyToken,  isGerenteVendedor, GetOrdenesDate)
+router.use('/ordenes', GetOrdenesDate)
 
 
 
@@ -127,9 +127,9 @@ import GetPresupuestosAll from './presupuestos/getPresupuestosAllPages'
 
 router.use('/presupuesto',PostPresupuesto);
 router.use('/presupuesto', PutPresupuesto)
-router.use('/presupuesto',verifyToken,  isGerenteVendedor, GetPresupuesto)
-router.use('/presupuesto',verifyToken,  isGerente, DeletePresupuesto)
-router.use('/presupuestoss',verifyToken,  isGerenteVendedor,GetPresupuestosAll)
+router.use('/presupuesto', GetPresupuesto)
+router.use('/presupuesto', DeletePresupuesto)
+router.use('/presupuestoss',GetPresupuestosAll)
 
 
 

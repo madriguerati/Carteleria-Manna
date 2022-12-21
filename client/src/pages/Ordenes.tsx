@@ -88,14 +88,15 @@ const Proveedores = () => {
   const [sortLastName, setSortLastName] = useState<null | boolean>(null);
 
   useEffect(() => {
-    getOrdenesAllByName(accessToken, page ,limit, name)
+    getOrdenesAll(accessToken, page ,limit)
+
     console.log("holaaaaaa", name);
     getClients(headers);
     getUser(accessToken)
     console.log("esto es el total ", ordenes.ordenes);
     
     
-  }, [success, page ,limit, name]);
+  }, [success, page ,limit]);
 
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {

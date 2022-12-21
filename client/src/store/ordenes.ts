@@ -48,7 +48,7 @@ type UserStore = {
   getOrdenesAll: (
 		token: string,
 		page: number,
-		limit: number
+		limit: number,
 	) => Promise<void>;
   putOrden: (body:any, token:any) => Promise<void>
   getOrdenes: (token:any) => Promise<void>
@@ -118,7 +118,7 @@ const useOrdenes = create<UserStore>()(
       getOrdenesAll: async (token, page, limit) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/ordeness/all?page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`http://localhost:5000/api/ordenes/all?page=${page}&limit=${limit}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ ordenes: (state.ordenes = data) }));
         } catch(error){
@@ -130,7 +130,7 @@ const useOrdenes = create<UserStore>()(
         getOrdenesAllByName: async (token, page, limit, name) => {
           try{
             set({ loading: true}) 
-            const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/ordeness/allbyname?page=${page}&limit=${limit}&name=${name}`,
+            const { data } = await axios.get(`http://localhost:5000/api/ordenes/byname?page=${page}&limit=${limit}&name=${name}`,
             { headers: { "x-access-token": token } })
             set((state) => ({ ordenes: (state.ordenes = data) }));
           } catch(error){

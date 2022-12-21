@@ -36,7 +36,7 @@ const cartelesSchema = new Schema(
         total:
         {
             type:Number,
-            required: true
+            request: true
         },
     },
     {
