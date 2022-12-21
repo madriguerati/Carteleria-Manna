@@ -55,7 +55,7 @@ const useCartel = create<CartelStore>()(
       //actions
       addCartel: async (body) => {
         try {
-          const { data } = await axios.post('https://carteleriamanna.up.railway.app/api/carteles/create', body );
+          const { data } = await axios.post('https://carteleriamannaversionprueba.up.railway.app/api/carteles/create', body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });
@@ -69,7 +69,7 @@ const useCartel = create<CartelStore>()(
         };
         set({ success: true})
         set({ loading: true}) 
-        const { data } = await axios.put('https://carteleriamanna.up.railway.app/api/carteles', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('https://carteleriamannaversionprueba.up.railway.app/api/carteles', body, { headers: { "x-access-token": token} });
         set({ success: false})
         
         set({ loading: false}) 
@@ -79,7 +79,7 @@ const useCartel = create<CartelStore>()(
       getCarteles: async (token) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/carteles`,
+          const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/carteles`,
           { headers: { "x-access-token": token } })
           set((state) => ({ carteles2: (state.carteles2 = data) }));
         } catch(error){
@@ -91,7 +91,7 @@ const useCartel = create<CartelStore>()(
       getCartelesAll: async (token, page, limit, name) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`http://localhost:5000/api/carteles/allcarteles?page=${page}&limit=${limit}&name=${name}`,
+          const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/carteles/allcarteles?page=${page}&limit=${limit}&name=${name}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ carteles: (state.carteles = data) }));
         } catch(error){
@@ -102,7 +102,7 @@ const useCartel = create<CartelStore>()(
       },
       deleteCartel: async (params, headers)=>{
         set({ loading: true });
-        const { data } = await axios.delete(`https://carteleriamanna.up.railway.app/api/carteles/${params}`,  headers);
+        const { data } = await axios.delete(`https://carteleriamannaversionprueba.up.railway.app/api/carteles/${params}`,  headers);
         set({ loading: false });
 
       },

@@ -74,7 +74,7 @@ const useOrdenes = create<UserStore>()(
         let headers:any = {
         "x-access-token" : token
       };
-        const { data } = await axios.put('https://carteleriamanna.up.railway.app/api/orden', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put('https://carteleriamannaversionprueba.up.railway.app/api/orden', body, { headers: { "x-access-token": token} });
        
 
       },
@@ -84,7 +84,7 @@ const useOrdenes = create<UserStore>()(
         };
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/ordenes/ordenesbydate?date1=${date1}&date2=${date2}`,{ headers: { "x-access-token": token} }
+          const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/ordenes/ordenesbydate?date1=${date1}&date2=${date2}`,{ headers: { "x-access-token": token} }
           )
           set((state) => ({ ordenes2: (state.ordenes2 = data) }));
         }catch(error){
@@ -99,7 +99,7 @@ const useOrdenes = create<UserStore>()(
       };
       set({ success: true, error: false });
        try{ 
-        const { data } = await axios.post('http://localhost:5000/api/ordenes/create', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.post('https://carteleriamannaversionprueba.up.railway.app/api/ordenes/create', body, { headers: { "x-access-token": token} });
       }catch (error) {
         set({ error: true, success: false });
        }
@@ -108,7 +108,7 @@ const useOrdenes = create<UserStore>()(
       getOrdenes: async (headers) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get('http://localhost:5000/api/ordeness', headers )
+          const { data } = await axios.get('https://carteleriamannaversionprueba.up.railway.app/api/ordeness', headers )
           set((state) => ({ ordenes2: (state.ordenes2 = data) }));
         }catch(error){
           console.log(error)
@@ -118,7 +118,7 @@ const useOrdenes = create<UserStore>()(
       getOrdenesAll: async (token, page, limit) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamanna.up.railway.app/api/ordeness/all?page=${page}&limit=${limit}`,
+          const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/ordeness/all?page=${page}&limit=${limit}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ ordenes: (state.ordenes = data) }));
         } catch(error){
@@ -130,7 +130,7 @@ const useOrdenes = create<UserStore>()(
         getOrdenesAllByName: async (token, page, limit, name) => {
           try{
             set({ loading: true}) 
-            const { data } = await axios.get(`http://localhost:5000/api/ordeness/allbyname?page=${page}&limit=${limit}&name=${name}`,
+            const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/ordeness/allbyname?page=${page}&limit=${limit}&name=${name}`,
             { headers: { "x-access-token": token } })
             set((state) => ({ ordenes: (state.ordenes = data) }));
           } catch(error){
@@ -141,7 +141,7 @@ const useOrdenes = create<UserStore>()(
           },
       deleteOrdenes: async (params, headers, idUser)=>{
         set({ success: true, error: false });
-        const { data } = await axios.delete(`https://carteleriamanna.up.railway.app/api/ordene/${params}?idUser=${idUser}`,   headers);
+        const { data } = await axios.delete(`https://carteleriamannaversionprueba.up.railway.app/api/ordene/${params}?idUser=${idUser}`,   headers);
         set({ success: true, error: false });  
       },
       closeModal: () => {

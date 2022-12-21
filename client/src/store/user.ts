@@ -65,7 +65,7 @@ const useUser = create<UserStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put('https://carteleriamanna.up.railway.app/api/users/state', body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put('https://carteleriamannaversionprueba.up.railway.app/api/users/state', body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 
@@ -75,7 +75,7 @@ const useUser = create<UserStore>()(
 		getUser: async (token) => {
 			try {
 				const { data } = await axios.get(
-					"https://carteleriamanna.up.railway.app/api/user/profile",
+					"https://carteleriamannaversionprueba.up.railway.app/api/user/profile",
 					{ headers: { "x-access-token": token } }
 				);
 				set((state) => ({ ...state, user: (state.user = data) }));
@@ -85,7 +85,7 @@ const useUser = create<UserStore>()(
 		},
 		getUsers: async (token, rol, sort, page, limit, name) => {
 			const { data } = await axios.get(
-				`http://localhost:5000/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}&name=${name}`,
+				`https://carteleriamannaversionprueba.up.railway.app/api/user/allusers?roles=${rol}&sort=${sort}&page=${page}&limit=${limit}&name=${name}`,
 				{ headers: { "x-access-token": token } }
 			);
 			if (!data) {
@@ -95,7 +95,7 @@ const useUser = create<UserStore>()(
 		},
 		getUsers2: async (headers) => {
 			const { data } = await axios.get(
-				`https://carteleriamanna.up.railway.app/api/users/all`, headers
+				`https://carteleriamannaversionprueba.up.railway.app/api/users/all`, headers
 			);
 			if (!data) {
 				set({ loading: true });
@@ -105,7 +105,7 @@ const useUser = create<UserStore>()(
 		createNewUser: async (body) => {
 			try {
 				await axios.post(
-					"https://carteleriamanna.up.railway.app/api/user/signUp",
+					"https://carteleriamannaversionprueba.up.railway.app/api/user/signUp",
 					body
 				);
 				set({ success: true, error: false });
@@ -116,7 +116,7 @@ const useUser = create<UserStore>()(
 		signin: async (body) => {
 			try {
 				const { data } = await axios.post(
-					"https://carteleriamanna.up.railway.app/api/user/signIn",
+					"https://carteleriamannaversionprueba.up.railway.app/api/user/signIn",
 					body
 				);
 				localStorage.setItem("auth", JSON.stringify(data));
@@ -127,7 +127,7 @@ const useUser = create<UserStore>()(
 		},
 		deleteUsers: async (params, headers)=>{
       
-			const { data } = await axios.delete(`https://carteleriamanna.up.railway.app/api/user/${params}`,   headers);
+			const { data } = await axios.delete(`https://carteleriamannaversionprueba.up.railway.app/api/user/${params}`,   headers);
 	  
 		  },
 		logout: () => {
@@ -138,7 +138,7 @@ const useUser = create<UserStore>()(
 		},
 		updateToken: async (refreshToken) => {
 			const { data } = await axios.post(
-				"https://carteleriamanna.up.railway.app/api/user/refresh",
+				"https://carteleriamannaversionprueba.up.railway.app/api/user/refresh",
 				{},
 				{ headers: { "x-access-token": refreshToken } }
 			);
