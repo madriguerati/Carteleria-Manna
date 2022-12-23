@@ -93,12 +93,16 @@ const Clientes = () => {
 			confirmButtonText: 'Si, Eliminarlo!'
 		  }).then((result:any) => {
 			if (result.isConfirmed) {
+        var newArray:any = clientes.clientes
+        var arrayeliminado : any =clientes.clientes.filter((e:any)=>e._id!==client._id)
+        clientes.clientes=arrayeliminado
+        deleteClients(client._id, headers);
 			  Swal.fire(
 				'Eliminado!',
 				'X ha sido eliminado',
 				'success'
 			  )
-        deleteClients(client._id, headers);
+       
 			}
 		  })
   };
@@ -385,13 +389,7 @@ const Clientes = () => {
                         </td>
                         <td className="px-3 py-2">
                           <p className="text-gray-900 whitespace-no-wrap capitalize">
-                            {client.condicioniva.map(
-                              (role: string, index: number) => (
-                                <Fragment key={index + role}>
-                                  {role + "\n"}
-                                </Fragment>
-                              )
-                            )}
+                            {client.condicioniva}
                           </p>
                         </td>
                         <td className="px-3 py-2">
@@ -503,7 +501,7 @@ const Clientes = () => {
           </button>
         </div>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <AddNewClient setShowModal={setShowModal} />
+          <AddNewClient setShowModal={setShowModal} clientes={clientes.clientes} />
         </Modal>
       </div>
     </Layout>

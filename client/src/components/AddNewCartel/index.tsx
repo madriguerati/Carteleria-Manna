@@ -337,7 +337,7 @@ const deleteInsumos =(e:any)=>{
           <div className=" flex grid sm:gap-2  sm:grid-cols-2 md:gap-4 md:grid-cols-4">
           <div>
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Cartel
+                insumo
               </label>
         <select
               value={insumo.name}

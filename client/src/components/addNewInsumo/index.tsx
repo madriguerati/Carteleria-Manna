@@ -5,6 +5,7 @@ import useInsumo from '../../store/insumo';
 import useUser from '../../store/user';
 import useProveedor from '../../store/proveedores';
 import useHeaders from "../../hooks/useHeaders";
+import Swal from 'sweetalert2'
 
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { BsFillCheckCircleFill } from "react-icons/bs";
@@ -13,8 +14,9 @@ import { MdError, MdExitToApp  } from "react-icons/md";
 
 type Props = {
 	setShowModal: any;
+  insumos: any
 };
-const InsumoPost = ({ setShowModal }: Props) => {
+const InsumoPost = ({ setShowModal, insumos }: Props) => {
   
   const [accessToken] = useLocalStorage();
   const headers = useHeaders(accessToken);
@@ -54,8 +56,21 @@ const InsumoPost = ({ setShowModal }: Props) => {
 	};
 
   const handleSubmit = (e: React.SyntheticEvent) => {
+   
     e.preventDefault();
+    var newArray: any = insumos
+    newArray.push(values)
+    insumos=newArray
         postInsumo(values, token)
+    
+        
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Cambios guardados exitosamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
         setValues({
           name:'',
           descripcion:'',
@@ -64,6 +79,7 @@ const InsumoPost = ({ setShowModal }: Props) => {
           category:'',
           proveedor:''
         })
+        handleCloseModal()
   }
   const handleSelect= (e: React.ChangeEvent<HTMLSelectElement>)=>{
     let {value}= e.currentTarget;

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError, MdExitToApp } from "react-icons/md";
 import useClients from "../../store/clientes";
+import Swal from 'sweetalert2'
 
 type Props = {
 	setShowModal: any;
+	clientes:any
 };
 
 interface Values {
@@ -13,11 +15,11 @@ interface Values {
 	cuit: string;
 	email: string;
 	direccion: string;
-	condicioniva: string[];
+	condicioniva: string;
 	razonsocial: string;
 }
 
-const AddNewClient = ({ setShowModal }: Props) => {
+const AddNewClient = ({ setShowModal, clientes }: Props) => {
 
 	const { addClient, success, error, closeModal } = useClients(
 		(state) => state
@@ -28,7 +30,7 @@ const AddNewClient = ({ setShowModal }: Props) => {
 		cuit: "",
 		email: "",
 		direccion: "",
-		condicioniva: [""],
+		condicioniva: "",
 		razonsocial: "",
 	});
 	const [errors, setErrors] = useState<any>({});
@@ -45,22 +47,20 @@ const AddNewClient = ({ setShowModal }: Props) => {
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		// setErrors(
-		// 	validateInfo({
-		// 		...values,
-		// 	})
-		// );
-
-		// const error = validateInfo(values);
-
-		// if (Object.keys(error).length === 0) {
-		// 	createNewUser(values);
-		// }
+		var newArray: any = clientes
+		newArray.push(values)
+		clientes=newArray
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Cambios guardados exitosamente',
+			showConfirmButton: false,
+			timer: 1500
+		  })
+	
 		addClient(values);
 
-		setTimeout(() => {
-			closeModal();
-		}, 2000);
+	handleCloseModal()
 	};
 
 	const handleCloseModal = () => {

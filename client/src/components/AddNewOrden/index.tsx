@@ -29,7 +29,7 @@ var montofinal2: any = 0;
 var clienteSelect: any = {};
 var cartelSelect: any = {};
 var obreros: any = [];
-var fechaActual: any ="11/4/2022"
+var fechaActual: any =moment().format("L")
 var cartelfaz: any = 0
 
 interface Values {
@@ -157,7 +157,7 @@ console.log("hola estos", ordenes)
 console.log("hola estos", newArray, values)
 
     Swal.fire({
-      position: 'bottom-end',
+      position: 'center',
       icon: 'success',
       title: 'Orden creadas exitosamente',
       showConfirmButton: false,

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { MdError, MdExitToApp } from "react-icons/md";
 import useProveedores from "../../store/proveedores";
+import Swal from 'sweetalert2'
 
 type Props = {
 	setShowModal: any;
+	proveedor:any
 };
 
 interface Values {
@@ -16,7 +18,7 @@ interface Values {
     web: string
 }
 
-const AddNewProveedor = ({ setShowModal }: Props) => {
+const AddNewProveedor = ({ setShowModal, proveedor }: Props) => {
 
 	const { addProveedores, success, error, closeModal } = useProveedores(
 		(state) => state
@@ -43,22 +45,27 @@ const AddNewProveedor = ({ setShowModal }: Props) => {
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		// setErrors(
-		// 	validateInfo({
-		// 		...values,
-		// 	})
-		// );
-
-		// const error = validateInfo(values);
-
-		// if (Object.keys(error).length === 0) {
-		// 	createNewUser(values);
-		// }
+		
+		  var newArray: any = proveedor
+		  newArray.push(values)
+		  proveedor=newArray
 		addProveedores(values);
-
-		setTimeout(() => {
-			closeModal();
-		}, 2000);
+		Swal.fire({
+			position: 'center',
+			icon: 'success',
+			title: 'Cambios guardados exitosamente',
+			showConfirmButton: false,
+			timer: 1500
+		  })
+		setValues({
+			name: "",
+		telefono: "",
+		cuit: "",
+		email: "",
+		direccion: "",
+		web:""
+		})
+		handleCloseModal()
 	};
 
 	const handleCloseModal = () => {

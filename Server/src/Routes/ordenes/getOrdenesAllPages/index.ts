@@ -19,7 +19,7 @@ router.get('/all', async(req: any, res: any, next)=>{
         const total = await Ordenes.countDocuments({
            // username: {$regex: search, $options: 'i'},
         });
-
+console.log(total, ordenes)
         const response = {
             error: false,
             total,

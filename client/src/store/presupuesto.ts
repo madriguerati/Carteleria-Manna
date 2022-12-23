@@ -7,6 +7,7 @@ import { devtools } from 'zustand/middleware';
 interface Headers {
 	"x-access-token": { token: string };
 }
+const url: any = "http://localhost:5000"
 
 interface Presupuesto {
     fecha: Date,
@@ -59,13 +60,13 @@ const usePresupuesto = create<PresupuestoStore>()(
         let headers:any = {
         "x-access-token" : token
       };
-        const { data } = await axios.put('https://carteleriamannaversionprueba.up.railway.app/api/presupuesto', body, { headers: { "x-access-token": token} });
+        const { data } = await axios.put(`${url}/api/presupuesto`, body, { headers: { "x-access-token": token} });
        
 
       },
       addPresupuesto: async (body) => {
         try {
-          const { data } = await axios.post('https://carteleriamannaversionprueba.up.railway.app/api/presupuesto/create', body );
+          const { data } = await axios.post(`${url}/api/presupuesto/create`, body );
         set({ success: true, error: false });
         } catch (error) {
           set({ error: true, success: false });
@@ -76,7 +77,7 @@ const usePresupuesto = create<PresupuestoStore>()(
         set({ loading: true });
 
         try{
-          const { data } = await axios.get('https://carteleriamannaversionprueba.up.railway.app/api/presupuesto', headers )
+          const { data } = await axios.get(`${url}/api/presupuesto`, headers )
           set((state) => ({ presupuestos: (state.presupuestos = data) }));
         }catch(error){
         }
@@ -86,7 +87,7 @@ const usePresupuesto = create<PresupuestoStore>()(
       getPresupuestosAll: async (token, page, limit,name) => {
         try{
           set({ loading: true}) 
-          const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/presupuestoss/allpresupuestos?page=${page}&limit=${limit}&name=${name}`,
+          const { data } = await axios.get(`${url}/api/presupuestoss/allpresupuestos?page=${page}&limit=${limit}&name=${name}`,
           { headers: { "x-access-token": token } })
           set((state) => ({ presupuestos: (state.presupuestos = data) }));
         } catch(error){
@@ -97,7 +98,7 @@ const usePresupuesto = create<PresupuestoStore>()(
         },
       deletePresupuestos: async (params:any, headers:any)=>{
       
-        const { data } = await axios.delete(`https://carteleriamannaversionprueba.up.railway.app/api/presupuesto/${params}`,  headers);
+        const { data } = await axios.delete(`${url}/api/presupuesto/${params}`,  headers);
   
       },
       closeModal: () => {

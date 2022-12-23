@@ -92,8 +92,10 @@ const [name, setName] = useState('');
 				'X ha sido eliminado',
 				'success'
 			  )
+        var newArray:any = proveedores.proveedores
+        var arrayeliminado : any =proveedores.proveedores.filter((e:any)=>e._id!==proveedor._id)
+        proveedores.proveedores=arrayeliminado
         deleteProveedores(proveedor._id, headers);
-    getProveedoresAll(accessToken, limit, page);
 			}
 		  })
 
@@ -485,7 +487,7 @@ const [name, setName] = useState('');
           </button>
         </div>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <AddNewProveedor setShowModal={setShowModal} />
+          <AddNewProveedor setShowModal={setShowModal} proveedor={proveedores.proveedores} />
         </Modal>
       </div>
     </Layout>

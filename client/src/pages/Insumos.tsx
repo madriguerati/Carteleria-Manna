@@ -94,6 +94,9 @@ const [proveedorInsumo, setProveedorInsumo]=useState({})
 				'X ha sido eliminado',
 				'success'
 			  )
+        var newArray:any = insumos.insumos
+        var arrayeliminado : any =insumos.insumos.filter((e:any)=>e._id!==insumo._id)
+        insumos.insumos=arrayeliminado
         deleteIsumos(insumo._id, headers);
 			}
 		  })
@@ -489,7 +492,7 @@ const [proveedorInsumo, setProveedorInsumo]=useState({})
           </button>
         </div>
         <Modal showModal={showModal} setShowModal={setShowModal}>
-          <AddNewInsumo setShowModal={setShowModal} />
+          <AddNewInsumo setShowModal={setShowModal} insumos={insumos.insumos} />
         </Modal>
       </div>
     </Layout>

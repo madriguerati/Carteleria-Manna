@@ -69,7 +69,7 @@ const InsumoEdit = ({ setShowModal3, proveedor, insumosProveedor }: Props) => {
               <h1>{proveedor.cuit}</h1>
             </div>
             <div className="w-1/3">
-              <b className="text-gray-600">Beb</b>
+              <b className="text-gray-600">Web</b>
               <h1>{proveedor.web}</h1>
             </div>
             

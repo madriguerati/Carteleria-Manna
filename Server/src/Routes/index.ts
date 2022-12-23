@@ -110,8 +110,8 @@ router.use('/ordenes',  PostOrdenes)
 router.use('/ordeness', GetOrdenes)
 router.use('/orden',  PutOrdenes)
 router.use('/ordene', DeleteOrdenes)
-router.use('/ordenes', GetOrdenesAll)
-router.use('/ordenes', GetOrdenesAllByName)
+router.use('/ordeness', GetOrdenesAll)
+router.use('/ordeness', GetOrdenesAllByName)
 
 router.use('/ordenes', GetOrdenesDate)
 

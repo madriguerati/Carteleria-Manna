@@ -39,7 +39,7 @@ const clientesSchema = new Schema(
             required: true
         },
         condicioniva:{
-            type: [String],
+            type: String,
             required: true
         },
         razonsocial:{

@@ -235,7 +235,8 @@ const OrdenesTableDashboard =({ordenes}:Props)=>{
                             className="text-gray-900 whitespace-no-wrap capitalize justify-center flex text-xl cursor-pointer"
                             onClick={() => ver(orden)}
                           >
-                             <BsSearch />
+                             $
+                             
                           </p>
                           <ModalVer
                             showModal3={showModal3}

@@ -5,6 +5,8 @@ import { devtools } from "zustand/middleware";
 interface Headers {
 	"x-access-token": { token: string };
 }
+const url: any = "http://localhost:5000"
+
 
 type ProveedoresStore = {
 	proveedores: [];
@@ -42,7 +44,7 @@ const useProveedores = create<ProveedoresStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put('https://carteleriamannaversionprueba.up.railway.app/api/proveedores', body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put(`${url}/api/proveedores`, body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 
@@ -53,7 +55,7 @@ const useProveedores = create<ProveedoresStore>()(
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					"https://carteleriamannaversionprueba.up.railway.app/api/proveedores",
+					`${url}/api/proveedores`,
 					headers
 				);
 				set((state) => ({ proveedores: (state.proveedores = data) }));	
@@ -65,7 +67,7 @@ const useProveedores = create<ProveedoresStore>()(
 		getProveedoresAll: async (token, page, limit, name) => {
 			try{
 			  set({ loading: true}) 
-			  const { data } = await axios.get(`https://carteleriamannaversionprueba.up.railway.app/api/proveedores/allproveedores?page=${page}&limit=${limit}&name=${name}`,
+			  const { data } = await axios.get(`${url}/api/proveedores/allproveedores?page=${page}&limit=${limit}&name=${name}`,
 			  { headers: { "x-access-token": token } })
 			  set((state) => ({ proveedores: (state.proveedores = data) }));
 			} catch(error){
@@ -74,11 +76,10 @@ const useProveedores = create<ProveedoresStore>()(
 			set({ loading: false});
 			  
 			},
-			//https://symptomatic-hole-production.up.railway.app
 		addProveedores: async (body) => {
 			try {
 				await axios.post(
-					"https://carteleriamannaversionprueba.up.railway.app/api/proveedores/create",
+					`${url}/api/proveedores/create`,
 					body
 				);
 				set({ success: true, error: false });
@@ -88,7 +89,7 @@ const useProveedores = create<ProveedoresStore>()(
 		},
 		deleteProveedores: async (params, headers)=>{
       
-			const { data } = await axios.delete(`https://carteleriamannaversionprueba.up.railway.app/api/proveedores/${params}`,   headers);
+			const { data } = await axios.delete(`${url}/api/proveedores/${params}`,   headers);
 	  
 		  },
 		closeModal: () => {
