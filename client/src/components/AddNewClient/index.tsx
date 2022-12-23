@@ -85,7 +85,7 @@ const AddNewClient = ({ setShowModal, clientes }: Props) => {
 				cuit: "",
 				email: "",
 				direccion: "",
-				condicioniva: [""],
+				condicioniva: "",
 				razonsocial: "",
 			});
 	}, [success]);
