@@ -6,7 +6,7 @@ import { devtools } from 'zustand/middleware';
 interface Headers {
 	"x-access-token": { token: string };
 }
-const url: any = "http://localhost:5000"
+const url: any = "https://sleek-earthquake-production.up.railway.app"
 interface Orden {
   fecha: string,
   cliente: string,
