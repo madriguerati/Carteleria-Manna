@@ -2,7 +2,7 @@ import create from 'zustand';
 import axios from 'axios';
 import { devtools } from 'zustand/middleware';
 
-const url: any = "https://festive-engine-production.up.railway.app"
+const url: any = "http://localhost:5000"
 
 interface Headers {
 	"x-access-token": { token: string };

@@ -11,7 +11,8 @@ router.get('/allinsumos', async(req: any, res: any, next)=>{
         const page : number = parseInt(req.query.page) - 1 || 0;
         const limit = parseInt(req.query.limit) || 12;
         const name = req.query.name
-        const insumos = await Insumo.find({ name: { $regex: '.*' + name + '.*', $options: 'i' }}) 
+        const insumos = await Insumo.find({ name: { $regex: '.*' + name + '.*', $options: 'i' }})
+      
             
             .skip(page*limit)
             .limit(limit)
