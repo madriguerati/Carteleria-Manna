@@ -7,7 +7,7 @@ interface Headers {
 	"x-access-token": { token: string };
 }
 
-const url: any = "https://deserted-jam-production.up.railway.app"
+const url: any = "http://localhost:5000"
 
 
 interface Orden {

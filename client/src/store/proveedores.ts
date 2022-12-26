@@ -5,7 +5,7 @@ import { devtools } from "zustand/middleware";
 interface Headers {
 	"x-access-token": { token: string };
 }
-const url: any = "https://blessed-crook-production.up.railway.app"
+const url: any = "http://localhost:5000"
 
 
 type ProveedoresStore = {
@@ -44,7 +44,7 @@ const useProveedores = create<ProveedoresStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put(`${url}/api/proveedores`, body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put(`${url}/api/proveedor`, body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 
@@ -55,7 +55,7 @@ const useProveedores = create<ProveedoresStore>()(
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					`${url}/api/proveedores`,
+					`${url}/api/proveedor`,
 					headers
 				);
 				set((state) => ({ proveedores: (state.proveedores = data) }));	
@@ -67,7 +67,7 @@ const useProveedores = create<ProveedoresStore>()(
 		getProveedoresAll: async (token, page, limit, name) => {
 			try{
 			  set({ loading: true}) 
-			  const { data } = await axios.get(`${url}/api/proveedores/allproveedores?page=${page}&limit=${limit}&name=${name}`,
+			  const { data } = await axios.get(`${url}/api/proveedor/allproveedores?page=${page}&limit=${limit}&name=${name}`,
 			  { headers: { "x-access-token": token } })
 			  set((state) => ({ proveedores: (state.proveedores = data) }));
 			} catch(error){
@@ -79,7 +79,7 @@ const useProveedores = create<ProveedoresStore>()(
 		addProveedores: async (body) => {
 			try {
 				await axios.post(
-					`${url}/api/proveedores/create`,
+					`${url}/api/proveedor/create`,
 					body
 				);
 				set({ success: true, error: false });
@@ -89,7 +89,7 @@ const useProveedores = create<ProveedoresStore>()(
 		},
 		deleteProveedores: async (params, headers)=>{
       
-			const { data } = await axios.delete(`${url}/api/proveedores/${params}`,   headers);
+			const { data } = await axios.delete(`${url}/api/proveedor/${params}`,   headers);
 	  
 		  },
 		closeModal: () => {

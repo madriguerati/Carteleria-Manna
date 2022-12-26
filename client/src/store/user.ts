@@ -12,7 +12,7 @@ interface User {
 	dni: Number;
 	fechaNacimiento: Date;
 }
-const url: any = "https://blessed-crook-production.up.railway.app"
+const url: any = "http://localhost:5000"
 
 interface UserLogin {
 	email: string;

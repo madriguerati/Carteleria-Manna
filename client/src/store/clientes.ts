@@ -5,7 +5,7 @@ import { devtools } from "zustand/middleware";
 interface Headers {
 	"x-access-token": { token: string };
 }
-const url: any = "https://blessed-crook-production.up.railway.app"
+const url: any = "http://localhost:5000"
 
 type ClientStore = {
 	clientes: [];
@@ -40,7 +40,7 @@ const useClients = create<ClientStore>()(
 		  };
 		  set({ success: true})
 		  set({ loading: true}) 
-			const { data } = await axios.put(`${url}/api/clientes`, body, { headers: { "x-access-token": token} });
+			const { data } = await axios.put(`${url}/api/clients`, body, { headers: { "x-access-token": token} });
 			set({ success: false})
 			
 			set({ loading: false}) 
@@ -51,7 +51,7 @@ const useClients = create<ClientStore>()(
 			try {
 				set({ loading: true}) 
 				const { data } = await axios.get(
-					`${url}/api/clientes`,
+					`${url}/api/clients`,
 					headers
 				);
 				set((state) => ({ clientes: (state.clientes = data) }));	
@@ -63,7 +63,7 @@ const useClients = create<ClientStore>()(
 		getClientesAll: async (token, page, limit,name) => {
 			try{
 			  set({ loading: true}) 
-			  const { data } = await axios.get(`${url}/api/clientes/allclientes?page=${page}&limit=${limit}&name=${name}`,
+			  const { data } = await axios.get(`${url}/api/clients/allclientes?page=${page}&limit=${limit}&name=${name}`,
 			  { headers: { "x-access-token": token } })
 			  set((state) => ({ clientes: (state.clientes = data) }));
 			} catch(error){
@@ -75,7 +75,7 @@ const useClients = create<ClientStore>()(
 		addClient: async (body) => {
 			try {
 				await axios.post(
-					`${url}/api/clientes/create`,
+					`${url}/api/clients/create`,
 					body
 				);
 				set({ success: true, error: false });
@@ -85,7 +85,7 @@ const useClients = create<ClientStore>()(
 		},
 		deleteClients: async (params, headers)=>{
 			set({ loading: true}) 
-			const { data } = await axios.delete(`${url}/api/clientes/${params}`,   headers);
+			const { data } = await axios.delete(`${url}/api/clients/${params}`,   headers);
 			set({ loading: false})  
 		  },
 		closeModal: () => {
