@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {verifyToken, isGerente, isGerenteVendedor, isGerenteObrero} from '../middlewares/Auth/index'
+//import {verifyToken, isGerente, isGerenteVendedor, isGerenteObrero} from '../middlewares/Auth/index'
 
 const router = Router();
 
@@ -23,10 +23,10 @@ import putChangeState from './user/ChangeStateUser'
 router.use('/user', SignUp)
 router.use('/user', SignIn)
 router.use('/user', RefreshToken)
-router.use('/user', verifyToken, GetUserById)
-router.use('/user', verifyToken, isGerente, GetUser)
+router.use('/user', GetUserById)
+router.use('/user',  GetUser)
 router.use('/users',  PutUserDatos)
-router.use('/user', verifyToken, isGerente, PutRoleUser)
+router.use('/user',  PutRoleUser)
 router.use('/user',  DeleteUserById)
 router.use('/users', GetUsersAll)
 router.use('/users', putChangeState)

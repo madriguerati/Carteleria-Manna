@@ -5,7 +5,7 @@ import { devtools } from "zustand/middleware";
 interface Headers {
 	"x-access-token": { token: string };
 }
-const url: any = "http://localhost:5000"
+const url: any = "https://blessed-crook-production.up.railway.app"
 
 type ClientStore = {
 	clientes: [];
