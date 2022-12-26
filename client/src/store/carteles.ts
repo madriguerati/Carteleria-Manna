@@ -7,7 +7,8 @@ import { devtools } from 'zustand/middleware';
 interface Headers {
 	"x-access-token": { token: string };
 }
-const url: any = "https://sleek-earthquake-production.up.railway.app"
+const url: any = "https://festive-engine-production.up.railway.app"
+
 
 interface Cartel {
     descripcion: string,

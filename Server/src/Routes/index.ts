@@ -58,11 +58,11 @@ import DeleteClientes from './clientes/deleteClientes'
 import GetClientesAll from './clientes/getClientesAllPages'
 
 
-router.use('/clientes',PostClientes)
-router.use('/clientes',  GetClientes)
-router.use('/clientes', PutClientes)
-router.use('/clientes',  DeleteClientes)
-router.use('/clientes', GetClientesAll)
+router.use('/clients',PostClientes)
+router.use('/clients',  GetClientes)
+router.use('/clients', PutClientes)
+router.use('/clients',  DeleteClientes)
+router.use('/clients', GetClientesAll)
 
 
 //proveedores
@@ -73,11 +73,11 @@ import DeleteProveedores from './proveedores/deleteProveedores'
 import GetProveedoresAll from './proveedores/getProveedoresAllPages'
 
 
-router.use('/proveedores', PostProveedores)
-router.use('/proveedores',  GetProveedores)
-router.use('/proveedores',PutProveedores)
-router.use('/proveedores', DeleteProveedores)
-router.use('/proveedores', GetProveedoresAll)
+router.use('/proveedor', PostProveedores)
+router.use('/proveedor',  GetProveedores)
+router.use('/proveedor',PutProveedores)
+router.use('/proveedor', DeleteProveedores)
+router.use('/proveedor', GetProveedoresAll)
 
 
 //Carteles
@@ -88,11 +88,11 @@ import DeleteCarteles from './carteles/deleteCarteles'
 import GetCartelesAll from './carteles/getCartelesAllPages'
 
 
-router.use('/carteles',  PostCarteles)
-router.use('/carteles', GetCarteles)
-router.use('/carteles',PutCarteles)
-router.use('/carteles',DeleteCarteles)
-router.use('/carteles', GetCartelesAll)
+router.use('/cartel',  PostCarteles)
+router.use('/cartel', GetCarteles)
+router.use('/cartel',PutCarteles)
+router.use('/cartel',DeleteCarteles)
+router.use('/cartel', GetCartelesAll)
 
 
 //ordenes
@@ -106,14 +106,14 @@ import GetOrdenesAllByName from './ordenes/getOrdenesAllByName'
 
 
 
-router.use('/ordenes',  PostOrdenes)
-router.use('/ordeness', GetOrdenes)
+router.use('/orden',  PostOrdenes)
+router.use('/orden', GetOrdenes)
 router.use('/orden',  PutOrdenes)
-router.use('/ordene', DeleteOrdenes)
-router.use('/ordeness', GetOrdenesAll)
-router.use('/ordeness', GetOrdenesAllByName)
+router.use('/orden', DeleteOrdenes)
+router.use('/orden', GetOrdenesAll)
+router.use('/orden', GetOrdenesAllByName)
 
-router.use('/ordenes', GetOrdenesDate)
+router.use('/orden', GetOrdenesDate)
 
 
 
@@ -125,11 +125,11 @@ import DeletePresupuesto from './presupuestos/deletePresupuestos'
 import GetPresupuestosAll from './presupuestos/getPresupuestosAllPages'
 
 
-router.use('/presupuesto',PostPresupuesto);
-router.use('/presupuesto', PutPresupuesto)
-router.use('/presupuesto', GetPresupuesto)
-router.use('/presupuesto', DeletePresupuesto)
-router.use('/presupuestoss',GetPresupuestosAll)
+router.use('/presupu',PostPresupuesto);
+router.use('/presupu', PutPresupuesto)
+router.use('/presupu', GetPresupuesto)
+router.use('/presupu', DeletePresupuesto)
+router.use('/presupu',GetPresupuestosAll)
 
 
 
